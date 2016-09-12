@@ -16,6 +16,10 @@ import slit.client.Main;
  */
 public class StudentMain extends Application {
     
+    /**
+     * If user has entered a correct password, he will be forwarded to this class
+     * that will open up the student main page.
+     */
     public void runGUI() {
         start(Main.primaryStage);
         //Application.launch(StudentMain.class, (java.lang.String[])null);
