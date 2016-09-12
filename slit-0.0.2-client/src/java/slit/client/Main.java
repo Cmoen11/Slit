@@ -22,7 +22,9 @@ import test.CoolboyRemote;
  */
 public class Main extends Application 
 {
-
+    
+    static Stage primaryStage;
+    
     @EJB
     private static CoolboyRemote coolboy;
 
@@ -38,6 +40,7 @@ public class Main extends Application
             primaryStage.setTitle("Slit");
             primaryStage.setScene(new Scene(root, 348,401));
             primaryStage.show();
+            Main.primaryStage = primaryStage;
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

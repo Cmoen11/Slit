@@ -45,3 +45,9 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/slit-0.0.2-interface/dist/
+/slit-0.0.2-interface/build/
+/slit-0.0.2-ejb/build/
+/slit-0.0.2-ejb/dist/
+/slit-0.0.2-client/build/
+/slit-0.0.2-client/dist/

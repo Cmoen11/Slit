@@ -17,7 +17,8 @@ import slit.client.Main;
 public class StudentMain extends Application {
     
     public void runGUI() {
-        Application.launch(StudentMain.class, (java.lang.String[])null);
+        start(Main.primaryStage);
+        //Application.launch(StudentMain.class, (java.lang.String[])null);
     }
 
     @Override
