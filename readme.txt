@@ -11,3 +11,4 @@ $ git add .					| klar gjør alle endrende filer til commitlista
 $ git commit -m "kommentar" | commiter til push
 $ git push origin <branch>  | Pusher endringene til github 
 
+$ git merge <branch> 		| merge branch du er i med annen branch.
