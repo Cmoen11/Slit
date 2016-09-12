@@ -22,8 +22,8 @@ public class Controller {
     public void loginButtonClicked() {
         
         if(lookupLoginAuthRemote().authAccount(username.getText(), password.getText())) {
-            StudentMain mainFrame = new StudentMain();
-            mainFrame.runGUI();
+            // if loginbutton is pressed & username and password is correct
+            new StudentMain().runGUI();     // launch student panel
         }
             
         else {
