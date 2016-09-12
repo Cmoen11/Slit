@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.canvas.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="348.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.Controller">
+   <children>
+      <VBox layoutX="12.0" layoutY="22.0" prefHeight="358.0" prefWidth="326.0" spacing="1.0" style="-fx-border-color: white; -fx-border-radius: 5px; -fx-border-style: dashed;">
+         <children>
+            <ImageView fitHeight="74.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../dropbox/Desktop/slit.png" />
+               </image>
+               <effect>
+                  <Blend />
+               </effect>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </ImageView>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavn">
+               <VBox.margin>
+                  <Insets left="20.0" top="25.0" />
+               </VBox.margin>
+            </Text>
+            <TextField fx:id="username" promptText="Brukernavn...">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </TextField>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Passord">
+               <VBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </VBox.margin>
+            </Text>
+            <PasswordField fx:id="password" prefHeight="25.0" prefWidth="301.0" promptText="passord">
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </PasswordField>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="107.0" text="Glemt passord?">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="45.0" prefWidth="167.0" text="Logg inn" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <Text fill="WHITE" layoutX="128.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit system - 2016" />
+   </children>
+</Pane>

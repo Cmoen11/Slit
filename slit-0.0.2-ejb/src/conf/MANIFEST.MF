@@ -1,0 +1,2 @@
+Manifest-Version: 1.0
+Class-Path: slit-0.0.2-lib.jar
