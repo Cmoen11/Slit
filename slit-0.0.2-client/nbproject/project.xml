@@ -12,10 +12,19 @@
                 <root id="test.src.dir"/>
             </test-roots>
             <included-library dirs="200">reference.slit-0_0_2-interface.jar</included-library>
+            <included-library dirs="200">reference.slit-0_0_2-interface-1.jar</included-library>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
                 <foreign-project>slit-0_0_2-interface</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>slit-0_0_2-interface-1</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
