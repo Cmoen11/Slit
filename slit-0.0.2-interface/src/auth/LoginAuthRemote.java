@@ -16,5 +16,7 @@ public interface LoginAuthRemote {
     String Md5_String(String toMD5);
 
     boolean loginAuth2();
+
+    boolean authAccount_test();
     
 }

@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javax.ejb.EJB;
-import test.CoolboyRemote;
 
 /**
  *
@@ -25,11 +24,8 @@ public class Main extends Application
     
     static Stage primaryStage;
     
-    @EJB
-    private static CoolboyRemote coolboy;
 
     public static void main(String[] args) {
-        System.out.println(coolboy.HelloWorld());
         Application.launch(Main.class, (java.lang.String[])null);
     }
 
