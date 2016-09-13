@@ -18,11 +18,13 @@ public class Controller {
     @FXML TextField username;
     @FXML TextField password;
     
-
+    /**
+     * if login button is pressed. 
+     */
     public void loginButtonClicked() {
         
         if(lookupLoginAuthRemote().authAccount(username.getText(), password.getText())) {
-            // if loginbutton is pressed & username and password is correct
+            // if loginbutton is pressed & username and password is correct<
             new StudentMain().runGUI();     // launch student panel
         }
             

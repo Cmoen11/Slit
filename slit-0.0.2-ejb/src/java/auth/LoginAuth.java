@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Singleton;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -15,7 +17,10 @@ import javax.ejb.Singleton;
  */
 @Singleton
 public class LoginAuth implements LoginAuthRemote {
-
+    @PersistenceContext EntityManager em;
+    // find, 
+    
+    
     protected static final String url = "jdbc:mysql://localhost:3306/",
             dbName = "slit",
             driver = "com.mysql.jdbc.Driver",
@@ -24,6 +29,9 @@ public class LoginAuth implements LoginAuthRemote {
 
     @Override
     public boolean authUserName(String username) {
+        Users user = em.find(Users.class, 1);
+        
+//em.createNamedQuery("")
         return true;
     }
 
@@ -34,7 +42,7 @@ public class LoginAuth implements LoginAuthRemote {
             Connection conn = DriverManager.getConnection(
                     this.url + this.dbName, this.userName, this.password);
             
-            String query = "SELECT password FROM users WHERE username = ? ";
+            String query = "SELECT password FROM users WHERE username = username";
 
             PreparedStatement pstmt = conn.prepareStatement(query);
 
@@ -44,16 +52,13 @@ public class LoginAuth implements LoginAuthRemote {
 
             if (results.isBeforeFirst()) {
                 results.next();
-                System.out.println(results.getString("password"));
+                //System.out.println(results.getString("password"));
                 if(results.getString("password").equals(password)) {
                     
                     return true;
                 }
             }else {
-                if(results.getString("password").equals(password)) {
-                    
-                    return true;
-                }
+                return false;
             }
 
         } catch (SQLException ex) {
