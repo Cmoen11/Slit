@@ -1,6 +1,7 @@
 
 package slit.client;
 
+import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,11 +23,10 @@ public class Controller {
      * if login button is pressed. 
      */
     public void loginButtonClicked() {
-        System.out.println("what the fuck");
         if(lookupLoginAuthRemote().authAccount(username.getText(), password.getText())) {
             // if loginbutton is pressed & username and password is correct<
-            System.out.println("works");
-            new StudentMain().runGUI();     // launch student panel
+            System.out.println("Logged in as " + username.getText());
+            new TeacherMain().runGUI(Main.primaryStage);     // launch student panel
         }
             
         else {
