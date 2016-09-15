@@ -6,6 +6,7 @@
 package slit.client;
 
 
+import auth.LoginAuthRemote;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -21,11 +22,15 @@ import javax.ejb.EJB;
  */
 public class Main extends Application 
 {
+
+    @EJB
+    private static LoginAuthRemote loginAuth;
     
     static Stage primaryStage;
     
 
     public static void main(String[] args) {
+        System.out.println(loginAuth.Md5_String("test"));
         Application.launch(Main.class, (java.lang.String[])null);
     }
 

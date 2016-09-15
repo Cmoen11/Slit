@@ -22,9 +22,10 @@ public class Controller {
      * if login button is pressed. 
      */
     public void loginButtonClicked() {
-        
+        System.out.println("what the fuck");
         if(lookupLoginAuthRemote().authAccount(username.getText(), password.getText())) {
             // if loginbutton is pressed & username and password is correct<
+            System.out.println("works");
             new StudentMain().runGUI();     // launch student panel
         }
             

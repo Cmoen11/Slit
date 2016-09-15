@@ -18,5 +18,7 @@ public interface LoginAuthRemote {
     boolean loginAuth2();
 
     boolean authAccount_test();
+
+    void test123123();
     
 }

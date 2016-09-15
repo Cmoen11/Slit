@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import java.util.List;
 /**
  *
  * @author Christian
@@ -21,7 +21,7 @@ public class LoginAuth implements LoginAuthRemote {
     // find, 
     
     
-    protected static final String url = "jdbc:mysql://localhost:3306/",
+    protected static final String url = "jdbc:mysql://localhost:3306/Peoples?autoReconnect=true&useSSL=false",
             dbName = "slit",
             driver = "com.mysql.jdbc.Driver",
             userName = "root",
@@ -31,45 +31,32 @@ public class LoginAuth implements LoginAuthRemote {
     public boolean authUserName(String username) {
         Users user = em.find(Users.class, 1);
         
-//em.createNamedQuery("")
         return true;
     }
 
     @Override
     public boolean authAccount(String username, String password) {
         System.out.println("yoo");
-        try {
-            Connection conn = DriverManager.getConnection(
-                    this.url + this.dbName, this.userName, this.password);
+        
+        List<Users> user = em.createQuery(""
+                + "SELECT u FROM Users u WHERE u.username = :username")
+                .setParameter("username", username)
+                .getResultList();
+        try{
             
-            String query = "SELECT password FROM users WHERE username = username";
-
-            PreparedStatement pstmt = conn.prepareStatement(query);
-
-            pstmt.setString(1, username);
-
-            ResultSet results = pstmt.executeQuery();
-
-            if (results.isBeforeFirst()) {
-                results.next();
-                //System.out.println(results.getString("password"));
-                if(results.getString("password").equals(password)) {
-                    
-                    return true;
-                }
-            }else {
-                return false;
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginAuth.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(user.get(0).getPassword());
+            if (user.get(0).getPassword().equals(password))
+                return true;
+        }catch(Exception e) {
+            System.out.println(e);    
         }
         return false;
+                
     }
 
     @Override
     public String Md5_String(String toMD5) {
-        return null;
+        return "Hey";
     }
 
     @Override
@@ -82,6 +69,15 @@ public class LoginAuth implements LoginAuthRemote {
     @Override
     public boolean authAccount_test() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void test123123() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void persist(Object object) {
+        em.persist(object);
     }
     
     
