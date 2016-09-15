@@ -11,7 +11,22 @@
         <tabs>
           <Tab text="Student Oversikt">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="710.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="710.0">
+                     <children>
+                        <TableView layoutX="14.0" layoutY="17.0" prefHeight="397.0" prefWidth="685.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Fult Navn" />
+                            <TableColumn prefWidth="75.0" text="Epostaddresse" />
+                              <TableColumn prefWidth="75.0" text="Modul 1" />
+                              <TableColumn prefWidth="75.0" text="Modul 2" />
+                              <TableColumn prefWidth="75.0" text="Modul 3" />
+                              <TableColumn prefWidth="75.0" text="Modul 4" />
+                              <TableColumn prefWidth="75.0" text="Modul 5" />
+                              <TableColumn prefWidth="75.0" text="Modul 6" />
+                              <TableColumn prefWidth="75.0" text="Modul 7" />
+                          </columns>
+                        </TableView>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="Innleveringer og hjelpforespørsler">
