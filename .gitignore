@@ -1,3 +1,125 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @Cmoen11
+ Watch 324
+  Star 1,453
+  Fork 1,142 javaee-samples/javaee7-samples
+ Code  Issues 96  Pull requests 7  Projects 0  Wiki  Pulse  Graphs
+Branch: master Find file Copy pathjavaee7-samples/.gitignore
+fd8bb4d  on 1 May
+@arjantijms arjantijms Added printing of last response for JASPIC tests and updated .gitignore
+5 contributors @bartoszmajsak @openwms @rafabene @arun-gupta @arjantijms
+RawBlameHistory     103 lines (80 sloc)  1.13 KB
+# Directories #
+build/
+bin/
+target/
+libs/
+tmp/
+node_modules/
+jaxws/jaxws-client/src/main/
+ 
+# OS Files #
+.DS_Store
+ 
+*.class
+ 
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+rebel.xml
+
+######################
+# Windows
+######################
+ 
+# Windows image file caches
+Thumbs.db 
+ 
+# Folder config file
+Desktop.ini
+ 
+######################
+# OSX
+######################
+ 
+.DS_Store
+.svn
+ 
+# Thumbnails
+._*
+ 
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+######################
+# NetBeans
+######################
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+ 
+######################
+# IDEA
+######################
+*.iml
+*.ipr
+*.iws
+.idea/
+atlassian-ide-plugin.xml
+
+ 
+######################
+# Eclipse
+######################
+ 
+*.pydevproject
+.project
+.metadata
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+ 
+# Locally stored "Eclipse launch configurations"
+*.launch
+ 
+# CDT-specific
+.cproject
+ 
+# PDT-specific
+.buildpath
+
+# Testing environment specific
+derby.log
+
+
+######################
+# Liberty tools
+######################
+
+.factorypath
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
