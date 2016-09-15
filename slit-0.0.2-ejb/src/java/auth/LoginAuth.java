@@ -37,7 +37,7 @@ public class LoginAuth implements LoginAuthRemote {
 
     @Override
     public boolean authAccount(String username, String password) {
-        
+        System.out.println("yoo");
         try {
             Connection conn = DriverManager.getConnection(
                     this.url + this.dbName, this.userName, this.password);
