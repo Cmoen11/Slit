@@ -18,33 +18,24 @@ import java.util.List;
 @Singleton
 public class LoginAuth implements LoginAuthRemote {
     @PersistenceContext EntityManager em;
-    // find, 
     
-    
-    protected static final String url = "jdbc:mysql://localhost:3306/Peoples?autoReconnect=true&useSSL=false",
-            dbName = "slit",
-            driver = "com.mysql.jdbc.Driver",
-            userName = "root",
-            password = "root";
-
-    @Override
-    public boolean authUserName(String username) {
-        Users user = em.find(Users.class, 1);
-        
-        return true;
-    }
-
+    /**
+     * Check if username & password match.
+     * @param username
+     * @param password
+     * @return true if it match, false if it do not match.
+     */
     @Override
     public boolean authAccount(String username, String password) {
         System.out.println("yoo");
         
+        // Query the server
         List<Users> user = em.createQuery(""
                 + "SELECT u FROM Users u WHERE u.username = :username")
                 .setParameter("username", username)
                 .getResultList();
         try{
-            
-            System.out.println(user.get(0).getPassword());
+            // check if the password match with the password given.
             if (user.get(0).getPassword().equals(password))
                 return true;
         }catch(Exception e) {
@@ -54,27 +45,6 @@ public class LoginAuth implements LoginAuthRemote {
                 
     }
 
-    @Override
-    public String Md5_String(String toMD5) {
-        return "Hey";
-    }
-
-    @Override
-    public boolean loginAuth2() {
-        Users users = new Users();
-        
-        return false;
-    }
-
-    @Override
-    public boolean authAccount_test() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void test123123() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     public void persist(Object object) {
         em.persist(object);

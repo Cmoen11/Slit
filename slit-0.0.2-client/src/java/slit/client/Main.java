@@ -21,16 +21,11 @@ import javax.ejb.EJB;
  * @author evenal
  */
 public class Main extends Application 
-{
-
-    @EJB
-    private static LoginAuthRemote loginAuth;
-    
+{    
     static Stage primaryStage;
     
 
     public static void main(String[] args) {
-        System.out.println(loginAuth.Md5_String("test"));
         Application.launch(Main.class, (java.lang.String[])null);
     }
 
