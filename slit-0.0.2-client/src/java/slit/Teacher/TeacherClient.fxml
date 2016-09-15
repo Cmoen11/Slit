@@ -1,25 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#changeName" prefHeight="529.0" prefWidth="724.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.Controller">
    <children>
-      <TabPane layoutY="40.0" prefHeight="360.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutY="40.0" prefHeight="463.0" prefWidth="724.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Untitled Tab 1">
+          <Tab text="Student Oversikt">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="381.0" prefWidth="600.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="439.0" prefWidth="710.0" />
             </content>
           </Tab>
-          <Tab text="Untitled Tab 2">
+          <Tab text="Innleveringer og hjelpforespørsler">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
         </tabs>
       </TabPane>
+      <ImageView fitHeight="36.0" fitWidth="59.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/slit.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="274.0" layoutY="507.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" />
+      <Label layoutX="540.0" layoutY="14.0" text="Velkommen, " textFill="WHITE" />
+      <Label fx:id="name" layoutX="609.0" layoutY="14.0" textFill="WHITE" />
    </children>
 </Pane>

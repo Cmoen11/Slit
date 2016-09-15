@@ -9,20 +9,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import slit.client.Main;
-import slit.client.Main;
 
 /**
  *
  * @author Christian
  */
 public class TeacherMain extends Application {
-    
+
     /**
      * If user has entered a correct password, he will be forwarded to this class
      * that will open up the student main page.
      */
-    public void runGUI(Stage primaryStage) {
+    public void runGUI(Stage primaryStage, String username) {
         start(primaryStage);
+        Controller.username = username;
     }
 
     @Override

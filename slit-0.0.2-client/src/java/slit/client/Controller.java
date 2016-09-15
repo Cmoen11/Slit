@@ -26,7 +26,7 @@ public class Controller {
         if(lookupLoginAuthRemote().authAccount(username.getText(), password.getText())) {
             // if loginbutton is pressed & username and password is correct<
             System.out.println("Logged in as " + username.getText());
-            new TeacherMain().runGUI(Main.primaryStage);     // launch student panel
+            new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
         }
             
         else {
