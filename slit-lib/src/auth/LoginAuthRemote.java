@@ -1,5 +1,6 @@
 package auth;
 
+import java.util.HashMap;
 import javax.ejb.Remote;
 
 /**
@@ -9,4 +10,6 @@ import javax.ejb.Remote;
 @Remote
 public interface LoginAuthRemote {
     boolean authAccount(String username, String password);
+
+    HashMap<String, String> getUserData();
 }

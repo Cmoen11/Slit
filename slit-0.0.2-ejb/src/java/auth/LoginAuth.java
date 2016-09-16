@@ -1,13 +1,7 @@
 package auth;
 
-import static auth.Database.url;
-import java.sql.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.Singleton;
+import java.util.HashMap;
+import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -15,10 +9,10 @@ import java.util.List;
  *
  * @author Christian
  */
-@Singleton
+@Stateful
 public class LoginAuth implements LoginAuthRemote {
     @PersistenceContext EntityManager em;
-    
+    private HashMap<String, String> userData = new HashMap<>();
     /**
      * Check if username & password match.
      * @param username
@@ -36,7 +30,10 @@ public class LoginAuth implements LoginAuthRemote {
                 .getResultList();
         try{
             // check if the password match with the password given.
-            if (user.get(0).getPassword().equals(password))
+            if (user.get(0).getPassword().equals(password)) {
+                userData.put("isLoggedIn", "True");
+                userData.put("username", user.get(0).getUsername());
+            }
                 return true;
         }catch(Exception e) {
             System.out.println(e);    
@@ -46,9 +43,20 @@ public class LoginAuth implements LoginAuthRemote {
     }
 
 
+    
+    
     public void persist(Object object) {
         em.persist(object);
     }
+
+    @Override
+    public HashMap<String, String> getUserData() {
+        return userData;
+    }
+
+
+    
+    
     
     
     
