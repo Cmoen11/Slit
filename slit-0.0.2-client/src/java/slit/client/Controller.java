@@ -34,16 +34,16 @@ public class Controller {
         }
         
     }
-
+    
     private LoginAuthRemote lookupLoginAuthRemote() {
         try {
             Context c = new InitialContext();
-            
             return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
+
     
 }

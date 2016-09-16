@@ -54,6 +54,10 @@ public class LoginAuth implements LoginAuthRemote {
         return userData;
     }
 
+    @Override
+    public void test() {
+    }
+
 
     
     

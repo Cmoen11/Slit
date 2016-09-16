@@ -12,6 +12,6 @@ public class Controller {
     @FXML Label name;
     static String username;
     public void changeName() {
-        name.setText(Controller.username);
+        name.setText("Velkommen, " + Controller.username);
     }
 }
