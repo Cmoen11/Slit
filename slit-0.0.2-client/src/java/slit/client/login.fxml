@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
@@ -12,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="348.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="348.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.Controller">
    <children>
       <VBox layoutX="12.0" layoutY="22.0" prefHeight="358.0" prefWidth="326.0" spacing="1.0" style="-fx-border-color: white; -fx-border-radius: 5px; -fx-border-style: dashed;">
          <children>
@@ -42,7 +49,7 @@
                   <Insets left="20.0" top="20.0" />
                </VBox.margin>
             </Text>
-            <PasswordField fx:id="password" prefHeight="25.0" prefWidth="301.0" promptText="passord">
+            <PasswordField fx:id="password" onAction="#loginButtonClicked" prefHeight="25.0" prefWidth="301.0" promptText="passord">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
