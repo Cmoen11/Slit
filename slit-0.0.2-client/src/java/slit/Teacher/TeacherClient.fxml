@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -22,21 +24,61 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
             </content>
           </Tab>
-            <Tab text="Moduler">
+            <Tab text="Moduladministrasjon">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
                      <children>
-                        <HBox layoutX="14.0" layoutY="30.0" prefHeight="660.0" prefWidth="1204.0">
+                        <HBox layoutY="-5.0" prefHeight="701.0" prefWidth="1265.0">
                            <children>
-                              <Pane prefHeight="660.0" prefWidth="430.0" style="-fx-background-color: F3F3F3;">
+                              <Pane prefHeight="703.0" prefWidth="444.0" style="-fx-background-color: F3F3F3;">
                                  <children>
-                                    <TextField fx:id="moduleName" layoutX="18.0" layoutY="36.0" prefHeight="25.0" prefWidth="395.0" />
-                                    <TextArea fx:id="moduleDesc" layoutX="18.0" layoutY="96.0" prefHeight="491.0" prefWidth="394.0" />
-                                    <Label layoutX="18.0" layoutY="14.0" text="Modul Navn:" />
-                                    <Label layoutX="18.0" layoutY="71.0" text="Modul beskrivelse:" />
-                                    <Button layoutX="296.0" layoutY="598.0" mnemonicParsing="false" onAction="#createModule" prefHeight="36.0" prefWidth="120.0" text="Legg til modul" />
+                                    <TextField fx:id="moduleName" layoutX="18.0" layoutY="110.0" prefHeight="25.0" prefWidth="395.0" />
+                                    <TextArea fx:id="moduleDesc" layoutX="18.0" layoutY="190.0" prefHeight="397.0" prefWidth="394.0" />
+                                    <Label layoutX="18.0" layoutY="83.0" text="Modul Navn:" />
+                                    <Label layoutX="18.0" layoutY="163.0" text="Modul oppgave beskrivelse:" />
+                                    <Text layoutX="18.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legg til modul">
+                                       <font>
+                                          <Font size="34.0" />
+                                       </font>
+                                    </Text>
+                                    <Button layoutX="218.0" layoutY="616.0" mnemonicParsing="false" onAction="#createModule" prefHeight="36.0" prefWidth="120.0" text="Legg til modul" />
                                  </children>
                               </Pane>
+                              <VBox prefHeight="702.0" prefWidth="331.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Læringsmål" textAlignment="CENTER" wrappingWidth="284.0078125">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <ListView fx:id="learning_goals_view" prefHeight="200.0" prefWidth="200.0">
+                                       <VBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </VBox.margin>
+                                    </ListView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="legg til læringsmål" textAlignment="CENTER" wrappingWidth="286.033203125">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="20.0" />
+                                       </VBox.margin>
+                                    </Text>
+                                    <HBox prefHeight="35.0" prefWidth="285.0">
+                                       <children>
+                                          <TextField fx:id="learningGoal_input" prefHeight="25.0" prefWidth="195.0" promptText="Kalle metoder med parameter">
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button mnemonicParsing="false" onAction="#addLearningGoal" prefHeight="25.0" prefWidth="105.0" text="legg til" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
+                              </VBox>
                            </children>
                         </HBox>
                      </children></AnchorPane>

@@ -11,16 +11,23 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import modul.ModulRemote;
-
+import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 /**
  *
  * @author Christian
  */
 public class Controller {
+    
+    private ArrayList<String> learningGoals_list = new ArrayList<>();
+    
     @FXML Label name;
     @FXML TextArea moduleDesc;
     @FXML TextField moduleName;
-    
+    @FXML TextField learningGoal_input;
+    @FXML ListView learning_goals_view;
     static String username;
     public void changeName() {
         name.setText("Velkommen, " + Controller.username);
@@ -44,5 +51,11 @@ public class Controller {
         }
     }
     
+    public void addLearningGoal() {
+        learningGoals_list.add(learningGoal_input.getText());
+        ObservableList<String> observableList = FXCollections.observableList(learningGoals_list);
+        learning_goals_view.setItems(observableList);
+        
+    }
     
 }
