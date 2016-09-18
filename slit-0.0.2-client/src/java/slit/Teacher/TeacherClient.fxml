@@ -26,9 +26,17 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
                      <children>
-                        <HBox layoutX="14.0" layoutY="27.0" prefHeight="660.0" prefWidth="1204.0">
+                        <HBox layoutX="14.0" layoutY="30.0" prefHeight="660.0" prefWidth="1204.0">
                            <children>
-                              <Pane prefHeight="617.0" prefWidth="423.0" style="-fx-background-color: F3F3F3;" />
+                              <Pane prefHeight="660.0" prefWidth="430.0" style="-fx-background-color: F3F3F3;">
+                                 <children>
+                                    <TextField fx:id="moduleName" layoutX="18.0" layoutY="36.0" prefHeight="25.0" prefWidth="395.0" />
+                                    <TextArea fx:id="moduleDesc" layoutX="18.0" layoutY="96.0" prefHeight="491.0" prefWidth="394.0" />
+                                    <Label layoutX="18.0" layoutY="14.0" text="Modul Navn:" />
+                                    <Label layoutX="18.0" layoutY="71.0" text="Modul beskrivelse:" />
+                                    <Button layoutX="296.0" layoutY="598.0" mnemonicParsing="false" onAction="#createModule" prefHeight="36.0" prefWidth="120.0" text="Legg til modul" />
+                                 </children>
+                              </Pane>
                            </children>
                         </HBox>
                      </children></AnchorPane>
@@ -53,7 +61,7 @@
                      <children>
                         <HBox layoutX="14.0" layoutY="27.0" prefHeight="660.0" prefWidth="1204.0">
                            <children>
-                              <Pane prefHeight="617.0" prefWidth="423.0" style="-fx-background-color: F3F3F3;" />
+                              <Pane prefHeight="632.0" prefWidth="423.0" style="-fx-background-color: F3F3F3;" />
                            </children>
                         </HBox>
                      </children>

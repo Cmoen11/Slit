@@ -2,6 +2,7 @@
 package modul;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +19,9 @@ public class Modules implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Column(name = "module_name")
     private String module_name;
+    @Column(name = "module_desc")
     private String module_description;
     
     public Modules(){

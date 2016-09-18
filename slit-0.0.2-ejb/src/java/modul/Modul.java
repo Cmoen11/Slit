@@ -19,9 +19,11 @@ public class Modul implements ModulRemote {
     @Override
     public boolean createModule(String name, String desc) {
         Modules modul = new Modules(name, desc);
+        System.out.println("Object created!");
         em.getTransaction().begin();
         em.persist(modul);
         em.getTransaction().commit();
+        System.out.println("added!");
         return false;
     }
     
