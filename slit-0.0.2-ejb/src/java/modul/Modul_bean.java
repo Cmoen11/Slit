@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Christian
  */
 @Stateless
-public class Modul implements ModulRemote {
+public class Modul_bean implements ModulRemote {
     @PersistenceContext EntityManager em;
 
     @Override

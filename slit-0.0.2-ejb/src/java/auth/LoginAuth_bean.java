@@ -10,7 +10,7 @@ import java.util.List;
  * @author Christian
  */
 @Stateful
-public class LoginAuth implements LoginAuthRemote {
+public class LoginAuth_bean implements LoginAuthRemote {
     @PersistenceContext EntityManager em;
     private HashMap<String, String> userData = new HashMap<>();
     /**
