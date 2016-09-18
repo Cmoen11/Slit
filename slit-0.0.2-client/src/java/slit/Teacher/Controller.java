@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
+import javafx.scene.web.HTMLEditor;
 /**
  *
  * @author Christian
@@ -24,7 +25,7 @@ public class Controller {
     private ArrayList<String> learningGoals_list = new ArrayList<>();
     
     @FXML Label name;
-    @FXML TextArea moduleDesc;
+    @FXML HTMLEditor moduleDesc;
     @FXML TextField moduleName;
     @FXML TextField learningGoal_input;
     @FXML ListView learning_goals_view;
@@ -35,7 +36,7 @@ public class Controller {
     
     public void createModule() {
         try {
-        lookupModulRemote().createModule(moduleDesc.getText(), moduleName.getText());
+        lookupModulRemote().createModule(moduleDesc.getHtmlText(), moduleName.getText());
         }catch(Exception e) {
             System.out.println(e);
         }
