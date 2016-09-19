@@ -36,7 +36,7 @@ public class Controller {
     
     public void createModule() {
         try {
-        lookupModulRemote().createModule(moduleDesc.getHtmlText(), moduleName.getText());
+            lookupModulRemote().createModule(moduleDesc.getHtmlText(), moduleName.getText());
         }catch(Exception e) {
             System.out.println(e);
         }
