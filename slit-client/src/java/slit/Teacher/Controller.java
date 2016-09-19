@@ -36,7 +36,11 @@ public class Controller {
     
     public void createModule() {
         try {
-            lookupModulRemote().createModule(moduleDesc.getHtmlText(), moduleName.getText());
+            int id = lookupModulRemote().createModule(
+                    moduleDesc.getHtmlText(), moduleName.getText());
+            for (String goal : learningGoals_list) 
+                lookupModulRemote().addLearningGoal(goal, id);
+            
         }catch(Exception e) {
             System.out.println(e);
         }
