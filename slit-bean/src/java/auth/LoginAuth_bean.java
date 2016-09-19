@@ -33,8 +33,9 @@ public class LoginAuth_bean implements LoginAuthRemote {
             if (user.get(0).getPassword().equals(password)) {
                 userData.put("isLoggedIn", "True");
                 userData.put("username", user.get(0).getUsername());
-            }
                 return true;
+            }
+                
         }catch(Exception e) {
             System.out.println(e);    
         }
