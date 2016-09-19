@@ -20,8 +20,13 @@ public class Modul_bean implements ModulRemote {
     @Override
     public boolean createModule(String name, String desc) {
         Modules modul = new Modules(name, desc);
-        em.persist(name);
-        return false;
+        try {
+            em.persist(modul);
+            return true;
+        }catch(Exception e) {
+           return false; 
+        }
+         
     }
     
     
