@@ -18,17 +18,25 @@ public class Modul_bean implements ModulRemote {
     @PersistenceContext EntityManager em;
 
     @Override
-    public boolean createModule(String name, String desc) {
+    public int createModule(String name, String desc) {
         Modules modul = new Modules(name, desc);
-        try {
-            em.persist(modul);
-            return true;
-        }catch(Exception e) {
-           return false; 
-        }
-         
+        em.persist(modul);      // add modul to database.
+        
+        return em.find(Modules.class, modul).getId();
+
     }
-    
+    /**
+     * add learning goals to the module.
+     * @param learningGoal
+     * @param id 
+     */
+    @Override
+    public void addLearningGoal(String learningGoal, int id) {
+        LearningGoals goal = new LearningGoals(
+                learningGoal, em.find(Modules.class, (long) id));
+        
+        em.persist(goal);
+    }
     
     
 }

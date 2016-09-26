@@ -14,6 +14,7 @@ import javax.ejb.Remote;
 @Remote
 public interface ModulRemote {
 
-    boolean createModule(String name, String desc);
+    int createModule(String name, String desc);
+    void addLearningGoal(String learningGoal, int id);
     
 }
