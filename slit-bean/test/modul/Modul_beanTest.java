@@ -49,7 +49,7 @@ public class Modul_beanTest {
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         ModulRemote instance = (ModulRemote)container.getContext().lookup("java:global/classes/Modul_bean");
         boolean expResult = false;
-        boolean result = instance.createModule(name, desc);
+        int result = instance.createModule(name, desc);
         assertEquals(expResult, result);
         container.close();
     }
