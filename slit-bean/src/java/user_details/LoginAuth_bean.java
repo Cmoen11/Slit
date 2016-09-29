@@ -1,5 +1,6 @@
-package auth;
+package user_details;
 
+import auth.LoginAuthRemote;
 import java.util.HashMap;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -46,7 +47,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
     @Override
     public void CreateDummyUsers() {
         Users user = new Users("user1", "test", "test@slit.no");
-        persist(user);
+        em.persist(user);
     }
     
     
