@@ -36,6 +36,30 @@ public class CourceClass implements Serializable {
         this.courceID = courceID;
         if (isTeacher) this.isTeacher = 1; else this.isTeacher = 0;
     }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
+
+    public Long getCourceID() {
+        return courceID;
+    }
+
+    public void setCourceID(Long courceID) {
+        this.courceID = courceID;
+    }
+
+    public int getIsTeacher() {
+        return isTeacher;
+    }
+
+    public void setIsTeacher(int isTeacher) {
+        this.isTeacher = isTeacher;
+    }
  
 
 
