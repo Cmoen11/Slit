@@ -14,4 +14,6 @@ public interface LoginAuthRemote {
     HashMap<String, String> getUserData();
 
     void test();
+
+    void CreateDummyUsers();
 }

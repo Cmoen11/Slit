@@ -37,6 +37,11 @@ public class Modul_bean implements ModulRemote {
         
         em.persist(goal);
     }
+
+    @Override
+    public void asd() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

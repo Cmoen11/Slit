@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -32,21 +34,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 4, max = 255)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 4, max = 255)
     @Column(name = "password")
     private String password;
+    
+    @NotNull
+    @Column(name = "email")
+    @Size(min = 5, max=20)
+    private String email;
+    
 
     public Users() {
     }
@@ -55,10 +63,10 @@ public class Users implements Serializable {
         this.id = id;
     }
 
-    public Users(Integer id, String username, String password) {
-        this.id = id;
+    public Users(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public Integer getId() {
