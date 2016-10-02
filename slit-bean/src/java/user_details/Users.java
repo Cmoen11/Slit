@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package auth;
+package user_details;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -36,6 +38,7 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Basic(optional = false)
     @NotNull
@@ -51,12 +54,15 @@ public class Users implements Serializable {
     public Users() {
     }
 
+    /*
+    * Erstattet med autogenerert primærnøkkel - linje 41.
+    *
     public Users(Integer id) {
         this.id = id;
     }
-
-    public Users(Integer id, String username, String password) {
-        this.id = id;
+    */
+    
+    public Users(String username, String password) {
         this.username = username;
         this.password = password;
     }

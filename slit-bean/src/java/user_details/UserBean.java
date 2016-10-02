@@ -20,13 +20,12 @@ public class UserBean implements UserBeanRemote {
 
     
     @Override
-    public int createUser(String username, String password, String email) {
-        Users user = new Users(username, password, email);
+    public int createUser(String username, String password) {
+        Users user = new Users(username, password);
         em.persist(user); 
         
         return em.find(Users.class, user).getId();
     }
-    
     
     /* 
     * 
@@ -47,23 +46,22 @@ public class UserBean implements UserBeanRemote {
        CourseClass studentEntry = new CourseClass(user.getId(), courseID, false);
        em.persist(studentEntry);
        } 
-        
+
     
-    /*
-     * Legge til et vilkårlig antall studenter til et emne. 
-     * ToDO: FIX! 
-    public void bulkUsers(List<String> liste, courseID) {
-    	if (em.find(Course.class, courseID) == null){
-        throw new Exception("Du er en idiot");
-        }
-    	for (String username: liste)
-    		addUserToCourse(username, courseID);
+    /**
+     * Legg til vilkårlig antall studenter til et emne
+     * OBS! Funksjonalitet for å legge username til i lista må implementeres.
+     * @param usersToAdd
+     * @param courseID
+     */
+    @Override
+    public void bulkUsers(List<String> usersToAdd, long courseID){
+        if (em.find(Course.class, CourseID) == null) {
+        System.out.println("Nope"); 
+    }
+        for (String username: usersToAdd)
+            addUserToCourse(username, courseID);
     
-    liste med brukernavn -> inn i course. 
-    for (String username : lista)
-    bean.addUserToCourse(username, 1);
-  }
     
-    */
-    
+    }
 }

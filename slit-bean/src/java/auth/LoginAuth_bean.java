@@ -1,5 +1,6 @@
 package auth;
 
+import user_details.Users;
 import java.util.HashMap;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;

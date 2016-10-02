@@ -5,6 +5,8 @@
  */
 package user_details;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -14,8 +16,12 @@ import javax.ejb.Remote;
 @Remote
 public interface UserBeanRemote {
 
-    int createUser(String username, String password, String email);
+    List<String> usersToAdd = new ArrayList<>();
+            
+    int createUser(String username, String password);
 
     void addUserToCourse(String username, long courseID);
+
+    public void bulkUsers(List<String> usersToAdd, long courseID);
     
 }
