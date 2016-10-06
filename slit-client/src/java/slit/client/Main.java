@@ -30,7 +30,7 @@ public class Main extends Application
 
     public static void main(String[] args) {
         // create dummy users
-        loginAuth_bean.CreateDummyUsers();
+        //loginAuth_bean.CreateDummyUsers();
         
         // load main GUI
         Application.launch(Main.class, (java.lang.String[])null);

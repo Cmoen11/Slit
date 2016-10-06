@@ -37,8 +37,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
                 return true;
             }
                 
-        }catch(Exception e) {
-            System.out.println(e);    
+        }catch(Exception e) {  
         }
         return false;
                 
