@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
@@ -42,14 +42,20 @@ public class Users implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 4, max = 255)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 4, max = 255)
     @Column(name = "password")
     private String password;
+    
+    @NotNull
+    @Column(name = "email")
+    @Size(min = 5, max=20)
+    private String email;
+    
 
     public Users() {
     }
@@ -60,11 +66,17 @@ public class Users implements Serializable {
     public Users(Integer id) {
         this.id = id;
     }
+<<<<<<< HEAD:slit-bean/src/java/user_details/Users.java
     */
     
     public Users(String username, String password) {
+=======
+
+    public Users(String username, String password, String email) {
+>>>>>>> master:slit-bean/src/java/user_details/Users.java
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public Integer getId() {

@@ -1,4 +1,4 @@
-How to git
+﻿How to git gud
 
 1. push bare på din branch
 2. spør før du merger til master

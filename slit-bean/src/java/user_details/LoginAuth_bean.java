@@ -1,6 +1,10 @@
-package auth;
+package user_details;
 
+<<<<<<< HEAD:slit-bean/src/java/auth/LoginAuth_bean.java
 import user_details.Users;
+=======
+import auth.LoginAuthRemote;
+>>>>>>> master:slit-bean/src/java/user_details/LoginAuth_bean.java
 import java.util.HashMap;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -37,14 +41,17 @@ public class LoginAuth_bean implements LoginAuthRemote {
                 return true;
             }
                 
-        }catch(Exception e) {
-            System.out.println(e);    
+        }catch(Exception e) {  
         }
         return false;
                 
     }
 
-
+    @Override
+    public void CreateDummyUsers() {
+        Users user = new Users("user1", "test", "test@slit.no");
+        em.persist(user);
+    }
     
     
     public void persist(Object object) {
@@ -59,6 +66,8 @@ public class LoginAuth_bean implements LoginAuthRemote {
     @Override
     public void test() {
     }
+
+    
 
 
     

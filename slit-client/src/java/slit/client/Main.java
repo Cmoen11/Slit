@@ -5,6 +5,7 @@
  */
 package slit.client;
 
+import auth.LoginAuthRemote;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javax.ejb.EJB;
 
 /**
  *
@@ -20,10 +22,17 @@ import javafx.stage.Stage;
 public class Main extends Application 
 {    
 
+    @EJB
+    private static LoginAuthRemote loginAuth_bean;
+
     static Stage primaryStage;
     
 
     public static void main(String[] args) {
+        // create dummy users
+        //loginAuth_bean.CreateDummyUsers();
+        
+        // load main GUI
         Application.launch(Main.class, (java.lang.String[])null);
     }
 
