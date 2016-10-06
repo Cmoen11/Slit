@@ -20,8 +20,8 @@ public class UserBean implements UserBeanRemote {
 
     
     @Override
-    public int createUser(String username, String password) {
-        Users user = new Users(username, password);
+    public int createUser(String username, String password, String email) {
+        Users user = new Users(username, password, email);
         em.persist(user); 
         
         return em.find(Users.class, user).getId();
@@ -40,7 +40,7 @@ public class UserBean implements UserBeanRemote {
        Users user = results.get(0);
        // If @param1 username was not found, create a new user.
        if (user == null){
-          createUser(username, "halv geir", "hel geir");
+          createUser("halv geir", "hel geir", "halv@geir.no");
        }
        // Persist the entry to CourceClass table.
        CourseClass studentEntry = new CourseClass(user.getId(), courseID, false);
@@ -56,7 +56,7 @@ public class UserBean implements UserBeanRemote {
      */
     @Override
     public void bulkUsers(List<String> usersToAdd, long courseID){
-        if (em.find(Course.class, CourseID) == null) {
+        if (em.find(Course.class, courseID) == null) {
         System.out.println("Nope"); 
     }
         for (String username: usersToAdd)

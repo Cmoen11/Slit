@@ -38,7 +38,6 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Basic(optional = false)
     @NotNull
@@ -62,18 +61,12 @@ public class Users implements Serializable {
 
     /*
     * Erstattet med autogenerert primærnøkkel - linje 41.
-    *
+    */
     public Users(Integer id) {
         this.id = id;
     }
-<<<<<<< HEAD:slit-bean/src/java/user_details/Users.java
-    */
-    
-    public Users(String username, String password) {
-=======
 
     public Users(String username, String password, String email) {
->>>>>>> master:slit-bean/src/java/user_details/Users.java
         this.username = username;
         this.password = password;
         this.email = email;

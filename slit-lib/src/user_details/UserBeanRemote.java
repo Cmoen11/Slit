@@ -18,7 +18,7 @@ public interface UserBeanRemote {
 
     List<String> usersToAdd = new ArrayList<>();
             
-    int createUser(String username, String password);
+    int createUser(String username, String password, String email);
 
     void addUserToCourse(String username, long courseID);
 

@@ -1,10 +1,7 @@
 package user_details;
 
-<<<<<<< HEAD:slit-bean/src/java/auth/LoginAuth_bean.java
 import user_details.Users;
-=======
 import auth.LoginAuthRemote;
->>>>>>> master:slit-bean/src/java/user_details/LoginAuth_bean.java
 import java.util.HashMap;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
