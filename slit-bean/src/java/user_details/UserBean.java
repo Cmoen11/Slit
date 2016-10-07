@@ -29,7 +29,7 @@ public class UserBean implements UserBeanRemote {
     }
     
     /* 
-    * 
+    * TO DO FIX.
     * @param1: username
     * @param: course id
     */
@@ -44,12 +44,13 @@ public class UserBean implements UserBeanRemote {
           createUser("halv geir", "hel geir", "halv@geir.no");
        }
        // Persist the entry to CourceClass table.
-       CourseClass studentEntry = new CourseClass(user.getId(), courseID, false);
-       em.persist(studentEntry);
+       //CourseClass studentEntry = new CourseClass(user.getId(), courseID, false);
+       //em.persist(studentEntry);
        } 
 
     
     /**
+     * TO DO : FIX
      * Legg til vilkårlig antall studenter til et emne
      * OBS! Funksjonalitet for å legge username til i lista må implementeres.
      * @param usersToAdd
@@ -57,12 +58,12 @@ public class UserBean implements UserBeanRemote {
      */
     @Override
     public void bulkUsers(List<String> usersToAdd, long courseID){
-        if (em.find(Course.class, courseID) == null) {
+        //if (em.find(Course.class, courseID) == null) {
         System.out.println("Nope"); 
     }
-        for (String username: usersToAdd)
-            addUserToCourse(username, courseID);
+    //    for (String username: usersToAdd)
+    //        addUserToCourse(username, courseID);
     
     
-    }
+    
 }

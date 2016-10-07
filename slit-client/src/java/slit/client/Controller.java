@@ -23,7 +23,7 @@ public class Controller {
      * if login button is pressed. 
      */
     public void loginButtonClicked() {
-        if(lookupLoginAuthRemote().authAccount(username.getText(), password.getText())) {
+        if(lookupLoginAuth_beanRemote().authAccount(username.getText(), password.getText())) {
             // if loginbutton is pressed & username and password is correct<
             System.out.println("Logged in as " + username.getText());
             new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
@@ -34,16 +34,18 @@ public class Controller {
         }
         
     }
-    
-    private LoginAuthRemote lookupLoginAuthRemote() {
+
+    private LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {
             Context c = new InitialContext();
-            return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth");
+            return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth_bean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
+    
+    
 
     
 }

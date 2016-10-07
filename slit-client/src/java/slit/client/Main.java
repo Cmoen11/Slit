@@ -22,8 +22,6 @@ import javax.ejb.EJB;
 public class Main extends Application 
 {    
 
-    @EJB
-    private static LoginAuthRemote loginAuth_bean;
 
     static Stage primaryStage;
     
