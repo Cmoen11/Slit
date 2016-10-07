@@ -6,6 +6,8 @@
 package database;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -27,6 +30,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CourseMembers.findByCourseID", query = "SELECT c FROM CourseMembers c WHERE c.courseMembersPK.courseID = :courseID"),
     @NamedQuery(name = "CourseMembers.findByUserID", query = "SELECT c FROM CourseMembers c WHERE c.courseMembersPK.userID = :userID")})
 public class CourseMembers implements Serializable {
+
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "isTeacher")
+    private int isTeacher;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -96,6 +104,14 @@ public class CourseMembers implements Serializable {
     @Override
     public String toString() {
         return "database.CourseMembers[ courseMembersPK=" + courseMembersPK + " ]";
+    }
+
+    public int getIsTeacher() {
+        return isTeacher;
+    }
+
+    public void setIsTeacher(int isTeacher) {
+        this.isTeacher = isTeacher;
     }
     
 }
