@@ -1,5 +1,6 @@
 package user_details;
 
+import database.Users;
 import auth.LoginAuthRemote;
 import java.util.HashMap;
 import javax.ejb.Stateful;
