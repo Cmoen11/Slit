@@ -1,6 +1,10 @@
 package user_details;
 
+<<<<<<< HEAD
 import user_details.Users;
+=======
+import database.Users;
+>>>>>>> master
 import auth.LoginAuthRemote;
 import java.util.HashMap;
 import javax.ejb.Stateful;

@@ -5,6 +5,7 @@
  */
 package modul;
 
+import database.*;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +20,9 @@ public class Modul_bean implements ModulRemote {
 
     @Override
     public int createModule(String name, String desc) {
-        Modules modul = new Modules(name, desc);
+        Modules modul = new Modules();
+        modul.setModuleName(name);
+        modul.setModuleDesc(desc);
         em.persist(modul);      // add modul to database.
         
         return em.find(Modules.class, modul).getId();
@@ -32,8 +35,8 @@ public class Modul_bean implements ModulRemote {
      */
     @Override
     public void addLearningGoal(String learningGoal, int id) {
-        LearningGoals goal = new LearningGoals(
-                learningGoal, em.find(Modules.class, (long) id));
+        Learninggoals goal = new Learninggoals();
+        goal.setModulId(em.find(Modules.class, (long) id));
         
         em.persist(goal);
     }
