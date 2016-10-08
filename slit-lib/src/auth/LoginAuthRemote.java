@@ -15,4 +15,6 @@ public interface LoginAuthRemote {
 
     void test();
 
+    UserDetails authUser(String username, String password, int coruseID);
+
 }

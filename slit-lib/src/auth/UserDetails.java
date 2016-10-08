@@ -1,6 +1,7 @@
 /*
- * This class is used to send userdata to the ejb and from the ejb to the client
- *  
+ * This class is used to transfer userdata to the ejb and from the 
+ * ejb to the client
+ * 
  */
 package auth;
 
@@ -13,7 +14,7 @@ import java.io.Serializable;
 public class UserDetails implements Serializable {
     String username, email;
     int id;
-
+    
     public UserDetails(Integer id, String username, String email) {
         this.id = id;
         this.username = username;

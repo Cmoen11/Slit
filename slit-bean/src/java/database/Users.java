@@ -61,6 +61,14 @@ public class Users implements Serializable {
     @Column(name = "email")
     @Size(min = 5, max=20)
     private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
 
     public Users() {
