@@ -43,11 +43,6 @@ public class LoginAuth_bean implements LoginAuthRemote {
                 
     }
 
-    @Override
-    public void CreateDummyUsers() {
-        Users user = new Users("user1", "test", "test@slit.no");
-        em.persist(user);
-    }
     
     
     public void persist(Object object) {

@@ -15,5 +15,4 @@ public interface LoginAuthRemote {
 
     void test();
 
-    void CreateDummyUsers();
 }
