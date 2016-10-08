@@ -13,12 +13,21 @@ import java.io.Serializable;
  */
 public class UserDetails implements Serializable {
     String username, email;
-    int id;
+    int id, courseID;
     
-    public UserDetails(Integer id, String username, String email) {
+    public UserDetails(Integer id, String username, String email, int courseID) {
         this.id = id;
         this.username = username;
         this.email = email;
+        this.courseID = courseID;
+    }
+
+    public int getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
     }
 
     public String getUsername() {
