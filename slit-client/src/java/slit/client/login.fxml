@@ -56,7 +56,7 @@
             </PasswordField>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="107.0" text="Glemt passord?">
+                  <Button mnemonicParsing="false" onAction="#click" prefHeight="44.0" prefWidth="107.0" text="Glemt passord?">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>

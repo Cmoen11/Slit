@@ -24,8 +24,6 @@ public class LoginAuth_bean implements LoginAuthRemote {
      */
     @Override
     public boolean authAccount(String username, String password) {
-        System.out.println("yoo");
-        
         // Query the server
         List<Users> user = em.createQuery(""
                 + "SELECT u FROM Users u WHERE u.username = :username")

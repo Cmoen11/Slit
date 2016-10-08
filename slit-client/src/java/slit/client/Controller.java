@@ -34,6 +34,11 @@ public class Controller {
         }
         
     }
+    
+    public void click()  {
+        System.out.println("Hey");
+    }
+    
 
     private LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {
