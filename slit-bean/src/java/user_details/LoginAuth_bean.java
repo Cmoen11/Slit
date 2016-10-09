@@ -1,14 +1,19 @@
 package user_details;
 
+import auth.CourseInfo;
 import database.Users;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
 import database.CourseMembers;
+import database.Courses;
+import java.util.ArrayList;
+import static java.util.Collections.list;
 import java.util.HashMap;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -83,6 +88,24 @@ public class LoginAuth_bean implements LoginAuthRemote {
         }
         return null;
     }
+    
+    /**
+     * 
+     * @return Alle kursene 
+     */
+    @Override
+    public ArrayList<CourseInfo> getCourses() {
+        List<Courses> courses = null;
+        ArrayList<CourseInfo> output = new ArrayList<>();
+        TypedQuery<Courses> temp1 = em.createNamedQuery("Courses.findAll", Courses.class);
+        courses = temp1.getResultList();
+        
+        for (Courses course : courses) {
+            output.add(new CourseInfo(course.getCourseID(), course.getCourseStartDate(), course.getCourseEndDate(), course.getCourseName()));
+        }
+        
+        return output;
+    }
 
     public void persist(Object object) {
         em.persist(object);
@@ -96,5 +119,4 @@ public class LoginAuth_bean implements LoginAuthRemote {
     @Override
     public void test() {
     }
-
 }

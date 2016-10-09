@@ -1,12 +1,16 @@
 
 package slit.client;
 
+import auth.CourseInfo;
 import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -19,7 +23,7 @@ import javax.naming.NamingException;
 public class Controller {
     @FXML TextField username;
     @FXML TextField password;
-    
+    @FXML ComboBox courses_combo;
     /**
      * if login button is pressed. 
      */
@@ -45,6 +49,13 @@ public class Controller {
             System.out.println("nah..");
         }
         
+    }
+    
+    
+    public void initialize() {
+        ArrayList<CourseInfo> courses = lookupLoginAuth_beanRemote().getCourses();
+        
+        courses_combo.setItems(FXCollections.observableArrayList(courses));
     }
     
     public void click()  {

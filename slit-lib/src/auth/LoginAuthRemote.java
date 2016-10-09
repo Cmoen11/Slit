@@ -1,5 +1,6 @@
 package auth;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.ejb.Remote;
 
@@ -16,5 +17,7 @@ public interface LoginAuthRemote {
     void test();
 
     UserDetails authUser(String username, String password, int coruseID);
+
+    ArrayList<CourseInfo> getCourses();
 
 }

@@ -12,10 +12,11 @@ import java.io.Serializable;
  * @author Christian
  */
 public class CourseInfo implements Serializable{
-    int courseID, startDate, endDate;
+    int courseID;
+    String startDate, endDate;
     String coruseName;
 
-    public CourseInfo(int courseID, int startDate, int endDate, String coruseName) {
+    public CourseInfo(int courseID, String startDate, String endDate, String coruseName) {
         this.courseID = courseID;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -30,19 +31,19 @@ public class CourseInfo implements Serializable{
         this.courseID = courseID;
     }
 
-    public int getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(int startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public int getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(int endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
