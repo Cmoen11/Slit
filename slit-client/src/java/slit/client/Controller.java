@@ -28,7 +28,17 @@ public class Controller {
         if(user != null) {
             // if loginbutton is pressed & username and password is correct<
             System.out.println("Logged in as " + username.getText());
-            new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
+            if (user.isTeacher()) {
+                new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
+                System.out.println(user.getUsername() +" "+ user.getCourseID() +" "+ user.isTeacher());
+            }
+                
+            else {
+                // call student gui.
+                System.out.println("Logged in as Student");
+                System.out.println(user.getUsername() +" "+ user.getCourseID() +" "+ user.isTeacher());
+            }
+                
         }
             
         else {

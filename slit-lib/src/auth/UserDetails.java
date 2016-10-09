@@ -14,14 +14,25 @@ import java.io.Serializable;
 public class UserDetails implements Serializable {
     String username, email;
     int id, courseID;
+    boolean teacher;
     
-    public UserDetails(Integer id, String username, String email, int courseID) {
+    public UserDetails(Integer id, String username, String email, int courseID, int isTeacher) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.courseID = courseID;
+        System.out.println(isTeacher);
+        this.teacher = (isTeacher == 1);  
     }
 
+    public boolean isTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(boolean teacher) {
+        this.teacher = teacher;
+    }
+    
     public int getCourseID() {
         return courseID;
     }
