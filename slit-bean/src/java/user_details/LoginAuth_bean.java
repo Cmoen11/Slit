@@ -81,7 +81,6 @@ public class LoginAuth_bean implements LoginAuthRemote {
                         .setParameter("courseID", courseID)
                         .setParameter("userID", user.get(0).getId())
                         .getResultList();
-                System.out.println("Er lærer: " +courseMembers.get(0).getIsTeacher() + " I fag: " + courseMembers.get(0).getCourseMembersPK().getCourseID() + " hvem: "+ courseMembers.get(0).getCourseMembersPK().getUserID());
                 if (!courseMembers.isEmpty())
                     return new UserDetails(userobj.getId(), userobj.getUsername(), userobj.getEmail(), courseID, courseMembers.get(0).getIsTeacher());
             }

@@ -24,11 +24,14 @@ public class Controller {
     @FXML TextField username;
     @FXML TextField password;
     @FXML ComboBox courses_combo;
+    ArrayList<CourseInfo> courses;
+    ArrayList<String> courseNames;
     /**
      * if login button is pressed. 
      */
     public void loginButtonClicked() {
-        UserDetails user = lookupLoginAuth_beanRemote().authUser(username.getText(), password.getText(), 1);
+        CourseInfo selectedCourse = courses.get(courses_combo.getSelectionModel().getSelectedIndex());
+        UserDetails user = lookupLoginAuth_beanRemote().authUser(username.getText(), password.getText(), selectedCourse.getCourseID());
         if(user != null) {
             // if loginbutton is pressed & username and password is correct<
             System.out.println("Logged in as " + username.getText());
@@ -53,9 +56,12 @@ public class Controller {
     
     
     public void initialize() {
-        ArrayList<CourseInfo> courses = lookupLoginAuth_beanRemote().getCourses();
+        courses = lookupLoginAuth_beanRemote().getCourses();
+        courseNames = new ArrayList<>();
+        for (CourseInfo course : courses)
+            courseNames.add(course.getCoruseName());
+        courses_combo.setItems(FXCollections.observableArrayList(courseNames));
         
-        courses_combo.setItems(FXCollections.observableArrayList(courses));
     }
     
     public void click()  {
