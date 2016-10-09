@@ -1,12 +1,16 @@
 
 package slit.client;
 
+import auth.CourseInfo;
 import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -19,12 +23,21 @@ import javax.naming.NamingException;
 public class Controller {
     @FXML TextField username;
     @FXML TextField password;
-    
+    @FXML ComboBox courses_combo;
+    ArrayList<CourseInfo> courses;
+    ArrayList<String> courseNames;
     /**
      * if login button is pressed. 
      */
     public void loginButtonClicked() {
-        UserDetails user = lookupLoginAuth_beanRemote().authUser(username.getText(), password.getText(), 1);
+        UserDetails user = null;
+        try{
+            CourseInfo selectedCourse = courses.get(courses_combo.getSelectionModel().getSelectedIndex());
+            user = lookupLoginAuth_beanRemote().authUser(username.getText(), password.getText(), selectedCourse.getCourseID());
+        }catch(Exception e) {
+            user = null;
+        }
+        
         if(user != null) {
             // if loginbutton is pressed & username and password is correct<
             System.out.println("Logged in as " + username.getText());
@@ -44,6 +57,16 @@ public class Controller {
         else {
             System.out.println("nah..");
         }
+        
+    }
+    
+    
+    public void initialize() {
+        courses = lookupLoginAuth_beanRemote().getCourses();
+        courseNames = new ArrayList<>();
+        for (CourseInfo course : courses)
+            courseNames.add(course.getCoruseName());
+        courses_combo.setItems(FXCollections.observableArrayList(courseNames));
         
     }
     
