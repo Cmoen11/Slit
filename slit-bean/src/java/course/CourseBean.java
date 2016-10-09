@@ -21,6 +21,10 @@ public class CourseBean implements CourseBeanRemote {
     @PersistenceContext
     EntityManager em;
     
+    /**
+     * Hent ut alle kursene
+     * @return Liste med alle kursene.
+     */
     @Override
     public ArrayList<CourseInfo> getCourses() {
         List<Courses> courses = null;
@@ -34,7 +38,12 @@ public class CourseBean implements CourseBeanRemote {
         
         return output;
     }
-    // to do
+    
+    /**
+     * Hent alle medlemmene i valgt kurs.
+     * @param courseID
+     * @return Liste med alle brukernavnene i valgt kurs.
+     */
     @Override
     public ArrayList<String> getCourseMembers(int courseID) {
         List<Users> temp1;
