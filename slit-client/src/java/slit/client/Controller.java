@@ -3,6 +3,7 @@ package slit.client;
 
 import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
+import auth.UserDetails;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -23,16 +24,31 @@ public class Controller {
      * if login button is pressed. 
      */
     public void loginButtonClicked() {
-        if(lookupLoginAuth_beanRemote().authAccount(username.getText(), password.getText())) {
+        UserDetails user = lookupLoginAuth_beanRemote().authUser(username.getText(), password.getText(), 1);
+        if(user != null) {
             // if loginbutton is pressed & username and password is correct<
             System.out.println("Logged in as " + username.getText());
-            new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
+            if (user.isTeacher()) {
+                new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
+                System.out.println(user.getUsername() +" "+ user.getCourseID() +" "+ user.isTeacher());
+            }
+                
+            else {
+                // call student gui.
+                System.out.println("Logged in as Student");
+                System.out.println(user.getUsername() +" "+ user.getCourseID() +" "+ user.isTeacher());
+            }
+                
         }
             
         else {
             System.out.println("nah..");
         }
         
+    }
+    
+    public void click()  {
+        System.out.println("Hey");
     }
 
     private LoginAuthRemote lookupLoginAuth_beanRemote() {
@@ -44,6 +60,10 @@ public class Controller {
             throw new RuntimeException(ne);
         }
     }
+
+    
+
+    
     
     
 
