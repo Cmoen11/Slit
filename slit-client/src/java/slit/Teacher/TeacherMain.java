@@ -32,6 +32,7 @@ public class TeacherMain extends Application {
             primaryStage.setTitle("Slit");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
+            primaryStage.setResizable(false);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
