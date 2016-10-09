@@ -16,4 +16,9 @@
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>auth.LoginAuthRemote</remote>
   </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>CourseBean</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>course.CourseBeanRemote</remote>
+  </ejb-ref>
 </application-client>

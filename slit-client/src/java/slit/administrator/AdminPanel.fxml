@@ -41,7 +41,7 @@
                         <DatePicker layoutX="539.0" layoutY="108.0" prefHeight="25.0" prefWidth="201.0" showWeekNumbers="true" />
                         <DatePicker layoutX="539.0" layoutY="160.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
                         <Button layoutX="624.0" layoutY="379.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="122.0" text="Lagre" />
-                        <ListView layoutX="24.0" layoutY="220.0" prefHeight="133.0" prefWidth="336.0" />
+                        <ListView fx:id="courseMembers" layoutX="24.0" layoutY="220.0" prefHeight="133.0" prefWidth="336.0" />
                         <Text layoutX="24.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medlemmer av kurset" />
                         <Text layoutX="438.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legg til ny medlem til kurset">
                            <font>

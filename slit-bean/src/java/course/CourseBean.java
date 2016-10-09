@@ -2,11 +2,14 @@
 package course;
 
 import auth.CourseInfo;
+import database.CourseMembers;
 import database.Courses;
+import database.Users;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
@@ -15,6 +18,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CourseBean implements CourseBeanRemote {
+    @PersistenceContext
     EntityManager em;
     
     @Override
@@ -33,7 +37,19 @@ public class CourseBean implements CourseBeanRemote {
     // to do
     @Override
     public ArrayList<String> getCourseMembers(int courseID) {
-        em.find(Courses.class, courseID);
+        List<Users> temp1;
+        temp1 = em.createQuery(""
+                        + "SELECT u FROM Users u, CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = u.id")
+                        .setParameter("courseID", courseID)
+                        .getResultList();
+        
+        System.out.println(temp1.size());
+        ArrayList<String> members = new ArrayList<>();
+        for (Users obj : temp1)
+            members.add(obj.getUsername());
+        
+        if (!members.isEmpty())    
+            return members;
         return null;
     }
 
