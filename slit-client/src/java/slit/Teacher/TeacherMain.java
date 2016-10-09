@@ -33,6 +33,7 @@ public class TeacherMain extends Application {
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
             primaryStage.setResizable(false);
+            primaryStage.centerOnScreen();
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
