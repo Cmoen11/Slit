@@ -34,7 +34,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
      * @return true if it match, false if it do not match.
      */
     @Override
-    public boolean authAccount(String username, String password) {
+    public boolean authAdminAccount(String username, String password) {
         // Query the server
         List<Users> user = em.createQuery(""
                 + "SELECT u FROM Users u WHERE u.username = :username")
@@ -42,9 +42,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
                 .getResultList();
         try {
             // check if the password match with the password given.
-            if (user.get(0).getPassword().equals(password)) {
-                userData.put("isLoggedIn", "True");
-                userData.put("username", user.get(0).getUsername());
+            if (user.get(0).getPassword().equals(password) && user.get(0).getAdmin() == 1) {
                 return true;
             }
 

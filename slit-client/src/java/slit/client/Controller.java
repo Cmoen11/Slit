@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import slit.administrator.MainAdmin;
 
 /**
  *
@@ -60,6 +61,14 @@ public class Controller {
         
     }
     
+    
+    public void adminloginButtonClicked() {
+        if (!lookupLoginAuth_beanRemote().authAdminAccount(username.getText(), password.getText())) {
+            System.out.println("Brukernavn og passord er feil, eller bruker er ikke admin.");
+        } else {
+            new MainAdmin().runGUI(Main.primaryStage);
+        }
+    }
     
     public void initialize() {
         courses = lookupLoginAuth_beanRemote().getCourses();

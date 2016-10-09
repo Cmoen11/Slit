@@ -67,7 +67,7 @@
             </ComboBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="150.0" text="Logg inn som administrator">
+                  <Button mnemonicParsing="false" onAction="#adminloginButtonClicked" prefHeight="42.0" prefWidth="150.0" text="Logg inn som administrator">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
