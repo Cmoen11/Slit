@@ -30,8 +30,14 @@ public class Controller {
      * if login button is pressed. 
      */
     public void loginButtonClicked() {
-        CourseInfo selectedCourse = courses.get(courses_combo.getSelectionModel().getSelectedIndex());
-        UserDetails user = lookupLoginAuth_beanRemote().authUser(username.getText(), password.getText(), selectedCourse.getCourseID());
+        UserDetails user = null;
+        try{
+            CourseInfo selectedCourse = courses.get(courses_combo.getSelectionModel().getSelectedIndex());
+            user = lookupLoginAuth_beanRemote().authUser(username.getText(), password.getText(), selectedCourse.getCourseID());
+        }catch(Exception e) {
+            user = null;
+        }
+        
         if(user != null) {
             // if loginbutton is pressed & username and password is correct<
             System.out.println("Logged in as " + username.getText());
