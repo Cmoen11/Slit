@@ -87,8 +87,16 @@ public class CourseBean implements CourseBeanRemote {
         List<Users> temp1;
         temp1 = em.createQuery("SELECT u FROM Users u, CourseMembers cm "
                 + "WHERE u.id = cm.courseMembersPK.userID "
-                + "AND cm.courseMembersPK.courseID != :courseID")
+                + "AND cm.courseMembersPK.courseID  != :courseID")
                 .setParameter("courseID", courseID).getResultList();
+        List<Users> temp2;
+        temp2 = em.createQuery("SELECT u FROM Users u "
+                + "NATURAL LEFT JOIN CourseMembers b "
+                + "WHERE b.courseMembersPK.userID IS NULL").getResultList();
+        
+        temp1.removeAll(temp2);
+        temp1.addAll(temp2);
+        
         ArrayList<UserDetails> output = new ArrayList<>();
         
         for (Users user : temp1) {

@@ -50,6 +50,7 @@ public class UserBean implements UserBeanRemote {
        //em.persist(studentEntry);
        } 
     
+    @Override
     public UserDetails getUserByUsername(String username) {
         Query query = em.createNamedQuery("Users.findByUsername", Users.class);
         Object result = query.getSingleResult();
