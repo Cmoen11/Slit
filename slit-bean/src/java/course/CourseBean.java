@@ -72,13 +72,10 @@ public class CourseBean implements CourseBeanRemote {
 
     @Override
     public void addMemberToCourse(int userID, int courseID, int teacher) {
-        CourseMembers obj = em.find(CourseMembers.class, new CourseMembersPK(userID, courseID));
-        if (obj != null){
             CourseMembers newRecord = new CourseMembers();
             newRecord.setCourseMembersPK(new CourseMembersPK(userID, courseID));
             newRecord.setIsTeacher(teacher);
             em.persist(newRecord);
-        }
     }
     /**
      * Henter ut alle brukerene som ikke er medlem av kurset. 

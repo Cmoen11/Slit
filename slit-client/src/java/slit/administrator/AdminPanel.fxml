@@ -48,8 +48,8 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <CheckBox layoutX="439.0" layoutY="260.0" mnemonicParsing="false" text="Foreleser" />
-                        <Button layoutX="626.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="legg til" />
+                        <CheckBox fx:id="existingIsTeacher" layoutX="439.0" layoutY="260.0" mnemonicParsing="false" text="Foreleser" />
+                        <Button layoutX="626.0" layoutY="302.0" mnemonicParsing="false" onAction="#addUserToCourse" prefHeight="25.0" prefWidth="120.0" text="legg til" />
                         <Button layoutX="439.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" text="Legg til mange medlemmer " />
                         <Text fontSmoothingType="LCD" layoutX="434.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Endre kursdata for valgt kurs">
                            <font>

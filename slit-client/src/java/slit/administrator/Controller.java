@@ -22,6 +22,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Calendar;
 import java.util.Date;
+import javafx.scene.control.CheckBox;
 import javafx.util.StringConverter;
 /**
  *
@@ -37,6 +38,7 @@ public class Controller {
     @FXML DatePicker existingStartDate;
     @FXML DatePicker existingEndDate;
     @FXML TextField existingCourseCode;
+    @FXML CheckBox existingIsTeacher;
 
     ArrayList<CourseInfo> courses;
     ArrayList<String> courseNames;
@@ -127,6 +129,16 @@ public class Controller {
         existingCourses.setItems(FXCollections.observableArrayList(courses));
     }
     
+    public void addUserToCourse() {
+        int index = existingCourses.getSelectionModel().getSelectedIndex();
+        UserDetails user = (UserDetails)existingAddSingleUserCombo
+                .getSelectionModel()
+                .getSelectedItem();
+        
+        
+        lookupCourseBeanRemote().addMemberToCourse(
+                user.getId(), courses.get(index).getCourseID(), existingIsTeacher.isSelected() ? 1 : 0);
+    }
     
     // connection to beans
     private LoginAuthRemote lookupLoginAuth_beanRemote() {

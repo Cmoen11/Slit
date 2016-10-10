@@ -50,7 +50,14 @@ public class UserBean implements UserBeanRemote {
        //em.persist(studentEntry);
        } 
     
-    
+    public UserDetails getUserByUsername(String username) {
+        Query query = em.createNamedQuery("Users.findByUsername", Users.class);
+        Object result = query.getSingleResult();
+        if (result == null)return null;
+        
+        Users user = (Users) result;
+        return new UserDetails(user.getId(), user.getUsername(), user.getEmail(), 0,0);
+    }
     
     /**
      * TO DO : FIX
