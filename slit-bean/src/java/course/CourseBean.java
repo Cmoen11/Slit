@@ -1,7 +1,6 @@
 
 package course;
 
-import auth.CourseInfo;
 import database.CourseMembers;
 import database.Courses;
 import database.Users;

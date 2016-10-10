@@ -1,6 +1,6 @@
 package user_details;
 
-import auth.CourseInfo;
+import course.CourseInfo;
 import database.Users;
 import auth.LoginAuthRemote;
 import auth.UserDetails;

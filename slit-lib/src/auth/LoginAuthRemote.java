@@ -1,5 +1,6 @@
 package auth;
 
+import course.CourseInfo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.ejb.Remote;

@@ -1,7 +1,7 @@
 
 package slit.client;
 
-import auth.CourseInfo;
+import course.CourseInfo;
 import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;

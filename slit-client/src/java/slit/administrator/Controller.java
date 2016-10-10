@@ -1,7 +1,7 @@
 
 package slit.administrator;
 
-import auth.CourseInfo;
+import course.CourseInfo;
 import auth.LoginAuthRemote;
 import course.CourseBeanRemote;
 import java.util.ArrayList;

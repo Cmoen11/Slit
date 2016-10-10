@@ -5,7 +5,6 @@
  */
 package course;
 
-import auth.CourseInfo;
 import java.util.ArrayList;
 import javax.ejb.Remote;
 
