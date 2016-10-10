@@ -38,6 +38,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Courses.findByCourseEndDate", query = "SELECT c FROM Courses c WHERE c.courseEndDate = :courseEndDate")})
 public class Courses implements Serializable {
 
+    @Size(max = 6)
+    @Column(name = "courseCode")
+    private String courseCode;
+
     private static final long serialVersionUID = 1L;
     @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -127,6 +131,14 @@ public class Courses implements Serializable {
     @Override
     public String toString() {
         return "database.Courses[ courseID=" + courseID + " ]";
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
     
 }

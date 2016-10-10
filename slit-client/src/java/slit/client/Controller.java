@@ -1,7 +1,7 @@
 
 package slit.client;
 
-import auth.CourseInfo;
+import course.CourseInfo;
 import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import slit.administrator.MainAdmin;
 
 /**
  *
@@ -61,11 +62,19 @@ public class Controller {
     }
     
     
+    public void adminloginButtonClicked() {
+        if (!lookupLoginAuth_beanRemote().authAdminAccount(username.getText(), password.getText())) {
+            System.out.println("Brukernavn og passord er feil, eller bruker er ikke admin.");
+        } else {
+            new MainAdmin().runGUI(Main.primaryStage);
+        }
+    }
+    
     public void initialize() {
         courses = lookupLoginAuth_beanRemote().getCourses();
         courseNames = new ArrayList<>();
         for (CourseInfo course : courses)
-            courseNames.add(course.getCoruseName());
+            courseNames.add(course.getCourseName());
         courses_combo.setItems(FXCollections.observableArrayList(courseNames));
         
     }

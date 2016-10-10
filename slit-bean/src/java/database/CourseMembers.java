@@ -31,10 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CourseMembers.findByUserID", query = "SELECT c FROM CourseMembers c WHERE c.courseMembersPK.userID = :userID")})
 public class CourseMembers implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "isTeacher")
-    private int isTeacher;
+    private Integer isTeacher;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -106,11 +104,11 @@ public class CourseMembers implements Serializable {
         return "database.CourseMembers[ courseMembersPK=" + courseMembersPK + " ]";
     }
 
-    public int getIsTeacher() {
+    public Integer getIsTeacher() {
         return isTeacher;
     }
 
-    public void setIsTeacher(int isTeacher) {
+    public void setIsTeacher(Integer isTeacher) {
         this.isTeacher = isTeacher;
     }
     

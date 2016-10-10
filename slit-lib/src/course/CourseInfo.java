@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package auth;
+package course;
 
 import java.io.Serializable;
 
@@ -14,13 +14,27 @@ import java.io.Serializable;
 public class CourseInfo implements Serializable{
     int courseID;
     String startDate, endDate;
-    String coruseName;
+    String courseName, courseCode;
 
-    public CourseInfo(int courseID, String startDate, String endDate, String coruseName) {
+    public CourseInfo(int courseID, String startDate, String endDate, String courseName, String courseCode) {
         this.courseID = courseID;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.coruseName = coruseName;
+        this.courseName = courseName;
+        this.courseCode = courseCode;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    @Override
+    public String toString() {
+        return courseCode+": "+courseName;
     }
 
     public int getCourseID() {
@@ -47,12 +61,12 @@ public class CourseInfo implements Serializable{
         this.endDate = endDate;
     }
 
-    public String getCoruseName() {
-        return coruseName;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public void setCoruseName(String coruseName) {
-        this.coruseName = coruseName;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
     
     

@@ -5,7 +5,9 @@
  */
 package user_details;
 
+import auth.UserDetails;
 import database.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -47,7 +49,15 @@ public class UserBean implements UserBeanRemote {
        //CourseClass studentEntry = new CourseClass(user.getId(), courseID, false);
        //em.persist(studentEntry);
        } 
-
+    
+    public UserDetails getUserByUsername(String username) {
+        Query query = em.createNamedQuery("Users.findByUsername", Users.class);
+        Object result = query.getSingleResult();
+        if (result == null)return null;
+        
+        Users user = (Users) result;
+        return new UserDetails(user.getId(), user.getUsername(), user.getEmail(), 0,0);
+    }
     
     /**
      * TO DO : FIX
@@ -63,6 +73,7 @@ public class UserBean implements UserBeanRemote {
     }
     //    for (String username: usersToAdd)
     //        addUserToCourse(username, courseID);
+
     
     
     
