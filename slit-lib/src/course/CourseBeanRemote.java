@@ -17,9 +17,11 @@ import javax.ejb.Remote;
 public interface CourseBeanRemote {
     
     ArrayList<CourseInfo> getCourses();
-    ArrayList<String>getCourseMembers(int courseID);
+    ArrayList<UserDetails>getCourseMembers(int courseID);
 
     void addMemberToCourse(int userID, int courseID, int teacher);
     ArrayList<UserDetails> getAllUsersNotInCourse(int courseID);
+
+    void editCourse(CourseInfo newInfo);
     
 }

@@ -114,6 +114,16 @@ public class Controller {
         return localDate;
     }
     
+    public void updateCourse() {
+        int index = existingCourses.getSelectionModel().getSelectedIndex();
+        CourseInfo course = courses.get(index);
+        course.setCourseCode(existingCourseCode.getText());
+        course.setCourseName(existingCourseName.getText());
+        
+        lookupCourseBeanRemote().editCourse(course);
+    }
+    
+    
     // connection to beans
     private LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {

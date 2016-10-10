@@ -40,7 +40,7 @@
                         <Text layoutX="436.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs slutt dato" />
                         <DatePicker fx:id="existingStartDate" layoutX="540.0" layoutY="121.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
                         <DatePicker fx:id="existingEndDate" layoutX="540.0" layoutY="160.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
-                        <Button layoutX="624.0" layoutY="379.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="122.0" text="Lagre" />
+                        <Button layoutX="624.0" layoutY="379.0" mnemonicParsing="false" onAction="#updateCourse" prefHeight="49.0" prefWidth="122.0" text="Lagre" />
                         <ListView fx:id="courseMembers" layoutX="24.0" layoutY="239.0" prefHeight="119.0" prefWidth="346.0" />
                         <Text layoutX="24.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medlemmer av kurset" />
                         <Text layoutX="438.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legg til ny medlem til kurset">
@@ -63,6 +63,8 @@
                         <TextField fx:id="existingCourseCode" layoutX="540.0" layoutY="84.0" prefHeight="25.0" prefWidth="201.0" />
                         <Text layoutX="434.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs kode" />
                         <Separator layoutX="23.0" layoutY="204.0" prefHeight="5.0" prefWidth="347.0" />
+                        <Button layoutX="24.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" text="Sett som student/foreleser" />
+                        <Button layoutX="267.0" layoutY="364.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="103.0" text="Fjern medlem" />
                      </children>
                   </AnchorPane>
             </content>

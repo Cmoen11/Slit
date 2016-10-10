@@ -21,14 +21,14 @@ public class UserDetails implements Serializable {
         this.username = username;
         this.email = email;
         this.courseID = courseID;
-        System.out.println(isTeacher);
         this.teacher = (isTeacher == 1);  
     }
 
     @Override
     public String toString() {
-        String newString = username;
-        return newString; 
+        if (teacher)
+            return username + " | Foreleser";
+        return username; 
     }
 
     public boolean isTeacher() {

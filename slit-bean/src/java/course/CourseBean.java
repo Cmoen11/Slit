@@ -46,21 +46,28 @@ public class CourseBean implements CourseBeanRemote {
      * @return Liste med alle brukernavnene i valgt kurs.
      */
     @Override
-    public ArrayList<String> getCourseMembers(int courseID) {
-        List<Users> temp1;
-        temp1 = em.createQuery(""
-                        + "SELECT u FROM Users u, CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = u.id")
+    public ArrayList<UserDetails> getCourseMembers(int courseID) {
+        List<Users> students;
+        students = em.createQuery(""
+                        + "SELECT u FROM Users u, CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = u.id AND cm.isTeacher = 0")
                         .setParameter("courseID", courseID)
                         .getResultList();
         
-        System.out.println(temp1.size());
-        ArrayList<String> members = new ArrayList<>();
-        for (Users obj : temp1)
-            members.add(obj.getUsername());
+        List<Users> teachers;
+        teachers = em.createQuery(""
+                        + "SELECT u FROM Users u, CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = u.id AND cm.isTeacher = 1")
+                        .setParameter("courseID", courseID)
+                        .getResultList();
         
-        if (!members.isEmpty())    
-            return members;
-        return null;
+        ArrayList<UserDetails> output = new ArrayList<>();
+        for (Users obj : students) output.add(new UserDetails(
+                obj.getId(), obj.getUsername(), obj.getEmail(),
+                courseID, 0));
+        for (Users obj : teachers) output.add(new UserDetails(
+                obj.getId(), obj.getUsername(), obj.getEmail(),
+                courseID, 1));
+        
+        return output;
     }
 
     @Override
@@ -97,6 +104,22 @@ public class CourseBean implements CourseBeanRemote {
             ));
         }
         return output;
+    }
+    
+    /**
+     * Hent CourseInfo objektet med informasjon fra clienten.
+     * @param newInfo 
+     */
+    @Override
+    public void editCourse(CourseInfo newInfo) {
+        Courses update = new Courses();
+        update.setCourseCode(newInfo.getCourseCode());
+        update.setCourseID(newInfo.getCourseID());
+        update.setCourseName(newInfo.getCourseName());
+        update.setCourseStartDate(newInfo.getStartDate());
+        update.setCourseEndDate(newInfo.getEndDate());
+        
+        em.merge(update);
     }
     
     
