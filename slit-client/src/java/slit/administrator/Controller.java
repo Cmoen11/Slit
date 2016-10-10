@@ -120,7 +120,11 @@ public class Controller {
         course.setCourseCode(existingCourseCode.getText());
         course.setCourseName(existingCourseName.getText());
         
+        // Send changes to database
         lookupCourseBeanRemote().editCourse(course);
+        
+        //update client data
+        existingCourses.setItems(FXCollections.observableArrayList(courses));
     }
     
     
