@@ -1,7 +1,9 @@
 
 package course;
 
+import auth.UserDetails;
 import database.CourseMembers;
+import database.CourseMembersPK;
 import database.Courses;
 import database.Users;
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class CourseBean implements CourseBeanRemote {
         courses = temp1.getResultList();
         
         for (Courses course : courses) {
-            output.add(new CourseInfo(course.getCourseID(), course.getCourseStartDate(), course.getCourseEndDate(), course.getCourseName()));
+            output.add(new CourseInfo(course.getCourseID(), course.getCourseStartDate(), course.getCourseEndDate(), course.getCourseName(), course.getCourseCode()));
         }
         
         return output;
@@ -61,4 +63,41 @@ public class CourseBean implements CourseBeanRemote {
         return null;
     }
 
+    @Override
+    public void addMemberToCourse(int userID, int courseID, int teacher) {
+        CourseMembers obj = em.find(CourseMembers.class, new CourseMembersPK(userID, courseID));
+        if (obj != null){
+            CourseMembers newRecord = new CourseMembers();
+            newRecord.setCourseMembersPK(new CourseMembersPK(userID, courseID));
+            newRecord.setIsTeacher(teacher);
+            em.persist(newRecord);
+        }
+    }
+    /**
+     * Henter ut alle brukerene som ikke er medlem av kurset. 
+     * @param courseID  KursID på det kurset som skal bli filtrert ut
+     * @return ArrayList av brukerene.
+     */
+    @Override
+    public ArrayList<UserDetails> getAllUsersNotInCourse(int courseID) {
+        List<Users> temp1;
+        temp1 = em.createQuery("SELECT u FROM Users u, CourseMembers cm "
+                + "WHERE u.id = cm.courseMembersPK.userID "
+                + "AND cm.courseMembersPK.courseID != :courseID")
+                .setParameter("courseID", courseID).getResultList();
+        ArrayList<UserDetails> output = new ArrayList<>();
+        
+        for (Users user : temp1) {
+            output.add(new UserDetails(
+                    user.getId(),
+                    user.getUsername(),
+                    user.getEmail(),
+                    -1,
+                    0
+            ));
+        }
+        return output;
+    }
+    
+    
 }

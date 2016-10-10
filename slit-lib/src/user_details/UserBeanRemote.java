@@ -5,6 +5,7 @@
  */
 package user_details;
 
+import auth.UserDetails;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Remote;

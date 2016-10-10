@@ -1,59 +1,120 @@
-
 package slit.administrator;
 
 import course.CourseInfo;
 import auth.LoginAuthRemote;
+import auth.UserDetails;
 import course.CourseBeanRemote;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
+import java.util.Calendar;
+import java.util.Date;
+import javafx.util.StringConverter;
 /**
  *
  * @author Christian
  */
 public class Controller {
-    
+
     // Edit course
     @FXML ListView existingCourses;
     @FXML TextField existingCourseName;
     @FXML ListView courseMembers;
-    
-    
-    ArrayList<CourseInfo> courses; 
-    ArrayList<String> courseNames; 
-    
+    @FXML ComboBox existingAddSingleUserCombo;
+    @FXML DatePicker existingStartDate;
+    @FXML DatePicker existingEndDate;
+    @FXML TextField existingCourseCode;
+
+    ArrayList<CourseInfo> courses;
+    ArrayList<String> courseNames;
+
     public void initialize() {
         courses = lookupLoginAuth_beanRemote().getCourses();
-        courseNames = new ArrayList<>();
-        for (CourseInfo course : courses)
-            courseNames.add(course.getCoruseName());
-        
-        existingCourses.setItems(FXCollections.observableArrayList(courseNames));
+
+        existingCourses.setItems(FXCollections.observableArrayList(courses));
         existingCourses.getSelectionModel().select(0);
+        existingStartDate.setConverter(new StringConverter<LocalDate>()
+        {
+            private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+            @Override
+            public String toString(LocalDate localDate)
+            {
+                if(localDate==null)
+                    return "";
+                return dateTimeFormatter.format(localDate);
+            }
+
+            @Override
+            public LocalDate fromString(String dateString)
+            {
+                if(dateString==null || dateString.trim().isEmpty())
+                {
+                    return null;
+                }
+                return LocalDate.parse(dateString,dateTimeFormatter);
+            }
+        });
         setExistingCourseInfo();
+
     }
     
+    /**
+     * Oppdater GUI med Kursinformasjon. Denne blir kalt hver gang man velger
+     * et kurs fra listview.
+     */
     public void setExistingCourseInfo() {
         int index = existingCourses.getSelectionModel().getSelectedIndex();
-        existingCourseName.setText(courses.get(index).getCoruseName());
+        existingCourseName.setText(courses.get(index).getCourseName());
+        existingCourseCode.setText(courses.get(index).getCourseCode());
         try {
+            // for setting the members of the selected course.
             courseMembers.setItems(
                     FXCollections.observableArrayList(
                             lookupCourseBeanRemote().getCourseMembers(courses.get(index).getCourseID())));
-        }catch(Exception e) {
+            
+            // for add new single user
+            ArrayList<UserDetails> existingUsersNotInCourse = 
+                    lookupCourseBeanRemote().getAllUsersNotInCourse(courses.get(index).getCourseID());
+            existingAddSingleUserCombo.setItems(FXCollections.observableArrayList(existingUsersNotInCourse));
+            new AutoCompleteComboBoxListener(existingAddSingleUserCombo);
+            
+            // for date Pickers
+            //existingStartDate.setValue(LOCAL_DATE("01-10-2016"));
+            //Date date = new Date(existingStartDate.getValue().toEpochDay());
+            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm");
+            //String date_S = date.format(formatter);
+            //System.out.println(date.getTime());
+            
+        } catch (Exception e) {
             courseMembers.getItems().clear();
         }
     }
-
+    /**
+     * Formatere dato
+     * @param dateString
+     * @return 
+     */
+    private static final LocalDate LOCAL_DATE (String dateString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
+    }
+    
+    // connection to beans
     private LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {
             Context c = new InitialContext();
@@ -73,5 +134,5 @@ public class Controller {
             throw new RuntimeException(ne);
         }
     }
-    
+
 }

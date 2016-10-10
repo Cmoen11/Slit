@@ -98,7 +98,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
         courses = temp1.getResultList();
         
         for (Courses course : courses) {
-            output.add(new CourseInfo(course.getCourseID(), course.getCourseStartDate(), course.getCourseEndDate(), course.getCourseName()));
+            output.add(new CourseInfo(course.getCourseID(), course.getCourseStartDate(), course.getCourseEndDate(), course.getCourseName(), course.getCourseCode()));
         }
         
         return output;

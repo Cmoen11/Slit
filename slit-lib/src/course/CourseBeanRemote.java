@@ -5,6 +5,7 @@
  */
 package course;
 
+import auth.UserDetails;
 import java.util.ArrayList;
 import javax.ejb.Remote;
 
@@ -17,5 +18,8 @@ public interface CourseBeanRemote {
     
     ArrayList<CourseInfo> getCourses();
     ArrayList<String>getCourseMembers(int courseID);
+
+    void addMemberToCourse(int userID, int courseID, int teacher);
+    ArrayList<UserDetails> getAllUsersNotInCourse(int courseID);
     
 }

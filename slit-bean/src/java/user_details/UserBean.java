@@ -5,7 +5,9 @@
  */
 package user_details;
 
+import auth.UserDetails;
 import database.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -47,7 +49,8 @@ public class UserBean implements UserBeanRemote {
        //CourseClass studentEntry = new CourseClass(user.getId(), courseID, false);
        //em.persist(studentEntry);
        } 
-
+    
+    
     
     /**
      * TO DO : FIX
@@ -63,6 +66,7 @@ public class UserBean implements UserBeanRemote {
     }
     //    for (String username: usersToAdd)
     //        addUserToCourse(username, courseID);
+
     
     
     

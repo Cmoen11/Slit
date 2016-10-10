@@ -74,7 +74,7 @@ public class Controller {
         courses = lookupLoginAuth_beanRemote().getCourses();
         courseNames = new ArrayList<>();
         for (CourseInfo course : courses)
-            courseNames.add(course.getCoruseName());
+            courseNames.add(course.getCourseName());
         courses_combo.setItems(FXCollections.observableArrayList(courseNames));
         
     }

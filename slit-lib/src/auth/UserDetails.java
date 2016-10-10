@@ -25,6 +25,12 @@ public class UserDetails implements Serializable {
         this.teacher = (isTeacher == 1);  
     }
 
+    @Override
+    public String toString() {
+        String newString = username;
+        return newString; 
+    }
+
     public boolean isTeacher() {
         return teacher;
     }
