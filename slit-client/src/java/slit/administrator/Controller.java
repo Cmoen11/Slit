@@ -73,7 +73,7 @@ public class Controller {
             }
         });
         setExistingCourseInfo();
-
+                
     }
     
     /**
@@ -91,11 +91,6 @@ public class Controller {
             courseMembers.setItems(
                     FXCollections.observableArrayList(userdetails));
             
-            // for add new single user
-            existingUsersNotInCourse = 
-                    lookupCourseBeanRemote().getAllUsersNotInCourse(courses.get(index).getCourseID());
-            existingAddSingleUserCombo.setItems(FXCollections.observableArrayList(existingUsersNotInCourse));
-            new AutoCompleteComboBoxListener(existingAddSingleUserCombo);
             
             // for date Pickers
             //existingStartDate.setValue(LOCAL_DATE("01-10-2016"));
@@ -106,6 +101,15 @@ public class Controller {
             
         } catch (Exception e) {
             courseMembers.getItems().clear();
+        }
+        try {
+            // for add new single user
+            existingUsersNotInCourse = 
+                    lookupCourseBeanRemote().getAllUsersNotInCourse(courses.get(index).getCourseID());
+            existingAddSingleUserCombo.setItems(FXCollections.observableArrayList(existingUsersNotInCourse));
+            new AutoCompleteComboBoxListener(existingAddSingleUserCombo);
+        }catch(Exception e) {
+            existingAddSingleUserCombo.getItems().clear();
         }
     }
     /**
@@ -146,6 +150,30 @@ public class Controller {
         setExistingCourseInfo();
         
     }
+    /**
+     * Remove user from course
+     */
+    public void removeUserFromCourse() {
+        // get coursedata and user that are to be removed.
+        CourseInfo course = (CourseInfo) existingCourses.getSelectionModel().getSelectedItem(); 
+        UserDetails userObj = userdetails.get(courseMembers.getSelectionModel().getSelectedIndex());
+
+        if (course == null || userObj == null)
+            System.out.println("Fikk ikke hentet data..");
+        else {
+            lookupCourseBeanRemote().removeUserFromCourse(userObj.getId(), course.getCourseID());
+            setExistingCourseInfo(); // update the GUI    
+        }
+       
+    }
+    public void setUserToTeacher() {
+        CourseInfo course = (CourseInfo) existingCourses.getSelectionModel().getSelectedItem(); 
+        UserDetails userObj = (UserDetails) courseMembers.getSelectionModel().getSelectedItem();
+
+        lookupCourseBeanRemote().switchUserStudentTeacher(userObj.getId(), course.getCourseID());
+        setExistingCourseInfo(); // update the GUI   
+    }
+    
     
     // connection to beans
     private LoginAuthRemote lookupLoginAuth_beanRemote() {

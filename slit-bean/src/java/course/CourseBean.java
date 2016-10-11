@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
 /**
@@ -23,9 +25,8 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CourseBean implements CourseBeanRemote {
-    @PersistenceContext
+    @PersistenceContext()
     EntityManager em;
-    
     /**
      * Hent ut alle kursene
      * @return Liste med alle kursene.
@@ -43,6 +44,9 @@ public class CourseBean implements CourseBeanRemote {
         
         return output;
     }
+    
+    
+    
     
     /**
      * Hent alle medlemmene i valgt kurs.
@@ -136,6 +140,29 @@ public class CourseBean implements CourseBeanRemote {
         update.setCourseEndDate(newInfo.getEndDate());
         
         em.merge(update);
+    }
+    
+    /**
+     * Fjern et medlem av et kurs.
+     * @param userID
+     * @param courseID 
+     */
+    @Override
+    public void removeUserFromCourse(int userID, int courseID) {
+        CourseMembers cm = em.find(CourseMembers.class, new CourseMembersPK(courseID, userID));
+        em.remove(cm);
+        em.flush();
+    }
+
+    @Override
+    public void switchUserStudentTeacher(int userID, int courseID) {
+        CourseMembers cm = em.find(CourseMembers.class, new CourseMembersPK(courseID, userID));
+        if (cm.getIsTeacher() == 1) cm.setIsTeacher(0);
+        else                        cm.setIsTeacher(1);
+        
+        System.out.println(cm.getIsTeacher());
+        em.merge(cm);
+        em.flush();
     }
     
     
