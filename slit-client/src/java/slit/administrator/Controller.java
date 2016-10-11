@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javafx.scene.control.CheckBox;
 import javafx.util.StringConverter;
+import user_details.UserBeanRemote;
 /**
  *
  * @author Christian
@@ -39,10 +40,10 @@ public class Controller {
     @FXML DatePicker existingEndDate;
     @FXML TextField existingCourseCode;
     @FXML CheckBox existingIsTeacher;
-
+ 
     ArrayList<CourseInfo> courses;
     ArrayList<String> courseNames;
-
+    ArrayList<UserDetails> userdetails;
     public void initialize() {
         courses = lookupLoginAuth_beanRemote().getCourses();
 
@@ -84,9 +85,10 @@ public class Controller {
         existingCourseCode.setText(courses.get(index).getCourseCode());
         try {
             // for setting the members of the selected course.
+            userdetails = lookupCourseBeanRemote().getCourseMembers(courses.get(index).getCourseID());
+            
             courseMembers.setItems(
-                    FXCollections.observableArrayList(
-                            lookupCourseBeanRemote().getCourseMembers(courses.get(index).getCourseID())));
+                    FXCollections.observableArrayList(userdetails));
             
             // for add new single user
             ArrayList<UserDetails> existingUsersNotInCourse = 
@@ -131,13 +133,15 @@ public class Controller {
     
     public void addUserToCourse() {
         int index = existingCourses.getSelectionModel().getSelectedIndex();
-        UserDetails user = (UserDetails)existingAddSingleUserCombo
-                .getSelectionModel()
-                .getSelectedItem();
+        //UserDetails user = (UserDetails)existingAddSingleUserCombo.getSelectionModel().getSelectedItem();
+        int index_2 = existingAddSingleUserCombo.getSelectionModel().getSelectedIndex();
         
+        UserDetails user = lookupUserBeanRemote().getUserByUsername(userdetails.get(index_2).getUsername());
         
-        lookupCourseBeanRemote().addMemberToCourse(
-                user.getId(), courses.get(index).getCourseID(), existingIsTeacher.isSelected() ? 1 : 0);
+        int isTeacher = existingIsTeacher.isSelected() ? 1 : 0;
+        System.out.println(user.getId() +" "+ courses.get(index).getCourseID() +" "+ isTeacher);
+        //lookupCourseBeanRemote().addMemberToCourse(
+        //        user.getId(), courses.get(index).getCourseID(), existingIsTeacher.isSelected() ? 1 : 0);
     }
     
     // connection to beans
@@ -155,6 +159,16 @@ public class Controller {
         try {
             Context c = new InitialContext();
             return (CourseBeanRemote) c.lookup("java:comp/env/CourseBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private UserBeanRemote lookupUserBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (UserBeanRemote) c.lookup("java:comp/env/UserBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
