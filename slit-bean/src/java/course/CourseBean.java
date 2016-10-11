@@ -93,7 +93,6 @@ public class CourseBean implements CourseBeanRemote {
         temp2 = em.createQuery("SELECT u FROM Users u "
                 + "NATURAL LEFT JOIN CourseMembers b "
                 + "WHERE b.courseMembersPK.userID IS NULL").getResultList();
-        
         temp1.removeAll(temp2);
         temp1.addAll(temp2);
         
