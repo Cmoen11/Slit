@@ -7,7 +7,11 @@ import database.CourseMembersPK;
 import database.Courses;
 import database.Users;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -59,7 +63,7 @@ public class CourseBean implements CourseBeanRemote {
                         .setParameter("courseID", courseID)
                         .getResultList();
         
-        ArrayList<UserDetails> output = new ArrayList<>();
+        HashSet<UserDetails> output = new HashSet<>();
         for (Users obj : students) output.add(new UserDetails(
                 obj.getId(), obj.getUsername(), obj.getEmail(),
                 courseID, 0));
@@ -67,13 +71,17 @@ public class CourseBean implements CourseBeanRemote {
                 obj.getId(), obj.getUsername(), obj.getEmail(),
                 courseID, 1));
         
-        return output;
+        ArrayList<UserDetails> userDetails = new ArrayList<>();
+        for (UserDetails obj : output)
+            userDetails.add(obj);
+        
+        return userDetails;
     }
 
     @Override
     public void addMemberToCourse(int userID, int courseID, int teacher) {
             CourseMembers newRecord = new CourseMembers();
-            newRecord.setCourseMembersPK(new CourseMembersPK(userID, courseID));
+            newRecord.setCourseMembersPK(new CourseMembersPK(courseID, userID));
             newRecord.setIsTeacher(teacher);
             em.persist(newRecord);
     }
@@ -84,18 +92,21 @@ public class CourseBean implements CourseBeanRemote {
      */
     @Override
     public ArrayList<UserDetails> getAllUsersNotInCourse(int courseID) {
-        List<Users> temp1;
-        temp1 = em.createQuery("SELECT u FROM Users u, CourseMembers cm "
-                + "WHERE u.id = cm.courseMembersPK.userID "
-                + "AND cm.courseMembersPK.courseID  != :courseID")
-                .setParameter("courseID", courseID).getResultList();
-        List<Users> temp2;
-        temp2 = em.createQuery(""
-                + "SELECT u FROM Users u WHERE u.courseMembersCollection IS EMPTY"  
-        ).getResultList();
-    
-        temp1.removeAll(temp2);
-        temp1.addAll(temp2);
+        
+        List<Users> temp1; 
+        temp1 = em.createQuery("SELECT u FROM Users u").getResultList();
+        for (Iterator<Users> it = temp1.iterator(); it.hasNext();) {
+            Collection<CourseMembers> courses = it.next().getCourseMembersCollection(); 
+            if (courses != null && !courses.isEmpty())
+                for (CourseMembers course : courses) {
+                    if (course.getCourseMembersPK().getCourseID() == courseID){
+                        it.remove();
+                        break;
+                    }
+                }
+            
+        }
+        
         
         ArrayList<UserDetails> output = new ArrayList<>();
         

@@ -80,7 +80,6 @@ public class Controller {
     }
     
     public void click()  {
-        System.out.println("Hey");
     }
 
     private LoginAuthRemote lookupLoginAuth_beanRemote() {
@@ -92,6 +91,16 @@ public class Controller {
             throw new RuntimeException(ne);
         }
     }
+
+
+
+    
+
+    
+
+    
+    
+    
 
     
 

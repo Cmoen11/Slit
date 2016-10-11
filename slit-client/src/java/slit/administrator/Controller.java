@@ -44,6 +44,7 @@ public class Controller {
     ArrayList<CourseInfo> courses;
     ArrayList<String> courseNames;
     ArrayList<UserDetails> userdetails;
+    ArrayList<UserDetails> existingUsersNotInCourse;
     public void initialize() {
         courses = lookupLoginAuth_beanRemote().getCourses();
 
@@ -91,7 +92,7 @@ public class Controller {
                     FXCollections.observableArrayList(userdetails));
             
             // for add new single user
-            ArrayList<UserDetails> existingUsersNotInCourse = 
+            existingUsersNotInCourse = 
                     lookupCourseBeanRemote().getAllUsersNotInCourse(courses.get(index).getCourseID());
             existingAddSingleUserCombo.setItems(FXCollections.observableArrayList(existingUsersNotInCourse));
             new AutoCompleteComboBoxListener(existingAddSingleUserCombo);
@@ -136,12 +137,14 @@ public class Controller {
         //UserDetails user = (UserDetails)existingAddSingleUserCombo.getSelectionModel().getSelectedItem();
         int index_2 = existingAddSingleUserCombo.getSelectionModel().getSelectedIndex();
         
-        UserDetails user = lookupUserBeanRemote().getUserByUsername(userdetails.get(index_2).getUsername());
+        UserDetails user = existingUsersNotInCourse.get(index_2);
         
         int isTeacher = existingIsTeacher.isSelected() ? 1 : 0;
-        System.out.println(user.getId() +" "+ courses.get(index).getCourseID() +" "+ isTeacher);
-        //lookupCourseBeanRemote().addMemberToCourse(
-        //        user.getId(), courses.get(index).getCourseID(), existingIsTeacher.isSelected() ? 1 : 0);
+        System.out.println("AddUserToCourse " + user.getId() +" "+ courses.get(index).getCourseID() +" "+ isTeacher);
+        lookupCourseBeanRemote().addMemberToCourse(
+                user.getId(), courses.get(index).getCourseID(), existingIsTeacher.isSelected() ? 1 : 0);
+        setExistingCourseInfo();
+        
     }
     
     // connection to beans
