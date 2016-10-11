@@ -26,4 +26,9 @@
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>user_details.UserBeanRemote</remote>
   </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>Test</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>test.TestRemote</remote>
+  </ejb-ref>
 </application-client>

@@ -23,5 +23,9 @@ public interface CourseBeanRemote {
     ArrayList<UserDetails> getAllUsersNotInCourse(int courseID);
 
     void editCourse(CourseInfo newInfo);
+
+    void removeUserFromCourse(int userID, int courseID);
+
+    void switchUserStudentTeacher(int userID, int courseID);
     
 }

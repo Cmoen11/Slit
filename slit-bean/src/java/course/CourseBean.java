@@ -7,10 +7,16 @@ import database.CourseMembersPK;
 import database.Courses;
 import database.Users;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
 /**
@@ -19,9 +25,8 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class CourseBean implements CourseBeanRemote {
-    @PersistenceContext
+    @PersistenceContext()
     EntityManager em;
-    
     /**
      * Hent ut alle kursene
      * @return Liste med alle kursene.
@@ -39,6 +44,9 @@ public class CourseBean implements CourseBeanRemote {
         
         return output;
     }
+    
+    
+    
     
     /**
      * Hent alle medlemmene i valgt kurs.
@@ -59,7 +67,7 @@ public class CourseBean implements CourseBeanRemote {
                         .setParameter("courseID", courseID)
                         .getResultList();
         
-        ArrayList<UserDetails> output = new ArrayList<>();
+        HashSet<UserDetails> output = new HashSet<>();
         for (Users obj : students) output.add(new UserDetails(
                 obj.getId(), obj.getUsername(), obj.getEmail(),
                 courseID, 0));
@@ -67,13 +75,17 @@ public class CourseBean implements CourseBeanRemote {
                 obj.getId(), obj.getUsername(), obj.getEmail(),
                 courseID, 1));
         
-        return output;
+        ArrayList<UserDetails> userDetails = new ArrayList<>();
+        for (UserDetails obj : output)
+            userDetails.add(obj);
+        
+        return userDetails;
     }
 
     @Override
     public void addMemberToCourse(int userID, int courseID, int teacher) {
             CourseMembers newRecord = new CourseMembers();
-            newRecord.setCourseMembersPK(new CourseMembersPK(userID, courseID));
+            newRecord.setCourseMembersPK(new CourseMembersPK(courseID, userID));
             newRecord.setIsTeacher(teacher);
             em.persist(newRecord);
     }
@@ -84,18 +96,21 @@ public class CourseBean implements CourseBeanRemote {
      */
     @Override
     public ArrayList<UserDetails> getAllUsersNotInCourse(int courseID) {
-        List<Users> temp1;
-        temp1 = em.createQuery("SELECT u FROM Users u, CourseMembers cm "
-                + "WHERE u.id = cm.courseMembersPK.userID "
-                + "AND cm.courseMembersPK.courseID  != :courseID")
-                .setParameter("courseID", courseID).getResultList();
-        List<Users> temp2;
-        temp2 = em.createQuery(""
-                + "SELECT u FROM Users u WHERE u.courseMembersCollection IS EMPTY"  
-        ).getResultList();
-    
-        temp1.removeAll(temp2);
-        temp1.addAll(temp2);
+        
+        List<Users> temp1; 
+        temp1 = em.createQuery("SELECT u FROM Users u").getResultList();
+        for (Iterator<Users> it = temp1.iterator(); it.hasNext();) {
+            Collection<CourseMembers> courses = it.next().getCourseMembersCollection(); 
+            if (courses != null && !courses.isEmpty())
+                for (CourseMembers course : courses) {
+                    if (course.getCourseMembersPK().getCourseID() == courseID){
+                        it.remove();
+                        break;
+                    }
+                }
+            
+        }
+        
         
         ArrayList<UserDetails> output = new ArrayList<>();
         
@@ -125,6 +140,29 @@ public class CourseBean implements CourseBeanRemote {
         update.setCourseEndDate(newInfo.getEndDate());
         
         em.merge(update);
+    }
+    
+    /**
+     * Fjern et medlem av et kurs.
+     * @param userID
+     * @param courseID 
+     */
+    @Override
+    public void removeUserFromCourse(int userID, int courseID) {
+        CourseMembers cm = em.find(CourseMembers.class, new CourseMembersPK(courseID, userID));
+        em.remove(cm);
+        em.flush();
+    }
+
+    @Override
+    public void switchUserStudentTeacher(int userID, int courseID) {
+        CourseMembers cm = em.find(CourseMembers.class, new CourseMembersPK(courseID, userID));
+        if (cm.getIsTeacher() == 1) cm.setIsTeacher(0);
+        else                        cm.setIsTeacher(1);
+        
+        System.out.println(cm.getIsTeacher());
+        em.merge(cm);
+        em.flush();
     }
     
     
