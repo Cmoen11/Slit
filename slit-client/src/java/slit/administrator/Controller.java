@@ -134,6 +134,10 @@ public class Controller {
         
         //update client data
         existingCourses.setItems(FXCollections.observableArrayList(courses));
+        
+        initialize(); // update the GUI   
+        existingCourses.getSelectionModel().select(index);
+        
     }
     
     public void addUserToCourse() {

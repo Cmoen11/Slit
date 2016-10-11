@@ -85,6 +85,5 @@
          </children>
       </VBox>
       <Text fill="WHITE" layoutX="128.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit system - 2016" />
-      <Button layoutX="148.0" mnemonicParsing="false" onAction="#click" text="Testknapp" />
    </children>
 </Pane>
