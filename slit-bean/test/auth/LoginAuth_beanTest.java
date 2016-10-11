@@ -20,18 +20,6 @@ import static org.junit.Assert.*;
  */
 public class LoginAuth_beanTest {
 
-    @Test
-    public void testAuthAccount() throws Exception {
-        System.out.println("authAccount");
-        String username = "test";
-        String password = "test";
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        LoginAuthRemote instance = (LoginAuthRemote)container.getContext().lookup("java:global/classes/LoginAuth_bean");
-        boolean expResult = true;
-        boolean result = instance.authAccount(username, password);
-        assertEquals(expResult, result);
-        container.close();
-    }
 
     
 }

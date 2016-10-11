@@ -93,7 +93,7 @@ public class CourseBean implements CourseBeanRemote {
         temp2 = em.createQuery(""
                 + "SELECT u FROM Users u WHERE u.courseMembersCollection IS EMPTY"  
         ).getResultList();
-        
+    
         temp1.removeAll(temp2);
         temp1.addAll(temp2);
         
