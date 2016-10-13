@@ -19,7 +19,8 @@ import javax.persistence.Query;
  */
 @Stateless
 public class UserBean implements UserBeanRemote {
-    @PersistenceContext EntityManager em;
+    @PersistenceContext()
+    EntityManager em;
 
     
     @Override
@@ -29,6 +30,9 @@ public class UserBean implements UserBeanRemote {
         
         return em.find(Users.class, user).getId();
     }
+    
+    
+    
     
     /* 
     * TO DO FIX.
@@ -74,6 +78,16 @@ public class UserBean implements UserBeanRemote {
     }
     //    for (String username: usersToAdd)
     //        addUserToCourse(username, courseID);
+
+    @Override
+    public void editUser(UserDetails obj, String password) {
+        Users user = em.find(Users.class, obj.getId());
+        user.setEmail(obj.getEmail());
+        user.setPassword(password);
+        
+        em.merge(user);
+        
+    }
 
     
     

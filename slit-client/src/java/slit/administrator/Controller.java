@@ -47,32 +47,33 @@ public class Controller {
     ArrayList<UserDetails> existingUsersNotInCourse;
     public void initialize() {
         courses = lookupLoginAuth_beanRemote().getCourses();
-
-        existingCourses.setItems(FXCollections.observableArrayList(courses));
-        existingCourses.getSelectionModel().select(0);
-        existingStartDate.setConverter(new StringConverter<LocalDate>()
-        {
-            private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
-            @Override
-            public String toString(LocalDate localDate)
+        if (courses.size() > 0) {
+            existingCourses.setItems(FXCollections.observableArrayList(courses));
+            existingCourses.getSelectionModel().select(0);
+            existingStartDate.setConverter(new StringConverter<LocalDate>()
             {
-                if(localDate==null)
-                    return "";
-                return dateTimeFormatter.format(localDate);
-            }
+                private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-            @Override
-            public LocalDate fromString(String dateString)
-            {
-                if(dateString==null || dateString.trim().isEmpty())
+                @Override
+                public String toString(LocalDate localDate)
                 {
-                    return null;
+                    if(localDate==null)
+                        return "";
+                    return dateTimeFormatter.format(localDate);
                 }
-                return LocalDate.parse(dateString,dateTimeFormatter);
-            }
-        });
-        setExistingCourseInfo();
+
+                @Override
+                public LocalDate fromString(String dateString)
+                {
+                    if(dateString==null || dateString.trim().isEmpty())
+                    {
+                        return null;
+                    }
+                    return LocalDate.parse(dateString,dateTimeFormatter);
+                }
+            });
+            setExistingCourseInfo();
+        }
                 
     }
     
