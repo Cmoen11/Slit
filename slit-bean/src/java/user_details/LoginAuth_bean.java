@@ -116,4 +116,15 @@ public class LoginAuth_bean implements LoginAuthRemote {
     @Override
     public void test() {
     }
+    
+    @Override
+    public void editUser(UserDetails obj, String password) {
+        Users user = em.find(Users.class, obj.getId());
+        user.setEmail(obj.getEmail());
+        user.setPassword(password);
+        
+        em.merge(user);
+        
+    }
+    
 }

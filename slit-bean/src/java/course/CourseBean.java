@@ -153,7 +153,12 @@ public class CourseBean implements CourseBeanRemote {
         em.remove(cm);
         em.flush();
     }
-
+    
+    /**
+     * Endre på om brukeren skal være en student eller foreleser
+     * @param userID
+     * @param courseID 
+     */
     @Override
     public void switchUserStudentTeacher(int userID, int courseID) {
         CourseMembers cm = em.find(CourseMembers.class, new CourseMembersPK(courseID, userID));
@@ -164,6 +169,22 @@ public class CourseBean implements CourseBeanRemote {
         em.merge(cm);
         em.flush();
     }
+
+    /**
+     * Opprett et nytt kurs fra et CourseInfo objekt
+     * @param newCourse
+     */
+    @Override
+    public void createCourse(CourseInfo newCourse) {
+        Courses course = new Courses();
+        course.setCourseCode(newCourse.getCourseCode());
+        course.setCourseEndDate(newCourse.getEndDate());
+        course.setCourseStartDate(newCourse.getStartDate());
+        course.setCourseName(course.getCourseName());
+        
+        em.persist(course);
+    }
+    
     
     
 }

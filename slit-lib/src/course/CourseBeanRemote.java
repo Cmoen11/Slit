@@ -27,5 +27,7 @@ public interface CourseBeanRemote {
     void removeUserFromCourse(int userID, int courseID);
 
     void switchUserStudentTeacher(int userID, int courseID);
+
+    void createCourse(CourseInfo newCourse);
     
 }

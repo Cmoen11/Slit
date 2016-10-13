@@ -6,12 +6,26 @@ import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
+import javafx.util.Pair;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -41,8 +55,10 @@ public class Controller {
         
         if(user != null) {
             // if loginbutton is pressed & username and password is correct<
-            System.out.println("Logged in as " + username.getText());
-            if (user.isTeacher()) {
+            if (user.getEmail().equals("@@")){
+                firstTimeLoggedIn(user);
+            }
+            else if (user.isTeacher()) {
                 new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
                 System.out.println(user.getUsername() +" "+ user.getCourseID() +" "+ user.isTeacher());
             }
@@ -56,15 +72,28 @@ public class Controller {
         }
             
         else {
-            System.out.println("nah..");
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Brukerfeil");
+            alert.setContentText("Du har enten problemer med brukernavn, passord eller kurs. \n Ta kontakt med en Administrator ved feil");
+            alert.setHeaderText("Innlogging feilet");
+            alert.showAndWait();
         }
         
     }
     
+    private void firstTimeLoggedIn(UserDetails user) {
+            FirstTimeLoggedIn obj = new FirstTimeLoggedIn();
+            obj.runGUI(Main.primaryStage, user);
+    }
     
     public void adminloginButtonClicked() {
         if (!lookupLoginAuth_beanRemote().authAdminAccount(username.getText(), password.getText())) {
             System.out.println("Brukernavn og passord er feil, eller bruker er ikke admin.");
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Brukerfeil");
+            alert.setContentText("Brukernavn og passord er feil, eller bruker er ikke en Administrator.");
+            alert.setHeaderText("Innlogging feilet");
+            alert.showAndWait();
         } else {
             new MainAdmin().runGUI(Main.primaryStage);
         }

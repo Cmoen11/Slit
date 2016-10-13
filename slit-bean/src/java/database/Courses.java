@@ -6,6 +6,8 @@
 package database;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,6 +20,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -51,12 +55,10 @@ public class Courses implements Serializable {
     @Size(max = 30)
     @Column(name = "courseName")
     private String courseName;
-    @Size(max = 30)
-    @Column(name = "courseStartDate")
-    private String courseStartDate;
-    @Size(max = 30)
-    @Column(name = "courseEndDate")
-    private String courseEndDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar courseStartDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Calendar courseEndDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "courses")
     private Collection<CourseMembers> courseMembersCollection;
 
@@ -83,19 +85,19 @@ public class Courses implements Serializable {
         this.courseName = courseName;
     }
 
-    public String getCourseStartDate() {
+    public Calendar getCourseStartDate() {
         return courseStartDate;
     }
 
-    public void setCourseStartDate(String courseStartDate) {
+    public void setCourseStartDate(Calendar courseStartDate) {
         this.courseStartDate = courseStartDate;
     }
 
-    public String getCourseEndDate() {
+    public Calendar getCourseEndDate() {
         return courseEndDate;
     }
 
-    public void setCourseEndDate(String courseEndDate) {
+    public void setCourseEndDate(Calendar courseEndDate) {
         this.courseEndDate = courseEndDate;
     }
 
