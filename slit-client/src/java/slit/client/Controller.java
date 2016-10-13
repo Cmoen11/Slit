@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javax.naming.Context;
@@ -56,7 +58,11 @@ public class Controller {
         }
             
         else {
-            System.out.println("nah..");
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Brukerfeil");
+            alert.setContentText("Du har enten problemer med brukernavn, passord eller kurs. \n Ta kontakt med en Administrator ved feil");
+            alert.setHeaderText("Innlogging feilet");
+            alert.showAndWait();
         }
         
     }
@@ -65,6 +71,11 @@ public class Controller {
     public void adminloginButtonClicked() {
         if (!lookupLoginAuth_beanRemote().authAdminAccount(username.getText(), password.getText())) {
             System.out.println("Brukernavn og passord er feil, eller bruker er ikke admin.");
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Brukerfeil");
+            alert.setContentText("Brukernavn og passord er feil, eller bruker er ikke en Administrator.");
+            alert.setHeaderText("Innlogging feilet");
+            alert.showAndWait();
         } else {
             new MainAdmin().runGUI(Main.primaryStage);
         }
