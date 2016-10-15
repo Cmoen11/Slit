@@ -82,9 +82,9 @@ public class UserBean implements UserBeanRemote {
     @Override
     public void editUser(UserDetails obj, String password) {
         Users user = em.find(Users.class, obj.getId());
+        System.out.println(user.getUsername());
         user.setEmail(obj.getEmail());
         user.setPassword(password);
-        
         em.merge(user);
         
     }
