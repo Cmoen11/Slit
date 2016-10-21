@@ -29,7 +29,7 @@
          <children>
             <TabPane layoutX="12.0" layoutY="51.0" prefHeight="468.0" prefWidth="764.0" style="-fx-background-color: white; -fx-background-radius: 5;" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="51.0">
               <tabs>
-                <Tab closable="false" text="Endre kurs">
+                <Tab closable="false" onSelectionChanged="#setExistingCourseInfo" text="Endre kurs">
                   <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="444.0" prefWidth="764.0" style="-fx-background-radius: 5;">
                            <children>
@@ -38,8 +38,8 @@
                               <Text layoutX="434.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kursnavn" />
                               <Text layoutX="435.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs start dato" />
                               <Text layoutX="436.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs slutt dato" />
-                              <DatePicker fx:id="existingStartDate" layoutX="540.0" layoutY="121.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
-                              <DatePicker fx:id="existingEndDate" layoutX="540.0" layoutY="160.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
+                              <DatePicker fx:id="existingStartDate" editable="false" layoutX="540.0" layoutY="121.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
+                              <DatePicker fx:id="existingEndDate" editable="false" layoutX="540.0" layoutY="160.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
                               <Button layoutX="624.0" layoutY="379.0" mnemonicParsing="false" onAction="#updateCourse" prefHeight="49.0" prefWidth="122.0" text="Lagre" />
                               <ListView fx:id="courseMembers" layoutX="24.0" layoutY="239.0" prefHeight="119.0" prefWidth="346.0" />
                               <Text layoutX="24.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medlemmer av kurset" />
@@ -76,26 +76,25 @@
                               <Text layoutX="21.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kursnavn" />
                               <Text layoutX="21.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs start dato" />
                               <Text layoutX="21.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs slutt dato" />
-                              <DatePicker layoutX="124.0" layoutY="145.0" prefHeight="25.0" prefWidth="219.0" showWeekNumbers="true" />
-                              <DatePicker layoutX="124.0" layoutY="186.0" prefHeight="25.0" prefWidth="219.0" showWeekNumbers="true" />
-                              <Button layoutX="613.0" layoutY="370.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="122.0" text="Opprett kurs" />
                               <Text layoutX="21.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opprett nytt kurs">
                                  <font>
                                     <Font name="Calibri Light" size="23.0" />
                                  </font>
                               </Text>
-                              <TextField layoutX="124.0" layoutY="62.0" prefHeight="25.0" prefWidth="219.0" />
+                              <TextField fx:id="newCourseName" layoutX="124.0" layoutY="62.0" prefHeight="25.0" prefWidth="219.0" />
+                              <TextField fx:id="newCourseCode" layoutX="124.0" layoutY="102.0" prefHeight="25.0" prefWidth="218.0" />
+                              <DatePicker fx:id="newStartDate" editable="false" layoutX="124.0" layoutY="145.0" prefHeight="25.0" prefWidth="219.0" showWeekNumbers="true" />
+                              <DatePicker fx:id="newEndDate" editable="false" layoutX="124.0" layoutY="186.0" prefHeight="25.0" prefWidth="219.0" showWeekNumbers="true" />
+                              <CheckBox layoutX="420.0" layoutY="68.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="268.0" text="Klon data fra et eksisterende kurs" />
                               <ComboBox disable="true" editable="true" layoutX="422.0" layoutY="102.0" prefHeight="25.0" prefWidth="312.0" promptText="Kursnavn" />
                               <CheckBox disable="true" layoutX="421.0" layoutY="144.0" mnemonicParsing="false" text="Medlemmer" />
                               <CheckBox disable="true" layoutX="421.0" layoutY="170.0" mnemonicParsing="false" text="Kursmatriell(Filer)" />
                               <CheckBox disable="true" layoutX="623.0" layoutY="144.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="103.0" text="Moduler" />
-                              <CheckBox layoutX="420.0" layoutY="68.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="268.0" text="Klon data fra et eksisterende kurs" />
-                              <TextField layoutX="124.0" layoutY="102.0" prefHeight="25.0" prefWidth="218.0" />
                               <Text layoutX="21.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurskode" />
-                              <ComboBox editable="true" layoutX="508.0" layoutY="261.0" prefHeight="25.0" prefWidth="227.0" promptText="Brukernavnet til det nye medlemmet" />
+                              <CheckBox fx:id="newIsTeacher" layoutX="429.0" layoutY="261.0" mnemonicParsing="false" text="Foreleser" />
+                              <ComboBox fx:id="newAddSingleUserCombo" editable="true" layoutX="508.0" layoutY="261.0" prefHeight="25.0" prefWidth="227.0" promptText="Brukernavnet til det nye medlemmet" />
                               <Button layoutX="429.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" text="Legg til mange medlemmer " />
                               <Button layoutX="615.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="legg til" />
-                              <CheckBox layoutX="429.0" layoutY="261.0" mnemonicParsing="false" text="Foreleser" />
                               <Text layoutX="429.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legg til ny medlem til kurset">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -109,12 +108,13 @@
                               </Text>
                               <Separator layoutX="423.0" layoutY="356.0" prefHeight="2.0" prefWidth="310.0" />
                               <Separator layoutX="14.0" layoutY="227.0" prefHeight="2.0" prefWidth="328.0" />
-                              <ListView layoutX="14.0" layoutY="258.0" prefHeight="159.0" prefWidth="328.0" />
+                              <ListView fx:id="newCourseMembers" layoutX="14.0" layoutY="258.0" prefHeight="159.0" prefWidth="328.0" />
                               <Text layoutX="17.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oppsatte medlemmer av kurset">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Text>
+                              <Button layoutX="614.0" layoutY="368.0" mnemonicParsing="false" onAction="#createCourse" prefHeight="49.0" prefWidth="122.0" text="Opprett kurs" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -133,6 +133,6 @@
             </Text>
          </children>
       </AnchorPane>
-      <Label layoutX="317.0" layoutY="561.0" text="Slit 2016. Av studenter, til lærere" textFill="WHITE" />
+      <Label layoutX="317.0" layoutY="561.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" />
    </children>
 </AnchorPane>

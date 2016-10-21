@@ -23,6 +23,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.util.StringConverter;
 import user_details.UserBeanRemote;
@@ -41,11 +45,22 @@ public class Controller {
     @FXML DatePicker existingEndDate;
     @FXML TextField existingCourseCode;
     @FXML CheckBox existingIsTeacher;
- 
+    
     ArrayList<CourseInfo> courses;
     ArrayList<String> courseNames;
     ArrayList<UserDetails> userdetails;
     ArrayList<UserDetails> existingUsersNotInCourse;
+    
+    // create Course
+    @FXML TextField newCourseName;
+    @FXML ListView newCourseMembers;
+    @FXML ComboBox newAddSingleUserCombo;
+    @FXML DatePicker newStartDate;
+    @FXML DatePicker newEndDate;
+    @FXML TextField newCourseCode;
+    @FXML CheckBox newIsTeacher;
+    
+    
     public void initialize() {
         courses = lookupLoginAuth_beanRemote().getCourses();
         if (courses.size() > 0) {
@@ -160,6 +175,9 @@ public class Controller {
         }
        
     }
+    /**
+     * set the selected member to teacher// Existing course only!
+     */
     public void setUserToTeacher() {
         CourseInfo course = (CourseInfo) existingCourses.getSelectionModel().getSelectedItem(); 
         UserDetails userObj = (UserDetails) courseMembers.getSelectionModel().getSelectedItem();
@@ -167,7 +185,44 @@ public class Controller {
         lookupCourseBeanRemote().switchUserStudentTeacher(userObj.getId(), course.getCourseID());
         setExistingCourseInfo(); // update the GUI   
     }
-    
+    private void clearNewCourseData() {
+        newCourseCode.clear();
+        newCourseName.clear();
+        newStartDate.getEditor().clear();
+        newEndDate.getEditor().clear();
+    }
+    public void createCourse() {
+        CourseInfo obj = new CourseInfo();
+        obj.setCourseCode(newCourseCode.getText());
+        obj.setCourseName(newCourseName.getText());
+        
+        LocalDate ld;
+        Instant date;
+        
+        ld = newStartDate.getValue();
+        date = ld.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        obj.setStartDate(Date.from(date));
+        
+        ld = newEndDate.getValue();
+        date = ld.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        obj.setEndDate(Date.from(date));
+        
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Bekreftelse");
+        alert.setHeaderText("Bekreftelse");
+        alert.setContentText("Helt sikker på at du ønsker å opprette kurset " + obj + "?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            lookupCourseBeanRemote().createCourse(obj);
+            setExistingCourseInfo();
+            clearNewCourseData();
+        } else {
+            // okay, do nothing
+        }
+        
+        
+    }
     
     // connection to beans
     private LoginAuthRemote lookupLoginAuth_beanRemote() {

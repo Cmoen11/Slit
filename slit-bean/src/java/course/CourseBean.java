@@ -18,6 +18,10 @@ import javax.persistence.FlushModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 /**
  *
@@ -101,7 +105,6 @@ public class CourseBean implements CourseBeanRemote {
         temp1 = em.createQuery("SELECT u FROM Users u").getResultList();
         for (Iterator<Users> it = temp1.iterator(); it.hasNext();) {
             Collection<CourseMembers> courses = it.next().getCourseMembersCollection();
-            System.out.println(courses.size());
             if (courses != null && !courses.isEmpty())
                 for (CourseMembers course : courses) {
                     if (course.getCourseMembersPK().getCourseID() == courseID){
@@ -178,13 +181,29 @@ public class CourseBean implements CourseBeanRemote {
     @Override
     public void createCourse(CourseInfo newCourse) {
         Courses course = new Courses();
+        
+        course.setCourseID(Integer.SIZE);
         course.setCourseCode(newCourse.getCourseCode());
         course.setCourseEndDate(newCourse.getEndDate());
         course.setCourseStartDate(newCourse.getStartDate());
-        course.setCourseName(course.getCourseName());
+        course.setCourseName(newCourse.getCourseName());
         
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+
+        Set<ConstraintViolation<Courses>> constraintViolations = validator.validate(course);
+
+        if (constraintViolations.size() > 0 ) {
+        System.out.println("Constraint Violations occurred..");
+        for (ConstraintViolation<Courses> contraints : constraintViolations) {
+        System.out.println(contraints.getRootBeanClass().getSimpleName()+
+        "." + contraints.getPropertyPath() + " " + contraints.getMessage());
+          }
+        }
         em.persist(course);
+        
     }
+    
     
     
     

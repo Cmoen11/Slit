@@ -27,6 +27,9 @@ public class CourseInfo implements Serializable{
         this.courseCode = courseCode;
     }
 
+    public CourseInfo() {
+    }
+
     public String getCourseCode() {
         return courseCode;
     }
