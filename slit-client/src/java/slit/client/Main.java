@@ -17,7 +17,7 @@ import javax.ejb.EJB;
 
 /**
  *
- * @author evenal
+ * @author Chrristian Moen
  */
 public class Main extends Application 
 {    
