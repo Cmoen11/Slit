@@ -4,7 +4,9 @@ import course.CourseInfo;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
 import course.CourseBeanRemote;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,6 +22,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Calendar;
+import java.util.Date;
 import javafx.scene.control.CheckBox;
 import javafx.util.StringConverter;
 import user_details.UserBeanRemote;
@@ -70,13 +73,12 @@ public class Controller {
             courseMembers.setItems(
                     FXCollections.observableArrayList(userdetails));
             
-            
+            LocalDate ld;
             // for date Pickers
-            //existingStartDate.setValue(LOCAL_DATE("01-10-2016"));
-            //Date date = new Date(existingStartDate.getValue().toEpochDay());
-            //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm");
-            //String date_S = date.format(formatter);
-            //System.out.println(date.getTime());
+            ld = new java.sql.Date(courses.get(index).getStartDate().getTime()).toLocalDate();
+            existingStartDate.setValue(ld);
+            ld = new java.sql.Date(courses.get(index).getEndDate().getTime()).toLocalDate();
+            existingEndDate.setValue(ld);
             
         } catch (Exception e) {
             courseMembers.getItems().clear();
@@ -107,6 +109,15 @@ public class Controller {
         CourseInfo course = courses.get(index);
         course.setCourseCode(existingCourseCode.getText());
         course.setCourseName(existingCourseName.getText());
+        LocalDate ld;
+        Instant date;
+        ld = existingStartDate.getValue();
+        date = ld.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        course.setStartDate(Date.from(date));
+        
+        ld = existingEndDate.getValue();
+        date = ld.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        course.setEndDate(Date.from(date));
         
         // Send changes to database
         lookupCourseBeanRemote().editCourse(course);

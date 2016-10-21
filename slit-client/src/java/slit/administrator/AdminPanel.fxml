@@ -133,6 +133,6 @@
             </Text>
          </children>
       </AnchorPane>
-      <Label layoutX="317.0" layoutY="561.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" />
+      <Label layoutX="317.0" layoutY="561.0" text="Slit 2016. Av studenter, til lærere" textFill="WHITE" />
    </children>
 </AnchorPane>
