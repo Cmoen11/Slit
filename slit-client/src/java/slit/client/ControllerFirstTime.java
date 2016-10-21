@@ -27,7 +27,6 @@ public class ControllerFirstTime {
         if (checkPassword()) {
             FirstTimeLoggedIn.obj.setEmail(epost.getText());
             lookupUserBeanRemote().editUser(FirstTimeLoggedIn.obj, password1.getText());
-            String[] args = new String[0]; // Or String[] args = {};
             if (FirstTimeLoggedIn.obj.isTeacher())
                 new TeacherMain().runGUI(Main.primaryStage, FirstTimeLoggedIn.obj.getUsername());
             else {
