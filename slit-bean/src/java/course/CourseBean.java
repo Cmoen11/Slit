@@ -100,7 +100,8 @@ public class CourseBean implements CourseBeanRemote {
         List<Users> temp1; 
         temp1 = em.createQuery("SELECT u FROM Users u").getResultList();
         for (Iterator<Users> it = temp1.iterator(); it.hasNext();) {
-            Collection<CourseMembers> courses = it.next().getCourseMembersCollection(); 
+            Collection<CourseMembers> courses = it.next().getCourseMembersCollection();
+            System.out.println(courses.size());
             if (courses != null && !courses.isEmpty())
                 for (CourseMembers course : courses) {
                     if (course.getCourseMembersPK().getCourseID() == courseID){
