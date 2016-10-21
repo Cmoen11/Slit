@@ -6,28 +6,14 @@ import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.util.Pair;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -61,7 +47,7 @@ public class Controller {
                 firstTimeLoggedIn(user);
             }
             else if (user.isTeacher()) {
-                new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
+                new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch teacher panel
                 System.out.println(user.getUsername() +" "+ user.getCourseID() +" "+ user.isTeacher());
             }
                 
