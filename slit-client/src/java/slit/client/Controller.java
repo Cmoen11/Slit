@@ -61,7 +61,7 @@ public class Controller {
                 firstTimeLoggedIn(user);
             }
             else if (user.isTeacher()) {
-                new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch student panel
+                new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch teacher panel
                 System.out.println(user.getUsername() +" "+ user.getCourseID() +" "+ user.isTeacher());
             }
                 

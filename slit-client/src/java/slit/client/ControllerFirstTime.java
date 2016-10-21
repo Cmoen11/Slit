@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import slit.Teacher.TeacherMain;
 import user_details.UserBeanRemote;
 
 /**
@@ -24,9 +25,14 @@ public class ControllerFirstTime {
     
     public void saveButton() {
         if (checkPassword()) {
+            FirstTimeLoggedIn.obj.setEmail(epost.getText());
             lookupUserBeanRemote().editUser(FirstTimeLoggedIn.obj, password1.getText());
             String[] args = new String[0]; // Or String[] args = {};
-            Main.main(args);
+            if (FirstTimeLoggedIn.obj.isTeacher())
+                new TeacherMain().runGUI(Main.primaryStage, FirstTimeLoggedIn.obj.getUsername());
+            else {
+                //student log on
+            }
         }
     }
     
