@@ -8,6 +8,7 @@ package course;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -15,10 +16,10 @@ import java.util.Calendar;
  */
 public class CourseInfo implements Serializable{
     int courseID;
-    Calendar startDate, endDate;
+    Date startDate, endDate;
     String courseName, courseCode;
 
-    public CourseInfo(int courseID, Calendar startDate, Calendar endDate, String courseName, String courseCode) {
+    public CourseInfo(int courseID, Date startDate, Date endDate, String courseName, String courseCode) {
         this.courseID = courseID;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -47,19 +48,19 @@ public class CourseInfo implements Serializable{
         this.courseID = courseID;
     }
 
-    public Calendar getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public Calendar getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Calendar endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

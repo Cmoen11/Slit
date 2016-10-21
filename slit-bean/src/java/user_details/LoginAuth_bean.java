@@ -42,7 +42,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
                 .getResultList();
         try {
             // check if the password match with the password given.
-            if (user.get(0).getPassword().equals(password) && user.get(0).getAdmin() == 1) {
+            if (user.get(0).getPassword().equals(password) && user.get(0).getIsAdmin() == 1) {
                 return true;
             }
 
@@ -77,10 +77,10 @@ public class LoginAuth_bean implements LoginAuthRemote {
                 courseMembers = em.createQuery(""
                         + "SELECT cm FROM CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = :userID")
                         .setParameter("courseID", courseID)
-                        .setParameter("userID", user.get(0).getId())
+                        .setParameter("userID", user.get(0).getUserID())
                         .getResultList();
                 if (!courseMembers.isEmpty())
-                    return new UserDetails(userobj.getId(), userobj.getUsername(), userobj.getEmail(), courseID, courseMembers.get(0).getIsTeacher());
+                    return new UserDetails(userobj.getUserID(), userobj.getUsername(), userobj.getEmail(), courseID, courseMembers.get(0).getIsTeacher());
             }
         }
         return null;

@@ -25,10 +25,10 @@ public class UserBean implements UserBeanRemote {
     
     @Override
     public int createUser(String username, String password, String email) {
-        Users user = new Users(username, password, email);
-        em.persist(user); 
+        //Users user = new Users(username, password, email);
+        //em.persist(user); 
         
-        return em.find(Users.class, user).getId();
+        return 0;
     }
     
     
@@ -61,7 +61,7 @@ public class UserBean implements UserBeanRemote {
         if (result == null)return null;
         
         Users user = (Users) result;
-        return new UserDetails(user.getId(), user.getUsername(), user.getEmail(), 0,0);
+        return new UserDetails(user.getUserID(), user.getUsername(), user.getEmail(), 0,0);
     }
     
     /**

@@ -57,22 +57,22 @@ public class CourseBean implements CourseBeanRemote {
     public ArrayList<UserDetails> getCourseMembers(int courseID) {
         List<Users> students;
         students = em.createQuery(""
-                        + "SELECT u FROM Users u, CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = u.id AND cm.isTeacher = 0")
+                        + "SELECT u FROM Users u, CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = u.userID AND cm.isTeacher = 0")
                         .setParameter("courseID", courseID)
                         .getResultList();
         
         List<Users> teachers;
         teachers = em.createQuery(""
-                        + "SELECT u FROM Users u, CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = u.id AND cm.isTeacher = 1")
+                        + "SELECT u FROM Users u, CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = u.userID AND cm.isTeacher = 1")
                         .setParameter("courseID", courseID)
                         .getResultList();
         
         HashSet<UserDetails> output = new HashSet<>();
         for (Users obj : students) output.add(new UserDetails(
-                obj.getId(), obj.getUsername(), obj.getEmail(),
+                obj.getUserID(), obj.getUsername(), obj.getEmail(),
                 courseID, 0));
         for (Users obj : teachers) output.add(new UserDetails(
-                obj.getId(), obj.getUsername(), obj.getEmail(),
+                obj.getUserID(), obj.getUsername(), obj.getEmail(),
                 courseID, 1));
         
         ArrayList<UserDetails> userDetails = new ArrayList<>();
@@ -116,7 +116,7 @@ public class CourseBean implements CourseBeanRemote {
         
         for (Users user : temp1) {
             output.add(new UserDetails(
-                    user.getId(),
+                    user.getUserID(),
                     user.getUsername(),
                     user.getEmail(),
                     -1,

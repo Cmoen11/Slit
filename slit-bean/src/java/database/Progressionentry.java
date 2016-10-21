@@ -6,6 +6,7 @@
 package database;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,13 +26,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Christian
  */
 @Entity
-@Table(name = "learninggoals")
+@Table(name = "progressionentry")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Learninggoals.findAll", query = "SELECT l FROM Learninggoals l"),
-    @NamedQuery(name = "Learninggoals.findById", query = "SELECT l FROM Learninggoals l WHERE l.id = :id"),
-    @NamedQuery(name = "Learninggoals.findByDesc", query = "SELECT l FROM Learninggoals l WHERE l.desc = :desc")})
-public class Learninggoals implements Serializable {
+    @NamedQuery(name = "Progressionentry.findAll", query = "SELECT p FROM Progressionentry p"),
+    @NamedQuery(name = "Progressionentry.findById", query = "SELECT p FROM Progressionentry p WHERE p.id = :id"),
+    @NamedQuery(name = "Progressionentry.findByCompletionDate", query = "SELECT p FROM Progressionentry p WHERE p.completionDate = :completionDate")})
+public class Progressionentry implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,23 +42,26 @@ public class Learninggoals implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "completionDate")
+    @Temporal(TemporalType.DATE)
+    private Date completionDate;
+    @JoinColumn(name = "planID", referencedColumnName = "planID")
+    @ManyToOne(optional = false)
+    private Progressionplan planID;
     @JoinColumn(name = "moduleID", referencedColumnName = "moduleID")
     @ManyToOne(optional = false)
     private Module moduleID;
 
-    public Learninggoals() {
+    public Progressionentry() {
     }
 
-    public Learninggoals(Integer id) {
+    public Progressionentry(Integer id) {
         this.id = id;
     }
 
-    public Learninggoals(Integer id, String desc) {
+    public Progressionentry(Integer id, Date completionDate) {
         this.id = id;
-        this.desc = desc;
+        this.completionDate = completionDate;
     }
 
     public Integer getId() {
@@ -67,12 +72,20 @@ public class Learninggoals implements Serializable {
         this.id = id;
     }
 
-    public String getDesc() {
-        return desc;
+    public Date getCompletionDate() {
+        return completionDate;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
+    }
+
+    public Progressionplan getPlanID() {
+        return planID;
+    }
+
+    public void setPlanID(Progressionplan planID) {
+        this.planID = planID;
     }
 
     public Module getModuleID() {
@@ -93,10 +106,10 @@ public class Learninggoals implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Learninggoals)) {
+        if (!(object instanceof Progressionentry)) {
             return false;
         }
-        Learninggoals other = (Learninggoals) object;
+        Progressionentry other = (Progressionentry) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -105,7 +118,7 @@ public class Learninggoals implements Serializable {
 
     @Override
     public String toString() {
-        return "database.Learninggoals[ id=" + id + " ]";
+        return "database.Progressionentry[ id=" + id + " ]";
     }
     
 }

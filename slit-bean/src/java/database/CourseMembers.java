@@ -28,19 +28,21 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CourseMembers.findAll", query = "SELECT c FROM CourseMembers c"),
     @NamedQuery(name = "CourseMembers.findByCourseID", query = "SELECT c FROM CourseMembers c WHERE c.courseMembersPK.courseID = :courseID"),
-    @NamedQuery(name = "CourseMembers.findByUserID", query = "SELECT c FROM CourseMembers c WHERE c.courseMembersPK.userID = :userID")})
+    @NamedQuery(name = "CourseMembers.findByUserID", query = "SELECT c FROM CourseMembers c WHERE c.courseMembersPK.userID = :userID"),
+    @NamedQuery(name = "CourseMembers.findByIsTeacher", query = "SELECT c FROM CourseMembers c WHERE c.isTeacher = :isTeacher")})
 public class CourseMembers implements Serializable {
-
-    @Column(name = "isTeacher")
-    private Integer isTeacher;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CourseMembersPK courseMembersPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "isTeacher")
+    private int isTeacher;
     @JoinColumn(name = "courseID", referencedColumnName = "courseID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Courses courses;
-    @JoinColumn(name = "userID", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "userID", referencedColumnName = "userID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Users users;
 
@@ -49,6 +51,11 @@ public class CourseMembers implements Serializable {
 
     public CourseMembers(CourseMembersPK courseMembersPK) {
         this.courseMembersPK = courseMembersPK;
+    }
+
+    public CourseMembers(CourseMembersPK courseMembersPK, int isTeacher) {
+        this.courseMembersPK = courseMembersPK;
+        this.isTeacher = isTeacher;
     }
 
     public CourseMembers(int courseID, int userID) {
@@ -61,6 +68,14 @@ public class CourseMembers implements Serializable {
 
     public void setCourseMembersPK(CourseMembersPK courseMembersPK) {
         this.courseMembersPK = courseMembersPK;
+    }
+
+    public int getIsTeacher() {
+        return isTeacher;
+    }
+
+    public void setIsTeacher(int isTeacher) {
+        this.isTeacher = isTeacher;
     }
 
     public Courses getCourses() {
@@ -102,14 +117,6 @@ public class CourseMembers implements Serializable {
     @Override
     public String toString() {
         return "database.CourseMembers[ courseMembersPK=" + courseMembersPK + " ]";
-    }
-
-    public Integer getIsTeacher() {
-        return isTeacher;
-    }
-
-    public void setIsTeacher(Integer isTeacher) {
-        this.isTeacher = isTeacher;
     }
     
 }
