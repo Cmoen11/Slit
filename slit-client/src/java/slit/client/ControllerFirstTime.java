@@ -24,7 +24,7 @@ public class ControllerFirstTime {
     
     public void saveButton() {
         if (checkPassword()) {
-            lookupLoginAuth_beanRemote().editUser(FirstTimeLoggedIn.obj, password1.getText());
+            lookupUserBeanRemote().editUser(FirstTimeLoggedIn.obj, password1.getText());
             String[] args = new String[0]; // Or String[] args = {};
             Main.main(args);
         }

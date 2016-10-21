@@ -6,15 +6,12 @@
 package database;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -39,34 +36,60 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Courses.findByCourseID", query = "SELECT c FROM Courses c WHERE c.courseID = :courseID"),
     @NamedQuery(name = "Courses.findByCourseName", query = "SELECT c FROM Courses c WHERE c.courseName = :courseName"),
     @NamedQuery(name = "Courses.findByCourseStartDate", query = "SELECT c FROM Courses c WHERE c.courseStartDate = :courseStartDate"),
-    @NamedQuery(name = "Courses.findByCourseEndDate", query = "SELECT c FROM Courses c WHERE c.courseEndDate = :courseEndDate")})
+    @NamedQuery(name = "Courses.findByCourseEndDate", query = "SELECT c FROM Courses c WHERE c.courseEndDate = :courseEndDate"),
+    @NamedQuery(name = "Courses.findByCourseCode", query = "SELECT c FROM Courses c WHERE c.courseCode = :courseCode")})
 public class Courses implements Serializable {
 
-    @Size(max = 6)
-    @Column(name = "courseCode")
-    private String courseCode;
-
     private static final long serialVersionUID = 1L;
-    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "courseID")
     private Integer courseID;
-    @Size(max = 30)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
     @Column(name = "courseName")
     private String courseName;
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Calendar courseStartDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Calendar courseEndDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "courseStartDate")
+    @Temporal(TemporalType.DATE)
+    private Date courseStartDate;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "courseEndDate")
+    @Temporal(TemporalType.DATE)
+    private Date courseEndDate;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 7)
+    @Column(name = "courseCode")
+    private String courseCode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "courses")
     private Collection<CourseMembers> courseMembersCollection;
+    @OneToMany(mappedBy = "courseID")
+    private Collection<Progressionplan> progressionplanCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseID")
+    private Collection<Blogpost> blogpostCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseID")
+    private Collection<Helprequest> helprequestCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseID")
+    private Collection<Newsposts> newspostsCollection;
 
     public Courses() {
     }
 
     public Courses(Integer courseID) {
         this.courseID = courseID;
+    }
+
+    public Courses(Integer courseID, String courseName, Date courseStartDate, Date courseEndDate, String courseCode) {
+        this.courseID = courseID;
+        this.courseName = courseName;
+        this.courseStartDate = courseStartDate;
+        this.courseEndDate = courseEndDate;
+        this.courseCode = courseCode;
     }
 
     public Integer getCourseID() {
@@ -85,20 +108,28 @@ public class Courses implements Serializable {
         this.courseName = courseName;
     }
 
-    public Calendar getCourseStartDate() {
+    public Date getCourseStartDate() {
         return courseStartDate;
     }
 
-    public void setCourseStartDate(Calendar courseStartDate) {
+    public void setCourseStartDate(Date courseStartDate) {
         this.courseStartDate = courseStartDate;
     }
 
-    public Calendar getCourseEndDate() {
+    public Date getCourseEndDate() {
         return courseEndDate;
     }
 
-    public void setCourseEndDate(Calendar courseEndDate) {
+    public void setCourseEndDate(Date courseEndDate) {
         this.courseEndDate = courseEndDate;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
     @XmlTransient
@@ -108,6 +139,42 @@ public class Courses implements Serializable {
 
     public void setCourseMembersCollection(Collection<CourseMembers> courseMembersCollection) {
         this.courseMembersCollection = courseMembersCollection;
+    }
+
+    @XmlTransient
+    public Collection<Progressionplan> getProgressionplanCollection() {
+        return progressionplanCollection;
+    }
+
+    public void setProgressionplanCollection(Collection<Progressionplan> progressionplanCollection) {
+        this.progressionplanCollection = progressionplanCollection;
+    }
+
+    @XmlTransient
+    public Collection<Blogpost> getBlogpostCollection() {
+        return blogpostCollection;
+    }
+
+    public void setBlogpostCollection(Collection<Blogpost> blogpostCollection) {
+        this.blogpostCollection = blogpostCollection;
+    }
+
+    @XmlTransient
+    public Collection<Helprequest> getHelprequestCollection() {
+        return helprequestCollection;
+    }
+
+    public void setHelprequestCollection(Collection<Helprequest> helprequestCollection) {
+        this.helprequestCollection = helprequestCollection;
+    }
+
+    @XmlTransient
+    public Collection<Newsposts> getNewspostsCollection() {
+        return newspostsCollection;
+    }
+
+    public void setNewspostsCollection(Collection<Newsposts> newspostsCollection) {
+        this.newspostsCollection = newspostsCollection;
     }
 
     @Override
@@ -133,14 +200,6 @@ public class Courses implements Serializable {
     @Override
     public String toString() {
         return "database.Courses[ courseID=" + courseID + " ]";
-    }
-
-    public String getCourseCode() {
-        return courseCode;
-    }
-
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
     }
     
 }

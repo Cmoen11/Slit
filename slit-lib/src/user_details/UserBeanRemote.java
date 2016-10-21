@@ -23,8 +23,8 @@ public interface UserBeanRemote {
 
     void addUserToCourse(String username, long courseID);
 
-    public void bulkUsers(List<String> usersToAdd, long courseID);
-    public UserDetails getUserByUsername(String username);
+    void bulkUsers(List<String> usersToAdd, long courseID);
+    UserDetails getUserByUsername(String username);
 
-    public void editUser(UserDetails obj, String password);
+    void editUser(UserDetails obj, String password);
 }

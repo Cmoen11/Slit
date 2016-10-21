@@ -20,12 +20,12 @@ public class Modul_bean implements ModulRemote {
 
     @Override
     public int createModule(String name, String desc) {
-        Modules modul = new Modules();
-        modul.setModuleName(name);
-        modul.setModuleDesc(desc);
+        Module modul = new Module();
+        modul.setName(name);
+        modul.setDescription(desc);
         em.persist(modul);      // add modul to database.
         
-        return em.find(Modules.class, modul).getId();
+        return em.find(Module.class, modul).getModuleID();
 
     }
     /**
@@ -36,7 +36,7 @@ public class Modul_bean implements ModulRemote {
     @Override
     public void addLearningGoal(String learningGoal, int id) {
         Learninggoals goal = new Learninggoals();
-        goal.setModulId(em.find(Modules.class, (long) id));
+        goal.setModuleID(em.find(Module.class, (long) id));
         
         em.persist(goal);
     }

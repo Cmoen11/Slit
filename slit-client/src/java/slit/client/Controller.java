@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -25,6 +26,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -79,6 +81,11 @@ public class Controller {
             alert.showAndWait();
         }
         
+    }
+    
+    
+    private void splashStart() {
+
     }
     
     private void firstTimeLoggedIn(UserDetails user) {

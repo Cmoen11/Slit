@@ -7,7 +7,6 @@ import course.CourseBeanRemote;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -21,7 +20,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Calendar;
-import java.util.Date;
 import javafx.scene.control.CheckBox;
 import javafx.util.StringConverter;
 import user_details.UserBeanRemote;
@@ -50,28 +48,8 @@ public class Controller {
         if (courses.size() > 0) {
             existingCourses.setItems(FXCollections.observableArrayList(courses));
             existingCourses.getSelectionModel().select(0);
-            existingStartDate.setConverter(new StringConverter<LocalDate>()
-            {
-                private DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate localDate = existingStartDate.getValue();
 
-                @Override
-                public String toString(LocalDate localDate)
-                {
-                    if(localDate==null)
-                        return "";
-                    return dateTimeFormatter.format(localDate);
-                }
-
-                @Override
-                public LocalDate fromString(String dateString)
-                {
-                    if(dateString==null || dateString.trim().isEmpty())
-                    {
-                        return null;
-                    }
-                    return LocalDate.parse(dateString,dateTimeFormatter);
-                }
-            });
             setExistingCourseInfo();
         }
                 
