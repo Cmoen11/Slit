@@ -40,7 +40,7 @@ public class CourseInfo implements Serializable{
 
     @Override
     public String toString() {
-        return courseCode+": "+courseName;
+        return courseCode+" | " + (startDate.getYear() + 1900) + ": "+courseName;
     }
 
     public int getCourseID() {

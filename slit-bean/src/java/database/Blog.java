@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Blog.findAll", query = "SELECT b FROM Blog b"),
     @NamedQuery(name = "Blog.findByBlogID", query = "SELECT b FROM Blog b WHERE b.blogID = :blogID"),
+    @NamedQuery(name = "Blog.findByUserID", query = "SELECT b FROM Blog b WHERE b.userID = :userID"),
     @NamedQuery(name = "Blog.findByCreationDate", query = "SELECT b FROM Blog b WHERE b.creationDate = :creationDate")})
 public class Blog implements Serializable {
 

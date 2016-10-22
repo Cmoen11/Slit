@@ -40,7 +40,7 @@ public class Main extends Application
         try {
             Parent root= FXMLLoader.load(Main.class.getResource("login.fxml"));
             primaryStage.setTitle("Slit");
-            primaryStage.setScene(new Scene(root, 348,401));
+            primaryStage.setScene(new Scene(root));
             primaryStage.show();
             Main.primaryStage = primaryStage;
             primaryStage.setResizable(false);

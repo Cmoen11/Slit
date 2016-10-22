@@ -32,9 +32,10 @@ public class MainAdmin extends Application {
             Parent root= FXMLLoader.load(MainAdmin.class.getResource("AdminPanel.fxml"));
             primaryStage.setTitle("Slit Administrasjons Panel");
             primaryStage.setScene(new Scene(root));
+            primaryStage.centerOnScreen();
             primaryStage.show();
             primaryStage.setResizable(false);
-            primaryStage.centerOnScreen();
+            
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }

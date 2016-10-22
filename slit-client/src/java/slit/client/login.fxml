@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.input.*?>
+<?import com.jfoenix.validation.*?>
+<?import org.controlsfx.control.textfield.*?>
+<?import com.jfoenix.controls.*?>
+<?import org.controlsfx.control.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -13,27 +26,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="348.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="348.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.Controller">
    <children>
-      <VBox layoutX="12.0" layoutY="22.0" prefHeight="358.0" prefWidth="326.0" spacing="1.0" style="-fx-border-color: white; -fx-border-radius: 5px; -fx-border-style: dashed;">
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="334.0" prefWidth="326.0" spacing="1.0" style="-fx-border-color: white; -fx-border-radius: 5px; -fx-border-style: dashed;">
          <children>
-            <ImageView fitHeight="74.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/slit.png" />
-               </image>
-               <effect>
-                  <Blend />
-               </effect>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </ImageView>
+            <AnchorPane prefHeight="89.0" prefWidth="324.0">
+               <children>
+                  <ImageView fitHeight="68.0" fitWidth="148.0" layoutX="88.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                     <image>
+                        <Image url="@../img/logo2.png" />
+                     </image>
+                     <effect>
+                        <Reflection topOpacity="0.16" />
+                     </effect>
+                  </ImageView>
+               </children>
+            </AnchorPane>
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavn">
                <VBox.margin>
-                  <Insets left="20.0" top="25.0" />
+                  <Insets left="20.0" top="10.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="username" promptText="Brukernavn...">
+            <TextField fx:id="username" onAction="#loginButtonClicked" promptText="Brukernavn...">
                <VBox.margin>
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
@@ -53,30 +67,25 @@
                   <Insets left="20.0" top="5.0" />
                </VBox.margin>
             </Text>
-            <ComboBox fx:id="courses_combo" prefHeight="25.0" prefWidth="284.0" promptText="Kurs">
+            <ComboBox fx:id="courses_combo" prefHeight="25.0" prefWidth="289.0">
                <VBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </ComboBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <AnchorPane prefHeight="86.0" prefWidth="324.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#adminloginButtonClicked" prefHeight="45.0" prefWidth="139.0" text="Logg inn som admin">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="45.0" prefWidth="137.0" text="Logg inn" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
-                     </HBox.margin>
-                  </Button>
+                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="15.0" onAction="#loginButtonClicked" prefHeight="54.0" prefWidth="284.0" ripplerFill="#1e8bf2" style="-fx-background-color: #273B65; -fx-border-radius: 6px;" text="Logg inn" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
                </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-            </HBox>
+            </AnchorPane>
          </children>
       </VBox>
-      <Text fill="WHITE" layoutX="128.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit system - 2016" />
+      <Text fill="WHITE" layoutX="130.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit system - 2016" />
    </children>
 </Pane>
