@@ -32,7 +32,7 @@
          <children>
             <AnchorPane prefHeight="89.0" prefWidth="324.0">
                <children>
-                  <ImageView fitHeight="78.0" fitWidth="170.0" layoutX="77.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                  <ImageView fitHeight="68.0" fitWidth="148.0" layoutX="88.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
                         <Image url="@../img/logo2.png" />
                      </image>
@@ -86,6 +86,6 @@
             </AnchorPane>
          </children>
       </VBox>
-      <Text fill="WHITE" layoutX="127.0" layoutY="371.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit system - 2016" />
+      <Text fill="WHITE" layoutX="130.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit system - 2016" />
    </children>
 </Pane>
