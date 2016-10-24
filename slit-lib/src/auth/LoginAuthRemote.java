@@ -13,7 +13,7 @@ import javax.ejb.Remote;
 public interface LoginAuthRemote {
     boolean authAdminAccount(String username, String password);
 
-    HashMap<String, String> getUserData();
+    UserDetails getUserData();
 
     void test();
 

@@ -30,10 +30,6 @@ public class UserBean implements UserBeanRemote {
         
         return 0;
     }
-    
-    
-    
-    
     /* 
     * TO DO FIX.
     * @param1: username
@@ -88,7 +84,19 @@ public class UserBean implements UserBeanRemote {
         em.merge(user);
         
     }
+    // Integer id, String username, String email, int courseID, int isTeacher, String firstname, String lastname
+    @Override
+    public ArrayList<UserDetails> getAllUsers() {
+        List<Users> list = em.createNamedQuery("Users.findAll").getResultList();
+        ArrayList<UserDetails> output = new ArrayList<>();
+        for (Users user : list) output.add(new UserDetails(
+                user.getUserID(), user.getUsername(), user.getEmail(),
+                -1, -1, user.getFirstname(), user.getLastname()
+        ));
+        return output;
+    }
 
+    
     
     
     

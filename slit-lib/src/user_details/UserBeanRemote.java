@@ -27,4 +27,6 @@ public interface UserBeanRemote {
     UserDetails getUserByUsername(String username);
 
     void editUser(UserDetails obj, String password);
+
+    ArrayList<UserDetails> getAllUsers();
 }
