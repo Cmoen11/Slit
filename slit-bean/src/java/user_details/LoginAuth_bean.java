@@ -24,8 +24,8 @@ public class LoginAuth_bean implements LoginAuthRemote {
 
     @PersistenceContext
     EntityManager em;
-    private HashMap<String, String> userData = new HashMap<>();
-
+    private Users user; 
+    
     /**
      * Check if username & password match.
      *
@@ -43,15 +43,17 @@ public class LoginAuth_bean implements LoginAuthRemote {
         try {
             // check if the password match with the password given.
             if (user.get(0).getPassword().equals(password) && user.get(0).getIsAdmin() == 1) {
+                this.user = user.get(0);
                 return true;
             }
 
         } catch (Exception e) {
         }
         return false;
-
     }
 
+    
+    
     /**
      * Sjekker om bruker er autorisert til å logge inn på valgt kurs.
      *
@@ -107,10 +109,18 @@ public class LoginAuth_bean implements LoginAuthRemote {
     public void persist(Object object) {
         em.persist(object);
     }
-
+    
+    /***
+     * Get the userdata.
+     * @return userdetails 
+     */
     @Override
-    public HashMap<String, String> getUserData() {
-        return userData;
+    public UserDetails getUserData() {
+        if (user == null) return null; // user is not logged in, return null
+        return new UserDetails(
+                user.getUserID(), user.getUsername(), user.getEmail(), -1, -1, 
+                user.getFirstname(), user.getLastname()
+        );
     }
 
     @Override
