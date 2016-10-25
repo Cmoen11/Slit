@@ -31,4 +31,9 @@
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>test.TestRemote</remote>
   </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>Blogkek</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>blog.BlogkekRemote</remote>
+  </ejb-ref>
 </application-client>
