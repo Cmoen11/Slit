@@ -9,21 +9,11 @@ import java.io.Serializable;
 
 /**
  *
- * @author Dahl
+ * @author 
  */
 class ModuleDetails implements Serializable{
     
     private int moduleIDPrimary; 
     
     
-    
-    moduleIDPrimary	int(7)			No	None		Change Change	Drop Drop	
-More
-	2	navn	varchar(255)	latin1_swedish_ci		No	None		Change Change	Drop Drop	
-More
-	3	beskrivelse	varchar(255)	latin1_swedish_ci		No	None		Change Change	Drop Drop	
-More
-	4	modul_type	varchar(255)	latin1_swedish_ci		No	None		Change Change	Drop Drop	
-More
-	5	courseID	
 }

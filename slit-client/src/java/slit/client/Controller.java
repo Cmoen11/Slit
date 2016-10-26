@@ -5,7 +5,6 @@ import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -135,15 +134,7 @@ public class Controller {
         }
     }
     
-    public void getUSers() 
-    {
-        List<UserDetails> users = this.lookupUserBeanRemote().getAllUsers();
-        
-        for(UserDetails user : users) 
-        {
-            List<something> = this.lookupModul_beanRemote().getAllModulesForUser(user.getId()); 
-        }
-    }
+
 
     
     

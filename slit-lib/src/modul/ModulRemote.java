@@ -18,7 +18,7 @@ public interface ModulRemote {
     int createModule(String name, String desc);
     void addLearningGoal(String learningGoal, int id);
     
-     List<ModuleDetails> getAllModulesForUser(int userId); 
+     List<ModuleDetails> getAllModulesForUser(int userId);
     
     public void asd();
 }
