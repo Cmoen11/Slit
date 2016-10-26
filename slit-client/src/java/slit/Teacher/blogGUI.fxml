@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<HBox prefHeight="689.0" prefWidth="1265.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.BlogController">
+   <children>
+      <AnchorPane prefHeight="689.0" prefWidth="1272.0">
+         <children>
+            <Button layoutX="2.0" layoutY="3.0" mnemonicParsing="false" onAction="#clickMe" prefHeight="678.0" prefWidth="1257.0" text="Button" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
