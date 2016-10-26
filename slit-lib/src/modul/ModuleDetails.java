@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author 
+ * @author Dahl
  */
 class ModuleDetails implements Serializable{
     
