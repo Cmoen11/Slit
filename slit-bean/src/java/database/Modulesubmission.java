@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Modulesubmission.findByCreationDate", query = "SELECT m FROM Modulesubmission m WHERE m.creationDate = :creationDate"),
     @NamedQuery(name = "Modulesubmission.findByStatus", query = "SELECT m FROM Modulesubmission m WHERE m.status = :status"),
     @NamedQuery(name = "Modulesubmission.findByContent", query = "SELECT m FROM Modulesubmission m WHERE m.content = :content"),
-    @NamedQuery(name = "Modulesubmission.findByType", query = "SELECT m FROM Modulesubmission m WHERE m.type = :type")})
+    @NamedQuery(name = "Modulesubmission.findByType", query = "SELECT m FROM Modulesubmission m WHERE m.type = :type"), 
+    @NamedQuery(name = "Modulesubmission.findByUser", query = "SELECT m FROM Modulesubmission m WHERE m.userID = :userId ")})
 public class Modulesubmission implements Serializable {
 
     private static final long serialVersionUID = 1L;

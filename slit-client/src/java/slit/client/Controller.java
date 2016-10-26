@@ -4,8 +4,8 @@ import course.CourseInfo;
 import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
-import com.jfoenix.controls.JFXComboBox;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +19,9 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import modul.ModulRemote;
 import slit.administrator.MainAdmin;
+import user_details.UserBeanRemote;
 
 /**
  *
@@ -120,10 +122,46 @@ public class Controller {
     public void click() {
     }
 
+    
+    
+    
     private LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {
             Context c = new InitialContext();
             return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth_bean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
+    public void getUSers() 
+    {
+        List<UserDetails> users = this.lookupUserBeanRemote().getAllUsers();
+        
+        for(UserDetails user : users) 
+        {
+            List<something> = this.lookupModul_beanRemote().getAllModulesForUser(user.getId()); 
+        }
+    }
+
+    
+    
+    
+    private UserBeanRemote lookupUserBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (UserBeanRemote) c.lookup("java:comp/env/UserBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private ModulRemote lookupModul_beanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (ModulRemote) c.lookup("java:comp/env/Modul_bean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
