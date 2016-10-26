@@ -87,6 +87,22 @@ public class LoginAuth_bean implements LoginAuthRemote {
         }
         return null;
     }
+
+
+    public void CreateDummyUsers() {
+        try 
+        {
+            Users user = new Users(); 
+            
+            user.setUsername("user1");
+            user.setPassword("test");
+            
+            em.persist(user);
+        }catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+    }
     
     /**
      * 
