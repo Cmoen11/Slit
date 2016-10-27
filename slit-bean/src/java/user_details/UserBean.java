@@ -53,10 +53,8 @@ public class UserBean implements UserBeanRemote {
     @Override
     public UserDetails getUserByUsername(String username) {
         Query query = em.createNamedQuery("Users.findByUsername", Users.class);
-        Object result = query.getSingleResult();
-        if (result == null)return null;
-        
-        Users user = (Users) result;
+        Users user = (Users) query.getSingleResult();
+        if (user == null)return null;
         return new UserDetails(user.getUserID(), user.getUsername(), user.getEmail(), 0,0);
     }
     
@@ -94,6 +92,13 @@ public class UserBean implements UserBeanRemote {
                 -1, -1, user.getFirstname(), user.getLastname()
         ));
         return output;
+    }
+
+    @Override
+    public UserDetails getUserObj(String username) {
+        Users user = (Users) em.createNamedQuery("Users.findByUsername").getSingleResult();
+        
+        return null;
     }
 
     
