@@ -17,16 +17,18 @@ import javax.ejb.Remote;
 @Remote
 public interface UserBeanRemote {
 
-    List<String> usersToAdd = new ArrayList<>();
+    List<UserDetails> usersToAdd = new ArrayList<>();
             
     int createUser(String username, String password, String email);
 
-    void addUserToCourse(String username, long courseID);
+    void findUser (String username);
+    
 
-    void bulkUsers(List<String> usersToAdd, long courseID);
+    void bulkUsers(List<UserDetails> usersToAdd);
     UserDetails getUserByUsername(String username);
 
     void editUser(UserDetails obj, String password);
 
     ArrayList<UserDetails> getAllUsers();
+
 }
