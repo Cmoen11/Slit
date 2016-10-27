@@ -26,7 +26,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="348.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="348.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.ControllerFirstTime">
    <children>
       <VBox layoutX="14.0" layoutY="14.0" prefHeight="334.0" prefWidth="326.0" spacing="1.0" style="-fx-border-color: white; -fx-border-radius: 5px; -fx-border-style: dashed;">
          <children>
