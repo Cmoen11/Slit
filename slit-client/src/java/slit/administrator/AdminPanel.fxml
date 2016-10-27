@@ -184,7 +184,7 @@
                   <Font name="System Italic" size="16.0" />
                </font>
             </Text>
-            <JFXButton buttonType="RAISED" layoutX="718.0" layoutY="17.0" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" />
+            <JFXButton buttonType="RAISED" layoutX="718.0" layoutY="17.0" onAction="#logOut" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" />
             <Text fx:id="welcomeText" fill="WHITE" layoutX="534.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" />
          </children>
       </AnchorPane>
