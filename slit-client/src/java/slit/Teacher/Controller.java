@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.web.HTMLEditor;
+import slit.client.Main;
 /**
  *
  * @author Christian
@@ -46,6 +47,9 @@ public class Controller {
         }
     }
     
+    public void logOut() {
+        Main.runGUI();
+    }
     private ModulRemote lookupModulRemote() {
         try {
             Context c = new InitialContext();
