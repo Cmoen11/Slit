@@ -136,7 +136,7 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Brukeradministrasjon">
+                  <Tab closable="false" disable="true" text="Brukeradministrasjon">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="815.0">
                            <children>
