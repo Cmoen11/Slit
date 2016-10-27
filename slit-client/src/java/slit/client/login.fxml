@@ -3,9 +3,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.input.*?>
 <?import com.jfoenix.validation.*?>
-<?import org.controlsfx.control.textfield.*?>
 <?import com.jfoenix.controls.*?>
-<?import org.controlsfx.control.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
