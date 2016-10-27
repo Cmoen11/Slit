@@ -69,5 +69,12 @@ public class ModulBean implements ModulRemote {
     public String testTrykk(String test) {
         return test;
     }
+
+    @Override
+    public String editButton(String temp) {
+        return temp;
+    }
+    
+    
     
 }

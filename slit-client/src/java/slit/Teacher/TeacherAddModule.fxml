@@ -38,7 +38,7 @@
                      </font>
                   </Text>
                   <Button layoutX="1012.0" layoutY="545.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Fjern modul" />
-                  <Button layoutX="1012.0" layoutY="610.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="115.0" text="Lagre endringer">
+                  <Button layoutX="1012.0" layoutY="610.0" mnemonicParsing="false" onAction="#testClick2" prefHeight="50.0" prefWidth="115.0" text="Lagre endringer">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
