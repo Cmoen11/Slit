@@ -4,7 +4,6 @@ import course.CourseInfo;
 import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
-import com.jfoenix.controls.JFXComboBox;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -19,13 +18,15 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import modul.ModulRemote;
 import slit.administrator.MainAdmin;
-
+import user_details.UserBeanRemote;
+import account.Authorisation;
 /**
  *
  * @author Christian
  */
-public class Controller {
+public class LoginController {
 
     @FXML
     TextField username;
@@ -45,14 +46,15 @@ public class Controller {
             alert.setTitle("Admin");
             alert.setHeaderText("Administrator");
             alert.setContentText("Vi ser at du er en administrator, ønsker du å logge inn på administrasjonspanelet?");
-
             Optional<ButtonType> result = alert.showAndWait();
+            //Authorisation.setUserData(lookupUserBeanRemote().getUserByUsername(username.getText()));
             if (result.get() == ButtonType.OK) {
                 new MainAdmin().runGUI(Main.primaryStage);
             } else {
                 normalLogin();
             }
         } else {
+            Authorisation.setUserData(lookupUserBeanRemote().getUserByUsername(username.getText()));
             normalLogin();
         }
     }
@@ -120,10 +122,37 @@ public class Controller {
     public void click() {
     }
 
-    private LoginAuthRemote lookupLoginAuth_beanRemote() {
+    
+    
+    
+    public static LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {
             Context c = new InitialContext();
             return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth_bean");
+        } catch (NamingException ne) {
+            throw new RuntimeException(ne);
+        }
+    }
+    
+
+
+    
+    
+    
+    private UserBeanRemote lookupUserBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (UserBeanRemote) c.lookup("java:comp/env/UserBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private ModulRemote lookupModul_beanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (ModulRemote) c.lookup("java:comp/env/Modul_bean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -40,7 +42,10 @@
                               <Text layoutX="436.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs slutt dato" />
                               <DatePicker fx:id="existingStartDate" editable="false" layoutX="540.0" layoutY="121.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
                               <DatePicker fx:id="existingEndDate" editable="false" layoutX="540.0" layoutY="160.0" prefHeight="25.0" prefWidth="202.0" showWeekNumbers="true" />
-                              <Button layoutX="624.0" layoutY="379.0" mnemonicParsing="false" onAction="#updateCourse" prefHeight="49.0" prefWidth="122.0" text="Lagre" />
+                              <Button layoutX="624.0" layoutY="379.0" mnemonicParsing="false" onAction="#updateCourse" prefHeight="49.0" prefWidth="122.0" text="Lagre">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                               <ListView fx:id="courseMembers" layoutX="24.0" layoutY="239.0" prefHeight="119.0" prefWidth="346.0" />
                               <Text layoutX="24.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medlemmer av kurset" />
                               <Text layoutX="438.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legg til ny medlem til kurset">
@@ -49,8 +54,11 @@
                                  </font>
                               </Text>
                               <CheckBox fx:id="existingIsTeacher" layoutX="439.0" layoutY="260.0" mnemonicParsing="false" text="Foreleser" />
-                              <Button layoutX="626.0" layoutY="302.0" mnemonicParsing="false" onAction="#addUserToCourse" prefHeight="25.0" prefWidth="120.0" text="legg til" />
-                              <Button layoutX="439.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" text="Legg til mange medlemmer " />
+                              <Button layoutX="626.0" layoutY="302.0" mnemonicParsing="false" onAction="#addUserToCourse" prefHeight="25.0" prefWidth="120.0" text="legg til">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button disable="true" layoutX="439.0" layoutY="302.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" text="Legg til mange medlemmer " />
                               <Text fontSmoothingType="LCD" layoutX="434.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Endre kursdata for valgt kurs">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -63,8 +71,14 @@
                               <TextField fx:id="existingCourseCode" layoutX="540.0" layoutY="84.0" prefHeight="25.0" prefWidth="201.0" />
                               <Text layoutX="434.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs kode" />
                               <Separator layoutX="23.0" layoutY="204.0" prefHeight="5.0" prefWidth="347.0" />
-                              <Button layoutX="24.0" layoutY="364.0" mnemonicParsing="false" onAction="#setUserToTeacher" prefHeight="25.0" prefWidth="177.0" text="Sett som student/foreleser" />
-                              <Button layoutX="267.0" layoutY="364.0" mnemonicParsing="false" onAction="#removeUserFromCourse" prefHeight="25.0" prefWidth="103.0" text="Fjern medlem" />
+                              <Button layoutX="24.0" layoutY="364.0" mnemonicParsing="false" onAction="#setUserToTeacher" prefHeight="25.0" prefWidth="177.0" text="Sett som student/foreleser">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
+                              <Button layoutX="267.0" layoutY="364.0" mnemonicParsing="false" onAction="#removeUserFromCourse" prefHeight="25.0" prefWidth="103.0" text="Fjern medlem">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                            </children>
                         </AnchorPane>
                   </content>
@@ -85,16 +99,16 @@
                               <TextField fx:id="newCourseCode" layoutX="124.0" layoutY="102.0" prefHeight="25.0" prefWidth="218.0" />
                               <DatePicker fx:id="newStartDate" editable="false" layoutX="124.0" layoutY="145.0" prefHeight="25.0" prefWidth="219.0" showWeekNumbers="true" />
                               <DatePicker fx:id="newEndDate" editable="false" layoutX="124.0" layoutY="186.0" prefHeight="25.0" prefWidth="219.0" showWeekNumbers="true" />
-                              <CheckBox layoutX="420.0" layoutY="68.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="268.0" text="Klon data fra et eksisterende kurs" />
+                              <CheckBox disable="true" layoutX="420.0" layoutY="68.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="268.0" text="Klon data fra et eksisterende kurs" />
                               <ComboBox disable="true" editable="true" layoutX="422.0" layoutY="102.0" prefHeight="25.0" prefWidth="312.0" promptText="Kursnavn" />
                               <CheckBox disable="true" layoutX="421.0" layoutY="144.0" mnemonicParsing="false" text="Medlemmer" />
                               <CheckBox disable="true" layoutX="421.0" layoutY="170.0" mnemonicParsing="false" text="Kursmatriell(Filer)" />
                               <CheckBox disable="true" layoutX="623.0" layoutY="144.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="103.0" text="Moduler" />
                               <Text layoutX="21.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurskode" />
-                              <CheckBox fx:id="newIsTeacher" layoutX="429.0" layoutY="261.0" mnemonicParsing="false" text="Foreleser" />
-                              <ComboBox fx:id="newAddSingleUserCombo" editable="true" layoutX="508.0" layoutY="261.0" prefHeight="25.0" prefWidth="227.0" promptText="Brukernavnet til det nye medlemmet" />
-                              <Button layoutX="429.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" text="Legg til mange medlemmer " />
-                              <Button layoutX="615.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="legg til" />
+                              <CheckBox fx:id="newIsTeacher" disable="true" layoutX="429.0" layoutY="261.0" mnemonicParsing="false" text="Foreleser" />
+                              <ComboBox fx:id="newAddSingleUserCombo" disable="true" editable="true" layoutX="508.0" layoutY="261.0" prefHeight="25.0" prefWidth="227.0" promptText="Brukernavnet til det nye medlemmet" />
+                              <Button disable="true" layoutX="429.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" text="Legg til mange medlemmer " />
+                              <Button disable="true" layoutX="615.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="legg til" />
                               <Text layoutX="429.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legg til ny medlem til kurset">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -108,18 +122,21 @@
                               </Text>
                               <Separator layoutX="423.0" layoutY="356.0" prefHeight="2.0" prefWidth="310.0" />
                               <Separator layoutX="14.0" layoutY="227.0" prefHeight="2.0" prefWidth="328.0" />
-                              <ListView fx:id="newCourseMembers" layoutX="14.0" layoutY="258.0" prefHeight="159.0" prefWidth="328.0" />
+                              <ListView fx:id="newCourseMembers" disable="true" layoutX="14.0" layoutY="258.0" prefHeight="159.0" prefWidth="328.0" />
                               <Text layoutX="17.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oppsatte medlemmer av kurset">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <Button layoutX="614.0" layoutY="368.0" mnemonicParsing="false" onAction="#createCourse" prefHeight="49.0" prefWidth="122.0" text="Opprett kurs" />
+                              <Button layoutX="614.0" layoutY="368.0" mnemonicParsing="false" onAction="#createCourse" prefHeight="49.0" prefWidth="122.0" text="Opprett kurs">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor></Button>
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab closable="false" text="Brukeradministrasjon">
+                  <Tab closable="false" disable="true" text="Brukeradministrasjon">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="815.0">
                            <children>
@@ -173,16 +190,21 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <ImageView fitHeight="36.0" fitWidth="59.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="10.354839324951172" AnchorPane.rightAnchor="717.6451606750488" AnchorPane.topAnchor="14.0">
+            <ImageView fitHeight="33.0" fitWidth="88.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" AnchorPane.bottomAnchor="493.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="689.0" AnchorPane.topAnchor="15.0">
                <image>
-                  <Image url="@../img/slit.png" />
+                  <Image url="@../img/logo_Plain.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="544.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrasjonspanel" AnchorPane.bottomAnchor="491.7255859375" AnchorPane.leftAnchor="542.14013671875" AnchorPane.rightAnchor="12.85986328125" AnchorPane.topAnchor="15.0224609375">
+            <Text fill="WHITE" layoutX="109.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrasjonspanel" AnchorPane.bottomAnchor="491.984375" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="531.0703125" AnchorPane.topAnchor="27.734375">
                <font>
-                  <Font name="System Italic" size="25.0" />
+                  <Font name="System Italic" size="16.0" />
                </font>
             </Text>
+            <JFXButton buttonType="RAISED" layoutX="718.0" layoutY="17.0" onAction="#logOut" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></JFXButton>
+            <Text fx:id="welcomeText" fill="WHITE" layoutX="534.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" />
          </children>
       </AnchorPane>
       <Label layoutX="317.0" layoutY="561.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" />

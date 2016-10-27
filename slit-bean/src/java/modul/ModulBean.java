@@ -6,16 +6,19 @@
 package modul;
 
 import database.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author Christian
  */
 @Stateless
-public class Modul_bean implements ModulRemote {
+public class ModulBean implements ModulRemote {
     @PersistenceContext EntityManager em;
 
     @Override
@@ -45,6 +48,33 @@ public class Modul_bean implements ModulRemote {
     public void asd() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<ModuleDetails> getAllModulesForUser(int userId) {
+        List<ModuleDetails> returnList = new ArrayList<ModuleDetails>(); 
+        
+        Query query = em.createNamedQuery("Modulesubmission.findByUser", Modulesubmission.class);
+        
+        query.setParameter("userId", userId); 
+        
+        List<Modulesubmission> resultList = query.getResultList();
+        
+        for(Modulesubmission subission : resultList)
+        {
+            returnList.add(null);//convert subbission submission);
+       
+        }
+        return returnList; 
+    }
+    public String testTrykk(String test) {
+        return test;
+    }
+
+    @Override
+    public String editButton(String temp) {
+        return temp;
+    }
+    
     
     
 }

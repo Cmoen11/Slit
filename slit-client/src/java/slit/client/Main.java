@@ -6,6 +6,7 @@
 package slit.client;
 
 import auth.LoginAuthRemote;
+import auth.UserDetails;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -24,7 +25,9 @@ public class Main extends Application
 
 
     static Stage primaryStage;
-    
+    public static void runGUI() {
+        new Main().start(primaryStage);
+    }
 
     public static void main(String[] args) {
         // create dummy users
@@ -43,6 +46,7 @@ public class Main extends Application
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
             Main.primaryStage = primaryStage;
+            primaryStage.centerOnScreen();
             primaryStage.setResizable(false);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);

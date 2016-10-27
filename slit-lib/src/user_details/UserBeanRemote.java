@@ -23,12 +23,13 @@ public interface UserBeanRemote {
 
     void findUser (String username);
     
-
     void bulkUsers(List<UserDetails> usersToAdd);
     UserDetails getUserByUsername(String username);
 
     void editUser(UserDetails obj, String password);
 
     ArrayList<UserDetails> getAllUsers();
+
+    UserDetails getUserObj(String username);
 
 }

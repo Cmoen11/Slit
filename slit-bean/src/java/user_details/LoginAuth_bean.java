@@ -44,6 +44,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
             // check if the password match with the password given.
             if (user.get(0).getPassword().equals(password) && user.get(0).getIsAdmin() == 1) {
                 this.user = user.get(0);
+                System.out.println(user + "lol");
                 return true;
             }
 
@@ -81,11 +82,29 @@ public class LoginAuth_bean implements LoginAuthRemote {
                         .setParameter("courseID", courseID)
                         .setParameter("userID", user.get(0).getUserID())
                         .getResultList();
-                if (!courseMembers.isEmpty())
+                if (!courseMembers.isEmpty()){
+                    this.user = userobj;
                     return new UserDetails(userobj.getUserID(), userobj.getUsername(), userobj.getEmail(), courseID, courseMembers.get(0).getIsTeacher());
-            }
+                }
+                }
         }
         return null;
+    }
+
+
+    public void CreateDummyUsers() {
+        try 
+        {
+            Users user = new Users(); 
+            
+            user.setUsername("user1");
+            user.setPassword("test");
+            
+            em.persist(user);
+        }catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
     }
     
     /**

@@ -31,4 +31,14 @@
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>test.TestRemote</remote>
   </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>Modul_bean</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>modul.ModulRemote</remote>
+  </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>ModulBean</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>modul.ModulRemote</remote>
+  </ejb-ref>
 </application-client>
