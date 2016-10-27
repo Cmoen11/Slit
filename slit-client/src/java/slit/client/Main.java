@@ -46,6 +46,7 @@ public class Main extends Application
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
             Main.primaryStage = primaryStage;
+            primaryStage.centerOnScreen();
             primaryStage.setResizable(false);
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
