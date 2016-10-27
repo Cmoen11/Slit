@@ -1,5 +1,6 @@
 package slit.administrator;
 
+import account.Authorisation;
 import course.CourseInfo;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
@@ -26,13 +27,17 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.text.Text;
 import user_details.UserBeanRemote;
+import slit.client.LoginController;
 /**
  *
  * @author Christian
  */
 public class Controller {
-
+    
+    @FXML Text welcomeText;
+    
     // Edit course
     @FXML ListView existingCourses;
     @FXML TextField existingCourseName;
@@ -59,6 +64,10 @@ public class Controller {
     
     
     public void initialize() {
+        UserDetails user = Authorisation.getUserData();
+        if (user != null) welcomeText.setText("Hei, " + user.getFirstname() + " " + user.getLastname());
+        else welcomeText.setText("Missing userdata");
+        
         courses = lookupLoginAuth_beanRemote().getCourses();
         if (courses.size() > 0) {
             existingCourses.setItems(FXCollections.observableArrayList(courses));
@@ -251,5 +260,7 @@ public class Controller {
             throw new RuntimeException(ne);
         }
     }
+
+    
 
 }

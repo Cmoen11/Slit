@@ -18,7 +18,7 @@ import javax.persistence.Query;
  * @author Christian
  */
 @Stateless
-public class Modul_bean implements ModulRemote {
+public class ModulBean implements ModulRemote {
     @PersistenceContext EntityManager em;
 
     @Override
@@ -66,6 +66,8 @@ public class Modul_bean implements ModulRemote {
         }
         return returnList; 
     }
-    
+    public String testTrykk(String test) {
+        return test;
+    }
     
 }

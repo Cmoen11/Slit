@@ -21,4 +21,6 @@ public interface ModulRemote {
      List<ModuleDetails> getAllModulesForUser(int userId);
     
     public void asd();
+
+    String testTrykk(String test);
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -173,16 +174,18 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <ImageView fitHeight="36.0" fitWidth="59.0" layoutX="12.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="10.354839324951172" AnchorPane.rightAnchor="717.6451606750488" AnchorPane.topAnchor="14.0">
+            <ImageView fitHeight="33.0" fitWidth="88.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" AnchorPane.bottomAnchor="493.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="689.0" AnchorPane.topAnchor="15.0">
                <image>
-                  <Image url="@../img/slit.png" />
+                  <Image url="@../img/logo_Plain.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="544.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrasjonspanel" AnchorPane.bottomAnchor="491.7255859375" AnchorPane.leftAnchor="542.14013671875" AnchorPane.rightAnchor="12.85986328125" AnchorPane.topAnchor="15.0224609375">
+            <Text fill="WHITE" layoutX="109.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrasjonspanel" AnchorPane.bottomAnchor="491.984375" AnchorPane.leftAnchor="109.0" AnchorPane.rightAnchor="531.0703125" AnchorPane.topAnchor="27.734375">
                <font>
-                  <Font name="System Italic" size="25.0" />
+                  <Font name="System Italic" size="16.0" />
                </font>
             </Text>
+            <JFXButton buttonType="RAISED" layoutX="718.0" layoutY="17.0" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" />
+            <Text fx:id="welcomeText" fill="WHITE" layoutX="534.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" />
          </children>
       </AnchorPane>
       <Label layoutX="317.0" layoutY="561.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" />
