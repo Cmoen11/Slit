@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Christian
  */
 @Stateless
-public class Modul_bean implements ModulRemote {
+public class ModulBean implements ModulRemote {
     @PersistenceContext EntityManager em;
 
     @Override
@@ -45,6 +45,13 @@ public class Modul_bean implements ModulRemote {
     public void asd() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String testTrykk(String test) {
+        return test;
+    }
+    
+    
     
     
 }
