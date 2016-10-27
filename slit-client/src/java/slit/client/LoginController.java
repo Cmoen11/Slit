@@ -47,7 +47,7 @@ public class LoginController {
             alert.setHeaderText("Administrator");
             alert.setContentText("Vi ser at du er en administrator, ønsker du å logge inn på administrasjonspanelet?");
             Optional<ButtonType> result = alert.showAndWait();
-            Authorisation.setUserData(lookupUserBeanRemote().getUserByUsername(username.getText()));
+            //Authorisation.setUserData(lookupUserBeanRemote().getUserByUsername(username.getText()));
             if (result.get() == ButtonType.OK) {
                 new MainAdmin().runGUI(Main.primaryStage);
             } else {

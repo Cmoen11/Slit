@@ -36,6 +36,10 @@ public class TeacherModuleController {
         System.out.println("TEST");
         System.out.println(lookupModulbeanRemote().testTrykk("reeee"));
     }
+    
+    public void testClick2() {
+        System.out.println(lookupModulbeanRemote().editButton("REEEE"));
+    }
 
     private ModulRemote lookupModulbeanRemote() {
         try {

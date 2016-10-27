@@ -23,4 +23,6 @@ public interface ModulRemote {
     public void asd();
 
     String testTrykk(String test);
+
+    String editButton(String temp);
 }
