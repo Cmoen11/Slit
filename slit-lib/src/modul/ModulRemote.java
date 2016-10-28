@@ -5,6 +5,7 @@
  */
 package modul;
 
+import java.sql.Date;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -25,4 +26,6 @@ public interface ModulRemote {
     String testTrykk(String test);
 
     String editButton(String temp);
+
+    void addModuleSubmission(int userID, int moduleID, Date creationDate, int status, String content, String type, int fileID);
 }
