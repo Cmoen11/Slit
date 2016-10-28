@@ -134,7 +134,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
     public UserDetails getUserData() {
         if (user == null) return null; // user is not logged in, return null
         return new UserDetails(
-                user.getUserID(), user.getUsername(), user.getEmail(), -1, -1, 
+                user.getUserID(), user.getUsername(), user.getEmail(), user.getPassedModules(), -1, -1, 
                 user.getFirstname(), user.getLastname()
         );
     }

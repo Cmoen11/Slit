@@ -57,7 +57,7 @@ public class UserBean implements UserBeanRemote {
         if (result == null)return null;
         
         Users user = (Users) result;
-        return new UserDetails(user.getUserID(), user.getUsername(), user.getEmail(), 0,0);
+        return new UserDetails(user.getUserID(), user.getUsername(), user.getEmail(), user.getPassedModules(), 0,0);
     }
     
     /**
@@ -85,17 +85,17 @@ public class UserBean implements UserBeanRemote {
         
     }
     // Integer id, String username, String email, int courseID, int isTeacher, String firstname, String lastname
+    // Added getPassedModules to the output list 
     @Override
     public ArrayList<UserDetails> getAllUsers() {
         List<Users> list = em.createNamedQuery("Users.findAll").getResultList();
         ArrayList<UserDetails> output = new ArrayList<>();
         for (Users user : list) output.add(new UserDetails(
                 user.getUserID(), user.getUsername(), user.getEmail(),
-                -1, -1, user.getFirstname(), user.getLastname()
+                -1, -1, user.getPassedModules(),user.getFirstname(), user.getLastname()
         ));
         return output;
     }
-
     
     
     

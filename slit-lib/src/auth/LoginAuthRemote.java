@@ -17,7 +17,7 @@ public interface LoginAuthRemote {
 
     void test();
 
-    UserDetails authUser(String username, String password, int coruseID);
+    UserDetails authUser(String username, String password, int passedModules, int coruseID);
 
     ArrayList<CourseInfo> getCourses();
     void editUser(UserDetails obj, String password);

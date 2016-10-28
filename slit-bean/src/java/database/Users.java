@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Christian
+ * @author Christian og litt Tor Ole 
  */
 @Entity
 @Table(name = "users")
@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
     @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
+    @NamedQuery(name = "Users.sortByModules", query = "SELECT u FROM Users u WHERE u.passedModules = :passedModules ORDER BY u.passedModules ASC"),
     @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")})
 public class Users implements Serializable {
 
@@ -73,6 +74,10 @@ public class Users implements Serializable {
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "email")
+    private Integer passedModules;
+    @Basic(optional = false)
+    @Size(min = 0, max = 50)
+    @Column(name = "passedModules")
     private String email;
     @Basic(optional = false)
     @NotNull
@@ -102,13 +107,14 @@ public class Users implements Serializable {
         this.userID = userID;
     }
 
-    public Users(Integer userID, String firstname, String lastname, String username, String password, String email, int isAdmin) {
+    public Users(Integer userID, String firstname, String lastname, String username, String password, String email, int passedModules, int isAdmin) {
         this.userID = userID;
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.passedModules = passedModules;
         this.isAdmin = isAdmin;
     }
 
@@ -155,9 +161,17 @@ public class Users implements Serializable {
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public int getPassedModules() {
+        return passedModules;
+    }
+
+    public void setPassedModules(int passedModules) {
+        this.passedModules = passedModules;
     }
 
     public int getIsAdmin() {

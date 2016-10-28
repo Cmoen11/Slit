@@ -9,11 +9,11 @@ import java.io.Serializable;
 
 /**
  *
- * @author Christian
+ * @author Christian og litt Tor Ole 
  */
 public class UserDetails implements Serializable {
     String username, email, firstname, lastname;
-    int id, courseID;
+    int id, courseID, passedModules;
     boolean teacher;
     
     /**
@@ -21,13 +21,15 @@ public class UserDetails implements Serializable {
      * @param id
      * @param username
      * @param email
+     * @param passedModules
      * @param courseID
      * @param isTeacher 
      */
-    public UserDetails(Integer id, String username, String email, int courseID, int isTeacher) {
+    public UserDetails(Integer id, String username, String email, int passedModules, int courseID, int isTeacher) {
         this.id = id;
         this.username = username;
         this.email = email;
+        this.passedModules = passedModules;
         this.courseID = courseID;
         this.teacher = (isTeacher == 1);  
     }
@@ -37,13 +39,14 @@ public class UserDetails implements Serializable {
      * @param id
      * @param username
      * @param email
+     * @param passedModules
      * @param courseID
      * @param isTeacher
      * @param firstname
      * @param lastname 
      */
-    public UserDetails(Integer id, String username, String email, int courseID, int isTeacher, String firstname, String lastname) {
-        this(id, username, email, courseID, isTeacher);
+    public UserDetails(Integer id, String username, String email, int passedModules, int courseID, int isTeacher, String firstname, String lastname) {
+        this(id, username, email, passedModules, courseID, isTeacher);
         this.firstname = firstname;
         this.lastname = lastname;
     }
@@ -101,6 +104,14 @@ public class UserDetails implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getPassedModules() {
+        return passedModules;
+    }
+
+    public void setPassedModules(int passedModules) {
+        this.passedModules = passedModules;
     }
 
     public int getId() {
