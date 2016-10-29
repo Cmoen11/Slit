@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.web.HTMLEditor;
 import slit.client.Main;
 /**
@@ -30,10 +31,17 @@ public class Controller {
     @FXML TextField moduleName;
     @FXML TextField learningGoal_input;
     @FXML ListView learning_goals_view;
+    
+    @FXML ScrollPane scroll;
+    
     static String username;
     public void changeName() {
         name.setText("Velkommen, " + Controller.username);
     }
+    
+    public void initialize() {
+    }
+    
     
     public void createModule() {
         try {

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import org.controlsfx.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
@@ -7,80 +10,170 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="688.0" prefWidth="1265.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.ControllerAdm">
+<AnchorPane prefHeight="688.0" prefWidth="1233.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.ControllerAdm">
    <children>
-      <Text fontSmoothingType="LCD" layoutX="14.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mine henvendelser">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Text>
-      <Pane layoutX="12.0" layoutY="48.0" prefHeight="613.0" prefWidth="594.0" style="-fx-background-color: #E6E7F0; -fx-background-radius: 5px;">
+      <AnchorPane prefHeight="858.0" prefWidth="1252.0">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="172.0" layoutY="564.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
+            <ImageView fitHeight="31.0" fitWidth="133.0" layoutX="1107.0" layoutY="452.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/box_name.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="31.0" fitWidth="133.0" layoutX="769.0" layoutY="449.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/box_name.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="643.0" layoutY="47.0" prefHeight="359.0" prefWidth="587.0" style="-fx-background-radius: 4px; -fx-background-color: #1F2E4F;">
+               <children>
+                  <JFXButton buttonType="RAISED" layoutX="23.0" layoutY="303.0" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXListView fx:id="unassignedModules" layoutX="24.0" layoutY="39.0" prefHeight="248.0" prefWidth="248.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+                  <Text fill="WHITE" layoutX="24.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulgodkjenninger" wrappingWidth="266.537841796875">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="319.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hjelpehenvendelser">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <JFXListView fx:id="unassignedHelp" layoutX="316.0" layoutY="36.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+                  <JFXButton buttonType="RAISED" layoutX="319.0" layoutY="303.0" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <Pane layoutX="14.0" layoutY="478.0" prefHeight="359.0" prefWidth="880.0" style="-fx-background-radius: 4px; -fx-background-color: #1F2E4F;">
+               <children>
+                  <JFXButton buttonType="RAISED" layoutX="626.0" layoutY="320.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Slett" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="756.0" layoutY="319.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Opprett" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="26.0" layoutY="68.0" prefHeight="236.0" prefWidth="842.0" style="-fx-background-radius: 5px;" />
+                  <Pane layoutX="692.0" layoutY="-28.0" prefHeight="31.0" prefWidth="156.0" style="-fx-background-color: #1F2E4F;">
+                     <children>
+                        <Text fill="WHITE" fontSmoothingType="LCD" layoutX="27.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opprett en nyhet">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </Pane>
+                  <TextField layoutX="26.0" layoutY="33.0" prefHeight="25.0" prefWidth="672.0" />
+                  <Text fill="WHITE" layoutX="26.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tittel" wrappingWidth="266.537841796875">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <JFXCheckBox checkedColor="#034021" layoutX="744.0" layoutY="30.0" prefHeight="31.0" prefWidth="129.0" text="Viktig nyhet" textFill="WHITE" unCheckedColor="WHITE">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXCheckBox>
+               </children>
+            </Pane>
+            <Pane layoutX="916.0" layoutY="478.0" prefHeight="353.0" prefWidth="314.0" style="-fx-background-radius: 5px; -fx-background-color: #1F2E4F;">
+               <children>
+                  <JFXListView fx:id="unassignedModules1" layoutX="23.0" layoutY="14.0" prefHeight="288.0" prefWidth="267.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+                  <JFXButton buttonType="RAISED" layoutX="164.0" layoutY="309.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="38.0" layoutY="310.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Slett" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <ImageView fitHeight="31.0" fitWidth="133.0" layoutX="1106.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/box_name.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="1034.0" layoutY="20.0" prefHeight="31.0" prefWidth="165.0" style="-fx-background-color: #1F2E4F;">
+               <children>
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="11.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utildelte henvendelser">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <ImageView fitHeight="31.0" fitWidth="133.0" layoutX="499.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/box_name.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="1043.0" layoutY="452.0" prefHeight="31.0" prefWidth="156.0" style="-fx-background-color: #1F2E4F;">
+               <children>
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="12.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nåværende Nyheter" wrappingWidth="148.2646484375">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <Pane layoutX="12.0" layoutY="48.0" prefHeight="359.0" prefWidth="610.0" style="-fx-background-radius: 4px; -fx-background-color: #1F2E4F; -fx-border-style: ;">
+         <children>
+            <JFXButton buttonType="RAISED" layoutX="172.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="28.0" layoutY="564.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="28.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <Text layoutX="28.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulgodkjenninger" wrappingWidth="266.537841796875">
+            <Text fill="WHITE" layoutX="30.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulgodkjenninger" wrappingWidth="266.537841796875">
                <font>
-                  <Font size="16.0" />
+                  <Font size="13.0" />
                </font>
             </Text>
-            <Text layoutX="321.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hjelpehenvendelser">
+            <Text fill="WHITE" layoutX="328.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hjelpehenvendelser">
                <font>
-                  <Font size="16.0" />
+                  <Font size="13.0" />
                </font>
             </Text>
-            <JFXButton buttonType="RAISED" layoutX="325.0" layoutY="566.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="328.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXListView layoutX="321.0" layoutY="41.0" prefHeight="516.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
-            <JFXButton buttonType="RAISED" layoutX="465.0" layoutY="566.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
+            <JFXListView layoutX="328.0" layoutY="38.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+            <JFXButton buttonType="RAISED" layoutX="472.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXListView layoutX="28.0" layoutY="41.0" prefHeight="516.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+            <JFXListView layoutX="28.0" layoutY="41.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+            <Pane layoutX="412.0" layoutY="-26.0" prefHeight="31.0" prefWidth="165.0" style="-fx-background-color: #1F2E4F;">
+               <children>
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="29.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mine henvendelser">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
          </children>
       </Pane>
-      <Pane layoutX="656.0" layoutY="48.0" prefHeight="613.0" prefWidth="594.0" style="-fx-background-color: #E6E7F0; -fx-background-radius: 5px;">
-         <children>
-            <JFXButton buttonType="RAISED" layoutX="26.0" layoutY="564.0" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-            <JFXListView fx:id="unassignedModules" layoutX="24.0" layoutY="39.0" prefHeight="516.0" prefWidth="248.0" showTooltip="true" style="-fx-background-radius: 5px;" />
-            <Text layoutX="28.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulgodkjenninger" wrappingWidth="266.537841796875">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <Text layoutX="324.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hjelpehenvendelser">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Text>
-            <JFXListView fx:id="unassignedHelp" layoutX="324.0" layoutY="41.0" prefHeight="516.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
-            <JFXButton buttonType="RAISED" layoutX="326.0" layoutY="566.0" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </JFXButton>
-         </children>
-      </Pane>
-      <Text fontSmoothingType="LCD" layoutX="659.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utildelte henvendelser">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>

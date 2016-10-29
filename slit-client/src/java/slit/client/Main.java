@@ -35,7 +35,6 @@ public class Main extends Application
         
         // load main GUI
         Application.launch(Main.class, (java.lang.String[])null);
-        
     }
 
     @Override
