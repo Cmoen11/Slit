@@ -53,7 +53,7 @@ public class Controller {
         user.setFirstname(temp.getFirstname()); 
         user.setLastname(temp.getLastname());
         System.out.println(temp.getFirstname());
-        welcomeMessage.setText("Velkommen, " + temp.getFirstname() + " " +temp.getLastname());
+        welcomeMessage.setText("Hei, " + temp.getFirstname() + " " +temp.getLastname());
     }
     
     public void initialize() {

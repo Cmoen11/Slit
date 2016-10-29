@@ -72,7 +72,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <TextField layoutX="26.0" layoutY="33.0" prefHeight="25.0" prefWidth="672.0" />
+                  <TextField layoutX="26.0" layoutY="33.0" prefHeight="25.0" prefWidth="672.0" promptText="eks. Husk å melde dere opp på studentweb" />
                   <Text fill="WHITE" layoutX="26.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tittel" wrappingWidth="266.537841796875">
                      <font>
                         <Font size="13.0" />
@@ -82,18 +82,21 @@
                      <font>
                         <Font size="16.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </JFXCheckBox>
                </children>
             </Pane>
-            <Pane layoutX="916.0" layoutY="478.0" prefHeight="353.0" prefWidth="314.0" style="-fx-background-radius: 5px; -fx-background-color: #1F2E4F;">
+            <Pane layoutX="916.0" layoutY="478.0" prefHeight="359.0" prefWidth="314.0" style="-fx-background-radius: 5px; -fx-background-color: #1F2E4F;">
                <children>
                   <JFXListView fx:id="unassignedModules1" layoutX="23.0" layoutY="14.0" prefHeight="288.0" prefWidth="267.0" showTooltip="true" style="-fx-background-radius: 5px;" />
-                  <JFXButton buttonType="RAISED" layoutX="164.0" layoutY="309.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="179.0" layoutY="322.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="38.0" layoutY="310.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Slett" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="23.0" layoutY="322.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Slett" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -121,7 +124,7 @@
             </ImageView>
             <Pane layoutX="1043.0" layoutY="452.0" prefHeight="31.0" prefWidth="156.0" style="-fx-background-color: #1F2E4F;">
                <children>
-                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="12.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nåværende Nyheter" wrappingWidth="148.2646484375">
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="12.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Eksisterende nyheter" wrappingWidth="148.2646484375">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

@@ -94,12 +94,12 @@
                   <Tab text="Blogger" />
               </tabs>
             </TabPane>
-            <JFXButton buttonType="RAISED" layoutX="1193.0" layoutY="23.0" onAction="#logOut" prefHeight="24.0" prefWidth="72.0" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" AnchorPane.bottomAnchor="704.0" AnchorPane.leftAnchor="1192.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="22.0">
+            <JFXButton buttonType="RAISED" layoutX="1197.0" layoutY="20.0" onAction="#logOut" prefHeight="28.0" prefWidth="70.0" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" AnchorPane.bottomAnchor="704.0" AnchorPane.leftAnchor="1197.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <Text fx:id="welcomeMessage" fill="WHITE" layoutX="996.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="26.0" />
+            <Text fx:id="welcomeMessage" fill="WHITE" layoutX="1015.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="25.05078125" />
             <Label fx:id="name" prefHeight="17.0" prefWidth="5.0" textAlignment="RIGHT" textFill="WHITE" />
             <Text fill="WHITE" layoutX="133.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lærerpanel">
                <font>
