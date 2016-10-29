@@ -46,6 +46,9 @@
                                  <content>
                                     <fx:include source="TeacherAdmModuleAndHelp.fxml" />
                                  </content>
+                                 <rotationAxis>
+                                    <Point3D z="5.0" />
+                                 </rotationAxis>
                               </ScrollPane>
                               <AnchorPane layoutX="-27.0" layoutY="-9.0" prefHeight="9.0" prefWidth="1290.0" style="-fx-background-color: black;" />
                            </children>
@@ -96,7 +99,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <Text fill="WHITE" layoutX="996.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="26.0" />
+            <Text fx:id="welcomeMessage" fill="WHITE" layoutX="996.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="26.0" />
             <Label fx:id="name" prefHeight="17.0" prefWidth="5.0" textAlignment="RIGHT" textFill="WHITE" />
             <Text fill="WHITE" layoutX="133.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lærerpanel">
                <font>

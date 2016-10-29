@@ -5,6 +5,7 @@
  */
 package modul;
 
+import database.Courses;
 import database.Modulesubmission;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,12 @@ public class SubmissionBean implements SubmissionBeanRemote {
     @PersistenceContext EntityManager em;
     
     @Override
-    public List<ModuleSubmissionDetails> getSubmissions() {
+    public List<ModuleSubmissionDetails> getSubmissions(int courseID) {
         int status = 0;
-        List <Modulesubmission> subs = em.createNamedQuery("Modulesubmission.findAll").getResultList();
+        List <Modulesubmission> subs = em.createNamedQuery("Modulesubmission.findByStatusAndCourse")
+                .setParameter("courseID", courseID)
+                .setParameter("status", status)
+                .getResultList();
         
         List<ModuleSubmissionDetails> output = new ArrayList<>();
         for (Modulesubmission obj : subs) {

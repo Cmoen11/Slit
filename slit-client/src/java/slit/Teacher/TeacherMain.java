@@ -1,6 +1,7 @@
 
 package slit.Teacher;
 
+import auth.UserDetails;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -20,9 +21,10 @@ public class TeacherMain extends Application {
      * If user has entered a correct password, he will be forwarded to this class
      * that will open up the student main page.
      */
-    public void runGUI(Stage primaryStage, String username) {
+    public void runGUI(Stage primaryStage, UserDetails user) {
+        Controller.setUser(user);
         start(primaryStage);
-        Controller.username = username;
+        
     }
 
     @Override

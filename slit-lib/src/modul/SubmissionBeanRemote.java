@@ -14,6 +14,6 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface SubmissionBeanRemote {
-    List<ModuleSubmissionDetails> getSubmissions();
+    List<ModuleSubmissionDetails> getSubmissions(int courseID);
     
 }

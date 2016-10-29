@@ -32,4 +32,6 @@ public interface UserBeanRemote {
 
     UserDetails getUserObj(String username);
 
+    UserDetails getUserByID(int x);
+
 }

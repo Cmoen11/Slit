@@ -100,9 +100,21 @@ public class UserBean implements UserBeanRemote {
 
     @Override
     public UserDetails getUserObj(String username) {
-        Users user = (Users) em.createNamedQuery("Users.findByUsername").getSingleResult();
+        Users user = (Users) em.createNamedQuery("Users.findByUsername").setParameter("username", username).getSingleResult();
         
         return null;
+    }
+
+    @Override
+    public UserDetails getUserByID(int x) {
+        Integer userID = (Integer) x;
+        Users user = (Users) em.createNamedQuery("Users.findByUserID")
+                .setParameter("userID", x).getSingleResult();
+        return new UserDetails(
+                user.getUserID(), user.getUsername(), user.getEmail(), 0, -1, 
+                user.getFirstname(), user.getLastname()
+        );
+        
     }
 
     
