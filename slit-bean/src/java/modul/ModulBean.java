@@ -6,6 +6,7 @@
 package modul;
 
 import database.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -31,6 +32,9 @@ public class ModulBean implements ModulRemote {
         return em.find(Module.class, modul).getModuleID();
 
     }
+    
+    
+    
     /**
      * add learning goals to the module.
      * @param learningGoal
@@ -73,6 +77,22 @@ public class ModulBean implements ModulRemote {
     @Override
     public String editButton(String temp) {
         return temp;
+    }
+
+    @Override
+    public void addModuleSubmission(int userID, int moduleID, Date creationDate, int status, String content, String type, int fileID) {
+        Modulesubmission moduleSubmission = new Modulesubmission(); 
+        
+        moduleSubmission.setUserID(em.find(Users.class, userID));
+        moduleSubmission.setModuleID(em.find(Module.class, moduleID));
+        //Hvor skal vi faktisk legge inn datoen? 
+        moduleSubmission.setCreationDate(creationDate);
+        moduleSubmission.setStatus(status);
+        moduleSubmission.setContent(content);
+        moduleSubmission.setType(type);
+        moduleSubmission.setFileID(em.find(File.class, fileID));
+        
+        em.persist(moduleSubmission);
     }
     
     
