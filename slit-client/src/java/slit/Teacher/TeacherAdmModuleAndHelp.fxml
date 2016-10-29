@@ -57,12 +57,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="756.0" layoutY="319.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Opprett" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="756.0" layoutY="319.0" onAction="#createModule" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Opprett" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="26.0" layoutY="68.0" prefHeight="236.0" prefWidth="842.0" style="-fx-background-radius: 5px;" />
+                  <HTMLEditor fx:id="newsContent" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="26.0" layoutY="68.0" prefHeight="236.0" prefWidth="842.0" style="-fx-background-radius: 5px;" />
                   <Pane layoutX="692.0" layoutY="-28.0" prefHeight="31.0" prefWidth="156.0" style="-fx-background-color: #1F2E4F;">
                      <children>
                         <Text fill="WHITE" fontSmoothingType="LCD" layoutX="27.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opprett en nyhet">
@@ -72,7 +72,7 @@
                         </Text>
                      </children>
                   </Pane>
-                  <TextField layoutX="26.0" layoutY="33.0" prefHeight="25.0" prefWidth="672.0" promptText="eks. Husk å melde dere opp på studentweb" />
+                  <TextField fx:id="newsTitle" layoutX="26.0" layoutY="33.0" prefHeight="25.0" prefWidth="672.0" promptText="eks. Husk å melde dere opp på studentweb" />
                   <Text fill="WHITE" layoutX="26.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tittel" wrappingWidth="266.537841796875">
                      <font>
                         <Font size="13.0" />
@@ -90,7 +90,7 @@
             </Pane>
             <Pane layoutX="916.0" layoutY="478.0" prefHeight="359.0" prefWidth="314.0" style="-fx-background-radius: 5px; -fx-background-color: #1F2E4F;">
                <children>
-                  <JFXListView fx:id="unassignedModules1" layoutX="23.0" layoutY="14.0" prefHeight="288.0" prefWidth="267.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+                  <JFXListView fx:id="existingNews" layoutX="23.0" layoutY="14.0" prefHeight="288.0" prefWidth="267.0" showTooltip="true" style="-fx-background-radius: 5px;" />
                   <JFXButton buttonType="RAISED" layoutX="179.0" layoutY="322.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />

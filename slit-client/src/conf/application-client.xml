@@ -46,4 +46,9 @@
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>modul.SubmissionBeanRemote</remote>
   </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>NewsBean</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>sessionBeans.NewsBeanRemote</remote>
+  </ejb-ref>
 </application-client>

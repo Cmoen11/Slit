@@ -1,17 +1,22 @@
 package slit.Teacher;
 
 import auth.UserDetails;
+import blog.Post;
 import com.jfoenix.controls.JFXListView;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.web.HTMLEditor;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
+import sessionBeans.NewsBeanRemote;
 import user_details.UserBeanRemote;
 
 /**
@@ -23,12 +28,24 @@ public class ControllerAdm {
 
     @FXML
     private JFXListView<Label> unassignedModules;
-
     @FXML
     private JFXListView<Label> unassignedHelp;
+    
+    @FXML
+    private HTMLEditor newsContent;
+    
+    @FXML
+    private TextField newsTitle;
+    
+    @FXML
+    private JFXListView<Label> existingNews;
 
     public void initialize() {
         try {
+            existingNews.getItems().clear();
+            unassignedHelp.getItems().clear();
+            unassignedModules.getItems().clear();
+            
             ArrayList<ModuleSubmissionDetails> moduleSubs
                     = (ArrayList<ModuleSubmissionDetails>) lookupSubmissionBeanRemote().getSubmissions(Controller.user.getCourseID()); // need to implement course.
 
@@ -52,8 +69,25 @@ public class ControllerAdm {
                     unassignedModules.getItems().add(lbl);
                 }
             }
+            
+            ArrayList<Post> posts = (ArrayList<Post>) 
+                    lookupNewsBeanRemote().getPostsFromCourse(Controller.getUser().getId());
+            for (Post obj : posts) {
+                UserDetails author = null;
+                for (UserDetails user : allUsers) {
+                    if (user.getId() == obj.getUserID()) {
+                        author = user;
+                        break;
+                    }
+                }
+                
+                Label postTitle = new Label(
+                        obj.getTitle() +", av "+ author.getFirstname());
+                existingNews.getItems().add(postTitle);
+            }
+            
         } catch (Exception e) {
-
+            System.out.println(e);
         }
 
         for (int i = 0; i < 10; i++) {
@@ -70,6 +104,22 @@ public class ControllerAdm {
         unassignedHelp.setExpanded(false);
     }
 
+    public void createModule() {
+        Post post = new Post(
+                newsTitle.getText(),
+                newsContent.getHtmlText(),
+                new Date(),
+                Controller.user.getId(),
+                Controller.user.getCourseID(),
+                -1
+        );
+        //public Post(String title, String content, Date creationDate, int userID, int courseID, int postID) {
+        lookupNewsBeanRemote().createPost(post);
+        initialize();
+        newsTitle.clear();
+        newsContent.setHtmlText("<html><head></head><body contenteditable=\"true\"></body></html>");
+    }
+    
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -89,5 +139,16 @@ public class ControllerAdm {
             throw new RuntimeException(ne);
         }
     }
+
+    private NewsBeanRemote lookupNewsBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (NewsBeanRemote) c.lookup("java:comp/env/NewsBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
 
 }

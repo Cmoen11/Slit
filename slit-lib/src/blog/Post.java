@@ -1,17 +1,20 @@
 package blog;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Christian
  */
-public class Post {
+public class Post implements Serializable{
 
     String title, content;
     Date creationDate;
     int userID, courseID, postID;
-
+    public Post() {
+        
+    }
     public Post(String title, String content, Date creationDate, int userID, int courseID, int postID) {
         this.title = title;
         this.content = content;
