@@ -26,7 +26,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#changeName" prefHeight="795.0" prefWidth="1290.0" style="-fx-background-color: #3b5998;" stylesheets="@teacherMainPanel.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1290.0" style="-fx-background-color: #3b5998;" stylesheets="@teacherMainPanel.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.Controller">
    <children>
       <AnchorPane layoutX="5.0" layoutY="6.0" prefHeight="750.0" prefWidth="1279.0" style="-fx-border-radius: 5px; -fx-border-style: dashed; -fx-border-color: white;" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
          <children>
@@ -40,9 +40,9 @@
               <tabs>
                 <Tab text="Lærerpanelet">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <ScrollPane fx:id="scroll" hbarPolicy="NEVER" layoutX="3.0" layoutY="-9.0" prefHeight="658.0" prefWidth="1257.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="-9.0">
+                              <ScrollPane fx:id="scroll" hbarPolicy="NEVER" hmax="0.0" layoutX="3.0" layoutY="1.0" pannable="true" prefHeight="647.0" prefWidth="1257.0" style="-fx-background-color: transparent;" stylesheets="@teacherMainPanel.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="1.0">
                                  <content>
                                     <fx:include source="TeacherAdmModuleAndHelp.fxml" />
                                  </content>
@@ -50,7 +50,7 @@
                                     <Point3D z="5.0" />
                                  </rotationAxis>
                               </ScrollPane>
-                              <AnchorPane layoutX="-27.0" layoutY="-9.0" prefHeight="9.0" prefWidth="1290.0" style="-fx-background-color: black;" />
+                              <AnchorPane layoutX="-27.0" layoutY="-9.0" prefHeight="9.0" prefWidth="1290.0" style="-fx-background-color: black; -fx-unit-increment: 20;" />
                            </children>
                         </AnchorPane>
                   </content>

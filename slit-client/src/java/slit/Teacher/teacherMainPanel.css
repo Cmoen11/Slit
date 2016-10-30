@@ -61,3 +61,8 @@ and open the template in the editor.
 .tab:focus  { 
     outline:none !important;
 }
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-unit-increment: 20;
+    -fx-block-increment: 60;
+}
