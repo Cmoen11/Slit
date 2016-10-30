@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import modul.ModulRemote;
 import java.util.ArrayList;
 import java.util.Set;
 import javafx.beans.value.ChangeListener;
@@ -28,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import slit.client.Main;
 import user_details.UserBeanRemote;
+import modul.ModuleRemote;
 /**
  *
  * @author Christian
@@ -71,14 +71,13 @@ public class Controller {
     }
 
     
-    
     public void logOut() { 
         Main.runGUI();
     }
-    private ModulRemote lookupModulRemote() {
+    private ModuleRemote lookupModulRemote() {
         try {
             Context c = new InitialContext();
-            return (ModulRemote) c.lookup("java:comp/env/Modul");
+            return (ModuleRemote) c.lookup("java:comp/env/Modul");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
