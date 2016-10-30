@@ -31,7 +31,6 @@ public class ModuleBean implements ModuleRemote {
         em.persist(modul);      // add modul to database.
 
         return em.find(Module.class, modul).getModuleID();
-
     }
 
     /**
@@ -68,7 +67,8 @@ public class ModuleBean implements ModuleRemote {
     // Creates a new empty module
     @Override
     public void newModule() {
-        
+        Module module = new Module();
+        module.setCourseID(0);
     }
 
     // Saves changes done to the chosen module

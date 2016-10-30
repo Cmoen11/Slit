@@ -71,7 +71,7 @@
                               <HBox layoutX="-14.0" layoutY="-5.0" prefHeight="701.0" prefWidth="1280.0">
                                  <children>
                                     <Pane prefHeight="701.0" prefWidth="1285.0" style="-fx-background-color: F3F3F3;" />
-                                    <fx:include source="TeacherAddModule.fxml" />
+                                    <fx:include source="TeacherModule.fxml" />
                                  </children>
                               </HBox>
                            </children>

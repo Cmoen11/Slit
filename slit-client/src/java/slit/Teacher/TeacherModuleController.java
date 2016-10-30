@@ -38,7 +38,7 @@ public class TeacherModuleController {
     HTMLEditor moduleSpecifications;
 
     public void newModuleButton() {
-        lookupModulebeanRemote().newModule();
+        
     }
 
     public void saveModuleButton() {
