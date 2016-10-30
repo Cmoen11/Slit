@@ -29,7 +29,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.text.Text;
 import user_details.UserBeanRemote;
-import slit.client.LoginController;
+import slit.client.*;
 /**
  *
  * @author Christian
@@ -228,6 +228,10 @@ public class Controller {
         }
         
         
+    }
+    
+    public void logOut() {
+        Main.runGUI();
     }
     
     // connection to beans

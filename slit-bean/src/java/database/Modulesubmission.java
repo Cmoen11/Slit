@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * SELECT m FROM Modulesubmission m WHERE m.moduleID.courseID = :courseID
  * @author Christian
  */
 @Entity
@@ -39,9 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Modulesubmission.findAll", query = "SELECT m FROM Modulesubmission m"),
     @NamedQuery(name = "Modulesubmission.findBySubmissionID", query = "SELECT m FROM Modulesubmission m WHERE m.submissionID = :submissionID"),
     @NamedQuery(name = "Modulesubmission.findByCreationDate", query = "SELECT m FROM Modulesubmission m WHERE m.creationDate = :creationDate"),
-    @NamedQuery(name = "Modulesubmission.findByStatus", query = "SELECT m FROM Modulesubmission m WHERE m.status = :status"),
+    @NamedQuery(name = "Modulesubmission.findByStatus", query = "SELECT m FROM Modulesubmission m WHERE m.status = :status ORDER BY m.submissionID DESC"),
     @NamedQuery(name = "Modulesubmission.findByContent", query = "SELECT m FROM Modulesubmission m WHERE m.content = :content"),
     @NamedQuery(name = "Modulesubmission.findByType", query = "SELECT m FROM Modulesubmission m WHERE m.type = :type"), 
+    @NamedQuery(name = "Modulesubmission.findByStatusAndCourse", query = "SELECT m FROM Modulesubmission m WHERE m.moduleID.courseID = :courseID AND m.status = :status ORDER BY m.submissionID DESC"), 
     @NamedQuery(name = "Modulesubmission.findByUser", query = "SELECT m FROM Modulesubmission m WHERE m.userID = :userId ")})
 public class Modulesubmission implements Serializable {
 

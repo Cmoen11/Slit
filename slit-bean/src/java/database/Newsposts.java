@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Newsposts.findAll", query = "SELECT n FROM Newsposts n"),
     @NamedQuery(name = "Newsposts.findByPostID", query = "SELECT n FROM Newsposts n WHERE n.postID = :postID"),
     @NamedQuery(name = "Newsposts.findByTitle", query = "SELECT n FROM Newsposts n WHERE n.title = :title"),
+    @NamedQuery(name = "Newsposts.findByCourseID", query = "SELECT n FROM Newsposts n WHERE n.courseID = :courseID ORDER BY n.postID DESC"),
     @NamedQuery(name = "Newsposts.findByCreationDate", query = "SELECT n FROM Newsposts n WHERE n.creationDate = :creationDate")})
 public class Newsposts implements Serializable {
 
@@ -81,6 +82,15 @@ public class Newsposts implements Serializable {
         this.title = title;
         this.content = content;
         this.creationDate = creationDate;
+    }
+
+    public Newsposts(Integer postID, String title, String content, Date creationDate, Users userID, Courses courseID) {
+        this.postID = postID;
+        this.title = title;
+        this.content = content;
+        this.creationDate = creationDate;
+        this.userID = userID;
+        this.courseID = courseID;
     }
 
     public Integer getPostID() {

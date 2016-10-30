@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29.okt.2016, 15:20:39
+    Author     : Christian
+*/
+.tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+ /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overriden as 5 2 0 0 */
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+    -fx-backgrround-color: white !important;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:100px;
+    -fx-backgrround-color: white;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-focus-color: transparent;
+    -fx-border-color:white;
+    -fx-border-width:5px;
+        
+}
+.tab-pane .tab
+{
+    -fx-background-color: white;
+    outline:none;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #2D4475;
+    -fx-border-color: #2D4475;
+    outline:none;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: black;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    outline:none;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    outline:none;
+}
+.tab:focus  { 
+    outline:none !important;
+}

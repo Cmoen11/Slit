@@ -73,7 +73,7 @@ public class LoginController {
             if (user.getEmail().equals("@@")) {
                 firstTimeLoggedIn(user);
             } else if (user.isTeacher()) {
-                new TeacherMain().runGUI(Main.primaryStage, username.getText());     // launch teacher panel
+                new TeacherMain().runGUI(Main.primaryStage, user);     // launch teacher panel
                 System.out.println(user.getUsername() + " " + user.getCourseID() + " " + user.isTeacher());
             } else {
                 // call student gui.
