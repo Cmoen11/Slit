@@ -18,6 +18,6 @@ public interface NewsBeanRemote {
 
     void createPost(Post post);
     public void editPost(Post post);
-
+    public void removePost(Post post);
     List<Post> getPostsFromCourse(int courseID);
 }

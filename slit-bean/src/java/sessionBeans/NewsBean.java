@@ -70,12 +70,10 @@ public class NewsBean implements NewsBeanRemote {
         } 
         return output;
     }
-    
-    
-    
-    
-    /**
-     * edit a post
-     */
+
+    @Override
+    public void removePost(Post post) {
+        em.remove(em.find(Newsposts.class, post.getPostID()));   
+    }
     
 }
