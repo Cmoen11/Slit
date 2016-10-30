@@ -18,10 +18,10 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import modul.ModulRemote;
 import slit.administrator.MainAdmin;
 import user_details.UserBeanRemote;
 import account.Authorisation;
+import modul.ModuleRemote;
 /**
  *
  * @author Christian
@@ -149,10 +149,10 @@ public class LoginController {
         }
     }
 
-    private ModulRemote lookupModul_beanRemote() {
+    private ModuleRemote lookupModul_beanRemote() {
         try {
             Context c = new InitialContext();
-            return (ModulRemote) c.lookup("java:comp/env/Modul_bean");
+            return (ModuleRemote) c.lookup("java:comp/env/Modul_bean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

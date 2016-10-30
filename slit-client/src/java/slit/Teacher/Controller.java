@@ -10,12 +10,12 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import modul.ModulRemote;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.web.HTMLEditor;
+import modul.ModuleRemote;
 /**
  *
  * @author Christian
@@ -46,10 +46,10 @@ public class Controller {
         }
     }
     
-    private ModulRemote lookupModulRemote() {
+    private ModuleRemote lookupModulRemote() {
         try {
             Context c = new InitialContext();
-            return (ModulRemote) c.lookup("java:comp/env/Modul");
+            return (ModuleRemote) c.lookup("java:comp/env/Modul");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

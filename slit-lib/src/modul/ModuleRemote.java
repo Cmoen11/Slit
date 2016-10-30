@@ -13,16 +13,24 @@ import javax.ejb.Remote;
  * @author Christian
  */
 @Remote
-public interface ModulRemote {
+public interface ModuleRemote {
 
     int createModule(String name, String desc);
+
     void addLearningGoal(String learningGoal, int id);
-    
-     List<ModuleDetails> getAllModulesForUser(int userId);
-    
-    public void asd();
 
-    String testTrykk(String test);
+    List<ModuleDetails> getAllModulesForUser(int userId);
 
-    String editButton(String temp);
+    void newModule();
+
+    void saveModule();
+
+    void openModule();
+
+    void removeModule();
+
+    void addLearningGoal();
+
+    void removeLearningGoal();
+
 }

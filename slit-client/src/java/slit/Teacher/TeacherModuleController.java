@@ -5,6 +5,7 @@
  */
 package slit.Teacher;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -15,41 +16,59 @@ import javafx.scene.web.HTMLEditor;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import modul.ModulRemote;
+import modul.ModuleRemote;
 
 /**
  *
  * @author Erlend
  */
 public class TeacherModuleController {
-    
-    
+
     // List, edit, add and pick modules or learninggoals.
-    @FXML ListView learningGoals;
-    @FXML ListView modules;
-    @FXML TextField moduleTitle;
-    @FXML TextField learningGoal;
-    @FXML HTMLEditor moduleSpecifications;
-    
-    
-    public void testClick() {
-        System.out.println("TEST");
-        System.out.println(lookupModulbeanRemote().testTrykk("reeee"));
-    }
-    
-    public void testClick2() {
-        System.out.println(lookupModulbeanRemote().editButton("REEEE"));
+    private ArrayList<String> learningGoalsList = new ArrayList<>();
+    @FXML
+    ListView learningGoals;
+    @FXML
+    ListView modules;
+    @FXML
+    TextField moduleTitle;
+    @FXML
+    TextField learningGoal;
+    @FXML
+    HTMLEditor moduleSpecifications;
+
+    public void newModuleButton() {
+        lookupModulebeanRemote().newModule();
     }
 
-    private ModulRemote lookupModulbeanRemote() {
+    public void saveModuleButton() {
+        lookupModulebeanRemote().saveModule();
+    }
+
+    public void openModuleButton() {
+        lookupModulebeanRemote().openModule();
+    }
+
+    public void removeModuleButton() {
+        lookupModulebeanRemote().removeModule();
+    }
+
+    public void addLearningGoalButton() {
+        lookupModulebeanRemote().addLearningGoal();
+    }
+
+    public void removeLearningGoalButton() {
+        lookupModulebeanRemote().removeLearningGoal();
+    }
+
+    private ModuleRemote lookupModulebeanRemote() {
         try {
             Context c = new InitialContext();
-            return (ModulRemote) c.lookup("java:comp/env/Modul_bean");
+            return (ModuleRemote) c.lookup("java:comp/env/Modul_bean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
-    }    
-    
-    
+    }
+
 }
