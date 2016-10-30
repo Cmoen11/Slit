@@ -128,7 +128,8 @@ public class LoginController {
     public static LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {
             Context c = new InitialContext();
-            return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth_bean");
+            //For mac, bruk: "java:global/slit-bean/LoginAuth_bean", pc: "java:comp/env/LoginAuth_bean"
+            return (LoginAuthRemote) c.lookup("java:global/slit-bean/LoginAuth_bean");
         } catch (NamingException ne) {
             throw new RuntimeException(ne);
         }
