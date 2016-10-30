@@ -2,6 +2,8 @@
 package slit.Teacher;
 
 import auth.UserDetails;
+import com.sun.javafx.scene.control.skin.ScrollPaneSkin;
+import java.lang.reflect.Field;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -13,9 +15,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import modul.ModulRemote;
 import java.util.ArrayList;
+import java.util.Set;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
@@ -28,13 +35,6 @@ import user_details.UserBeanRemote;
 public class Controller {
     
     private ArrayList<String> learningGoals_list = new ArrayList<>();
-    
-    @FXML Label name;
-    @FXML HTMLEditor moduleDesc;
-    @FXML TextField moduleName;
-    @FXML TextField learningGoal_input;
-    @FXML ListView learning_goals_view;
-    
     @FXML ScrollPane scroll;
     @FXML Text welcomeMessage;
     static UserDetails user;
@@ -52,28 +52,27 @@ public class Controller {
         UserDetails temp = lookupUserBeanRemote().getUserByID(user.getId());
         user.setFirstname(temp.getFirstname()); 
         user.setLastname(temp.getLastname());
-        System.out.println(temp.getFirstname());
         welcomeMessage.setText("Hei, " + temp.getFirstname() + " " +temp.getLastname());
     }
     
     public void initialize() {
         changeName();
-    }
-    
-    
-    public void createModule() {
         try {
-            int id = lookupModulRemote().createModule(
-                    moduleDesc.getHtmlText(), moduleName.getText());
-            for (String goal : learningGoals_list) 
-                lookupModulRemote().addLearningGoal(goal, id);
-            
+            final ScrollPaneSkin skin = (ScrollPaneSkin) scroll.getSkin();
+            final Field field = skin.getClass().getDeclaredField("vsb");
+            System.out.println(field);
+            field.setAccessible(true);
+            final ScrollBar scrollBar = (ScrollBar) field.get(skin);
+            scrollBar.setUnitIncrement(25);
+            scrollBar.setBlockIncrement(50);
         }catch(Exception e) {
             System.out.println(e);
         }
     }
+
     
-    public void logOut() {
+    
+    public void logOut() { 
         Main.runGUI();
     }
     private ModulRemote lookupModulRemote() {
@@ -86,12 +85,6 @@ public class Controller {
         }
     }
     
-    public void addLearningGoal() {
-        learningGoals_list.add(learningGoal_input.getText());
-        ObservableList<String> observableList = FXCollections.observableList(learningGoals_list);
-        learning_goals_view.setItems(observableList);
-        
-    }
 
     private UserBeanRemote lookupUserBeanRemote() {
         try {
