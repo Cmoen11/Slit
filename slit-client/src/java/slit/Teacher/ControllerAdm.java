@@ -97,6 +97,17 @@ public class ControllerAdm {
         initialize();
     }
     
+    
+    public void clearNewPostData() {
+        newsContent.setHtmlText(
+                "<html><head></head><body "
+                        + "contenteditable=\"true\"></body></html>");
+        newsTitle.clear();
+    }
+    
+    
+    
+    
     /**
      * clear all listviews, (for updating the gui with new information).
      */
