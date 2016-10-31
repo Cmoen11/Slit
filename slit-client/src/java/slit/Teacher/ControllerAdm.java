@@ -189,7 +189,7 @@ public class ControllerAdm {
             Label requestTitle = null;
             for (UserDetails user : allUsers) {
                 if (user.getId() == obj.getUserID()) {
-                    requestTitle = new Label(user.getFirstname() 
+                    requestTitle = new Label(obj.getRequestID() + ": " + user.getFirstname() 
                             + " " + user.getLastname());
                     break;
                 }
