@@ -16,7 +16,12 @@ public class ModuleDetails implements Serializable{
     private int moduleID, courseID;
     private String name, description, moduleType;
 
-    public ModuleDetails(int moduleID, int courseID, String name, String description, String moduleType) {
+    public ModuleDetails(int moduleID,
+            int courseID,
+            String name,
+            String description,
+            String moduleType) {
+        
         this.moduleID = moduleID;
         this.courseID = courseID;
         this.name = name;
