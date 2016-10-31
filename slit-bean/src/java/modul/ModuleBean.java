@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package modul;
 
 import database.*;
@@ -52,7 +49,8 @@ public class ModuleBean implements ModuleRemote {
     public List<ModuleDetails> getAllModulesForUser(int userId) {
         List<ModuleDetails> returnList = new ArrayList<ModuleDetails>();
 
-        Query query = em.createNamedQuery("Modulesubmission.findByUser", Modulesubmission.class);
+        Query query = em.createNamedQuery("Modulesubmission.findByUser", 
+                Modulesubmission.class);
 
         query.setParameter("userId", userId);
 
@@ -64,7 +62,9 @@ public class ModuleBean implements ModuleRemote {
         }
         return returnList;
     }
-
+    
+    
+    
     // Creates a new empty module
     @Override
     public void newModule() {

@@ -52,12 +52,12 @@
             </Pane>
             <Pane layoutX="14.0" layoutY="478.0" prefHeight="359.0" prefWidth="880.0" style="-fx-background-radius: 4px; -fx-background-color: #1F2E4F;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="626.0" layoutY="320.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Slett" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="626.0" layoutY="320.0" onAction="#clearNewPostData" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Slett" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="756.0" layoutY="319.0" onAction="#createModule" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Opprett" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="756.0" layoutY="319.0" onAction="#createPost" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Opprett" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

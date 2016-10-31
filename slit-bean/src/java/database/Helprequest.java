@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Helprequest.findByRequestID", query = "SELECT h FROM Helprequest h WHERE h.requestID = :requestID"),
     @NamedQuery(name = "Helprequest.findByTitle", query = "SELECT h FROM Helprequest h WHERE h.title = :title"),
     @NamedQuery(name = "Helprequest.findByCreationDate", query = "SELECT h FROM Helprequest h WHERE h.creationDate = :creationDate"),
+    @NamedQuery(name = "Helprequest.findByCourseIDAndStatus=0", query = "SELECT h FROM Helprequest h WHERE h.courseID = :courseID AND h.status = 0 ORDER BY h.requestID DESC"),
     @NamedQuery(name = "Helprequest.findByStatus", query = "SELECT h FROM Helprequest h WHERE h.status = :status")})
 public class Helprequest implements Serializable {
 
