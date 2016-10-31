@@ -42,8 +42,6 @@ public class TeacherModuleController {
     ArrayList<ModuleDetails> existingModules;
     
     public void newModuleButton() {
-<<<<<<< HEAD
-=======
         learningGoals.getItems().clear();
         moduleTitle.clear();
         learningGoal.clear();
@@ -67,7 +65,6 @@ public class TeacherModuleController {
         
         existingModules.add(modul);
         modules.getSelectionModel().select(modules.getItems().size()-1);
->>>>>>> development
         
     }
     

@@ -25,15 +25,12 @@ import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
-<<<<<<< HEAD
 import modul.ModuleRemote;
 import slit.client.Main;
 import user_details.UserBeanRemote;
-=======
 import slit.client.Main;
 import user_details.UserBeanRemote;
 import modul.ModuleRemote;
->>>>>>> development
 /**
  *
  * @author Christian
@@ -76,12 +73,8 @@ public class Controller {
         }
     }
 
-    
-<<<<<<< HEAD
+
     public void logOut() {
-=======
-    public void logOut() { 
->>>>>>> development
         Main.runGUI();
     }
     private ModuleRemote lookupModulRemote() {
