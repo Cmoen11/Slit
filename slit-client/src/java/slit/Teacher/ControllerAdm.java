@@ -36,6 +36,8 @@ public class ControllerAdm {
     ArrayList<Post> posts;  // to store our newsPosts
     ArrayList<UserDetails> allUsers;
     ArrayList<ModuleSubmissionDetails> moduleSubs;
+    
+    
     public void initialize() {
         try {
             clearListViews();
