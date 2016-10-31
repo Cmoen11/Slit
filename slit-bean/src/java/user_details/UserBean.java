@@ -6,6 +6,7 @@
 package user_details;
 
 import auth.UserDetails;
+import course.CourseBean;
 import database.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,7 @@ public class UserBean implements UserBeanRemote {
     * @param: course id
     */
     @Override
-    public void addUserToCourse(String username, long courseID) {
-       // Query for username.
+    public void findUser(String username) {
        Query query = em.createNamedQuery("Users.findByUsername", Users.class);
        List<Users> results = query.getResultList();
        Users user = results.get(0);
@@ -49,6 +49,9 @@ public class UserBean implements UserBeanRemote {
        //CourseClass studentEntry = new CourseClass(user.getId(), courseID, false);
        //em.persist(studentEntry);
        } 
+  
+     
+   
     
     @Override
     public UserDetails getUserByUsername(String username) {
@@ -59,17 +62,18 @@ public class UserBean implements UserBeanRemote {
     }
     
     /**
-     * TO DO : FIX
-     * Legg til vilkårlig antall studenter til et emne
-     * OBS! Funksjonalitet for å legge username til i lista må implementeres.
-     * @param usersToAdd
-     * @param courseID
+     * @param usersToAdd Lista med brukere som skal legges til. 
      */
     @Override
-    public void bulkUsers(List<String> usersToAdd, long courseID){
-        //if (em.find(Course.class, courseID) == null) {
-        System.out.println("Nope"); 
+    public void bulkUsers(List<UserDetails> usersToAdd){
+          for (UserDetails user : usersToAdd) {
+            new CourseBean().addMemberToCourse(user.getId(), user.getCourseID(), user.isTeacher()?1:0);
+          }
+        
     }
+          
+    
+    
     //    for (String username: usersToAdd)
     //        addUserToCourse(username, courseID);
 
@@ -96,10 +100,24 @@ public class UserBean implements UserBeanRemote {
 
     @Override
     public UserDetails getUserObj(String username) {
-        Users user = (Users) em.createNamedQuery("Users.findByUsername").getSingleResult();
+        Users user = (Users) em.createNamedQuery("Users.findByUsername").setParameter("username", username).getSingleResult();
         
         return null;
     }
+
+    @Override
+    public UserDetails getUserByID(int x) {
+        Integer userID = (Integer) x;
+        Users user = (Users) em.createNamedQuery("Users.findByUserID")
+                .setParameter("userID", x).getSingleResult();
+        return new UserDetails(
+                user.getUserID(), user.getUsername(), user.getEmail(), 0, -1, 
+                user.getFirstname(), user.getLastname()
+        );
+        
+    }
+
+    
 
     
     

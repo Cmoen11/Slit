@@ -35,12 +35,12 @@ public class Main extends Application
         
         // load main GUI
         Application.launch(Main.class, (java.lang.String[])null);
-        
     }
 
     @Override
     public void start(Stage primaryStage) {
         try {
+            setUserAgentStylesheet(STYLESHEET_MODENA);
             Parent root= FXMLLoader.load(Main.class.getResource("login.fxml"));
             primaryStage.setTitle("Slit");
             primaryStage.setScene(new Scene(root));

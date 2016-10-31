@@ -51,7 +51,7 @@ public class CourseBean implements CourseBeanRemote {
     
     
     
-    
+   
     /**
      * Hent alle medlemmene i valgt kurs.
      * @param courseID
@@ -203,8 +203,8 @@ public class CourseBean implements CourseBeanRemote {
         em.persist(course);
         
     }
+
     
     
-    
-    
+       
 }

@@ -13,16 +13,7 @@ import javax.ejb.Remote;
  * @author Christian
  */
 @Remote
-public interface ModulRemote {
-
-    int createModule(String name, String desc);
-    void addLearningGoal(String learningGoal, int id);
+public interface SubmissionBeanRemote {
+    List<ModuleSubmissionDetails> getSubmissions(int courseID);
     
-     List<ModuleDetails> getAllModulesForUser(int userId);
-    
-    public void asd();
-
-    String testTrykk(String test);
-
-    String editButton(String temp);
 }

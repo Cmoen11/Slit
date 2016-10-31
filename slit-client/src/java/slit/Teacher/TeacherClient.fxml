@@ -26,82 +26,88 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#changeName" prefHeight="800.0" prefWidth="1280.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1290.0" style="-fx-background-color: #3b5998;" stylesheets="@teacherMainPanel.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.Controller">
    <children>
-      <ImageView fitHeight="44.0" fitWidth="106.0" layoutX="7.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/logo_Plain.png" />
-         </image>
-      </ImageView>
-      <TabPane layoutX="7.0" layoutY="50.0" prefHeight="716.0" prefWidth="1265.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Student Oversikt">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="1183.0">
-                     <children>
-                        <AnchorPane prefHeight="688.0" prefWidth="1265.0" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Innleveringer og hjelpforespørsler">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <AnchorPane layoutY="6.0" prefHeight="681.0" prefWidth="1265.0" />
-                        <fx:include source="TeacherAdmModuleAndHelp.fxml" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Moduler">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
-                     <children>
-                        <HBox layoutX="-14.0" layoutY="-5.0" prefHeight="701.0" prefWidth="1280.0">
+      <AnchorPane layoutX="5.0" layoutY="6.0" prefHeight="750.0" prefWidth="1279.0" style="-fx-border-radius: 5px; -fx-border-style: dashed; -fx-border-color: white;" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="113.0" layoutX="14.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/logo_Plain.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="11.0" layoutY="59.0" prefHeight="34.0" prefWidth="1260.0" style="-fx-background-color: white;" />
+            <TabPane layoutX="11.0" layoutY="53.0" prefHeight="708.0" prefWidth="1263.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="53.0">
+              <tabs>
+                <Tab text="Lærerpanelet">
+                  <content>
+                    <AnchorPane focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Pane prefHeight="701.0" prefWidth="1285.0" style="-fx-background-color: F3F3F3;" />
-                              <fx:include source="TeacherAddModule.fxml" />
+                              <ScrollPane fx:id="scroll" hbarPolicy="NEVER" hmax="0.0" layoutX="3.0" layoutY="1.0" pannable="true" prefHeight="647.0" prefWidth="1257.0" style="-fx-background-color: transparent;" stylesheets="@teacherMainPanel.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="1.0">
+                                 <content>
+                                    <fx:include source="TeacherAdmModuleAndHelp.fxml" />
+                                 </content>
+                                 <rotationAxis>
+                                    <Point3D z="5.0" />
+                                 </rotationAxis>
+                              </ScrollPane>
+                              <AnchorPane layoutX="-27.0" layoutY="-9.0" prefHeight="9.0" prefWidth="1290.0" style="-fx-background-color: black; -fx-unit-increment: 20;" />
                            </children>
-                        </HBox>
-                     </children></AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Studenter">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
-                     <children>
-                        <HBox layoutX="14.0" layoutY="27.0" prefHeight="660.0" prefWidth="1204.0">
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Student Oversikt">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="1183.0">
                            <children>
-                              <Pane prefHeight="617.0" prefWidth="423.0" style="-fx-background-color: F3F3F3;" />
+                              <AnchorPane prefHeight="688.0" prefWidth="1265.0" />
                            </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-            <Tab text="Blogger">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
-                     <children>
-                        <HBox layoutY="7.0" prefHeight="689.0" prefWidth="1265.0" />
-                        <fx:include source="blogGUI.fxml" />
-                     </children>
-                  </AnchorPane>
-               </content>
-            </Tab>
-        </tabs>
-      </TabPane>
-      <Label layoutX="552.0" layoutY="769.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" />
-      <Label fx:id="name" layoutX="1267.0" layoutY="14.0" prefHeight="17.0" prefWidth="5.0" textAlignment="RIGHT" textFill="WHITE" />
-      <Text fill="WHITE" layoutX="117.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lærerpanel">
-         <font>
-            <Font name="System Italic" size="16.0" />
-         </font>
-      </Text>
-      <JFXButton buttonType="RAISED" layoutX="1214.0" layoutY="14.0" onAction="#logOut" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </JFXButton>
-      <Text fill="WHITE" layoutX="1026.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" />
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Moduler">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
+                           <children>
+                              <HBox layoutX="-14.0" layoutY="-5.0" prefHeight="701.0" prefWidth="1280.0">
+                                 <children>
+                                    <Pane prefHeight="701.0" prefWidth="1285.0" style="-fx-background-color: F3F3F3;" />
+                                    <fx:include source="TeacherModule.fxml" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Studenter">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
+                           <children>
+                              <HBox layoutX="14.0" layoutY="27.0" prefHeight="660.0" prefWidth="1204.0">
+                                 <children>
+                                    <Pane prefHeight="617.0" prefWidth="423.0" style="-fx-background-color: F3F3F3;" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Blogger" />
+              </tabs>
+            </TabPane>
+            <JFXButton buttonType="RAISED" layoutX="1197.0" layoutY="20.0" onAction="#logOut" prefHeight="28.0" prefWidth="70.0" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" AnchorPane.bottomAnchor="704.0" AnchorPane.leftAnchor="1197.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="20.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <Text fx:id="welcomeMessage" fill="WHITE" layoutX="1015.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="25.05078125" />
+            <Label fx:id="name" prefHeight="17.0" prefWidth="5.0" textAlignment="RIGHT" textFill="WHITE" />
+            <Text fill="WHITE" layoutX="133.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lærerpanel">
+               <font>
+                  <Font name="System Italic" size="16.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Text fill="WHITE" layoutX="569.0" layoutY="781.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit - av studenter, for lærere" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="568.283203125" AnchorPane.rightAnchor="569.716796875" AnchorPane.topAnchor="768.0" />
    </children>
-</Pane>
+</AnchorPane>
