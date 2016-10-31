@@ -5,6 +5,7 @@ import blog.Post;
 import com.jfoenix.controls.JFXListView;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -17,7 +18,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
+import sessionBeans.HelpRequestBeanRemote;
 import sessionBeans.NewsBeanRemote;
+import transferClasses.HelpRequestDetails;
 import user_details.UserBeanRemote;
 
 /**
@@ -33,28 +36,22 @@ public class ControllerAdm {
     @FXML private TextField newsTitle;
     @FXML private JFXListView<Label> existingNews;
     
-    ArrayList<Post> posts;  // to store our newsPosts
-    ArrayList<UserDetails> allUsers;
-    ArrayList<ModuleSubmissionDetails> moduleSubs;
-    
+    private ArrayList<Post> posts;  // to store our newsPosts
+    private ArrayList<UserDetails> allUsers;
+    private ArrayList<ModuleSubmissionDetails> moduleSubs;
+    private List<HelpRequestDetails> unassignedHelpRequests;
     
     public void initialize() {
         try {
             clearListViews();
-            fillUpSubmissions();
             getAllUsers();
+            fillUpSubmissions();
             addSubmissionsToListView();
             getPostsAndAddThem();
+            getAllUnassignedHelpRequests();
 
         } catch (Exception e) {
             System.out.println(e);
-        }
-        
-        // adding some placeholder stuff, this will be removed when the code is
-        // done. !!NB:: do this, do not forget it :'(
-        for (int i = 0; i < 10; i++) {
-            Label lbl2 = new Label("Help " + i);
-            unassignedHelp.getItems().add(lbl2);
         }
     }
     
@@ -163,12 +160,12 @@ public class ControllerAdm {
      */
     private void getPostsAndAddThem() {
         posts = (ArrayList<Post>) lookupNewsBeanRemote().getPostsFromCourse(Controller.getUser().getId());
-            for (Post obj : posts) {
-                UserDetails author = null;
-                for (UserDetails user : allUsers) {
-                    if (user.getId() == obj.getUserID()) {
-                        author = user;
-                        break;
+        for (Post obj : posts) {
+            UserDetails author = null;
+            for (UserDetails user : allUsers) {
+                if (user.getId() == obj.getUserID()) {
+                    author = user;
+                    break;
                     }
                 }
 
@@ -178,6 +175,35 @@ public class ControllerAdm {
             }
     }
 
+    private void getAllUnassignedHelpRequests() throws Exception {
+        unassignedHelpRequests = lookupHelpRequestBeanRemote()
+                .getAllUnassignedHelpRequests(
+                        Controller.getUser().getCourseID());
+        
+        System.out.println("Kurs id" + Controller.getUser().getCourseID());
+        
+        //unassignedHelp
+        System.out.println(unassignedHelpRequests.size());
+        for(HelpRequestDetails obj : unassignedHelpRequests) {
+            
+            Label requestTitle = null;
+            for (UserDetails user : allUsers) {
+                if (user.getId() == obj.getUserID()) {
+                    requestTitle = new Label(user.getFirstname() 
+                            + " " + user.getLastname());
+                    break;
+                }
+            }
+            
+            if (requestTitle != null)
+                unassignedHelp.getItems().add(requestTitle);
+            else 
+                throw new Exception(
+                        "fant ikke bruker med brukerID'en oppgitt.");
+        }        
+        
+    }
+    
     
     
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
@@ -202,6 +228,16 @@ public class ControllerAdm {
         try {
             Context c = new InitialContext();
             return (NewsBeanRemote) c.lookup("java:comp/env/NewsBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private HelpRequestBeanRemote lookupHelpRequestBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (HelpRequestBeanRemote) c.lookup("java:comp/env/HelpRequestBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
