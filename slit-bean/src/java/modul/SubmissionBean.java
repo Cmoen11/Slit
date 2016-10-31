@@ -5,7 +5,6 @@
  */
 package modul;
 
-import database.Courses;
 import database.Modulefeedback;
 import database.Modulesubmission;
 import database.Users;
@@ -76,11 +75,10 @@ public class SubmissionBean implements SubmissionBeanRemote {
     @Override
     public ArrayList<ModuleSubmissionDetails> getAssignedModulesForUser(int userID) {
         List<Modulefeedback> feedback;
-        
-        
         List<Modulesubmission> allAssignedSubmissions = em.createNamedQuery("Modulesubmission.findByStatus")
                 .setParameter("status", 1).getResultList();
         
+        // delete all submissions that do not match the selected user
         for (Iterator<Modulesubmission> it = allAssignedSubmissions.iterator(); it.hasNext();) {
             Modulesubmission obj = it.next();
             for (Modulefeedback item : obj.getModulefeedbackCollection())
@@ -88,6 +86,7 @@ public class SubmissionBean implements SubmissionBeanRemote {
                     it.remove();
         }
         
+        // prepare to send results.
         ArrayList<ModuleSubmissionDetails> output = new ArrayList<>();
         for (Modulesubmission obj: allAssignedSubmissions) {
             output.add(
