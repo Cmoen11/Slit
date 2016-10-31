@@ -35,11 +35,13 @@ public class ControllerAdm {
     @FXML private HTMLEditor newsContent;
     @FXML private TextField newsTitle;
     @FXML private JFXListView<Label> existingNews;
-    
+    @FXML private JFXListView<Label> assignedSubmissions;
+            
     private ArrayList<Post> posts;  // to store our newsPosts
     private ArrayList<UserDetails> allUsers;
     private ArrayList<ModuleSubmissionDetails> moduleSubs;
     private List<HelpRequestDetails> unassignedHelpRequests;
+    private ArrayList<ModuleSubmissionDetails> assignedSubs;
     
     public void initialize() {
         try {
@@ -49,6 +51,7 @@ public class ControllerAdm {
             addSubmissionsToListView();
             getPostsAndAddThem();
             getAllUnassignedHelpRequests();
+            getAllAssignedModuleSubmission();
 
         } catch (Exception e) {
             System.out.println(e);
@@ -94,12 +97,33 @@ public class ControllerAdm {
         initialize();
     }
     
-    
+    /**
+     * if delete buttom is pressed at the new post form. clear all data .
+     */
     public void clearNewPostData() {
         newsContent.setHtmlText(
                 "<html><head></head><body "
                         + "contenteditable=\"true\"></body></html>");
         newsTitle.clear();
+    }
+    
+    /**
+     * When the assign button on unassigned modules is beeing pressed. 
+     * assign the selected module to the inlogged user.
+     */
+    public void assignModuleToMe() {
+        // get selected unassiged module.
+        int index = unassignedModules.getSelectionModel().getSelectedIndex();
+        ModuleSubmissionDetails submittedModule = moduleSubs.get(index);
+        
+        // send the assign data to the database.
+        // also; set the status to 1 || directly translated to "under processing"
+        lookupSubmissionBeanRemote()
+                .assignSubmissionToUser(
+                        submittedModule, Controller.getUser().getId());
+
+        // update the GUI.
+        initialize();
     }
     
     
@@ -112,6 +136,7 @@ public class ControllerAdm {
         existingNews.getItems().clear();
         unassignedHelp.getItems().clear();
         unassignedModules.getItems().clear();
+        assignedSubmissions.getItems().clear();
     }
     
     /**
@@ -174,7 +199,11 @@ public class ControllerAdm {
                 existingNews.getItems().add(postTitle);
             }
     }
-
+    
+    /**
+     * Get all unassigned help requests.
+     * @throws Exception 
+     */
     private void getAllUnassignedHelpRequests() throws Exception {
         unassignedHelpRequests = lookupHelpRequestBeanRemote()
                 .getAllUnassignedHelpRequests(
@@ -204,6 +233,34 @@ public class ControllerAdm {
         
     }
     
+    private void getAllAssignedModuleSubmission(){
+        assignedSubs = lookupSubmissionBeanRemote()
+                .getAssignedModulesForUser(Controller.getUser().getId());
+        
+        //assignedSubmissions
+        if (!assignedSubs.isEmpty()) {
+            for (ModuleSubmissionDetails subs : assignedSubs) {
+                UserDetails user = null;
+                for (UserDetails obj : allUsers) {
+                    if (obj.getId() == subs.getUserID()) {
+                        user = obj;
+                        break;
+                    }
+                }
+                
+                if (user != null) {
+                    Label lbl = new Label(
+                            subs.getSubmissionID() + ": "
+                            + user.getFirstname() + " "
+                            + user.getLastname()
+                            + " " + subs.getCreationDate().getDate()
+                            + "/" + subs.getCreationDate().getMonth());
+                    assignedSubmissions.getItems().add(lbl);
+                }
+            }
+        }
+        
+    }
     
     
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
@@ -233,7 +290,6 @@ public class ControllerAdm {
             throw new RuntimeException(ne);
         }
     }
-
     private HelpRequestBeanRemote lookupHelpRequestBeanRemote() {
         try {
             Context c = new InitialContext();

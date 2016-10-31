@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Modulefeedback.findAll", query = "SELECT m FROM Modulefeedback m"),
+    @NamedQuery(name = "Modulefeedback.findAllFromUserAndStatus=1", query = 
+            "SELECT m FROM Modulefeedback m, Modulesubmission ms WHERE m.userID = :userID AND m.submissionID = ms.submissionID and ms.status = 1"),
     @NamedQuery(name = "Modulefeedback.findByFeedbackID", query = "SELECT m FROM Modulefeedback m WHERE m.feedbackID = :feedbackID")})
 public class Modulefeedback implements Serializable {
 
