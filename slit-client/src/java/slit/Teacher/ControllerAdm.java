@@ -126,7 +126,13 @@ public class ControllerAdm {
         initialize();
     }
     
-    
+    public void unassignModule() {
+        int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
+        ModuleSubmissionDetails submission = assignedSubs.get(index);
+        lookupSubmissionBeanRemote().unAssignModuleSubmission(submission);
+        
+        initialize();
+    }
     
     
     /**

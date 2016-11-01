@@ -19,5 +19,5 @@ public interface SubmissionBeanRemote {
     void assignSubmissionToUser(ModuleSubmissionDetails sub, int userID);
 
     ArrayList<ModuleSubmissionDetails> getAssignedModulesForUser(int userID, int courseID);
-    
+    void unAssignModuleSubmission(ModuleSubmissionDetails sub);
 }

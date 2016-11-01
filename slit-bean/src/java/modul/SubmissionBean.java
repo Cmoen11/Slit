@@ -71,6 +71,7 @@ public class SubmissionBean implements SubmissionBeanRemote {
     /**
      * get all assigned modules that are not processed.
      * @param userID
+     * @param courseID
      * @return 
      */
     @Override
@@ -107,6 +108,19 @@ public class SubmissionBean implements SubmissionBeanRemote {
         
         return output;
     }
+    
+    @Override
+    public void unAssignModuleSubmission(ModuleSubmissionDetails sub) {
+        Modulesubmission msub;
+        msub = em.find(Modulesubmission.class, sub.getSubmissionID());
+        msub.setStatus(0);
+        em.merge(msub);
+        
+        Modulefeedback feedback = msub.getModulefeedbackCollection().iterator().next();
+        em.remove(feedback);
+        
+    }
+    
     
     
     
