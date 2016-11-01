@@ -235,7 +235,7 @@ public class ControllerAdm {
     
     private void getAllAssignedModuleSubmission(){
         assignedSubs = lookupSubmissionBeanRemote()
-                .getAssignedModulesForUser(Controller.getUser().getId());
+                .getAssignedModulesForUser(Controller.getUser().getId(), Controller.getUser().getCourseID());
         
         //assignedSubmissions
         if (!assignedSubs.isEmpty()) {
