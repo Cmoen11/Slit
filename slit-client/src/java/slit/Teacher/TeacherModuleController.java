@@ -65,7 +65,6 @@ public class TeacherModuleController {
         
         existingModules.add(modul);
         modules.getSelectionModel().select(modules.getItems().size()-1);
-        
     }
     
     public void initialize() {

@@ -26,7 +26,7 @@
             </ImageView>
             <Pane layoutX="643.0" layoutY="47.0" prefHeight="359.0" prefWidth="587.0" style="-fx-background-radius: 4px; -fx-background-color: #1F2E4F;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="23.0" layoutY="303.0" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="23.0" layoutY="303.0" onAction="#assignModuleToMe" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -52,12 +52,12 @@
             </Pane>
             <Pane layoutX="14.0" layoutY="478.0" prefHeight="359.0" prefWidth="880.0" style="-fx-background-radius: 4px; -fx-background-color: #1F2E4F;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="626.0" layoutY="320.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Slett" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="626.0" layoutY="320.0" onAction="#clearNewPostData" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Slett" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="756.0" layoutY="319.0" onAction="#createModule" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Opprett" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="756.0" layoutY="319.0" onAction="#createPost" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Opprett" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -140,7 +140,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="28.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="28.0" layoutY="302.0" onAction="#unassignModule" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -166,7 +166,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXListView layoutX="28.0" layoutY="41.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+            <JFXListView fx:id="assignedSubmissions" layoutX="28.0" layoutY="41.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
             <Pane layoutX="412.0" layoutY="-26.0" prefHeight="31.0" prefWidth="165.0" style="-fx-background-color: #1F2E4F;">
                <children>
                   <Text fill="WHITE" fontSmoothingType="LCD" layoutX="29.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mine henvendelser">

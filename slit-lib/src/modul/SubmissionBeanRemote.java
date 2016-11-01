@@ -5,6 +5,7 @@
  */
 package modul;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -15,5 +16,8 @@ import javax.ejb.Remote;
 @Remote
 public interface SubmissionBeanRemote {
     List<ModuleSubmissionDetails> getSubmissions(int courseID);
-    
+    void assignSubmissionToUser(ModuleSubmissionDetails sub, int userID);
+
+    ArrayList<ModuleSubmissionDetails> getAssignedModulesForUser(int userID, int courseID);
+    void unAssignModuleSubmission(ModuleSubmissionDetails sub);
 }

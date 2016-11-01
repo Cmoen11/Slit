@@ -5,6 +5,7 @@ import blog.Post;
 import com.jfoenix.controls.JFXListView;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -17,7 +18,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
+import sessionBeans.HelpRequestBeanRemote;
 import sessionBeans.NewsBeanRemote;
+import transferClasses.HelpRequestDetails;
 import user_details.UserBeanRemote;
 
 /**
@@ -27,86 +30,38 @@ import user_details.UserBeanRemote;
  */
 public class ControllerAdm {
 
-    @FXML
-    private JFXListView<Label> unassignedModules;
-    @FXML
-    private JFXListView<Label> unassignedHelp;
-
-    @FXML
-    private HTMLEditor newsContent;
-
-    @FXML
-    private TextField newsTitle;
-
-    @FXML
-    private JFXListView<Label> existingNews;
-    
-    ArrayList<Post> posts;
+    @FXML private JFXListView<Label> unassignedModules;
+    @FXML private JFXListView<Label> unassignedHelp;
+    @FXML private HTMLEditor newsContent;
+    @FXML private TextField newsTitle;
+    @FXML private JFXListView<Label> existingNews;
+    @FXML private JFXListView<Label> assignedSubmissions;
+            
+    private ArrayList<Post> posts;  // to store our newsPosts
+    private ArrayList<UserDetails> allUsers;
+    private ArrayList<ModuleSubmissionDetails> moduleSubs;
+    private List<HelpRequestDetails> unassignedHelpRequests;
+    private ArrayList<ModuleSubmissionDetails> assignedSubs;
     
     public void initialize() {
         try {
-            existingNews.getItems().clear();
-            unassignedHelp.getItems().clear();
-            unassignedModules.getItems().clear();
-
-            ArrayList<ModuleSubmissionDetails> moduleSubs
-                    = (ArrayList<ModuleSubmissionDetails>) lookupSubmissionBeanRemote().getSubmissions(Controller.user.getCourseID()); // need to implement course.
-
-            ArrayList<UserDetails> allUsers = lookupUserBeanRemote().getAllUsers();
-
-            for (ModuleSubmissionDetails subs : moduleSubs) {
-                UserDetails user = null;
-                for (UserDetails obj : allUsers) {
-                    if (obj.getId() == subs.getUserID()) {
-                        user = obj;
-                        break;
-                    }
-                }
-                if (user != null) {
-                    Label lbl = new Label(
-                            subs.getSubmissionID() + ": "
-                            + user.getFirstname() + " "
-                            + user.getLastname()
-                            + " " + subs.getCreationDate().getDate()
-                            + "/" + subs.getCreationDate().getMonth());
-                    unassignedModules.getItems().add(lbl);
-                }
-            }
-
-            posts = (ArrayList<Post>) lookupNewsBeanRemote().getPostsFromCourse(Controller.getUser().getId());
-            for (Post obj : posts) {
-                UserDetails author = null;
-                for (UserDetails user : allUsers) {
-                    if (user.getId() == obj.getUserID()) {
-                        author = user;
-                        break;
-                    }
-                }
-
-                Label postTitle = new Label(
-                        obj.getTitle() + ", av " + author.getFirstname());
-                existingNews.getItems().add(postTitle);
-            }
+            clearListViews();
+            getAllUsers();
+            fillUpSubmissions();
+            addSubmissionsToListView();
+            getPostsAndAddThem();
+            getAllUnassignedHelpRequests();
+            getAllAssignedModuleSubmission();
 
         } catch (Exception e) {
             System.out.println(e);
         }
-
-        for (int i = 0; i < 10; i++) {
-            try {
-                //Label lbl = new Label("Module " + i);
-                Label lbl2 = new Label("Help " + i);
-                //unassignedModules.getItems().add(lbl);
-                unassignedHelp.getItems().add(lbl2);
-            } catch (Exception e) {
-
-            }
-        }
-        unassignedModules.setExpanded(true);
-        unassignedHelp.setExpanded(false);
     }
-
-    public void createModule() {
+    
+    /**
+     * create a new news post for the course.
+     */
+    public void createPost() {
         if (newsTitle.getText().isEmpty() || 
                 newsContent.getHtmlText()
                         .equals("<html><head></head><body contenteditable=\"true\"></body></html>")) {
@@ -132,6 +87,9 @@ public class ControllerAdm {
         }
     }
     
+    /**
+     * remove the selected news post.
+     */
     public void removePost() {
         int index = existingNews.getSelectionModel().getSelectedIndex();
         Post post = posts.get(index);
@@ -139,7 +97,178 @@ public class ControllerAdm {
         initialize();
     }
     
+    /**
+     * if delete buttom is pressed at the new post form. clear all data .
+     */
+    public void clearNewPostData() {
+        newsContent.setHtmlText(
+                "<html><head></head><body "
+                        + "contenteditable=\"true\"></body></html>");
+        newsTitle.clear();
+    }
+    
+    /**
+     * When the assign button on unassigned modules is beeing pressed. 
+     * assign the selected module to the inlogged user.
+     */
+    public void assignModuleToMe() {
+        // get selected unassiged module.
+        int index = unassignedModules.getSelectionModel().getSelectedIndex();
+        ModuleSubmissionDetails submittedModule = moduleSubs.get(index);
+        
+        // send the assign data to the database.
+        // also; set the status to 1 || directly translated to "under processing"
+        lookupSubmissionBeanRemote()
+                .assignSubmissionToUser(
+                        submittedModule, Controller.getUser().getId());
 
+        // update the GUI.
+        initialize();
+    }
+    
+    public void unassignModule() {
+        int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
+        ModuleSubmissionDetails submission = assignedSubs.get(index);
+        lookupSubmissionBeanRemote().unAssignModuleSubmission(submission);
+        
+        initialize();
+    }
+    
+    
+    /**
+     * clear all listviews, (for updating the gui with new information).
+     */
+    private void clearListViews() {
+        existingNews.getItems().clear();
+        unassignedHelp.getItems().clear();
+        unassignedModules.getItems().clear();
+        assignedSubmissions.getItems().clear();
+    }
+    
+    /**
+     * get submissions
+     */
+    private void fillUpSubmissions() {
+            moduleSubs = (ArrayList<ModuleSubmissionDetails>) 
+                    lookupSubmissionBeanRemote()
+                            .getSubmissions(Controller.user.getCourseID()); 
+    }
+    
+    /**
+     *  Fills up the users table
+     */
+    private void getAllUsers(){
+        allUsers = lookupUserBeanRemote().getAllUsers();
+    }
+    
+    /**
+     * add submission to listview
+     */
+    private void addSubmissionsToListView() {
+        for (ModuleSubmissionDetails subs : moduleSubs) {
+                UserDetails user = null;
+                for (UserDetails obj : allUsers) {
+                    if (obj.getId() == subs.getUserID()) {
+                        user = obj;
+                        break;
+                    }
+                }
+                
+                if (user != null) {
+                    Label lbl = new Label(
+                            subs.getSubmissionID() + ": "
+                            + user.getFirstname() + " "
+                            + user.getLastname()
+                            + " " + subs.getCreationDate().getDate()
+                            + "/" + subs.getCreationDate().getMonth());
+                    unassignedModules.getItems().add(lbl);
+                }
+            }
+    }
+    
+    /**
+     * get posts
+     */
+    private void getPostsAndAddThem() {
+        posts = (ArrayList<Post>) lookupNewsBeanRemote().getPostsFromCourse(Controller.getUser().getId());
+        for (Post obj : posts) {
+            UserDetails author = null;
+            for (UserDetails user : allUsers) {
+                if (user.getId() == obj.getUserID()) {
+                    author = user;
+                    break;
+                    }
+                }
+
+                Label postTitle = new Label(
+                        obj.getTitle() + ", av " + author.getFirstname());
+                existingNews.getItems().add(postTitle);
+            }
+    }
+    
+    /**
+     * Get all unassigned help requests.
+     * @throws Exception 
+     */
+    private void getAllUnassignedHelpRequests() throws Exception {
+        unassignedHelpRequests = lookupHelpRequestBeanRemote()
+                .getAllUnassignedHelpRequests(
+                        Controller.getUser().getCourseID());
+        
+        System.out.println("Kurs id" + Controller.getUser().getCourseID());
+        
+        //unassignedHelp
+        System.out.println(unassignedHelpRequests.size());
+        for(HelpRequestDetails obj : unassignedHelpRequests) {
+            
+            Label requestTitle = null;
+            for (UserDetails user : allUsers) {
+                if (user.getId() == obj.getUserID()) {
+                    requestTitle = new Label(obj.getRequestID() + ": " + user.getFirstname() 
+                            + " " + user.getLastname());
+                    break;
+                }
+            }
+            
+            if (requestTitle != null)
+                unassignedHelp.getItems().add(requestTitle);
+            else 
+                throw new Exception(
+                        "fant ikke bruker med brukerID'en oppgitt.");
+        }        
+        
+    }
+    
+    private void getAllAssignedModuleSubmission(){
+        assignedSubs = lookupSubmissionBeanRemote()
+                .getAssignedModulesForUser(Controller.getUser().getId(), Controller.getUser().getCourseID());
+        
+        //assignedSubmissions
+        if (!assignedSubs.isEmpty()) {
+            for (ModuleSubmissionDetails subs : assignedSubs) {
+                UserDetails user = null;
+                for (UserDetails obj : allUsers) {
+                    if (obj.getId() == subs.getUserID()) {
+                        user = obj;
+                        break;
+                    }
+                }
+                
+                if (user != null) {
+                    Label lbl = new Label(
+                            subs.getSubmissionID() + ": "
+                            + user.getFirstname() + " "
+                            + user.getLastname()
+                            + " " + subs.getCreationDate().getDate()
+                            + "/" + subs.getCreationDate().getMonth());
+                    assignedSubmissions.getItems().add(lbl);
+                }
+            }
+        }
+        
+    }
+    
+    
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -149,7 +278,6 @@ public class ControllerAdm {
             throw new RuntimeException(ne);
         }
     }
-
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -159,11 +287,19 @@ public class ControllerAdm {
             throw new RuntimeException(ne);
         }
     }
-
     private NewsBeanRemote lookupNewsBeanRemote() {
         try {
             Context c = new InitialContext();
             return (NewsBeanRemote) c.lookup("java:comp/env/NewsBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    private HelpRequestBeanRemote lookupHelpRequestBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (HelpRequestBeanRemote) c.lookup("java:comp/env/HelpRequestBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

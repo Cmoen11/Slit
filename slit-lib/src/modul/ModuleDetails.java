@@ -1,8 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+
 package modul;
 
 import java.io.Serializable;
@@ -16,7 +13,12 @@ public class ModuleDetails implements Serializable{
     private int moduleID, courseID;
     private String name, description, moduleType;
 
-    public ModuleDetails(int moduleID, int courseID, String name, String description, String moduleType) {
+    public ModuleDetails(int moduleID,
+            int courseID,
+            String name,
+            String description,
+            String moduleType) {
+        
         this.moduleID = moduleID;
         this.courseID = courseID;
         this.name = name;
