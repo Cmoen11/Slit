@@ -21,13 +21,11 @@ public interface ModuleRemote {
 
     List<ModuleDetails> getAllModulesForUser(int userId);
 
-    void newModule();
-
-    void saveModule();
+    void saveModule(ModuleDetails module);
 
     void openModule();
 
-    void removeModule();
+    void removeModule(ModuleDetails module);
 
     void addLearningGoal();
 

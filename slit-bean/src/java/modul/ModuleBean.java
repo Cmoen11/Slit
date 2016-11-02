@@ -1,5 +1,3 @@
-
-
 package modul;
 
 import database.*;
@@ -48,7 +46,7 @@ public class ModuleBean implements ModuleRemote {
     public List<ModuleDetails> getAllModulesForUser(int userId) {
         List<ModuleDetails> returnList = new ArrayList<ModuleDetails>();
 
-        Query query = em.createNamedQuery("Modulesubmission.findByUser", 
+        Query query = em.createNamedQuery("Modulesubmission.findByUser",
                 Modulesubmission.class);
 
         query.setParameter("userId", userId);
@@ -61,20 +59,16 @@ public class ModuleBean implements ModuleRemote {
         }
         return returnList;
     }
-    
-    
-    
-    // Creates a new empty module
-    @Override
-    public void newModule() {
-        Module module = new Module();
-        module.setCourseID(0);
-    }
 
     // Saves changes done to the chosen module
     @Override
-    public void saveModule() {
-
+    public void saveModule(ModuleDetails module) {
+        Module saveNewModule = new Module();
+        saveNewModule.setName(module.getName());
+        saveNewModule.setDescription(module.getDescription());
+        saveNewModule.setCourseID(module.getCourseID());
+        
+        // Lacks learninggoals
     }
 
     // Opens the current highlighted module
@@ -85,8 +79,8 @@ public class ModuleBean implements ModuleRemote {
 
     // Removes the current highlighted module
     @Override
-    public void removeModule() {
-
+    public void removeModule(ModuleDetails module) {
+        em.remove(em.find(Module.class, module.getModuleID()));
     }
 
     // Adds the content of the textfield to the learning goals
