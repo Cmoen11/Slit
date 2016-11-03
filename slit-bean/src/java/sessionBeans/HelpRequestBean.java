@@ -114,4 +114,18 @@ public class HelpRequestBean implements HelpRequestBeanRemote {
         
     }
     
+    @Override
+    public void unassignHelpRequest(HelpRequestDetails helprequest) {
+        Helprequest hr = em.find(Helprequest.class, helprequest.getRequestID());
+        hr.setStatus(0);
+        em.merge(hr);
+        Helpreply helpreply;
+        helpreply = (Helpreply) em.createNamedQuery("Helpreply.findByRequestID")
+                .setParameter("requestID", em.find(Helprequest.class, 
+                        helprequest.getRequestID())).getSingleResult();
+        
+        em.remove(helpreply);
+        
+        em.remove(hr.getHelpreplyCollection().iterator().next());
+    }
 }
