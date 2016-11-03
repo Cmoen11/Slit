@@ -45,6 +45,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Helprequest.findByStatus", query = "SELECT h FROM Helprequest h WHERE h.status = :status")})
 public class Helprequest implements Serializable {
 
+    @Column(name = "status")
+    private Integer status;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,10 +70,6 @@ public class Helprequest implements Serializable {
     @Column(name = "creationDate")
     @Temporal(TemporalType.DATE)
     private Date creationDate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "status")
-    private int status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "requestID")
     private Collection<Helpreply> helpreplyCollection;
     @JoinColumn(name = "userID", referencedColumnName = "userID")
@@ -127,13 +126,6 @@ public class Helprequest implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     @XmlTransient
     public Collection<Helpreply> getHelpreplyCollection() {
@@ -183,6 +175,14 @@ public class Helprequest implements Serializable {
     @Override
     public String toString() {
         return "database.Helprequest[ requestID=" + requestID + " ]";
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
     
 }

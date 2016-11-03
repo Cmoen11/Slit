@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")})
 public class Users implements Serializable {
 
+    @Column(name = "isAdmin")
+    private Integer isAdmin;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,10 +77,6 @@ public class Users implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "isAdmin")
-    private int isAdmin;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
     private Collection<Modulefeedback> modulefeedbackCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userID")
@@ -160,13 +159,6 @@ public class Users implements Serializable {
         this.email = email;
     }
 
-    public int getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(int isAdmin) {
-        this.isAdmin = isAdmin;
-    }
 
     @XmlTransient
     public Collection<Modulefeedback> getModulefeedbackCollection() {
@@ -263,6 +255,14 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "database.Users[ userID=" + userID + " ]";
+    }
+
+    public Integer getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Integer isAdmin) {
+        this.isAdmin = isAdmin;
     }
     
 }

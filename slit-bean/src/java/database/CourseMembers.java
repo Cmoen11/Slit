@@ -32,13 +32,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CourseMembers.findByIsTeacher", query = "SELECT c FROM CourseMembers c WHERE c.isTeacher = :isTeacher")})
 public class CourseMembers implements Serializable {
 
+    @Column(name = "isTeacher")
+    private Integer isTeacher;
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CourseMembersPK courseMembersPK;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "isTeacher")
-    private int isTeacher;
     @JoinColumn(name = "courseID", referencedColumnName = "courseID", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Courses courses;
@@ -70,13 +69,6 @@ public class CourseMembers implements Serializable {
         this.courseMembersPK = courseMembersPK;
     }
 
-    public int getIsTeacher() {
-        return isTeacher;
-    }
-
-    public void setIsTeacher(int isTeacher) {
-        this.isTeacher = isTeacher;
-    }
 
     public Courses getCourses() {
         return courses;
@@ -117,6 +109,14 @@ public class CourseMembers implements Serializable {
     @Override
     public String toString() {
         return "database.CourseMembers[ courseMembersPK=" + courseMembersPK + " ]";
+    }
+
+    public Integer getIsTeacher() {
+        return isTeacher;
+    }
+
+    public void setIsTeacher(Integer isTeacher) {
+        this.isTeacher = isTeacher;
     }
     
 }

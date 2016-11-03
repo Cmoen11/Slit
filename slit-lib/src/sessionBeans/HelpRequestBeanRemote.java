@@ -17,5 +17,7 @@ import transferClasses.HelpRequestDetails;
 public interface HelpRequestBeanRemote {
 
     List<HelpRequestDetails> getAllUnassignedHelpRequests(int courseID);
+    void assignHelpRequest(HelpRequestDetails helprequest, int userID);
+    List<HelpRequestDetails> getAssignedHelpRequests(int userID, int courseID);
     
 }
