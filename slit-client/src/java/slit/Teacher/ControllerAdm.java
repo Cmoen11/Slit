@@ -44,6 +44,7 @@ public class ControllerAdm {
     private List<HelpRequestDetails> unassignedHelpRequests;
     private ArrayList<ModuleSubmissionDetails> assignedSubs;
     private List<HelpRequestDetails> assignedHelpRequest;
+    
     public void initialize() {
         try {
             clearListViews();
@@ -154,6 +155,14 @@ public class ControllerAdm {
         
     }
     
+    public void unassignHelpRequest() {
+        int index = assignedHelp.getSelectionModel().getSelectedIndex();
+        HelpRequestDetails request =  assignedHelpRequest.get(index);
+        
+        lookupHelpRequestBeanRemote().unassignHelpRequest(request);
+        initialize();
+        
+    }
     
     /**
      * clear all listviews, (for updating the gui with new information).
