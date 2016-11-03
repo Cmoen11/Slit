@@ -126,7 +126,13 @@ public class ControllerAdm {
         initialize();
     }
     
-    
+    public void unassignModule() {
+        int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
+        ModuleSubmissionDetails submission = assignedSubs.get(index);
+        lookupSubmissionBeanRemote().unAssignModuleSubmission(submission);
+        
+        initialize();
+    }
     
     
     /**
@@ -235,7 +241,7 @@ public class ControllerAdm {
     
     private void getAllAssignedModuleSubmission(){
         assignedSubs = lookupSubmissionBeanRemote()
-                .getAssignedModulesForUser(Controller.getUser().getId());
+                .getAssignedModulesForUser(Controller.getUser().getId(), Controller.getUser().getCourseID());
         
         //assignedSubmissions
         if (!assignedSubs.isEmpty()) {

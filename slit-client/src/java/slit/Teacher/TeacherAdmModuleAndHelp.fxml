@@ -140,7 +140,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="28.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="28.0" layoutY="302.0" onAction="#unassignModule" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

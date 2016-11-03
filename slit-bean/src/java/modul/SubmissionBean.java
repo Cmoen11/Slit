@@ -5,6 +5,7 @@
  */
 package modul;
 
+import database.Module;
 import database.Modulefeedback;
 import database.Modulesubmission;
 import database.Users;
@@ -26,7 +27,8 @@ public class SubmissionBean implements SubmissionBeanRemote {
     @Override
     public List<ModuleSubmissionDetails> getSubmissions(int courseID) {
         int status = 0;
-        List <Modulesubmission> subs = em.createNamedQuery("Modulesubmission.findByStatusAndCourse")
+        List <Modulesubmission> subs = em.createNamedQuery(
+                "Modulesubmission.findByStatusAndCourse")
                 .setParameter("courseID", courseID)
                 .setParameter("status", status)
                 .getResultList();
@@ -63,27 +65,32 @@ public class SubmissionBean implements SubmissionBeanRemote {
         
         //set the status to 1, directly translated to " under processing".
         Modulesubmission ms = em.find(Modulesubmission.class, sub.getSubmissionID());
-        System.out.println("lol");
         ms.setStatus(1);   
     }
     
     /**
      * get all assigned modules that are not processed.
      * @param userID
+     * @param courseID
      * @return 
      */
     @Override
-    public ArrayList<ModuleSubmissionDetails> getAssignedModulesForUser(int userID) {
+    public ArrayList<ModuleSubmissionDetails> getAssignedModulesForUser(int userID, int courseID) {
         List<Modulefeedback> feedback;
         List<Modulesubmission> allAssignedSubmissions = em.createNamedQuery("Modulesubmission.findByStatus")
-                .setParameter("status", 1).getResultList();
+                .setParameter("status", 1)
+                .getResultList();
         
         // delete all submissions that do not match the selected user
         for (Iterator<Modulesubmission> it = allAssignedSubmissions.iterator(); it.hasNext();) {
             Modulesubmission obj = it.next();
-            for (Modulefeedback item : obj.getModulefeedbackCollection())
-                if (item.getUserID().getUserID() != userID)
+            Module module = em.find(Module.class, obj.getModuleID().getModuleID());
+            
+            for (Modulefeedback item : obj.getModulefeedbackCollection()) {
+                if (item.getUserID().getUserID() != userID ||
+                        module.getCourseID() != courseID)
                     it.remove();
+            }
         }
         
         // prepare to send results.
@@ -101,6 +108,19 @@ public class SubmissionBean implements SubmissionBeanRemote {
         
         return output;
     }
+    
+    @Override
+    public void unAssignModuleSubmission(ModuleSubmissionDetails sub) {
+        Modulesubmission msub;
+        msub = em.find(Modulesubmission.class, sub.getSubmissionID());
+        msub.setStatus(0);
+        em.merge(msub);
+        
+        Modulefeedback feedback = msub.getModulefeedbackCollection().iterator().next();
+        em.remove(feedback);
+        
+    }
+    
     
     
     
