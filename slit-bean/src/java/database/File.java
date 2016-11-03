@@ -38,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "File.findByFileType", query = "SELECT f FROM File f WHERE f.fileType = :fileType")})
 public class File implements Serializable {
 
+    @Column(name = "userID")
+    private Integer userID;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,10 +59,6 @@ public class File implements Serializable {
     @Size(min = 1, max = 2147483647)
     @Column(name = "fileContent")
     private String fileContent;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "userID")
-    private int userID;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -107,13 +106,6 @@ public class File implements Serializable {
         this.fileContent = fileContent;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
 
     public String getFileType() {
         return fileType;
@@ -155,6 +147,14 @@ public class File implements Serializable {
     @Override
     public String toString() {
         return "database.File[ fileID=" + fileID + " ]";
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
     
 }

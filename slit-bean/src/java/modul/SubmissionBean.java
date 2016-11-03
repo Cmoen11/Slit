@@ -49,8 +49,8 @@ public class SubmissionBean implements SubmissionBeanRemote {
     }
     /**
      * Assign the selected user to the moduleSubmission
-     * @param sub   the moduleSubmission that are to be applied to the user
-     * @param userID  the user that are to be asigned to the submission.
+     * @param sub       the moduleSubmission that are to be applied to the user
+     * @param userID    the user that are to be asigned to the submission.
      */
     @Override
     public void assignSubmissionToUser(ModuleSubmissionDetails sub, int userID) {
@@ -66,6 +66,7 @@ public class SubmissionBean implements SubmissionBeanRemote {
         //set the status to 1, directly translated to " under processing".
         Modulesubmission ms = em.find(Modulesubmission.class, sub.getSubmissionID());
         ms.setStatus(1);   
+        em.merge(ms);
     }
     
     /**
@@ -104,8 +105,6 @@ public class SubmissionBean implements SubmissionBeanRemote {
                     )
             );
         }
-   
-        
         return output;
     }
     
@@ -115,7 +114,6 @@ public class SubmissionBean implements SubmissionBeanRemote {
         msub = em.find(Modulesubmission.class, sub.getSubmissionID());
         msub.setStatus(0);
         em.merge(msub);
-        
         Modulefeedback feedback = msub.getModulefeedbackCollection().iterator().next();
         em.remove(feedback);
         

@@ -46,17 +46,12 @@ public class Helpreply implements Serializable {
     @Column(name = "replyID")
     private Integer replyID;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 0)
     @Column(name = "title")
     private String title;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 0)
     @Column(name = "content")
     private String content;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "creationDate")
     @Temporal(TemporalType.DATE)
     private Date creationDate;
