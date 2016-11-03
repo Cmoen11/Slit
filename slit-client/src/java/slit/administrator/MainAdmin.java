@@ -43,7 +43,7 @@ public class MainAdmin extends Application {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    //.asdas
     public void bulkUsers() throws IOException{
         Parent root2 = FXMLLoader.load(MainAdmin.class.getResource("BulkUsers.fxml"));
         primaryStage.setScene(new Scene(root2));
