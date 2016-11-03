@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Helpreply.findByReplyID", query = "SELECT h FROM Helpreply h WHERE h.replyID = :replyID"),
     @NamedQuery(name = "Helpreply.findByTitle", query = "SELECT h FROM Helpreply h WHERE h.title = :title"),
     @NamedQuery(name = "Helpreply.findByContent", query = "SELECT h FROM Helpreply h WHERE h.content = :content"),
+    @NamedQuery(name = "Helpreply.findByRequestID", query = "SELECT h FROM Helpreply h WHERE h.requestID = :requestID"),
     @NamedQuery(name = "Helpreply.findByCreationDate", query = "SELECT h FROM Helpreply h WHERE h.creationDate = :creationDate")})
 public class Helpreply implements Serializable {
 

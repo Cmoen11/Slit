@@ -155,7 +155,7 @@
                   <Font size="13.0" />
                </font>
             </Text>
-            <JFXButton buttonType="RAISED" layoutX="328.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="328.0" layoutY="302.0" onAction="#unassignHelpRequest" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
