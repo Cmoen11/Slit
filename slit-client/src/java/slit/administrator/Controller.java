@@ -72,12 +72,16 @@ public class Controller {
         else welcomeText.setText("Missing userdata");
         
         courses = lookupLoginAuth_beanRemote().getCourses();
-        if (courses.size() > 0) {
-            existingCourses.setItems(FXCollections.observableArrayList(courses));
-            existingCourses.getSelectionModel().select(0);
-            LocalDate localDate = existingStartDate.getValue();
+        try {
+            if (courses.size() > 0) {
+                existingCourses.setItems(FXCollections.observableArrayList(courses));
+                existingCourses.getSelectionModel().select(0);
+                LocalDate localDate = existingStartDate.getValue();
 
-            setExistingCourseInfo();
+                setExistingCourseInfo();
+            }
+        }catch(Exception e) {
+            
         }
                 
     }

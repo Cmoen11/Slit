@@ -20,7 +20,7 @@ import slit.client.Main;
  */
 public class MainAdmin extends Application {
     private Stage primaryStage;
-    private Parent root;
+    private static Parent root;
     /**
      * If user has entered a correct password, he will be forwarded to this class
      * that will open up the student main page.
@@ -45,11 +45,12 @@ public class MainAdmin extends Application {
     }
     
     public void bulkUsers() throws IOException{
+        primaryStage = new Stage();
         Parent root2 = FXMLLoader.load(MainAdmin.class.getResource("BulkUsers.fxml"));
         primaryStage.setScene(new Scene(root2));
         primaryStage.initModality(Modality.APPLICATION_MODAL);
-        primaryStage.initOwner(root2.getScene().getWindow());
-        primaryStage.showAndWait();
+        primaryStage.initOwner(root.getScene().getWindow());
+        primaryStage.show();
         
         
         
