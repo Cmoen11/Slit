@@ -20,6 +20,7 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import sessionBeans.HelpRequestBeanRemote;
 import sessionBeans.NewsBeanRemote;
+import slit.Teacher.popups.FacilitateController;
 import transferClasses.HelpRequestDetails;
 import user_details.UserBeanRemote;
 
@@ -164,6 +165,15 @@ public class ControllerAdm {
         
     }
     
+    public void openModuleSubmission() {   
+        try {
+            int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
+            ModuleSubmissionDetails submission = assignedSubs.get(index);
+            new FacilitateController().displayPopup(submission);
+        }catch(Exception e) {
+            System.out.println(e.getCause());
+        }
+    }
     /**
      * clear all listviews, (for updating the gui with new information).
      */
