@@ -2,6 +2,7 @@ package modul;
 
 import database.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,27 +11,13 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Christian
+ * @author Christian and Erlend
  */
 @Stateless
 public class ModuleBean implements ModuleRemote {
 
     @PersistenceContext
     EntityManager em;
-
-    /**
-     * add learning goals to the module.
-     *
-     * @param learningGoal
-     * @param id
-     */
-    @Override
-    public void addLearningGoal(String learningGoal, int id) {
-        Learninggoals goal = new Learninggoals();
-        goal.setModuleID(em.find(Module.class, (long) id));
-
-        em.persist(goal);
-    }
 
     @Override
     public List<ModuleDetails> getAllModulesForUser(int userId) {
@@ -78,53 +65,45 @@ public class ModuleBean implements ModuleRemote {
                         .setParameter("moduleID", moduleID)
                         .getSingleResult();
         return moduleToModuleDetails(module);
-        
     }
     
-    
-    // Creates a new empty module
     @Override
-    public void newModule() {
+    public ArrayList<ModuleDetails> getAllModules(int courseID) {
+        List<Module> allModules = em.createNamedQuery("Module.findByCourseID")
+                .setParameter("courseID", courseID)
+                .getResultList();
+        ArrayList<ModuleDetails> moduleList = new ArrayList<>(); 
+        for (Module i : allModules) {
+            moduleList.add(moduleToModuleDetails(i));
+        }
         
+        return moduleList;
     }
+    
     // Saves changes done to the chosen module
     @Override
     public void saveModule(ModuleDetails module, ArrayList<String> learningGoals) {
         Module saveNewModule = new Module();
+        saveNewModule.setModuleID(Integer.SIZE);
         saveNewModule.setName(module.getName());
         saveNewModule.setDescription(module.getDescription());
         saveNewModule.setCourseID(module.getCourseID());
-        em.persist(saveNewModule);
         for (String i : learningGoals) {
-                Learninggoals temp = new Learninggoals();
-                temp.setDesc(i);
-                temp.setModuleID(saveNewModule);
-                em.persist(temp);
+            Learninggoals test = new Learninggoals();
+            test.setDesc(i);
+            test.setId(Integer.SIZE);
+            if(saveNewModule.getLearninggoalsCollection() == null) {
+                saveNewModule.setLearninggoalsCollection(new ArrayList<Learninggoals>());
+            }
+                saveNewModule.getLearninggoalsCollection().add(test);
         }
-    }
-
-    // Opens the current highlighted module
-    @Override
-    public void openSelectedModule() {
-
+        em.persist(saveNewModule);
     }
 
     // Removes the current highlighted module
     @Override
     public void removeModule(ModuleDetails module) {
         em.remove(em.find(Module.class, module.getModuleID()));
-    }
-
-    // Adds the content of the textfield to the learning goals
-    @Override
-    public void addLearningGoal() {
-
-    }
-
-    // Removes the current highlighted learninggoals
-    @Override
-    public void removeLearningGoal() {
-
     }
 
 }

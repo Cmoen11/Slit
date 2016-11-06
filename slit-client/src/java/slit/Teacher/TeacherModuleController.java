@@ -65,26 +65,25 @@ public class TeacherModuleController {
         modul.setDescription("");
         modul.setModuleType("");
         modul.setName("");
-
         existingModules.add(modul);
         modules.getSelectionModel().select(modules.getItems().size() - 1);
     }
 
     public void initialize() {
-        for (int i = 0; 5 > i; i++) {
-            Label modul = new Label("Modul" + i);
-            modules.getItems().add(modul);
+        modules.getItems().clear();
+        moduleTitle.clear();
+        learningGoal.clear();
+        learningGoals.getItems().clear();
+        moduleSpecifications.setHtmlText(
+                        "<html><head></head><body contenteditable=\"true\">"
+                        + "</body></html>");
+       existingModules = lookupModuleBeanRemote()
+                .getAllModules(Controller.getUser().getCourseID());
+        for (ModuleDetails module : existingModules) {
+            Label label = new Label();
+            label.setText(module.getName());
+            modules.getItems().add(label);
         }
-        existingModules = new ArrayList<>();
-
-        ModuleDetails modul = new ModuleDetails();
-        modul.setCourseID(Controller.getUser().getCourseID());
-        modul.setDescription("");
-        modul.setModuleType("");
-        modul.setName("Test hehe");
-
-        modules.getItems().add(new Label("Test hehe"));
-        existingModules.add(modul);
     }
 
     public void autoSave() {
@@ -99,28 +98,14 @@ public class TeacherModuleController {
 
     public void openSelectedModule() {
         moduleTitle.clear();
-        Label label = modules.getSelectionModel().getSelectedItem();
-        for (ModuleDetails module : existingModules) {
-            if (label.getText().equalsIgnoreCase(module.getName())) {
-                moduleTitle.setText(label.getText());
-                moduleSpecifications.setHtmlText(module.getDescription());
-                for (String i : module.) {
-                    learningGoals.
-                }
-                
-            }
-        }
-
-        /*ModuleDetails module = existingModules.get(
-                modules.getItems().indexOf(
-                        modules.getSelectionModel()
-                                .getSelectedItem()));
-
+        int index = modules.getSelectionModel().getSelectedIndex();
+        ModuleDetails module = existingModules.get(index);
         moduleTitle.setText(module.getName());
-        learningGoal.clear();
-        moduleSpecifications
-                .setHtmlText(
-                        module.getDescription());*/
+        moduleSpecifications.setHtmlText(module.getDescription());
+        //Moduletype
+        for (String i : module.getLearningGoals()) {
+            learningGoals.getItems().add(i);
+        }
     }
 
     // check if module name is <Ny modul> DO NOT CREATE IT.
@@ -147,35 +132,35 @@ public class TeacherModuleController {
             saveHighlightedModule.setName(moduleTitle.getText());
             saveHighlightedModule.setDescription(moduleSpecifications.getHtmlText());
             saveHighlightedModule.setModuleType("Modul type");
-            lookupModulebeanRemote().saveModule(saveHighlightedModule, learningGoalsList);
+            lookupModuleBeanRemote().saveModule(saveHighlightedModule, learningGoalsList);
         }
     }
 
     public void removeModuleButton() {
-        Label label = modules.getSelectionModel().getSelectedItem();
-        for (ModuleDetails module : existingModules) {
-            if (label.getText().equalsIgnoreCase(module.getName())) {
-                lookupModulebeanRemote().removeModule(module);
-            }
-        }
+        int index = modules.getSelectionModel().getSelectedIndex();
+        ModuleDetails module = existingModules.get(index);
+        lookupModuleBeanRemote().removeModule(module);
     }
 
     public void addLearningGoalButton() {
-        lookupModulebeanRemote().addLearningGoal();
+        learningGoals.getItems().add(learningGoal.getText());
     }
-
+    
     public void removeLearningGoalButton() {
-        lookupModulebeanRemote().removeLearningGoal();
+        int index = learningGoals.getSelectionModel().getSelectedIndex();
+        learningGoals.getItems().remove(index);
     }
 
-    private ModuleRemote lookupModulebeanRemote() {
+    private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (ModuleRemote) c.lookup("java:comp/env/Modul_bean");
+            return (ModuleRemote) c.lookup("java:comp/env/ModuleBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
+    
+    
 
 }
