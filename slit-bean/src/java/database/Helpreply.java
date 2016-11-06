@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Helpreply.findByReplyID", query = "SELECT h FROM Helpreply h WHERE h.replyID = :replyID"),
     @NamedQuery(name = "Helpreply.findByTitle", query = "SELECT h FROM Helpreply h WHERE h.title = :title"),
     @NamedQuery(name = "Helpreply.findByContent", query = "SELECT h FROM Helpreply h WHERE h.content = :content"),
+    @NamedQuery(name = "Helpreply.findByRequestID", query = "SELECT h FROM Helpreply h WHERE h.requestID = :requestID"),
     @NamedQuery(name = "Helpreply.findByCreationDate", query = "SELECT h FROM Helpreply h WHERE h.creationDate = :creationDate")})
 public class Helpreply implements Serializable {
 
@@ -46,17 +47,12 @@ public class Helpreply implements Serializable {
     @Column(name = "replyID")
     private Integer replyID;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 0)
     @Column(name = "title")
     private String title;
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 0)
     @Column(name = "content")
     private String content;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "creationDate")
     @Temporal(TemporalType.DATE)
     private Date creationDate;

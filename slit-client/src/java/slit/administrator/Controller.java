@@ -5,6 +5,7 @@ import course.CourseInfo;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
 import course.CourseBeanRemote;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.text.Text;
@@ -61,6 +63,7 @@ public class Controller {
     @FXML DatePicker newEndDate;
     @FXML TextField newCourseCode;
     @FXML CheckBox newIsTeacher;
+    @FXML Button addManyUsers;
     
     
     public void initialize() {
@@ -69,12 +72,16 @@ public class Controller {
         else welcomeText.setText("Missing userdata");
         
         courses = lookupLoginAuth_beanRemote().getCourses();
-        if (courses.size() > 0) {
-            existingCourses.setItems(FXCollections.observableArrayList(courses));
-            existingCourses.getSelectionModel().select(0);
-            LocalDate localDate = existingStartDate.getValue();
+        try {
+            if (courses.size() > 0) {
+                existingCourses.setItems(FXCollections.observableArrayList(courses));
+                existingCourses.getSelectionModel().select(0);
+                LocalDate localDate = existingStartDate.getValue();
 
-            setExistingCourseInfo();
+                setExistingCourseInfo();
+            }
+        }catch(Exception e) {
+            
         }
                 
     }
@@ -165,6 +172,16 @@ public class Controller {
         setExistingCourseInfo();
         
     }
+    /*
+    * Kaller MainAdmin.bulkUser() som bytter scener slik at bulkUsers.fxml blir et popup vindu.
+    * 
+    */
+    public void bulkUsers() throws IOException{
+        new MainAdmin().bulkUsers();
+        
+    }
+    
+    
     /**
      * Remove user from course
      */

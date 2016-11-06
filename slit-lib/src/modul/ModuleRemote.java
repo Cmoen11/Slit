@@ -16,13 +16,15 @@ import javax.ejb.Remote;
 @Remote
 public interface ModuleRemote {
 
-    int createModule(String name, String desc);
-
     void addLearningGoal(String learningGoal, int id);
 
     List<ModuleDetails> getAllModulesForUser(int userId);
 
     void saveModule(ModuleDetails module, ArrayList<String> learningGoals);
+    
+    ModuleDetails getModuleByID(int moduleID);
+    
+    void newModule();
 
     void openSelectedModule();
 

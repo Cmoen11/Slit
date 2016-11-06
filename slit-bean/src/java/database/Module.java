@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Module.findByCourseID", query = "SELECT m FROM Module m WHERE m.courseID = :courseID")})
 public class Module implements Serializable {
 
+    @Column(name = "courseID")
+    private Integer courseID;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,10 +64,6 @@ public class Module implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "modul_type")
     private String modulType;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "courseID")
-    private int courseID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moduleID")
     private Collection<Learninggoals> learninggoalsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "moduleID")
@@ -120,13 +119,6 @@ public class Module implements Serializable {
         this.modulType = modulType;
     }
 
-    public int getCourseID() {
-        return courseID;
-    }
-
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
-    }
 
     @XmlTransient
     public Collection<Learninggoals> getLearninggoalsCollection() {
@@ -178,6 +170,14 @@ public class Module implements Serializable {
     @Override
     public String toString() {
         return "database.Module[ moduleID=" + moduleID + " ]";
+    }
+
+    public Integer getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(Integer courseID) {
+        this.courseID = courseID;
     }
     
 }

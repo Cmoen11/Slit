@@ -43,7 +43,7 @@
                      </font>
                   </Text>
                   <JFXListView fx:id="unassignedHelp" layoutX="316.0" layoutY="36.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
-                  <JFXButton buttonType="RAISED" layoutX="319.0" layoutY="303.0" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="319.0" layoutY="303.0" onAction="#assignHelpRequest" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -135,7 +135,7 @@
       </AnchorPane>
       <Pane layoutX="12.0" layoutY="48.0" prefHeight="359.0" prefWidth="610.0" style="-fx-background-radius: 4px; -fx-background-color: #1F2E4F; -fx-border-style: ;">
          <children>
-            <JFXButton buttonType="RAISED" layoutX="172.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="172.0" layoutY="302.0" onAction="#openModuleSubmission" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -155,12 +155,12 @@
                   <Font size="13.0" />
                </font>
             </Text>
-            <JFXButton buttonType="RAISED" layoutX="328.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="328.0" layoutY="302.0" onAction="#unassignHelpRequest" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #6B2B2B;" text="Tilbake til kø" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXListView layoutX="328.0" layoutY="38.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
+            <JFXListView fx:id="assignedHelp" layoutX="328.0" layoutY="38.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
             <JFXButton buttonType="RAISED" layoutX="472.0" layoutY="302.0" prefHeight="25.0" prefWidth="111.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Åpne" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />

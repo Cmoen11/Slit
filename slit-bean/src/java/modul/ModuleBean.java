@@ -18,16 +18,6 @@ public class ModuleBean implements ModuleRemote {
     @PersistenceContext
     EntityManager em;
 
-    @Override
-    public int createModule(String name, String desc) {
-        Module modul = new Module();
-        modul.setName(name);
-        modul.setDescription(desc);
-        em.persist(modul);      // add modul to database.
-
-        return em.find(Module.class, modul).getModuleID();
-    }
-
     /**
      * add learning goals to the module.
      *
@@ -60,6 +50,43 @@ public class ModuleBean implements ModuleRemote {
         return returnList;
     }
 
+    /**
+     * transfer a Module object to ModuleDetails object
+     * @param module
+     * @return 
+     */
+    private ModuleDetails moduleToModuleDetails(Module module) {
+        ModuleDetails moduleDetails = new ModuleDetails();
+        moduleDetails.setCourseID(module.getCourseID());
+        moduleDetails.setDescription(module.getDescription());
+        moduleDetails.setModuleID(module.getModuleID());
+        moduleDetails.setModuleType(module.getModulType());
+        moduleDetails.setName(module.getName());
+
+        return moduleDetails;
+    }
+    
+    /**
+     * Get module data by moduleID. 
+     * @param moduleID
+     * @return 
+     */
+    @Override
+    public ModuleDetails getModuleByID(int moduleID) {
+        Module module = (Module) 
+                em.createNamedQuery("Module.findByModuleID")
+                        .setParameter("moduleID", moduleID)
+                        .getSingleResult();
+        return moduleToModuleDetails(module);
+        
+    }
+    
+    
+    // Creates a new empty module
+    @Override
+    public void newModule() {
+        
+    }
     // Saves changes done to the chosen module
     @Override
     public void saveModule(ModuleDetails module, ArrayList<String> learningGoals) {

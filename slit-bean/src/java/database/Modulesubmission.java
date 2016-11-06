@@ -46,6 +46,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Modulesubmission.findByUser", query = "SELECT m FROM Modulesubmission m WHERE m.userID = :userId ")})
 public class Modulesubmission implements Serializable {
 
+    @Column(name = "status")
+    private Integer status;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,17 +61,13 @@ public class Modulesubmission implements Serializable {
     @Column(name = "creationDate")
     @Temporal(TemporalType.DATE)
     private Date creationDate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "status")
-    private int status;
     @Size(max = 255)
     @Column(name = "content")
     private String content;
     @Size(max = 255)
     @Column(name = "type")
     private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "submissionID")
+    @OneToMany(mappedBy = "submissionID")
     private Collection<Modulefeedback> modulefeedbackCollection;
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     @ManyToOne(optional = false)
@@ -109,13 +108,6 @@ public class Modulesubmission implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
     public String getContent() {
         return content;
@@ -189,6 +181,14 @@ public class Modulesubmission implements Serializable {
     @Override
     public String toString() {
         return "database.Modulesubmission[ submissionID=" + submissionID + " ]";
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
     
 }

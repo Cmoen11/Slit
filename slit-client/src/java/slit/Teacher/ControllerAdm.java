@@ -20,6 +20,7 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import sessionBeans.HelpRequestBeanRemote;
 import sessionBeans.NewsBeanRemote;
+import slit.Teacher.popups.FacilitateController;
 import transferClasses.HelpRequestDetails;
 import user_details.UserBeanRemote;
 
@@ -36,12 +37,14 @@ public class ControllerAdm {
     @FXML private TextField newsTitle;
     @FXML private JFXListView<Label> existingNews;
     @FXML private JFXListView<Label> assignedSubmissions;
+    @FXML private JFXListView<Label> assignedHelp;
             
     private ArrayList<Post> posts;  // to store our newsPosts
     private ArrayList<UserDetails> allUsers;
     private ArrayList<ModuleSubmissionDetails> moduleSubs;
     private List<HelpRequestDetails> unassignedHelpRequests;
     private ArrayList<ModuleSubmissionDetails> assignedSubs;
+    private List<HelpRequestDetails> assignedHelpRequest;
     
     public void initialize() {
         try {
@@ -52,6 +55,7 @@ public class ControllerAdm {
             getPostsAndAddThem();
             getAllUnassignedHelpRequests();
             getAllAssignedModuleSubmission();
+            getAllAssignedHelpRequests();
 
         } catch (Exception e) {
             System.out.println(e);
@@ -127,14 +131,49 @@ public class ControllerAdm {
     }
     
     public void unassignModule() {
-        int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
-        ModuleSubmissionDetails submission = assignedSubs.get(index);
-        lookupSubmissionBeanRemote().unAssignModuleSubmission(submission);
+        try {
+            int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
+            ModuleSubmissionDetails submission = assignedSubs.get(index);
+            lookupSubmissionBeanRemote().unAssignModuleSubmission(submission);
+        }catch (ArrayIndexOutOfBoundsException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Brukerfeil");
+            alert.setContentText("Vennligst velg en innlevering");
+            
+            alert.setHeaderText("Velg en innlevering");
+            alert.showAndWait();
+        }
         
         initialize();
     }
     
+    public void assignHelpRequest() {
+        int index = unassignedHelp.getSelectionModel().getSelectedIndex();
+        HelpRequestDetails request = unassignedHelpRequests.get(index);
+        lookupHelpRequestBeanRemote().assignHelpRequest(request, Controller.getUser().getId());
+        
+        initialize();
+        
+    }
     
+    public void unassignHelpRequest() {
+        int index = assignedHelp.getSelectionModel().getSelectedIndex();
+        HelpRequestDetails request =  assignedHelpRequest.get(index);
+        
+        lookupHelpRequestBeanRemote().unassignHelpRequest(request);
+        initialize();
+        
+    }
+    
+    public void openModuleSubmission() {   
+        try {
+            int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
+            ModuleSubmissionDetails submission = assignedSubs.get(index);
+            new FacilitateController().displayPopup(submission);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * clear all listviews, (for updating the gui with new information).
      */
@@ -143,6 +182,7 @@ public class ControllerAdm {
         unassignedHelp.getItems().clear();
         unassignedModules.getItems().clear();
         assignedSubmissions.getItems().clear();
+        assignedHelp.getItems().clear();
     }
     
     /**
@@ -267,6 +307,34 @@ public class ControllerAdm {
         }
         
     }
+    
+    private void getAllAssignedHelpRequests() {
+        assignedHelpRequest = lookupHelpRequestBeanRemote()
+                .getAssignedHelpRequests(
+                        Controller.getUser().getId(),
+                        Controller.getUser().getCourseID());
+        
+        for (HelpRequestDetails requests : assignedHelpRequest) {
+            UserDetails user = null;
+                for (UserDetails obj : allUsers) {
+                    if (obj.getId() == requests.getUserID()) {
+                        user = obj;
+                        break;
+                    }
+                }
+                
+            if (user != null) {
+                Label lbl = new Label(
+                    requests.getRequestID() + ": "
+                        + user.getFirstname() + " "
+                        + user.getLastname()
+                        + " " + requests.getCreationDate().getDate()
+                        + "/" + requests.getCreationDate().getMonth());
+                assignedHelp.getItems().add(lbl);
+            }
+        }
+    }
+        
     
     
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
