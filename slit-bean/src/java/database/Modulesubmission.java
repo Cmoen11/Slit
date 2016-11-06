@@ -67,7 +67,7 @@ public class Modulesubmission implements Serializable {
     @Size(max = 255)
     @Column(name = "type")
     private String type;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "submissionID")
+    @OneToMany(mappedBy = "submissionID")
     private Collection<Modulefeedback> modulefeedbackCollection;
     @JoinColumn(name = "userID", referencedColumnName = "userID")
     @ManyToOne(optional = false)

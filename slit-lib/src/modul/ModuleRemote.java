@@ -20,7 +20,9 @@ public interface ModuleRemote {
     void addLearningGoal(String learningGoal, int id);
 
     List<ModuleDetails> getAllModulesForUser(int userId);
-
+    
+    ModuleDetails getModuleByID(int moduleID);
+    
     void newModule();
 
     void saveModule();
