@@ -56,4 +56,9 @@
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>sessionBeans.HelpRequestBeanRemote</remote>
   </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>ModuleBean</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>modul.ModuleRemote</remote>
+  </ejb-ref>
 </application-client>

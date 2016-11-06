@@ -114,7 +114,9 @@ public class SubmissionBean implements SubmissionBeanRemote {
         msub = em.find(Modulesubmission.class, sub.getSubmissionID());
         msub.setStatus(0);
         em.merge(msub);
-        Modulefeedback feedback = msub.getModulefeedbackCollection().iterator().next();
+        int index = msub.getModulefeedbackCollection().iterator().next().getFeedbackID();
+        System.out.println("unassign, feedback id = " + index);
+        Modulefeedback feedback = em.find(Modulefeedback.class, index);
         em.remove(feedback);
         
     }
