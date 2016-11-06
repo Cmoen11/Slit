@@ -88,7 +88,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <CheckListView fx:id="moduleLearningGoals" layoutX="1.0" prefHeight="784.0" prefWidth="336.0" />
+                                    <JFXListView fx:id="moduleLearningGoals" prefHeight="780.0" prefWidth="338.0" />
                                  </children>
                               </AnchorPane>
                         </content>

@@ -121,7 +121,17 @@ public class SubmissionBean implements SubmissionBeanRemote {
         
     }
     
-    
+    /**
+     * @param sub
+     * @param details 
+     */
+    @Override
+    public void saveTeacherFeeback(ModuleSubmissionDetails sub, SubmissionFeedbackDetails details) {
+        Modulesubmission moduleSub = em.find(Modulesubmission.class, sub.getModuleID());
+        Modulefeedback feedback = moduleSub.getModulefeedbackCollection().iterator().next();
+        feedback.setContent(details.getContent());
+        em.merge(feedback);
+    }
     
     
 }
