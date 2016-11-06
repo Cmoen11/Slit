@@ -171,7 +171,7 @@ public class ControllerAdm {
             ModuleSubmissionDetails submission = assignedSubs.get(index);
             new FacilitateController().displayPopup(submission);
         }catch(Exception e) {
-            System.out.println(e.getCause());
+            e.printStackTrace();
         }
     }
     /**
