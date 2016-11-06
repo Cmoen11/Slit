@@ -1,6 +1,7 @@
 package slit.Teacher.popups;
 
 import auth.UserDetails;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,7 @@ import javax.naming.NamingException;
 import modul.ModuleDetails;
 import modul.ModuleRemote;
 import modul.ModuleSubmissionDetails;
+import org.controlsfx.control.CheckListView;
 import slit.Teacher.TeacherMain;
 import user_details.UserBeanRemote;
 
@@ -38,9 +40,11 @@ public class FacilitateController {
     @FXML private HTMLEditor answerSubmission;
     @FXML private WebView moduleDesc;
     @FXML private JFXListView<?> allBlogPosts;
-    @FXML private JFXListView<?> moduleLearningGoals;
+    @FXML private CheckListView moduleLearningGoals;
     @FXML private WebView moduleSubmission; 
     @FXML private Text studentName;
+    @FXML private JFXButton downloadAssignedFile;
+    @FXML private Text fileName;
     
     static ModuleSubmissionDetails submission;
     ModuleDetails moduleInfo;
@@ -60,8 +64,17 @@ public class FacilitateController {
         // setting the moduleInfo
         moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
         WebEngine moduleDescEngine = moduleDesc.getEngine();
-        moduleDescEngine.loadContent("<h1>"+moduleInfo.getName()+"</h1> <br>" +
+        moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
                 moduleInfo.getDescription());
+        
+        
+        if (submission.getFile() == null) {
+            downloadAssignedFile.setDisable(true);
+            System.out.println("Button disabled");
+        } else {
+            downloadAssignedFile.setDisable(false);
+            System.out.println("Button enabled");
+        }
         
         
     }
