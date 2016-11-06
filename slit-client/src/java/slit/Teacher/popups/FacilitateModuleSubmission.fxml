@@ -60,7 +60,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </JFXButton>
-                        <JFXButton buttonType="RAISED" layoutX="229.0" layoutY="10.0" prefHeight="43.0" prefWidth="164.0" style="-fx-background-color: #7B3E00;" text="Lagre besvarelsen til senere" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="228.0">
+                        <JFXButton buttonType="RAISED" layoutX="229.0" layoutY="10.0" onAction="#saveAndClose" prefHeight="43.0" prefWidth="164.0" style="-fx-background-color: #7B3E00;" text="Lagre besvarelsen til senere" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="228.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
