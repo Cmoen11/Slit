@@ -30,7 +30,7 @@ public class TeacherModuleController {
     // List, edit, add and pick modules or learninggoals.
     private ArrayList<String> learningGoalsList = new ArrayList<>();
     @FXML
-    ListView learningGoals;
+    ListView<String> learningGoals;
     @FXML
     ListView<Label> modules;
     @FXML
@@ -72,8 +72,8 @@ public class TeacherModuleController {
 
     public void initialize() {
         for (int i = 0; 5 > i; i++) {
-            //Label modul = new Label("Modul" + i);
-            //modules.getItems().add(modul);
+            Label modul = new Label("Modul" + i);
+            modules.getItems().add(modul);
         }
         existingModules = new ArrayList<>();
 
@@ -97,8 +97,21 @@ public class TeacherModuleController {
         existingModules.set(existingModules.indexOf(module), module);
     }
 
-    public void getInfoFromSelectedModule() {
-        ModuleDetails module = existingModules.get(
+    public void openSelectedModule() {
+        moduleTitle.clear();
+        Label label = modules.getSelectionModel().getSelectedItem();
+        for (ModuleDetails module : existingModules) {
+            if (label.getText().equalsIgnoreCase(module.getName())) {
+                moduleTitle.setText(label.getText());
+                moduleSpecifications.setHtmlText(module.getDescription());
+                for (String i : module.) {
+                    learningGoals.
+                }
+                
+            }
+        }
+
+        /*ModuleDetails module = existingModules.get(
                 modules.getItems().indexOf(
                         modules.getSelectionModel()
                                 .getSelectedItem()));
@@ -107,7 +120,7 @@ public class TeacherModuleController {
         learningGoal.clear();
         moduleSpecifications
                 .setHtmlText(
-                        module.getDescription());
+                        module.getDescription());*/
     }
 
     // check if module name is <Ny modul> DO NOT CREATE IT.
@@ -122,23 +135,29 @@ public class TeacherModuleController {
                 alertBox.setContentText("Skriv inn et navn som ikke finnes fra før");
                 alertBox.showAndWait();
                 ifExists = true;
+                break;
             }
         }
         if (!ifExists) {
-            ModuleDetails saveModule = new ModuleDetails(1,
-                    Controller.getUser().getCourseID(),
-                    moduleTitle.getText(),
-                    moduleSpecifications.getHtmlText(),
-                    "Modul type");
-
-            // LearninggoalsDetails?
-            lookupModulebeanRemote().saveModule(saveModule);
+            for (String i : learningGoals.getItems()) {
+                learningGoalsList.add(i);
+            }
+            ModuleDetails saveHighlightedModule = new ModuleDetails();
+            saveHighlightedModule.setCourseID(Controller.getUser().getCourseID());
+            saveHighlightedModule.setName(moduleTitle.getText());
+            saveHighlightedModule.setDescription(moduleSpecifications.getHtmlText());
+            saveHighlightedModule.setModuleType("Modul type");
+            lookupModulebeanRemote().saveModule(saveHighlightedModule, learningGoalsList);
         }
     }
 
     public void removeModuleButton() {
-
-        lookupModulebeanRemote().removeModule();
+        Label label = modules.getSelectionModel().getSelectedItem();
+        for (ModuleDetails module : existingModules) {
+            if (label.getText().equalsIgnoreCase(module.getName())) {
+                lookupModulebeanRemote().removeModule(module);
+            }
+        }
     }
 
     public void addLearningGoalButton() {

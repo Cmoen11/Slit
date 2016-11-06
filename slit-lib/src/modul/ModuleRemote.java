@@ -5,6 +5,7 @@
  */
 package modul;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Remote;
 
@@ -21,9 +22,9 @@ public interface ModuleRemote {
 
     List<ModuleDetails> getAllModulesForUser(int userId);
 
-    void saveModule(ModuleDetails module);
+    void saveModule(ModuleDetails module, ArrayList<String> learningGoals);
 
-    void openModule();
+    void openSelectedModule();
 
     void removeModule(ModuleDetails module);
 

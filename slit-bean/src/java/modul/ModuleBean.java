@@ -62,18 +62,23 @@ public class ModuleBean implements ModuleRemote {
 
     // Saves changes done to the chosen module
     @Override
-    public void saveModule(ModuleDetails module) {
+    public void saveModule(ModuleDetails module, ArrayList<String> learningGoals) {
         Module saveNewModule = new Module();
         saveNewModule.setName(module.getName());
         saveNewModule.setDescription(module.getDescription());
         saveNewModule.setCourseID(module.getCourseID());
-        
-        // Lacks learninggoals
+        em.persist(saveNewModule);
+        for (String i : learningGoals) {
+                Learninggoals temp = new Learninggoals();
+                temp.setDesc(i);
+                temp.setModuleID(saveNewModule);
+                em.persist(temp);
+        }
     }
 
     // Opens the current highlighted module
     @Override
-    public void openModule() {
+    public void openSelectedModule() {
 
     }
 
