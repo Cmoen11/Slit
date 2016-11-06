@@ -3,6 +3,8 @@
 package modul;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -12,12 +14,16 @@ public class ModuleDetails implements Serializable{
     
     private int moduleID, courseID;
     private String name, description, moduleType;
-
+    
+    List<String> learningGoals;
+    
     public ModuleDetails(int moduleID,
             int courseID,
             String name,
             String description,
             String moduleType) {
+        
+        this();
         
         this.moduleID = moduleID;
         this.courseID = courseID;
@@ -27,6 +33,7 @@ public class ModuleDetails implements Serializable{
     }
 
     public ModuleDetails() {
+        learningGoals = new ArrayList<>();
     }
 
     public int getModuleID() {
