@@ -7,6 +7,7 @@ package modul;
 
 import java.io.Serializable;
 import java.util.Date;
+import transferClasses.File;
 
 /**
  *
@@ -16,6 +17,7 @@ public class ModuleSubmissionDetails implements Serializable{
     private int submissionID, status, moduleID, userID;
     private String content, type;
     private Date creationDate;
+    private File file;
     
     public ModuleSubmissionDetails() {
         
@@ -34,6 +36,14 @@ public class ModuleSubmissionDetails implements Serializable{
     @Override
     public String toString() {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
     
     public Date getCreationDate() {

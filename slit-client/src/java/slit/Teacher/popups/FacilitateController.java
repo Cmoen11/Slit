@@ -1,6 +1,7 @@
 package slit.Teacher.popups;
 
 import auth.UserDetails;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
@@ -11,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebEngine;
@@ -23,6 +25,8 @@ import javax.naming.NamingException;
 import modul.ModuleDetails;
 import modul.ModuleRemote;
 import modul.ModuleSubmissionDetails;
+import modul.SubmissionBeanRemote;
+import modul.SubmissionFeedbackDetails;
 import slit.Teacher.TeacherMain;
 import user_details.UserBeanRemote;
 
@@ -38,14 +42,17 @@ public class FacilitateController {
     @FXML private HTMLEditor answerSubmission;
     @FXML private WebView moduleDesc;
     @FXML private JFXListView<?> allBlogPosts;
-    @FXML private JFXListView<?> moduleLearningGoals;
+    @FXML private ListView moduleLearningGoals;
     @FXML private WebView moduleSubmission; 
     @FXML private Text studentName;
+    @FXML private JFXButton downloadAssignedFile;
+    @FXML private Text fileName;
     
     static ModuleSubmissionDetails submission;
+    static Stage primaryStage;
     ModuleDetails moduleInfo;
     UserDetails user;
-    
+    SubmissionFeedbackDetails feedback;
     @FXML
     void initialize() {
         
@@ -60,8 +67,19 @@ public class FacilitateController {
         // setting the moduleInfo
         moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
         WebEngine moduleDescEngine = moduleDesc.getEngine();
-        moduleDescEngine.loadContent("<h1>"+moduleInfo.getName()+"</h1> <br>" +
+        moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
                 moduleInfo.getDescription());
+        feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
+        answerSubmission.setHtmlText(feedback.getContent());
+        
+        
+        if (submission.getFile() == null) {
+            downloadAssignedFile.setDisable(true);
+            System.out.println("Button disabled");
+        } else {
+            downloadAssignedFile.setDisable(false);
+            System.out.println("Button enabled");
+        }
         
         
     }
@@ -71,7 +89,7 @@ public class FacilitateController {
         
         Parent root = TeacherMain.getRoot();
         
-        Stage primaryStage = new Stage();
+        primaryStage = new Stage();
         Parent root2 = FXMLLoader.load(FacilitateController.class.getResource("FacilitateModuleSubmission.fxml"));
         primaryStage.setScene(new Scene(root2));
         primaryStage.initModality(Modality.APPLICATION_MODAL);
@@ -79,7 +97,15 @@ public class FacilitateController {
         primaryStage.setTitle("Modulgodkjenning");
         primaryStage.showAndWait();
     }
-
+    
+    public void saveAndClose() {
+        SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
+        details.setContent(answerSubmission.getHtmlText());
+        
+        lookupSubmissionBeanRemote().saveTeacherFeeback(submission, details);
+        primaryStage.close();
+    }
+    
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -99,6 +125,17 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
+
+    private SubmissionBeanRemote lookupSubmissionBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (SubmissionBeanRemote) c.lookup("java:comp/env/SubmissionBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    
     
     
 }
