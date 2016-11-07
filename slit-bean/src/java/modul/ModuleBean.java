@@ -39,8 +39,9 @@ public class ModuleBean implements ModuleRemote {
 
     /**
      * transfer a Module object to ModuleDetails object
+     *
      * @param module
-     * @return 
+     * @return
      */
     private ModuleDetails moduleToModuleDetails(Module module) {
         ModuleDetails moduleDetails = new ModuleDetails();
@@ -52,34 +53,34 @@ public class ModuleBean implements ModuleRemote {
 
         return moduleDetails;
     }
-    
+
     /**
-     * Get module data by moduleID. 
+     * Get module data by moduleID.
+     *
      * @param moduleID
-     * @return 
+     * @return
      */
     @Override
     public ModuleDetails getModuleByID(int moduleID) {
-        Module module = (Module) 
-                em.createNamedQuery("Module.findByModuleID")
-                        .setParameter("moduleID", moduleID)
-                        .getSingleResult();
+        Module module = (Module) em.createNamedQuery("Module.findByModuleID")
+                .setParameter("moduleID", moduleID)
+                .getSingleResult();
         return moduleToModuleDetails(module);
     }
-    
+
     @Override
     public ArrayList<ModuleDetails> getAllModules(int courseID) {
         List<Module> allModules = em.createNamedQuery("Module.findByCourseID")
                 .setParameter("courseID", courseID)
                 .getResultList();
-        ArrayList<ModuleDetails> moduleList = new ArrayList<>(); 
+        ArrayList<ModuleDetails> moduleList = new ArrayList<>();
         for (Module i : allModules) {
             moduleList.add(moduleToModuleDetails(i));
         }
-        
+
         return moduleList;
     }
-    
+
     // Saves changes done to the chosen module
     @Override
     public void saveModule(ModuleDetails module, ArrayList<String> learningGoals) {
@@ -92,10 +93,10 @@ public class ModuleBean implements ModuleRemote {
             Learninggoals test = new Learninggoals();
             test.setDesc(i);
             test.setId(Integer.SIZE);
-            if(saveNewModule.getLearninggoalsCollection() == null) {
+            if (saveNewModule.getLearninggoalsCollection() == null) {
                 saveNewModule.setLearninggoalsCollection(new ArrayList<Learninggoals>());
             }
-                saveNewModule.getLearninggoalsCollection().add(test);
+            saveNewModule.getLearninggoalsCollection().add(test);
         }
         em.persist(saveNewModule);
     }

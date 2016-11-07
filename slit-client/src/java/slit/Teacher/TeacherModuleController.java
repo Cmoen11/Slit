@@ -75,9 +75,9 @@ public class TeacherModuleController {
         learningGoal.clear();
         learningGoals.getItems().clear();
         moduleSpecifications.setHtmlText(
-                        "<html><head></head><body contenteditable=\"true\">"
-                        + "</body></html>");
-       existingModules = lookupModuleBeanRemote()
+                "<html><head></head><body contenteditable=\"true\">"
+                + "</body></html>");
+        existingModules = lookupModuleBeanRemote()
                 .getAllModules(Controller.getUser().getCourseID());
         for (ModuleDetails module : existingModules) {
             Label label = new Label();
@@ -90,7 +90,7 @@ public class TeacherModuleController {
         ModuleDetails module = existingModules.get(
                 modules.getItems().indexOf(
                         modules.getSelectionModel()
-                                .getSelectedItem()));
+                        .getSelectedItem()));
 
         module.setName(moduleTitle.getText());
         existingModules.set(existingModules.indexOf(module), module);
@@ -110,18 +110,14 @@ public class TeacherModuleController {
 
     // check if module name is <Ny modul> DO NOT CREATE IT.
     public void saveModuleButton() {
-        boolean ifExists = false;
-        for (Label tittel : modules.getItems()) {
-            if (tittel.getText().equalsIgnoreCase(moduleTitle.getText())
-                    || moduleTitle.getText().equalsIgnoreCase("<Ny modul>")) {
-                Alert alertBox = new Alert(Alert.AlertType.ERROR);
-                alertBox.setTitle("FEIL");
-                alertBox.setHeaderText("Ugyldig navn");
-                alertBox.setContentText("Skriv inn et navn som ikke finnes fra før");
-                alertBox.showAndWait();
-                ifExists = true;
-                break;
-            }
+       Boolean ifExists = false;
+        if (moduleTitle.getText().equalsIgnoreCase("<Ny modul>")) {
+            Alert alertBox = new Alert(Alert.AlertType.ERROR);
+            alertBox.setTitle("FEIL");
+            alertBox.setHeaderText("Ugyldig navn");
+            alertBox.setContentText("Skriv inn et navn som ikke finnes fra før");
+            alertBox.showAndWait();
+            ifExists = true;
         }
         if (!ifExists) {
             for (String i : learningGoals.getItems()) {
@@ -134,21 +130,40 @@ public class TeacherModuleController {
             saveHighlightedModule.setModuleType("Modul type");
             lookupModuleBeanRemote().saveModule(saveHighlightedModule, learningGoalsList);
         }
+        initialize();
     }
 
     public void removeModuleButton() {
         int index = modules.getSelectionModel().getSelectedIndex();
-        ModuleDetails module = existingModules.get(index);
-        lookupModuleBeanRemote().removeModule(module);
+        if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
+            modules.getItems().remove(index);
+            clearWindows();
+        } else {
+            ModuleDetails module = existingModules.get(index);
+            lookupModuleBeanRemote().removeModule(module);
+            initialize();
+        }
     }
 
     public void addLearningGoalButton() {
-        learningGoals.getItems().add(learningGoal.getText());
+        if (!learningGoal.getText().equalsIgnoreCase("")) {
+            learningGoals.getItems().add(learningGoal.getText());
+            learningGoal.clear();
+        }
     }
-    
+
     public void removeLearningGoalButton() {
         int index = learningGoals.getSelectionModel().getSelectedIndex();
         learningGoals.getItems().remove(index);
+    }
+
+    public void clearWindows() {
+        moduleTitle.clear();
+        learningGoal.clear();
+        learningGoals.getItems().clear();
+        moduleSpecifications.setHtmlText(
+                "<html><head></head><body contenteditable=\"true\">"
+                + "</body></html>");
     }
 
     private ModuleRemote lookupModuleBeanRemote() {
@@ -160,7 +175,5 @@ public class TeacherModuleController {
             throw new RuntimeException(ne);
         }
     }
-    
-    
 
 }
