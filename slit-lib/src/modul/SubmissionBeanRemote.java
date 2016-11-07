@@ -20,5 +20,6 @@ public interface SubmissionBeanRemote {
 
     ArrayList<ModuleSubmissionDetails> getAssignedModulesForUser(int userID, int courseID);
     void unAssignModuleSubmission(ModuleSubmissionDetails sub);
-    public void saveTeacherFeeback(ModuleSubmissionDetails sub, SubmissionFeedbackDetails details);
+    void saveTeacherFeeback(ModuleSubmissionDetails sub, SubmissionFeedbackDetails details);
+    SubmissionFeedbackDetails getFeedbackDetailsFromSubmissionID(ModuleSubmissionDetails sub);
 }

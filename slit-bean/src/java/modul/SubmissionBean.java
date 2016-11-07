@@ -133,5 +133,21 @@ public class SubmissionBean implements SubmissionBeanRemote {
         em.merge(feedback);
     }
     
+    @Override
+    public SubmissionFeedbackDetails getFeedbackDetailsFromSubmissionID(ModuleSubmissionDetails sub) {
+        Modulesubmission submission = em.find(Modulesubmission.class, sub.getSubmissionID());
+        Modulefeedback feedback = (Modulefeedback) em.createNamedQuery("Modulefeedback.findBySubmissionID")
+                .setParameter("submissionID", submission).getSingleResult();
+        
+        SubmissionFeedbackDetails feedbackDetails = new SubmissionFeedbackDetails();
+        feedbackDetails.setContent(feedback.getContent());
+        feedbackDetails.setFeedbackID(feedback.getFeedbackID());
+        feedbackDetails.setUserID(feedback.getUserID().getUserID());
+        feedbackDetails.setFeedbackID(feedback.getFeedbackID());
+        
+        return feedbackDetails;
+        
+        
+    }
     
 }

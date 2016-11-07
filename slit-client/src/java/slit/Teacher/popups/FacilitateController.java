@@ -52,7 +52,7 @@ public class FacilitateController {
     static Stage primaryStage;
     ModuleDetails moduleInfo;
     UserDetails user;
-    
+    SubmissionFeedbackDetails feedback;
     @FXML
     void initialize() {
         
@@ -69,7 +69,8 @@ public class FacilitateController {
         WebEngine moduleDescEngine = moduleDesc.getEngine();
         moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
                 moduleInfo.getDescription());
-        
+        feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
+        answerSubmission.setHtmlText(feedback.getContent());
         
         
         if (submission.getFile() == null) {
