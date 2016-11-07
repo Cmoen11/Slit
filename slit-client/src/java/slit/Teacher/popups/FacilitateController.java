@@ -55,7 +55,6 @@ public class FacilitateController {
     SubmissionFeedbackDetails feedback;
     @FXML
     void initialize() {
-        
         // add the submission text.
         WebEngine webEngine = moduleSubmission.getEngine();
         webEngine.loadContent(submission.getContent());
@@ -72,14 +71,9 @@ public class FacilitateController {
         feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
         answerSubmission.setHtmlText(feedback.getContent());
         
-        
-        if (submission.getFile() == null) {
-            downloadAssignedFile.setDisable(true);
-            System.out.println("Button disabled");
-        } else {
-            downloadAssignedFile.setDisable(false);
-            System.out.println("Button enabled");
-        }
+        // disable the Download button if there is no file assigned
+        if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
+        else                              downloadAssignedFile.setDisable(false);
         
         
     }
@@ -101,8 +95,7 @@ public class FacilitateController {
     public void saveAndClose() {
         SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
         details.setContent(answerSubmission.getHtmlText());
-        
-        lookupSubmissionBeanRemote().saveTeacherFeeback(submission, details);
+        lookupSubmissionBeanRemote().saveTeacherFeeback(FacilitateController.submission, details);
         primaryStage.close();
     }
     
