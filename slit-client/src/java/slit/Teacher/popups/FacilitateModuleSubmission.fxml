@@ -15,15 +15,15 @@
          <center>
             <AnchorPane prefHeight="886.0" prefWidth="632.0" style="-fx-background-color: #E1E1E1;" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane layoutX="16.0" layoutY="41.0" prefHeight="386.0" prefWidth="614.0" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #C3C3C3; -fx-border-radius: 5px;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="41.0">
+                  <AnchorPane layoutX="16.0" layoutY="57.0" prefHeight="370.0" prefWidth="620.0" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #C3C3C3; -fx-border-radius: 5px;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="57.0">
                      <children>
-                        <WebView fx:id="moduleSubmission" layoutX="9.0" layoutY="8.0" prefHeight="366.0" prefWidth="610.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="7.0" />
+                        <WebView fx:id="moduleSubmission" layoutX="10.0" layoutY="26.0" prefHeight="347.0" prefWidth="608.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="25.0" />
                      </children>
                   </AnchorPane>
                   <HTMLEditor fx:id="answerSubmission" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="18.0" layoutY="528.0" prefHeight="269.0" prefWidth="622.0" style="-fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: white; -fx-border-color: #C3C3C3;" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="528.0" />
-                  <Text layoutX="17.0" layoutY="521.6181640625" strokeType="OUTSIDE" strokeWidth="0.0" text="Besvar besvarelsen" AnchorPane.bottomAnchor="342.3818359375" AnchorPane.topAnchor="506.6181640625">
+                  <Text fill="#434343" layoutX="18.0" layoutY="517.8681640625" strokeType="OUTSIDE" strokeWidth="0.0" text="Tilbakemelding" AnchorPane.bottomAnchor="366.3818359375" AnchorPane.topAnchor="506.6181640625">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Calibri" size="15.0" />
                      </font>
                   </Text>
                   <AnchorPane layoutX="16.0" layoutY="435.0" prefHeight="50.0" prefWidth="623.0" style="-fx-background-color: white; -fx-border-radius: 0; -fx-border-color: #C3C3C3; -fx-background-radius: 5px; -fx-border-radius: 5px;" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="11.0">
@@ -39,9 +39,9 @@
                            </font></Text>
                      </children>
                   </AnchorPane>
-                  <Text layoutX="16.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Besvarelse">
+                  <Text fill="#434343" layoutX="16.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Besvarelse">
                      <font>
-                        <Font size="15.0" />
+                        <Font name="Calibri" size="15.0" />
                      </font>
                   </Text>
                   <AnchorPane prefHeight="16.0" prefWidth="649.0" style="-fx-background-color: #2D4475;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -67,13 +67,15 @@
                         </JFXButton>
                      </children>
                   </AnchorPane>
+                  <Slider layoutX="418.0" layoutY="500.0" max="10.0" min="1.0" prefHeight="10.0" prefWidth="140.0" snapToTicks="true" />
+                  <Text fill="#686868" layoutX="564.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poenscore : 0" />
                </children>
             </AnchorPane>
          </center>
          <left>
             <AnchorPane prefHeight="869.0" prefWidth="354.0" style="-fx-background-color: #2D4475;" BorderPane.alignment="CENTER">
                <children>
-                  <Accordion layoutX="10.0" layoutY="16.0" prefHeight="869.0" prefWidth="340.0">
+                  <Accordion layoutX="10.0" layoutY="16.0" prefHeight="872.0" prefWidth="340.0">
                     <panes>
                       <TitledPane animated="false" prefHeight="722.0" prefWidth="340.0" text="Modulbeskrivelse">
                         <content>
@@ -98,6 +100,21 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="811.0" prefWidth="336.0" />
                         </content>
                       </TitledPane>
+                        <TitledPane animated="false" text="Student-Historikk">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="776.0" prefWidth="338.0">
+                                 <children>
+                                    <TableView layoutX="14.0" layoutY="21.0" prefHeight="738.0" prefWidth="315.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="Dato" />
+                                        <TableColumn prefWidth="115.0" text="Hendelse" />
+                                          <TableColumn prefWidth="123.0" text="Status" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
                     </panes>
                   </Accordion>
                </children>
@@ -122,7 +139,7 @@
                      </children>
                   </Pane>
                   <JFXListView layoutX="7.0" layoutY="484.0" prefHeight="371.0" prefWidth="351.0" style="-fx-border-radius: 5px; -fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #C3C3C3;" />
-                  <Text fill="WHITE" layoutX="10.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Internt kommentarer for valgt student" wrappingWidth="304.97265625">
+                  <Text fill="WHITE" layoutX="8.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Intern kommentar for valgt student" wrappingWidth="229.97265625">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -133,6 +150,7 @@
                      </cursor>
                   </JFXButton>
                   <TextField layoutX="7.0" layoutY="863.0" prefHeight="25.0" prefWidth="225.0" promptText="manglet litt på ..." />
+                  <Text fill="#bfbfbf" layoutX="9.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(Ikke synlig for student)" />
                </children>
             </AnchorPane>
          </right>
