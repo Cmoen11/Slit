@@ -4,10 +4,15 @@ import database.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 /**
  *
@@ -50,6 +55,9 @@ public class ModuleBean implements ModuleRemote {
         moduleDetails.setModuleID(module.getModuleID());
         moduleDetails.setModuleType(module.getModulType());
         moduleDetails.setName(module.getName());
+        for (Learninggoals i : module.getLearninggoalsCollection()) {
+            moduleDetails.getLearningGoals().add(i.getDesc());
+        }
 
         return moduleDetails;
     }
@@ -89,14 +97,16 @@ public class ModuleBean implements ModuleRemote {
         saveNewModule.setName(module.getName());
         saveNewModule.setDescription(module.getDescription());
         saveNewModule.setCourseID(module.getCourseID());
+        saveNewModule.setModulType("TEST");
         for (String i : learningGoals) {
-            Learninggoals test = new Learninggoals();
-            test.setDesc(i);
-            test.setId(Integer.SIZE);
+            Learninggoals learninggoal = new Learninggoals();
+            learninggoal.setDesc(i);
+            learninggoal.setId(Integer.SIZE);
             if (saveNewModule.getLearninggoalsCollection() == null) {
                 saveNewModule.setLearninggoalsCollection(new ArrayList<Learninggoals>());
             }
-            saveNewModule.getLearninggoalsCollection().add(test);
+            saveNewModule.getLearninggoalsCollection().add(learninggoal);
+            em.persist(learninggoal);
         }
         em.persist(saveNewModule);
     }

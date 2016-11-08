@@ -71,18 +71,16 @@ public class TeacherModuleController {
 
     public void initialize() {
         modules.getItems().clear();
-        moduleTitle.clear();
-        learningGoal.clear();
-        learningGoals.getItems().clear();
-        moduleSpecifications.setHtmlText(
-                "<html><head></head><body contenteditable=\"true\">"
-                + "</body></html>");
+        clearWindows();
         existingModules = lookupModuleBeanRemote()
                 .getAllModules(Controller.getUser().getCourseID());
         for (ModuleDetails module : existingModules) {
             Label label = new Label();
             label.setText(module.getName());
             modules.getItems().add(label);
+            for (String i : module.getLearningGoals()) {
+                learningGoals.getItems().add(i);
+            }
         }
     }
 
@@ -90,27 +88,29 @@ public class TeacherModuleController {
         ModuleDetails module = existingModules.get(
                 modules.getItems().indexOf(
                         modules.getSelectionModel()
-                        .getSelectedItem()));
+                                .getSelectedItem()));
 
         module.setName(moduleTitle.getText());
         existingModules.set(existingModules.indexOf(module), module);
     }
 
     public void openSelectedModule() {
-        moduleTitle.clear();
+        clearWindows();
         int index = modules.getSelectionModel().getSelectedIndex();
-        ModuleDetails module = existingModules.get(index);
-        moduleTitle.setText(module.getName());
-        moduleSpecifications.setHtmlText(module.getDescription());
-        //Moduletype
-        for (String i : module.getLearningGoals()) {
-            learningGoals.getItems().add(i);
+        if (index != -1) {
+            ModuleDetails module = existingModules.get(index);
+            moduleTitle.setText(module.getName());
+            moduleSpecifications.setHtmlText(module.getDescription());
+            //Moduletype
+            for (String i : module.getLearningGoals()) {
+                learningGoals.getItems().add(i);
+            }
         }
     }
 
     // check if module name is <Ny modul> DO NOT CREATE IT.
     public void saveModuleButton() {
-       Boolean ifExists = false;
+        Boolean ifExists = false;
         if (moduleTitle.getText().equalsIgnoreCase("<Ny modul>")) {
             Alert alertBox = new Alert(Alert.AlertType.ERROR);
             alertBox.setTitle("FEIL");
