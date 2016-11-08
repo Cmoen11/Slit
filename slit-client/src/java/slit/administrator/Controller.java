@@ -188,6 +188,7 @@ public class Controller {
     /*
     * Legg til strenger fra tekstfeltet i en liste med formatet "brukernavn, brukernavn"
     * For hvert element i lista usernames, kjør UserBeanRemote().bulkUsers() - og legg til hvert brukernavn i kurset.
+    * Produserer nullPointerException fordi UserBean.bulkUsers() sin liste er tom.
     */
     public void bulkUsers() {
        

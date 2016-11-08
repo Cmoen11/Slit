@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package slit.client;
-
 import auth.LoginAuthRemote;
 import auth.UserDetails;
 import java.util.logging.Level;
