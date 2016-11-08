@@ -81,7 +81,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="338.0">
                                  <children>
-                                    <WebView fx:id="moduleDesc" layoutX="7.0" prefHeight="780.0" prefWidth="325.0" AnchorPane.bottomAnchor="25.20001220703125" AnchorPane.topAnchor="0.0" />
+                                    <WebView fx:id="moduleDesc" focusTraversable="false" fontSmoothingType="GRAY" layoutX="7.0" prefHeight="780.0" prefWidth="325.0" AnchorPane.bottomAnchor="25.20001220703125" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                         </content>
