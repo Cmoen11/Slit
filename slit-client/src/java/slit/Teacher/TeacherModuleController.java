@@ -112,8 +112,11 @@ public class TeacherModuleController {
 
     // check if module name is <Ny modul> DO NOT CREATE IT.
     public void saveModuleButton() {
+        int index = modules.getSelectionModel().getSelectedIndex();
         Boolean ifExists = false;
-        if (moduleTitle.getText().equalsIgnoreCase("<Ny modul>")) {
+        if (moduleTitle.getText().equalsIgnoreCase("<Ny modul>") || 
+               existingModules.get(index).getName()
+                       .equalsIgnoreCase(moduleTitle.getText()) ) {
             Alert alertBox = new Alert(Alert.AlertType.ERROR);
             alertBox.setTitle("FEIL");
             alertBox.setHeaderText("Ugyldig navn");
