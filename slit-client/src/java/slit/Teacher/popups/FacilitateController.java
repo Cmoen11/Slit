@@ -42,7 +42,7 @@ public class FacilitateController {
     @FXML private HTMLEditor answerSubmission;
     @FXML private WebView moduleDesc;
     @FXML private JFXListView<?> allBlogPosts;
-    @FXML private ListView moduleLearningGoals;
+    @FXML private ListView<String> moduleLearningGoals;
     @FXML private WebView moduleSubmission; 
     @FXML private Text studentName;
     @FXML private JFXButton downloadAssignedFile;
@@ -65,11 +65,20 @@ public class FacilitateController {
         
         // setting the moduleInfo
         moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
+        
         WebEngine moduleDescEngine = moduleDesc.getEngine();
         moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
                 moduleInfo.getDescription());
+        
         feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
         answerSubmission.setHtmlText(feedback.getContent());
+        
+        for (String details : moduleInfo.getLearningGoals()) {
+            moduleLearningGoals.getItems().add(details);
+            System.out.println(details);
+        }
+        
+        
         
         // disable the Download button if there is no file assigned
         if (submission.getFile() == null) downloadAssignedFile.setDisable(true);

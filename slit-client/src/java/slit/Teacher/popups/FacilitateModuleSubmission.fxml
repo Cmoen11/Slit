@@ -67,7 +67,7 @@
                         </JFXButton>
                      </children>
                   </AnchorPane>
-                  <Slider layoutX="418.0" layoutY="500.0" max="10.0" min="1.0" prefHeight="10.0" prefWidth="140.0" snapToTicks="true" />
+                  <Slider layoutX="418.0" layoutY="500.0" max="10.0" min="1.0" prefHeight="10.0" prefWidth="140.0" />
                   <Text fill="#686868" layoutX="564.0" layoutY="511.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Poenscore : 0" />
                </children>
             </AnchorPane>
@@ -77,7 +77,7 @@
                <children>
                   <Accordion layoutX="10.0" layoutY="16.0" prefHeight="872.0" prefWidth="340.0">
                     <panes>
-                      <TitledPane animated="false" prefHeight="722.0" prefWidth="340.0" text="Modulbeskrivelse">
+                      <TitledPane prefHeight="722.0" prefWidth="340.0" text="Modulbeskrivelse">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="338.0">
                                  <children>

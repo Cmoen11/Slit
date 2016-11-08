@@ -38,7 +38,7 @@ public class ControllerAdm {
     @FXML private JFXListView<Label> existingNews;
     @FXML private JFXListView<Label> assignedSubmissions;
     @FXML private JFXListView<Label> assignedHelp;
-            
+
     private ArrayList<Post> posts;  // to store our newsPosts
     private ArrayList<UserDetails> allUsers;
     private ArrayList<ModuleSubmissionDetails> moduleSubs;
@@ -373,5 +373,4 @@ public class ControllerAdm {
             throw new RuntimeException(ne);
         }
     }
-
 }
