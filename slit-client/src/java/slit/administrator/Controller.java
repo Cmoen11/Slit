@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -23,12 +24,13 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import user_details.UserBeanRemote;
 import slit.client.*;
@@ -63,7 +65,10 @@ public class Controller {
     @FXML DatePicker newEndDate;
     @FXML TextField newCourseCode;
     @FXML CheckBox newIsTeacher;
-    @FXML Button addManyUsers;
+    
+    // Bulk users
+    //@FXML Button bulkUsersPopUp;
+    @FXML TextArea usersToBeAddedToList;
     
     
     public void initialize() {
@@ -176,10 +181,24 @@ public class Controller {
     * Kaller MainAdmin.bulkUser() som bytter scener slik at bulkUsers.fxml blir et popup vindu.
     * 
     */
-    public void bulkUsers() throws IOException{
+    public void bulkUsersPopUp() throws IOException{
         new MainAdmin().bulkUsers();
         
     }
+    /*
+    * Legg til strenger fra tekstfeltet i en liste med formatet "brukernavn, brukernavn"
+    * For hvert element i lista usernames, kjør UserBeanRemote().bulkUsers() - og legg til hvert brukernavn i kurset.
+    */
+    public void bulkUsers() {
+       
+        List<String> usernames = new ArrayList<>(); //(Arrays.asList(CommaSeparated.split("\\,")));
+        usernames.add(usersToBeAddedToList.getText());
+            for (String object : usernames) {
+            lookupUserBeanRemote().bulkUsers(userdetails); }
+            
+            }
+    
+    
     
     
     /**

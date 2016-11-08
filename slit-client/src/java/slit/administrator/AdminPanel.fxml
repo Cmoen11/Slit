@@ -58,7 +58,7 @@
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor></Button>
-                              <Button fx:id="addManyUsers" layoutX="439.0" layoutY="302.0" mnemonicParsing="false" onAction="#bulkUsers" prefHeight="25.0" prefWidth="177.0" text="Legg til mange medlemmer " />
+                              <Button fx:id="bulkUsersPopUp" layoutX="439.0" layoutY="302.0" mnemonicParsing="false" onAction="#bulkUsersPopUp" prefHeight="25.0" prefWidth="177.0" text="Legg til mange medlemmer " />
                               <Text fontSmoothingType="LCD" layoutX="434.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Endre kursdata for valgt kurs">
                                  <font>
                                     <Font name="System Bold" size="12.0" />

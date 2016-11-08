@@ -62,7 +62,7 @@ public class UserBean implements UserBeanRemote {
     }
     
     /**
-     * @param usersToAdd Lista med brukere som skal legges til. 
+     * @param usersToAdd
      */
     @Override
     public void bulkUsers(List<UserDetails> usersToAdd){
