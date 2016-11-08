@@ -82,6 +82,8 @@ public class TeacherModuleController {
                 learningGoals.getItems().add(i);
             }
         }
+        modules.getSelectionModel().select(0);
+        openSelectedModule();     
     }
 
     public void autoSave() {
