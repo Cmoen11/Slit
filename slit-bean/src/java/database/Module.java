@@ -78,7 +78,8 @@ public class Module implements Serializable {
         this.moduleID = moduleID;
     }
 
-    public Module(Integer moduleID, String name, String description, String modulType, int courseID) {
+    public Module(Integer moduleID, String name, String description, 
+            String modulType, int courseID) {
         this.moduleID = moduleID;
         this.name = name;
         this.description = description;

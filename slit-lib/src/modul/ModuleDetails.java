@@ -35,6 +35,10 @@ public class ModuleDetails implements Serializable{
     public ModuleDetails() {
         learningGoals = new ArrayList<>();
     }
+    
+    public List<String> getLearningGoals() {
+        return learningGoals;
+    }
 
     public int getModuleID() {
         return moduleID;

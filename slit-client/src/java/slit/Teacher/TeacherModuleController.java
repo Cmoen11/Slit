@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -29,7 +30,7 @@ public class TeacherModuleController {
     // List, edit, add and pick modules or learninggoals.
     private ArrayList<String> learningGoalsList = new ArrayList<>();
     @FXML
-    ListView learningGoals;
+    ListView<String> learningGoals;
     @FXML
     ListView<Label> modules;
     @FXML
@@ -38,9 +39,9 @@ public class TeacherModuleController {
     TextField learningGoal;
     @FXML
     HTMLEditor moduleSpecifications;
-    
+
     ArrayList<ModuleDetails> existingModules;
-    
+
     public void newModuleButton() {
         learningGoals.getItems().clear();
         moduleTitle.clear();
@@ -48,92 +49,129 @@ public class TeacherModuleController {
         moduleSpecifications
                 .setHtmlText(
                         "<html><head></head><body contenteditable=\"true\">"
-                                + "</body></html>");
-        
+                        + "</body></html>");
+
         boolean alreadyAdded = false;
         for (Label label : modules.getItems()) {
             if (label.getText().equals("<Ny modul>")) {
                 alreadyAdded = true;
-            } 
+            }
         }
-        if (!alreadyAdded) modules.getItems().add(new Label("<Ny modul>"));
+        if (!alreadyAdded) {
+            modules.getItems().add(new Label("<Ny modul>"));
+        }
         ModuleDetails modul = new ModuleDetails();
         modul.setCourseID(Controller.getUser().getCourseID());
         modul.setDescription("");
         modul.setModuleType("");
         modul.setName("");
-        
         existingModules.add(modul);
-        modules.getSelectionModel().select(modules.getItems().size()-1);
+        modules.getSelectionModel().select(modules.getItems().size() - 1);
     }
-    
+
     public void initialize() {
-        for (int i = 0; 5 > i; i++) {
-            //Label modul = new Label("Modul" + i);
-            //modules.getItems().add(modul);
+        modules.getItems().clear();
+        clearWindows();
+        existingModules = lookupModuleBeanRemote()
+                .getAllModules(Controller.getUser().getCourseID());
+        for (ModuleDetails module : existingModules) {
+            Label label = new Label();
+            label.setText(module.getName());
+            modules.getItems().add(label);
+            for (String i : module.getLearningGoals()) {
+                learningGoals.getItems().add(i);
+            }
         }
-        existingModules = new ArrayList<>();
-        
-        ModuleDetails modul = new ModuleDetails();
-        modul.setCourseID(Controller.getUser().getCourseID());
-        modul.setDescription("");
-        modul.setModuleType("");
-        modul.setName("Test hehe");
-        
-        modules.getItems().add(new Label("Test hehe"));
-        existingModules.add(modul);
+        modules.getSelectionModel().select(0);
+        openSelectedModule();     
     }
-    
+
     public void autoSave() {
         ModuleDetails module = existingModules.get(
-                 modules.getItems().indexOf(
-                         modules.getSelectionModel()
-                                 .getSelectedItem()));
-              
-        
-        
+                modules.getItems().indexOf(
+                        modules.getSelectionModel()
+                                .getSelectedItem()));
+
         module.setName(moduleTitle.getText());
         existingModules.set(existingModules.indexOf(module), module);
     }
-    
-    public void getInfoFromSelectedModule(){
-        ModuleDetails module = existingModules.get(
-                 modules.getItems().indexOf(
-                         modules.getSelectionModel()
-                                 .getSelectedItem()));
-        
-        moduleTitle.setText(module.getName());
-        learningGoal.clear();
-        moduleSpecifications
-                .setHtmlText(
-                        module.getDescription());
-    }
-    
-    public void saveModuleButton() {
-        // check if module name is <Ny modul> DO NOT CREATE IT.
-        lookupModulebeanRemote().saveModule();
+
+    public void openSelectedModule() {
+        clearWindows();
+        int index = modules.getSelectionModel().getSelectedIndex();
+        if (index != -1) {
+            ModuleDetails module = existingModules.get(index);
+            moduleTitle.setText(module.getName());
+            moduleSpecifications.setHtmlText(module.getDescription());
+            //Moduletype
+            for (String i : module.getLearningGoals()) {
+                learningGoals.getItems().add(i);
+            }
+        }
     }
 
-    public void openModuleButton() {
-        lookupModulebeanRemote().openModule();
+    // check if module name is <Ny modul> DO NOT CREATE IT.
+    public void saveModuleButton() {
+        Boolean ifExists = false;
+        if (moduleTitle.getText().equalsIgnoreCase("<Ny modul>")) {
+            Alert alertBox = new Alert(Alert.AlertType.ERROR);
+            alertBox.setTitle("FEIL");
+            alertBox.setHeaderText("Ugyldig navn");
+            alertBox.setContentText("Skriv inn et navn som ikke finnes fra før");
+            alertBox.showAndWait();
+            ifExists = true;
+        }
+        if (!ifExists) {
+            for (String i : learningGoals.getItems()) {
+                learningGoalsList.add(i);
+            }
+            ModuleDetails saveHighlightedModule = new ModuleDetails();
+            saveHighlightedModule.setCourseID(Controller.getUser().getCourseID());
+            saveHighlightedModule.setName(moduleTitle.getText());
+            saveHighlightedModule.setDescription(moduleSpecifications.getHtmlText());
+            saveHighlightedModule.setModuleType("Modul type");
+            lookupModuleBeanRemote().saveModule(saveHighlightedModule, learningGoalsList);
+        }
+        initialize();
     }
 
     public void removeModuleButton() {
-        lookupModulebeanRemote().removeModule();
+        int index = modules.getSelectionModel().getSelectedIndex();
+        if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
+            modules.getItems().remove(index);
+            clearWindows();
+        } else {
+            ModuleDetails module = existingModules.get(index);
+            lookupModuleBeanRemote().removeModule(module);
+            initialize();
+        }
     }
 
     public void addLearningGoalButton() {
-        lookupModulebeanRemote().addLearningGoal();
+        if (!learningGoal.getText().equalsIgnoreCase("")) {
+            learningGoals.getItems().add(learningGoal.getText());
+            learningGoal.clear();
+        }
     }
 
     public void removeLearningGoalButton() {
-        lookupModulebeanRemote().removeLearningGoal();
+        int index = learningGoals.getSelectionModel().getSelectedIndex();
+        learningGoals.getItems().remove(index);
     }
 
-    private ModuleRemote lookupModulebeanRemote() {
+    public void clearWindows() {
+        moduleTitle.clear();
+        learningGoal.clear();
+        learningGoals.getItems().clear();
+        moduleSpecifications.setHtmlText(
+                "<html><head></head><body contenteditable=\"true\">"
+                + "</body></html>");
+    }
+
+    private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (ModuleRemote) c.lookup("java:comp/env/Modul_bean");
+            return (ModuleRemote) c.lookup("java:comp/env/ModuleBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
