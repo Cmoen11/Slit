@@ -75,9 +75,11 @@ public class FacilitateController {
         
         for (String details : moduleInfo.getLearningGoals()) {
             moduleLearningGoals.getItems().add(details);
-            System.out.println(details);
         }
         
+        if(moduleInfo.getLearningGoals().isEmpty()) {
+            System.out.println("hallo heehe");
+        }
         
         
         // disable the Download button if there is no file assigned

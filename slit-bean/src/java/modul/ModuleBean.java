@@ -102,6 +102,8 @@ public class ModuleBean implements ModuleRemote {
             Learninggoals learninggoal = new Learninggoals();
             learninggoal.setDesc(i);
             learninggoal.setId(Integer.SIZE);
+            learninggoal.setModuleID(saveNewModule);
+            
             if (saveNewModule.getLearninggoalsCollection() == null) {
                 saveNewModule.setLearninggoalsCollection(new ArrayList<Learninggoals>());
             }
