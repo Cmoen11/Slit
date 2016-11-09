@@ -46,6 +46,8 @@ public class ControllerAdm {
     private ArrayList<ModuleSubmissionDetails> assignedSubs;
     private List<HelpRequestDetails> assignedHelpRequest;
     
+    private FacilitateController moduleSubmission;
+    
     public void initialize() {
         try {
             clearListViews();
@@ -165,11 +167,14 @@ public class ControllerAdm {
         
     }
     
-    public void openModuleSubmission() {   
+    public void openModuleSubmission() {
+        
         try {
             int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
             ModuleSubmissionDetails submission = assignedSubs.get(index);
-            new FacilitateController().displayPopup(submission);
+            moduleSubmission = new FacilitateController();
+            moduleSubmission.displayPopup(submission);
+            initialize(); 
         }catch(Exception e) {
             e.printStackTrace();
         }
