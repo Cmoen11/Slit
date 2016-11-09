@@ -1,18 +1,22 @@
-
-
 package modul;
 
 import database.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 /**
  *
- * @author Christian
+ * @author Christian and Erlend
  */
 @Stateless
 public class ModuleBean implements ModuleRemote {
@@ -21,35 +25,10 @@ public class ModuleBean implements ModuleRemote {
     EntityManager em;
 
     @Override
-    public int createModule(String name, String desc) {
-        Module modul = new Module();
-        modul.setName(name);
-        modul.setDescription(desc);
-        em.persist(modul);      // add modul to database.
-
-        return em.find(Module.class, modul).getModuleID();
-
-    }
-
-    /**
-     * add learning goals to the module.
-     *
-     * @param learningGoal
-     * @param id
-     */
-    @Override
-    public void addLearningGoal(String learningGoal, int id) {
-        Learninggoals goal = new Learninggoals();
-        goal.setModuleID(em.find(Module.class, (long) id));
-
-        em.persist(goal);
-    }
-
-    @Override
     public List<ModuleDetails> getAllModulesForUser(int userId) {
         List<ModuleDetails> returnList = new ArrayList<ModuleDetails>();
 
-        Query query = em.createNamedQuery("Modulesubmission.findByUser", 
+        Query query = em.createNamedQuery("Modulesubmission.findByUser",
                 Modulesubmission.class);
 
         query.setParameter("userId", userId);
@@ -62,11 +41,12 @@ public class ModuleBean implements ModuleRemote {
         }
         return returnList;
     }
-    
+
     /**
      * transfer a Module object to ModuleDetails object
+     *
      * @param module
-     * @return 
+     * @return
      */
     private ModuleDetails moduleToModuleDetails(Module module) {
         ModuleDetails moduleDetails = new ModuleDetails();
@@ -75,60 +55,81 @@ public class ModuleBean implements ModuleRemote {
         moduleDetails.setModuleID(module.getModuleID());
         moduleDetails.setModuleType(module.getModulType());
         moduleDetails.setName(module.getName());
+        for (Learninggoals i : module.getLearninggoalsCollection()) {
+            moduleDetails.getLearningGoals().add(i.getDesc());
+        }
 
         return moduleDetails;
     }
-    
+
     /**
-     * Get module data by moduleID. 
+     * Get module data by moduleID.
+     *
      * @param moduleID
-     * @return 
+     * @return
      */
     @Override
     public ModuleDetails getModuleByID(int moduleID) {
-        Module module = (Module) 
-                em.createNamedQuery("Module.findByModuleID")
-                        .setParameter("moduleID", moduleID)
-                        .getSingleResult();
+        Module module = (Module) em.createNamedQuery("Module.findByModuleID")
+                .setParameter("moduleID", moduleID)
+                .getSingleResult();
         return moduleToModuleDetails(module);
-        
     }
-    
-    
-    // Creates a new empty module
+
     @Override
-    public void newModule() {
-        
+    public ArrayList<ModuleDetails> getAllModules(int courseID) {
+        List<Module> allModules = em.createNamedQuery("Module.findByCourseID")
+                .setParameter("courseID", courseID)
+                .getResultList();
+        ArrayList<ModuleDetails> moduleList = new ArrayList<>();
+        for (Module i : allModules) {
+            moduleList.add(moduleToModuleDetails(i));
+        }
+
+        return moduleList;
     }
 
     // Saves changes done to the chosen module
     @Override
-    public void saveModule() {
+    public void saveModule(ModuleDetails module, ArrayList<String> learningGoals) {
+        Module saveNewModule = new Module();
+        saveNewModule.setModuleID(Integer.SIZE);
+        saveNewModule.setName(module.getName());
+        saveNewModule.setDescription(module.getDescription());
+        saveNewModule.setCourseID(module.getCourseID());
+        saveNewModule.setModulType("TEST");
+        
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
 
-    }
+            Set<ConstraintViolation<Module>> constraintViolations = validator.validate(saveNewModule);
 
-    // Opens the current highlighted module
-    @Override
-    public void openModule() {
-
+            if (constraintViolations.size() > 0 ) {
+            System.out.println("Constraint Violations occurred..");
+            for (ConstraintViolation<Module> contraints : constraintViolations) {
+            System.out.println(contraints.getRootBeanClass().getSimpleName()+
+            "." + contraints.getPropertyPath() + " " + contraints.getMessage());
+              }
+            }
+        
+        em.persist(saveNewModule);
+        for (String i : learningGoals) {
+            Learninggoals learninggoal = new Learninggoals();
+            learninggoal.setDesc(i);
+            learninggoal.setId(Integer.SIZE);
+            learninggoal.setModuleID(saveNewModule);
+            if (saveNewModule.getLearninggoalsCollection() == null) {
+                saveNewModule.setLearninggoalsCollection(new ArrayList<Learninggoals>());
+            }
+            saveNewModule.getLearninggoalsCollection().add(learninggoal);
+            em.persist(learninggoal);
+        }
     }
 
     // Removes the current highlighted module
     @Override
-    public void removeModule() {
-
-    }
-
-    // Adds the content of the textfield to the learning goals
-    @Override
-    public void addLearningGoal() {
-
-    }
-
-    // Removes the current highlighted learninggoals
-    @Override
-    public void removeLearningGoal() {
-
+    public void removeModule(ModuleDetails module) {
+        em.remove(em.find(Module.class, module.getModuleID()));
     }
 
 }

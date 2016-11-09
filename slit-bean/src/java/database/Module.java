@@ -51,12 +51,12 @@ public class Module implements Serializable {
     private Integer moduleID;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 1000)
     @Column(name = "name")
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 10000)
     @Column(name = "description")
     private String description;
     @Basic(optional = false)
@@ -78,7 +78,8 @@ public class Module implements Serializable {
         this.moduleID = moduleID;
     }
 
-    public Module(Integer moduleID, String name, String description, String modulType, int courseID) {
+    public Module(Integer moduleID, String name, String description, 
+            String modulType, int courseID) {
         this.moduleID = moduleID;
         this.name = name;
         this.description = description;
