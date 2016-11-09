@@ -156,7 +156,7 @@ public class SubmissionBean implements SubmissionBeanRemote {
     public void declineSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback) {
         // update status on module
         Modulesubmission submission = em.find(Modulesubmission.class, sub.getSubmissionID());
-        submission.setStatus(3); // set it to declined. 
+        submission.setStatus(2); // set it to declined. 
         em.persist(submission);
         
         // update feedback
@@ -180,7 +180,7 @@ public class SubmissionBean implements SubmissionBeanRemote {
     public void acceptSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback) {
         // update status on module
         Modulesubmission submission = em.find(Modulesubmission.class, sub.getSubmissionID());
-        submission.setStatus(4); // set it to accept. 
+        submission.setStatus(3); // set it to accept. 
         em.persist(submission);
         
         // update feedback
