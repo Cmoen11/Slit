@@ -41,6 +41,8 @@ public class TeacherModuleController {
     HTMLEditor moduleSpecifications;
 
     ArrayList<ModuleDetails> existingModules;
+    int index; 
+    ModuleDetails tempModule = new ModuleDetails();
 
     public void newModuleButton() {
         learningGoals.getItems().clear();
@@ -67,6 +69,7 @@ public class TeacherModuleController {
         modul.setName("");
         existingModules.add(modul);
         modules.getSelectionModel().select(modules.getItems().size() - 1);
+        openSelectedModule();
     }
 
     public void initialize() {
@@ -78,28 +81,36 @@ public class TeacherModuleController {
             Label label = new Label();
             label.setText(module.getName());
             modules.getItems().add(label);
-            for (String i : module.getLearningGoals()) {
-                learningGoals.getItems().add(i);
-            }
         }
+        if(index == -1);
         modules.getSelectionModel().select(0);
-        openSelectedModule();     
+        openSelectedModule();
     }
 
     public void autoSave() {
-        ModuleDetails module = existingModules.get(
-                modules.getItems().indexOf(
-                        modules.getSelectionModel()
-                                .getSelectedItem()));
-
-        module.setName(moduleTitle.getText());
-        existingModules.set(existingModules.indexOf(module), module);
+        if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
+            tempModule.setName(moduleTitle.getText());
+            tempModule.setDescription(moduleSpecifications.getHtmlText());
+            tempModule.getLearningGoals().clear();
+            for (String i : learningGoals.getItems()) {
+                tempModule.getLearningGoals().add(i);
+            }
+        }
     }
 
     public void openSelectedModule() {
+        autoSave();
         clearWindows();
-        int index = modules.getSelectionModel().getSelectedIndex();
-        if (index != -1) {
+        index = modules.getSelectionModel().getSelectedIndex();
+
+        if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
+            moduleTitle.setText(tempModule.getName());
+            moduleSpecifications.setHtmlText(tempModule.getDescription());
+            for (String i : tempModule.getLearningGoals()) {
+                learningGoals.getItems().add(i);
+            }
+
+        } else if (index != -1) {
             ModuleDetails module = existingModules.get(index);
             moduleTitle.setText(module.getName());
             moduleSpecifications.setHtmlText(module.getDescription());
@@ -112,11 +123,11 @@ public class TeacherModuleController {
 
     // check if module name is <Ny modul> DO NOT CREATE IT.
     public void saveModuleButton() {
-        int index = modules.getSelectionModel().getSelectedIndex();
+        index = modules.getSelectionModel().getSelectedIndex();
         Boolean ifExists = false;
-        if (moduleTitle.getText().equalsIgnoreCase("<Ny modul>") || 
-               existingModules.get(index).getName()
-                       .equalsIgnoreCase(moduleTitle.getText()) ) {
+        if (moduleTitle.getText().equalsIgnoreCase("<Ny modul>")
+                || existingModules.get(index).getName()
+                .equalsIgnoreCase(moduleTitle.getText())) {
             Alert alertBox = new Alert(Alert.AlertType.ERROR);
             alertBox.setTitle("FEIL");
             alertBox.setHeaderText("Ugyldig navn");
@@ -125,6 +136,7 @@ public class TeacherModuleController {
             ifExists = true;
         }
         if (!ifExists) {
+            learningGoalsList.clear();
             for (String i : learningGoals.getItems()) {
                 learningGoalsList.add(i);
             }
@@ -139,27 +151,30 @@ public class TeacherModuleController {
     }
 
     public void removeModuleButton() {
-        int index = modules.getSelectionModel().getSelectedIndex();
+        index = modules.getSelectionModel().getSelectedIndex();
         if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
             modules.getItems().remove(index);
-            clearWindows();
+            initialize();
         } else {
             ModuleDetails module = existingModules.get(index);
             lookupModuleBeanRemote().removeModule(module);
             initialize();
         }
+        initialize();
     }
 
     public void addLearningGoalButton() {
         if (!learningGoal.getText().equalsIgnoreCase("")) {
             learningGoals.getItems().add(learningGoal.getText());
             learningGoal.clear();
+            autoSave();
         }
     }
 
     public void removeLearningGoalButton() {
-        int index = learningGoals.getSelectionModel().getSelectedIndex();
-        learningGoals.getItems().remove(index);
+        int learningGoalIndex = learningGoals.getSelectionModel().getSelectedIndex();
+        learningGoals.getItems().remove(learningGoalIndex);
+        autoSave();
     }
 
     public void clearWindows() {
