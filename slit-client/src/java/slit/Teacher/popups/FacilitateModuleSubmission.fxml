@@ -81,7 +81,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="338.0">
                                  <children>
-                                    <WebView fx:id="moduleDesc" focusTraversable="false" fontSmoothingType="GRAY" layoutX="7.0" prefHeight="780.0" prefWidth="325.0" AnchorPane.bottomAnchor="25.20001220703125" AnchorPane.topAnchor="0.0" />
+                                    <WebView fx:id="moduleDesc" focusTraversable="false" layoutX="7.0" prefHeight="780.0" prefWidth="325.0" AnchorPane.bottomAnchor="25.20001220703125" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                         </content>
@@ -104,11 +104,11 @@
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="776.0" prefWidth="338.0">
                                  <children>
-                                    <TableView layoutX="14.0" layoutY="21.0" prefHeight="738.0" prefWidth="315.0">
+                                    <TableView fx:id="submissionHistory" layoutX="14.0" layoutY="21.0" prefHeight="738.0" prefWidth="315.0">
                                       <columns>
-                                        <TableColumn prefWidth="75.0" text="Dato" />
-                                        <TableColumn prefWidth="115.0" text="Hendelse" />
-                                          <TableColumn prefWidth="123.0" text="Status" />
+                                        <TableColumn fx:id="historyDate" prefWidth="75.0" text="Dato" />
+                                        <TableColumn fx:id="historyType" prefWidth="115.0" text="Hendelse" />
+                                          <TableColumn fx:id="historyStatus" prefWidth="123.0" text="Status" />
                                       </columns>
                                     </TableView>
                                  </children>

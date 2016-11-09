@@ -8,13 +8,19 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebEngine;
@@ -30,6 +36,7 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
 import slit.Teacher.TeacherMain;
+import transferClasses.StudentSubmissionHistory;
 import user_details.UserBeanRemote;
 
 /**
@@ -44,11 +51,24 @@ public class FacilitateController {
     @FXML private HTMLEditor answerSubmission;
     @FXML private WebView moduleDesc;
     @FXML private JFXListView<?> allBlogPosts;
-    @FXML private ListView<Text> moduleLearningGoals;
+    @FXML private ListView<Label> moduleLearningGoals;
     @FXML private WebView moduleSubmission; 
     @FXML private Text studentName;
     @FXML private JFXButton downloadAssignedFile;
     @FXML private Text fileName;
+    
+    // history
+    @FXML
+    private TableColumn<StudentSubmissionHistory, String> historyStatus;
+    @FXML
+    private TableColumn<StudentSubmissionHistory, String> historyType;
+    @FXML
+    private TableColumn<StudentSubmissionHistory, String> historyDate;
+    
+    @FXML
+    private TableView<StudentSubmissionHistory> submissionHistory;
+
+    
     
     static ModuleSubmissionDetails submission;
     static Stage primaryStage;
@@ -76,8 +96,8 @@ public class FacilitateController {
         answerSubmission.setHtmlText(feedback.getContent());
         
         for (String details : moduleInfo.getLearningGoals()) {
-            Text item = new Text(details);
-            item.setWrappingWidth(200);
+            Label item = new Label(details);
+            item.setWrapText(true);
             moduleLearningGoals.getItems().add(item);
         }
         
@@ -89,8 +109,19 @@ public class FacilitateController {
         // disable the Download button if there is no file assigned
         if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
         else                              downloadAssignedFile.setDisable(false);
+        if (historyStatus == null) System.out.println("lol?");
+        historyStatus.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
+        historyType.setCellValueFactory(new PropertyValueFactory<>("date"));
+        historyDate.setCellValueFactory(new PropertyValueFactory<>("status"));
         
+        ObservableList<StudentSubmissionHistory> items = FXCollections.observableArrayList (
+        lookupSubmissionBeanRemote()
+                .getSubmissionHistoryFromUser(submission.getUserID(),
+                        moduleInfo.getCourseID())
+                .getHistory()
+        );
         
+        submissionHistory.setItems(items);
     }
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
         

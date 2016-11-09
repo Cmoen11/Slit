@@ -5,6 +5,7 @@
  */
 package modul;
 
+import database.Courses;
 import database.Module;
 import database.Modulefeedback;
 import database.Modulesubmission;
@@ -15,6 +16,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import transferClasses.StudentSubmissionHistory;
+import transferClasses.SubmissionHistorys;
 
 /**
  *
@@ -192,6 +195,32 @@ public class SubmissionBean implements SubmissionBeanRemote {
         updateFeedback.setContent(feedback.getContent());
         em.persist(updateFeedback);  
         
+    }
+    
+    public SubmissionHistorys getSubmissionHistoryFromUser(int userID, int courseID) {
+        List<Modulesubmission> temp = em.createNamedQuery("Modulesubmission.findByUserIDAndCourse")
+                .setParameter("courseID", courseID)
+                .setParameter("userID", em.find(Users.class, userID))
+                .getResultList();
+        
+        SubmissionHistorys output = new SubmissionHistorys(
+                userID, courseID
+        );
+        
+        for (Modulesubmission obj : temp) {
+            String courseName = em.find(Module.class, obj.getModuleID().getModuleID()).getName();
+            System.out.println(obj.getCreationDate() + courseName + obj.getStatus());
+            
+            output.getHistory().add(
+                new StudentSubmissionHistory(
+                        obj.getCreationDate(),
+                        courseName,
+                        obj.getStatus()     
+                )
+            );
+        }
+        
+        return output;
     }
     
 }

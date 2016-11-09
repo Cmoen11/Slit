@@ -46,6 +46,7 @@ public class ControllerAdm {
     private ArrayList<ModuleSubmissionDetails> assignedSubs;
     private List<HelpRequestDetails> assignedHelpRequest;
     
+    // pupup for module submission.
     private FacilitateController moduleSubmission;
     
     public void initialize() {
