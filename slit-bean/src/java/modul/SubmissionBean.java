@@ -146,7 +146,51 @@ public class SubmissionBean implements SubmissionBeanRemote {
         feedbackDetails.setFeedbackID(feedback.getFeedbackID());
         
         return feedbackDetails;
+    }
+    /**
+     * decline a submission
+     * @param sub
+     * @param feedback 
+     */
+    @Override
+    public void declineSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback) {
+        // update status on module
+        Modulesubmission submission = em.find(Modulesubmission.class, sub.getSubmissionID());
+        submission.setStatus(3); // set it to declined. 
+        em.persist(submission);
         
+        // update feedback
+        // update feedback
+        Modulefeedback updateFeedback = (Modulefeedback) 
+                em.createNamedQuery("Modulefeedback.findBySubmissionID")
+                        .setParameter("submissionID", submission)
+                        .getSingleResult();
+        
+        updateFeedback.setContent(feedback.getContent());
+        em.persist(updateFeedback);  
+        
+    }
+    
+    /**
+     * Accept submission
+     * @param sub
+     * @param feedback 
+     */
+    @Override
+    public void acceptSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback) {
+        // update status on module
+        Modulesubmission submission = em.find(Modulesubmission.class, sub.getSubmissionID());
+        submission.setStatus(4); // set it to accept. 
+        em.persist(submission);
+        
+        // update feedback
+        Modulefeedback updateFeedback = (Modulefeedback) 
+                em.createNamedQuery("Modulefeedback.findBySubmissionID")
+                        .setParameter("submissionID", submission)
+                        .getSingleResult();
+        
+        updateFeedback.setContent(feedback.getContent());
+        em.persist(updateFeedback);  
         
     }
     

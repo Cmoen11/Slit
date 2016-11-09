@@ -22,4 +22,6 @@ public interface SubmissionBeanRemote {
     void unAssignModuleSubmission(ModuleSubmissionDetails sub);
     void saveTeacherFeeback(ModuleSubmissionDetails sub, SubmissionFeedbackDetails details);
     SubmissionFeedbackDetails getFeedbackDetailsFromSubmissionID(ModuleSubmissionDetails sub);
+    void declineSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback);
+    void acceptSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback);
 }

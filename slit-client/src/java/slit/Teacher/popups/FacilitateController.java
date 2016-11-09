@@ -107,12 +107,35 @@ public class FacilitateController {
         primaryStage.showAndWait();
     }
     
+    /**
+     * Save current state of the process of the submission
+     */
     public void saveAndClose() {
         SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
         details.setContent(answerSubmission.getHtmlText());
         lookupSubmissionBeanRemote().saveTeacherFeeback(FacilitateController.submission, details);
         primaryStage.close();
     }
+    /**
+     * Accept the submssion
+     */
+    public void acceptSubmission() {
+        SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
+        details.setContent(answerSubmission.getHtmlText());
+        lookupSubmissionBeanRemote().acceptSubmission(FacilitateController.submission, details);
+        primaryStage.close();
+    }
+    
+    /**
+     * Decline the submission
+     */
+    public void declineSubmission() {
+        SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
+        details.setContent(answerSubmission.getHtmlText());
+        lookupSubmissionBeanRemote().declineSubmission(FacilitateController.submission, details);
+        primaryStage.close();
+    }
+    
     
     private UserBeanRemote lookupUserBeanRemote() {
         try {
