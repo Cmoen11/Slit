@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebEngine;
@@ -42,7 +44,7 @@ public class FacilitateController {
     @FXML private HTMLEditor answerSubmission;
     @FXML private WebView moduleDesc;
     @FXML private JFXListView<?> allBlogPosts;
-    @FXML private ListView moduleLearningGoals;
+    @FXML private ListView<Text> moduleLearningGoals;
     @FXML private WebView moduleSubmission; 
     @FXML private Text studentName;
     @FXML private JFXButton downloadAssignedFile;
@@ -65,11 +67,24 @@ public class FacilitateController {
         
         // setting the moduleInfo
         moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
+        
         WebEngine moduleDescEngine = moduleDesc.getEngine();
         moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
                 moduleInfo.getDescription());
+        
         feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
         answerSubmission.setHtmlText(feedback.getContent());
+        
+        for (String details : moduleInfo.getLearningGoals()) {
+            Text item = new Text(details);
+            item.setWrappingWidth(200);
+            moduleLearningGoals.getItems().add(item);
+        }
+        
+        if(moduleInfo.getLearningGoals().isEmpty()) {
+            System.out.println("hallo heehe");
+        }
+        
         
         // disable the Download button if there is no file assigned
         if (submission.getFile() == null) downloadAssignedFile.setDisable(true);

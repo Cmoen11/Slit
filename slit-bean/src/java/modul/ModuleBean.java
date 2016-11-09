@@ -98,17 +98,32 @@ public class ModuleBean implements ModuleRemote {
         saveNewModule.setDescription(module.getDescription());
         saveNewModule.setCourseID(module.getCourseID());
         saveNewModule.setModulType("TEST");
+        
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            Validator validator = factory.getValidator();
+
+            Set<ConstraintViolation<Module>> constraintViolations = validator.validate(saveNewModule);
+
+            if (constraintViolations.size() > 0 ) {
+            System.out.println("Constraint Violations occurred..");
+            for (ConstraintViolation<Module> contraints : constraintViolations) {
+            System.out.println(contraints.getRootBeanClass().getSimpleName()+
+            "." + contraints.getPropertyPath() + " " + contraints.getMessage());
+              }
+            }
+        
+        em.persist(saveNewModule);
         for (String i : learningGoals) {
             Learninggoals learninggoal = new Learninggoals();
             learninggoal.setDesc(i);
             learninggoal.setId(Integer.SIZE);
+            learninggoal.setModuleID(saveNewModule);
             if (saveNewModule.getLearninggoalsCollection() == null) {
                 saveNewModule.setLearninggoalsCollection(new ArrayList<Learninggoals>());
             }
             saveNewModule.getLearninggoalsCollection().add(learninggoal);
             em.persist(learninggoal);
         }
-        em.persist(saveNewModule);
     }
 
     // Removes the current highlighted module
