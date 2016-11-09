@@ -3,42 +3,50 @@ package transferClasses;
 
 import java.io.Serializable;
 import java.util.Date;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 
 /**
  *
  * @author Christian
  */
 public class StudentSubmissionHistory implements Serializable{
-    private SimpleStringProperty moduleName, date, status;
-    
-    public StudentSubmissionHistory(Date date, String moduleName, int status) {
-        this.moduleName = new SimpleStringProperty(moduleName);
-        switch(status) {
-            case (0) :
-                this.status = new SimpleStringProperty("Utildelt");
-                break;
-            case (1) :
-                this.status = new SimpleStringProperty("Tildelt");
-                break;
-            case (2) :
-                this.status = new SimpleStringProperty("Avist");
-                break;
-            case (3) :
-                this.status= new SimpleStringProperty("Godkjent");
-            default :
-                System.out.println("what the fuck?");
-        }
-        this.date = new SimpleStringProperty(date.getDay() + "/" + date.getMonth() + "-" + date.getYear());
-        
-        
-    }
-    
-    public StudentSubmissionHistory() {
-        
+    private String moduleName, date;
+    int status;
+
+    public StudentSubmissionHistory(String moduleName, Date date, int status) {
+        this.moduleName = moduleName;
+        this.date = "" + date.getDay() + "/" + date.getMonth() + "-" + date.getYear();
+        this.status = status;
     }
 
+    public StudentSubmissionHistory() {
+    }
+    
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
     
     
 }
+
+

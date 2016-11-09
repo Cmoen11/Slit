@@ -213,8 +213,8 @@ public class SubmissionBean implements SubmissionBeanRemote {
             
             output.getHistory().add(
                 new StudentSubmissionHistory(
-                        obj.getCreationDate(),
                         courseName,
+                        obj.getCreationDate(),
                         obj.getStatus()     
                 )
             );

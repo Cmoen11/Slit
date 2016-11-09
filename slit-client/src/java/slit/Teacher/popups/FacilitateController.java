@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,14 +60,14 @@ public class FacilitateController {
     
     // history
     @FXML
-    private TableColumn<StudentSubmissionHistory, String> historyStatus;
+    private TableColumn<SubmissionHistory, String> historyStatus;
     @FXML
-    private TableColumn<StudentSubmissionHistory, String> historyType;
+    private TableColumn<SubmissionHistory, String> historyType;
     @FXML
-    private TableColumn<StudentSubmissionHistory, String> historyDate;
+    private TableColumn<SubmissionHistory, String> historyDate;
     
     @FXML
-    private TableView<StudentSubmissionHistory> submissionHistory;
+    private TableView<SubmissionHistory> submissionHistory;
 
     
     
@@ -110,18 +111,25 @@ public class FacilitateController {
         if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
         else                              downloadAssignedFile.setDisable(false);
         if (historyStatus == null) System.out.println("lol?");
-        historyStatus.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
-        historyType.setCellValueFactory(new PropertyValueFactory<>("date"));
-        historyDate.setCellValueFactory(new PropertyValueFactory<>("status"));
+        historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
+        historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         
-        ObservableList<StudentSubmissionHistory> items = FXCollections.observableArrayList (
+        ArrayList<StudentSubmissionHistory> items = 
         lookupSubmissionBeanRemote()
                 .getSubmissionHistoryFromUser(submission.getUserID(),
                         moduleInfo.getCourseID())
-                .getHistory()
-        );
+                .getHistory();
+        ObservableList<SubmissionHistory> history = FXCollections.observableArrayList(new ArrayList<>());
+        for (StudentSubmissionHistory item : items) {
+            SubmissionHistory historyItem = 
+                    new SubmissionHistory(item.getDate(),
+                            item.getModuleName(),
+                            item.getStatus());
+            history.add(historyItem);
+        }
         
-        submissionHistory.setItems(items);
+        submissionHistory.setItems(history);
     }
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
         

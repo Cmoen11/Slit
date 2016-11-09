@@ -14,7 +14,7 @@ import javafx.beans.property.StringProperty;
 public class SubmissionHistory{
     private SimpleStringProperty moduleName, date, status;
     
-    public SubmissionHistory(Date date, String moduleName, int status) {
+    public SubmissionHistory(String date, String moduleName, int status) {
         this.moduleName = new SimpleStringProperty(moduleName);
         switch(status) {
             case (0) :
@@ -31,7 +31,7 @@ public class SubmissionHistory{
             default :
                 System.out.println("what the fuck?");
         }
-        this.date = new SimpleStringProperty(date.getDay() + "/" + date.getMonth() + "-" + date.getYear());
+        this.date = new SimpleStringProperty(date);
         
         
     }
