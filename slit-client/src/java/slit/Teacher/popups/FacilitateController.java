@@ -13,15 +13,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
@@ -29,6 +27,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -37,6 +36,7 @@ import modul.ModuleRemote;
 import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
+import org.controlsfx.control.Notifications;
 import slit.Teacher.TeacherMain;
 import transferClasses.StudentSubmissionHistory;
 import user_details.UserBeanRemote;
@@ -152,9 +152,22 @@ public class FacilitateController {
      * Save current state of the process of the submission
      */
     public void saveAndClose() {
+        
         SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
         details.setContent(answerSubmission.getHtmlText());
         lookupSubmissionBeanRemote().saveTeacherFeeback(FacilitateController.submission, details);
+        Parent root = TeacherMain.getRoot();
+        Notifications notification = Notifications.create()
+                .title("Dine endringer er lagret")
+                .text("Besvarelsen er endret til senere!")
+                .graphic(null)
+                .hideAfter(Duration.seconds(4))
+                .position(Pos.BOTTOM_RIGHT)
+                .owner(root.getScene().getWindow())
+                .darkStyle();
+                
+        notification.showConfirm();
+        
         primaryStage.close();
     }
     /**
@@ -164,6 +177,17 @@ public class FacilitateController {
         SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
         details.setContent(answerSubmission.getHtmlText());
         lookupSubmissionBeanRemote().acceptSubmission(FacilitateController.submission, details);
+        Parent root = TeacherMain.getRoot();
+        Notifications notification = Notifications.create()
+                .title("Besvarelsen er godkjent")
+                .text("Besvarelsen er satt til godkjent.")
+                .graphic(null)
+                .hideAfter(Duration.seconds(4))
+                .position(Pos.BOTTOM_RIGHT)
+                .owner(root.getScene().getWindow())
+                .darkStyle();
+                
+        notification.showConfirm();
         primaryStage.close();
     }
     
@@ -174,6 +198,17 @@ public class FacilitateController {
         SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
         details.setContent(answerSubmission.getHtmlText());
         lookupSubmissionBeanRemote().declineSubmission(FacilitateController.submission, details);
+        Parent root = TeacherMain.getRoot();
+        Notifications notification = Notifications.create()
+                .title("Besvarelsen er avist")
+                .text("Besvarelsen er avist.")
+                .graphic(null)
+                .hideAfter(Duration.seconds(4))
+                .position(Pos.BOTTOM_RIGHT)
+                .owner(root.getScene().getWindow())
+                .darkStyle();
+                
+        notification.showConfirm();
         primaryStage.close();
     }
     
