@@ -47,7 +47,7 @@
                   <AnchorPane prefHeight="16.0" prefWidth="649.0" style="-fx-background-color: #2D4475;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <AnchorPane layoutX="18.0" layoutY="814.0" prefHeight="62.0" prefWidth="621.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="18.0">
                      <children>
-                        <JFXButton buttonType="RAISED" defaultButton="true" layoutX="473.0" layoutY="10.0" onAction="#acceptSubmission" prefHeight="43.0" prefWidth="147.0" style="-fx-background-color: #214020;" text="Godkjent" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="1.0">
+                        <JFXButton buttonType="RAISED" layoutX="473.0" layoutY="10.0" onAction="#acceptSubmission" prefHeight="43.0" prefWidth="147.0" style="-fx-background-color: #214020;" text="Godkjent" textFill="WHITE" AnchorPane.bottomAnchor="9.0" AnchorPane.rightAnchor="1.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -69,8 +70,6 @@ public class FacilitateController {
     @FXML
     private TableView<SubmissionHistory> submissionHistory;
 
-    
-    
     static ModuleSubmissionDetails submission;
     static Stage primaryStage;
     ModuleDetails moduleInfo;
@@ -111,10 +110,12 @@ public class FacilitateController {
         if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
         else                              downloadAssignedFile.setDisable(false);
         if (historyStatus == null) System.out.println("lol?");
+        
+        
         historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
         historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        
+
         ArrayList<StudentSubmissionHistory> items = 
         lookupSubmissionBeanRemote()
                 .getSubmissionHistoryFromUser(submission.getUserID(),
@@ -130,6 +131,7 @@ public class FacilitateController {
         }
         
         submissionHistory.setItems(history);
+
     }
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
         
