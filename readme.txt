@@ -1,4 +1,11 @@
-﻿How to git gud
+Module submission status
+0 = unassigned
+1 = assigned
+2 = declined
+3 = accepted
+
+ 
+ How to git gud
 
 1. push bare på din branch
 2. spør før du merger til master
