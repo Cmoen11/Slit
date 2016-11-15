@@ -17,6 +17,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import slit.administrator.MainAdmin;
+import slit.student.MainStudent;
 /**
  *
  * @author Christian
@@ -94,6 +95,7 @@ public class LoginController {
             } else {
                 //user is a student of the selected course.
                 //!! TODO, add the student GUI method call here.
+                new MainStudent().runGUI(Main.primaryStage, user);
             }
 
         } else {

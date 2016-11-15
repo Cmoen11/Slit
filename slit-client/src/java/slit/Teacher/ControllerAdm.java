@@ -3,21 +3,26 @@ package slit.Teacher;
 import auth.UserDetails;
 import blog.Post;
 import com.jfoenix.controls.JFXListView;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
+import javafx.util.Duration;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
+import org.controlsfx.control.Notifications;
 import sessionBeans.HelpRequestBeanRemote;
 import sessionBeans.NewsBeanRemote;
 import slit.Teacher.popups.FacilitateController;
@@ -91,6 +96,17 @@ public class ControllerAdm {
             initialize();
             newsTitle.clear();
             newsContent.setHtmlText("<html><head></head><body contenteditable=\"true\"></body></html>");
+            Parent root = TeacherMain.getRoot();
+            Notifications notification = Notifications.create()
+                    .title("Nyhetsposten er opprettet!")
+                    .text("Posten med navn " + post.getTitle() + " er opprettet!")
+                    .graphic(null)
+                    .hideAfter(Duration.seconds(4))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .owner(root.getScene().getWindow())
+                    .darkStyle();
+                
+        notification.showConfirm();
         }
     }
     
@@ -139,12 +155,17 @@ public class ControllerAdm {
             ModuleSubmissionDetails submission = assignedSubs.get(index);
             lookupSubmissionBeanRemote().unAssignModuleSubmission(submission);
         }catch (ArrayIndexOutOfBoundsException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Brukerfeil");
-            alert.setContentText("Vennligst velg en innlevering");
-            
-            alert.setHeaderText("Velg en innlevering");
-            alert.showAndWait();
+            Parent root = TeacherMain.getRoot();
+            Notifications notification = Notifications.create()
+                .title("Vennligst velg en innlevering")
+                .text("Du har ikke valgt en innlevering. "
+                        + "Vennligst velg den innleveringen du ønsker å sende tilbake til køen..")
+                .graphic(null)
+                .hideAfter(Duration.seconds(4))
+                .position(Pos.BOTTOM_RIGHT)
+                .owner(root);
+                
+        notification.showError();
         }
         
         initialize();
@@ -180,6 +201,31 @@ public class ControllerAdm {
             e.printStackTrace();
         }
     }
+    
+    public void assignAndOpenModuleSubmission() {
+        
+        int index = unassignedModules.getSelectionModel().getSelectedIndex();
+        ModuleSubmissionDetails submittedModule = moduleSubs.get(index);
+        // assign the submission
+        
+        // also; set the status to 1 || directly translated to "under processing"
+        lookupSubmissionBeanRemote()
+                .assignSubmissionToUser(
+                        submittedModule, Controller.getUser().getId());
+
+        
+         
+        // open the submission
+        moduleSubmission = new FacilitateController();
+        try {
+            moduleSubmission.displayPopup(submittedModule);
+            // update the GUI.
+            initialize();
+        } catch (IOException ex) {
+            Logger.getLogger(ControllerAdm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * clear all listviews, (for updating the gui with new information).
      */
