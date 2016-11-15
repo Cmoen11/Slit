@@ -26,7 +26,7 @@
             </ImageView>
             <Pane layoutX="643.0" layoutY="47.0" prefHeight="359.0" prefWidth="587.0" style="-fx-background-radius: 4px; -fx-background-color: #1F2E4F;">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="23.0" layoutY="303.0" onAction="#assignModuleToMe" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="23.0" layoutY="303.0" onAction="#assignModuleToMe" prefHeight="25.0" prefWidth="113.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Behandle senere" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -44,6 +44,11 @@
                   </Text>
                   <JFXListView fx:id="unassignedHelp" layoutX="316.0" layoutY="36.0" prefHeight="248.0" prefWidth="255.0" showTooltip="true" style="-fx-background-radius: 5px;" />
                   <JFXButton buttonType="RAISED" layoutX="319.0" layoutY="303.0" onAction="#assignHelpRequest" prefHeight="25.0" prefWidth="248.0" ripplerFill="BLACK" style="-fx-background-color: #214020;" text="Sett på meg" textFill="WHITE">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="147.0" layoutY="303.0" onAction="#assignAndOpenModuleSubmission" prefHeight="25.0" prefWidth="125.0" ripplerFill="BLACK" style="-fx-background-color: #3A7038;" text="Behandle nå" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

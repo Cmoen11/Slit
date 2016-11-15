@@ -3,6 +3,7 @@ package slit.Teacher;
 import auth.UserDetails;
 import blog.Post;
 import com.jfoenix.controls.JFXListView;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -200,6 +201,31 @@ public class ControllerAdm {
             e.printStackTrace();
         }
     }
+    
+    public void assignAndOpenModuleSubmission() {
+        
+        int index = unassignedModules.getSelectionModel().getSelectedIndex();
+        ModuleSubmissionDetails submittedModule = moduleSubs.get(index);
+        // assign the submission
+        
+        // also; set the status to 1 || directly translated to "under processing"
+        lookupSubmissionBeanRemote()
+                .assignSubmissionToUser(
+                        submittedModule, Controller.getUser().getId());
+
+        
+         
+        // open the submission
+        moduleSubmission = new FacilitateController();
+        try {
+            moduleSubmission.displayPopup(submittedModule);
+            // update the GUI.
+            initialize();
+        } catch (IOException ex) {
+            Logger.getLogger(ControllerAdm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * clear all listviews, (for updating the gui with new information).
      */
