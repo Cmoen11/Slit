@@ -147,6 +147,7 @@ public class LoginController {
         pref = Preferences.userNodeForPackage(Controller.class);
         
         if (pref.getBoolean("rememberMe", false)) {
+            rememberMe.setSelected(true);
             username.setText(pref.get("username", ""));
             password.setText(pref.get("password", ""));
         }

@@ -76,7 +76,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXCheckBox fx:id="rememberMe" layoutX="168.0" layoutY="14.0" selected="true" text="Husk meg" textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXCheckBox fx:id="rememberMe" layoutX="168.0" layoutY="14.0" text="Husk meg" textFill="WHITE" unCheckedColor="WHITE" />
                   <JFXCheckBox layoutX="168.0" layoutY="38.0" text="Automatisk pålogging" textFill="WHITE" unCheckedColor="WHITE" />
                </children>
             </AnchorPane>
