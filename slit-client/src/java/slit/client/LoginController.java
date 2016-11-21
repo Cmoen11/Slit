@@ -5,8 +5,11 @@ import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
 import com.jfoenix.controls.JFXCheckBox;
+import course.CourseBeanRemote;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -150,10 +153,16 @@ public class LoginController {
             rememberMe.setSelected(true);
             username.setText(pref.get("username", ""));
             password.setText(pref.get("password", ""));
+            
+            courses = lookupCourseBeanRemote().getAllCourseUserIsMemberIn(username.getText());
+            
+        }
+        else {
+            courses = lookupLoginAuth_beanRemote().getCourses();
         }
         
         // get all course s.
-        courses = lookupLoginAuth_beanRemote().getCourses();
+        
         courseNames = new ArrayList<>();
         
         // add all course names into an arrayList to display in ComboBox
@@ -177,6 +186,16 @@ public class LoginController {
             Context c = new InitialContext();
             return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth_bean");
         } catch (NamingException ne) {
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private CourseBeanRemote lookupCourseBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (CourseBeanRemote) c.lookup("java:comp/env/CourseBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
