@@ -201,8 +201,37 @@ public class CourseBean implements CourseBeanRemote {
         em.persist(course);
         
     }
-
     
+    private CourseInfo coursesToCourseInfo(Courses obj) {
+        CourseInfo output = new CourseInfo();
+        output.setCourseCode(obj.getCourseCode());
+        output.setCourseID(obj.getCourseID());
+        output.setCourseName(obj.getCourseName());
+        output.setStartDate(obj.getCourseStartDate());
+        output.setEndDate(obj.getCourseEndDate());
+        
+        return output;
+    }
     
+    @Override
+    public ArrayList<CourseInfo> getAllCourseUserIsMemberIn(String username) {
+        
+        // get the selected user from the database
+        Users user = (Users) em.createQuery(""
+                + "SELECT u FROM Users u WHERE u.username = :username")
+                .setParameter("username", username).getSingleResult();
+        
+        // create the arrayList to store the output
+        ArrayList<CourseInfo> output = new ArrayList<>();
+        
+        // transfer the courses over to CourseInfo objects. 
+        for (CourseMembers obj : user.getCourseMembersCollection()) {
+            CourseInfo input = coursesToCourseInfo(obj.getCourses());
+            output.add(input);  // add it to output
+        }
+        
+        // return the list with the results.
+        return output;
+    }
        
 }

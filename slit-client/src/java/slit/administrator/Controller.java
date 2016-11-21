@@ -24,6 +24,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.util.Date;
 import java.util.Optional;
+import java.util.prefs.Preferences;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -67,6 +68,7 @@ public class Controller {
     
     
     public void initialize() {
+
         UserDetails user = Authorisation.getUserData();
         if (user != null) welcomeText.setText("Hei, " + user.getFirstname() + " " + user.getLastname());
         else welcomeText.setText("Missing userdata");
