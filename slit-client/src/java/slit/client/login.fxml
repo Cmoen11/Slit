@@ -60,19 +60,15 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </PasswordField>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Velg kurs">
-               <VBox.margin>
-                  <Insets left="20.0" top="5.0" />
-               </VBox.margin>
-            </Text>
-            <ComboBox fx:id="courses_combo" prefHeight="25.0" prefWidth="289.0">
-               <VBox.margin>
-                  <Insets left="20.0" right="20.0" />
-               </VBox.margin>
-            </ComboBox>
-            <AnchorPane prefHeight="86.0" prefWidth="324.0">
+            <AnchorPane prefHeight="56.0" prefWidth="324.0">
                <children>
-                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="15.0" onAction="#loginButtonClicked" prefHeight="54.0" prefWidth="284.0" ripplerFill="#1e8bf2" style="-fx-background-color: #273B65; -fx-border-radius: 6px;" text="Logg inn" textFill="WHITE">
+                  <Text fill="WHITE" layoutX="20.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velg kurs" />
+                  <ComboBox fx:id="courses_combo" layoutX="18.0" layoutY="23.0" prefHeight="25.0" prefWidth="149.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="51.0" prefWidth="324.0">
+               <children>
+                  <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="11.0" onAction="#loginButtonClicked" prefHeight="45.0" prefWidth="148.0" ripplerFill="#1e8bf2" style="-fx-background-color: #273B65; -fx-border-radius: 6px;" text="Logg inn" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -80,6 +76,8 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
+                  <JFXCheckBox fx:id="rememberMe" layoutX="168.0" layoutY="14.0" text="Husk meg" textFill="WHITE" unCheckedColor="WHITE" />
+                  <JFXCheckBox layoutX="168.0" layoutY="38.0" text="Automatisk pålogging" textFill="WHITE" unCheckedColor="WHITE" />
                </children>
             </AnchorPane>
          </children>

@@ -8,6 +8,7 @@ package modul;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Remote;
+import transferClasses.SubmissionHistorys;
 
 /**
  *
@@ -22,4 +23,7 @@ public interface SubmissionBeanRemote {
     void unAssignModuleSubmission(ModuleSubmissionDetails sub);
     void saveTeacherFeeback(ModuleSubmissionDetails sub, SubmissionFeedbackDetails details);
     SubmissionFeedbackDetails getFeedbackDetailsFromSubmissionID(ModuleSubmissionDetails sub);
+    void declineSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback);
+    void acceptSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback);
+    SubmissionHistorys getSubmissionHistoryFromUser(int userID, int courseID);
 }

@@ -4,8 +4,10 @@ import course.CourseInfo;
 import slit.Teacher.TeacherMain;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
+import com.jfoenix.controls.JFXCheckBox;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.prefs.Preferences;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,7 +18,9 @@ import javafx.scene.control.TextField;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import slit.administrator.Controller;
 import slit.administrator.MainAdmin;
+import slit.student.MainStudent;
 /**
  *
  * @author Christian
@@ -26,13 +30,22 @@ public class LoginController {
     @FXML TextField username;
     @FXML TextField password;
     @FXML ComboBox courses_combo;
+    @FXML JFXCheckBox rememberMe;
     ArrayList<CourseInfo> courses;
     ArrayList<String> courseNames;
+    
+    Preferences pref;
 
+    
     /**
      * if login button is pressed.
      */
     public void loginButtonClicked() {
+        
+        if (rememberMe.isSelected())
+            saveUsernameAndPassword(username.getText(), password.getText());
+        else pref.putBoolean("rememberMe", false);
+        
         if (lookupLoginAuth_beanRemote()
                 .authAdminAccount(username.getText(),
                         password.getText())) {
@@ -94,6 +107,7 @@ public class LoginController {
             } else {
                 //user is a student of the selected course.
                 //!! TODO, add the student GUI method call here.
+                new MainStudent().runGUI(Main.primaryStage, user);
             }
 
         } else {
@@ -120,11 +134,24 @@ public class LoginController {
         obj.runGUI(Main.primaryStage, user);
     }
     
+    private void saveUsernameAndPassword(String username, String password) {
+        pref.put("username", username);
+        pref.put("password", password);
+        pref.putBoolean("rememberMe", true);
+    }
 
     /**
      * Initialize the GUI. 
      */
     public void initialize() {
+        pref = Preferences.userNodeForPackage(Controller.class);
+        
+        if (pref.getBoolean("rememberMe", false)) {
+            rememberMe.setSelected(true);
+            username.setText(pref.get("username", ""));
+            password.setText(pref.get("password", ""));
+        }
+        
         // get all course s.
         courses = lookupLoginAuth_beanRemote().getCourses();
         courseNames = new ArrayList<>();

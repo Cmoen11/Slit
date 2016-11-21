@@ -5,22 +5,29 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -29,7 +36,9 @@ import modul.ModuleRemote;
 import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
+import org.controlsfx.control.Notifications;
 import slit.Teacher.TeacherMain;
+import transferClasses.StudentSubmissionHistory;
 import user_details.UserBeanRemote;
 
 /**
@@ -44,12 +53,23 @@ public class FacilitateController {
     @FXML private HTMLEditor answerSubmission;
     @FXML private WebView moduleDesc;
     @FXML private JFXListView<?> allBlogPosts;
-    @FXML private ListView<Text> moduleLearningGoals;
+    @FXML private ListView<Label> moduleLearningGoals;
     @FXML private WebView moduleSubmission; 
     @FXML private Text studentName;
     @FXML private JFXButton downloadAssignedFile;
     @FXML private Text fileName;
     
+    // history
+    @FXML
+    private TableColumn<SubmissionHistory, String> historyStatus;
+    @FXML
+    private TableColumn<SubmissionHistory, String> historyType;
+    @FXML
+    private TableColumn<SubmissionHistory, String> historyDate;
+    
+    @FXML
+    private TableView<SubmissionHistory> submissionHistory;
+
     static ModuleSubmissionDetails submission;
     static Stage primaryStage;
     ModuleDetails moduleInfo;
@@ -76,8 +96,8 @@ public class FacilitateController {
         answerSubmission.setHtmlText(feedback.getContent());
         
         for (String details : moduleInfo.getLearningGoals()) {
-            Text item = new Text(details);
-            item.setWrappingWidth(200);
+            Label item = new Label(details);
+            item.setWrapText(true);
             moduleLearningGoals.getItems().add(item);
         }
         
@@ -89,8 +109,29 @@ public class FacilitateController {
         // disable the Download button if there is no file assigned
         if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
         else                              downloadAssignedFile.setDisable(false);
+        if (historyStatus == null) System.out.println("lol?");
         
         
+        historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
+        historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        ArrayList<StudentSubmissionHistory> items = 
+        lookupSubmissionBeanRemote()
+                .getSubmissionHistoryFromUser(submission.getUserID(),
+                        moduleInfo.getCourseID())
+                .getHistory();
+        ObservableList<SubmissionHistory> history = FXCollections.observableArrayList(new ArrayList<>());
+        for (StudentSubmissionHistory item : items) {
+            SubmissionHistory historyItem = 
+                    new SubmissionHistory(item.getDate(),
+                            item.getModuleName(),
+                            item.getStatus());
+            history.add(historyItem);
+        }
+        
+        submissionHistory.setItems(history);
+
     }
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
         
@@ -107,12 +148,70 @@ public class FacilitateController {
         primaryStage.showAndWait();
     }
     
+    /**
+     * Save current state of the process of the submission
+     */
     public void saveAndClose() {
+        
         SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
         details.setContent(answerSubmission.getHtmlText());
         lookupSubmissionBeanRemote().saveTeacherFeeback(FacilitateController.submission, details);
+        Parent root = TeacherMain.getRoot();
+        Notifications notification = Notifications.create()
+                .title("Dine endringer er lagret")
+                .text("Besvarelsen er endret til senere!")
+                .graphic(null)
+                .hideAfter(Duration.seconds(4))
+                .position(Pos.BOTTOM_RIGHT)
+                .owner(root.getScene().getWindow())
+                .darkStyle();
+                
+        notification.showConfirm();
+        
         primaryStage.close();
     }
+    /**
+     * Accept the submssion
+     */
+    public void acceptSubmission() {
+        SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
+        details.setContent(answerSubmission.getHtmlText());
+        lookupSubmissionBeanRemote().acceptSubmission(FacilitateController.submission, details);
+        Parent root = TeacherMain.getRoot();
+        Notifications notification = Notifications.create()
+                .title("Besvarelsen er godkjent")
+                .text("Besvarelsen er satt til godkjent.")
+                .graphic(null)
+                .hideAfter(Duration.seconds(4))
+                .position(Pos.BOTTOM_RIGHT)
+                .owner(root.getScene().getWindow())
+                .darkStyle();
+                
+        notification.showConfirm();
+        primaryStage.close();
+    }
+    
+    /**
+     * Decline the submission
+     */
+    public void declineSubmission() {
+        SubmissionFeedbackDetails details = new SubmissionFeedbackDetails();
+        details.setContent(answerSubmission.getHtmlText());
+        lookupSubmissionBeanRemote().declineSubmission(FacilitateController.submission, details);
+        Parent root = TeacherMain.getRoot();
+        Notifications notification = Notifications.create()
+                .title("Besvarelsen er avist")
+                .text("Besvarelsen er avist.")
+                .graphic(null)
+                .hideAfter(Duration.seconds(4))
+                .position(Pos.BOTTOM_RIGHT)
+                .owner(root.getScene().getWindow())
+                .darkStyle();
+                
+        notification.showConfirm();
+        primaryStage.close();
+    }
+    
     
     private UserBeanRemote lookupUserBeanRemote() {
         try {

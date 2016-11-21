@@ -5,6 +5,7 @@
  */
 package modul;
 
+import database.Courses;
 import database.Module;
 import database.Modulefeedback;
 import database.Modulesubmission;
@@ -15,6 +16,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import transferClasses.StudentSubmissionHistory;
+import transferClasses.SubmissionHistorys;
 
 /**
  *
@@ -146,8 +149,78 @@ public class SubmissionBean implements SubmissionBeanRemote {
         feedbackDetails.setFeedbackID(feedback.getFeedbackID());
         
         return feedbackDetails;
+    }
+    /**
+     * decline a submission
+     * @param sub
+     * @param feedback 
+     */
+    @Override
+    public void declineSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback) {
+        // update status on module
+        Modulesubmission submission = em.find(Modulesubmission.class, sub.getSubmissionID());
+        submission.setStatus(2); // set it to declined. 
+        em.persist(submission);
         
+        // update feedback
+        // update feedback
+        Modulefeedback updateFeedback = (Modulefeedback) 
+                em.createNamedQuery("Modulefeedback.findBySubmissionID")
+                        .setParameter("submissionID", submission)
+                        .getSingleResult();
         
+        updateFeedback.setContent(feedback.getContent());
+        em.persist(updateFeedback);  
+        
+    }
+    
+    /**
+     * Accept submission
+     * @param sub
+     * @param feedback 
+     */
+    @Override
+    public void acceptSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback) {
+        // update status on module
+        Modulesubmission submission = em.find(Modulesubmission.class, sub.getSubmissionID());
+        submission.setStatus(3); // set it to accept. 
+        em.persist(submission);
+        
+        // update feedback
+        Modulefeedback updateFeedback = (Modulefeedback) 
+                em.createNamedQuery("Modulefeedback.findBySubmissionID")
+                        .setParameter("submissionID", submission)
+                        .getSingleResult();
+        
+        updateFeedback.setContent(feedback.getContent());
+        em.persist(updateFeedback);  
+        
+    }
+    
+    public SubmissionHistorys getSubmissionHistoryFromUser(int userID, int courseID) {
+        List<Modulesubmission> temp = em.createNamedQuery("Modulesubmission.findByUserIDAndCourse")
+                .setParameter("courseID", courseID)
+                .setParameter("userID", em.find(Users.class, userID))
+                .getResultList();
+        
+        SubmissionHistorys output = new SubmissionHistorys(
+                userID, courseID
+        );
+        
+        for (Modulesubmission obj : temp) {
+            String courseName = em.find(Module.class, obj.getModuleID().getModuleID()).getName();
+            System.out.println(obj.getCreationDate() + courseName + obj.getStatus());
+            
+            output.getHistory().add(
+                new StudentSubmissionHistory(
+                        courseName,
+                        obj.getCreationDate(),
+                        obj.getStatus()     
+                )
+            );
+        }
+        
+        return output;
     }
     
 }
