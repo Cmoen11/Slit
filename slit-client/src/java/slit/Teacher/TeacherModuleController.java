@@ -154,11 +154,9 @@ public class TeacherModuleController {
         index = modules.getSelectionModel().getSelectedIndex();
         if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
             modules.getItems().remove(index);
-            initialize();
         } else {
             ModuleDetails module = existingModules.get(index);
             lookupModuleBeanRemote().removeModule(module);
-            initialize();
         }
         initialize();
     }
