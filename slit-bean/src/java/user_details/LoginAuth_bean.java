@@ -64,7 +64,7 @@ public class LoginAuth_bean implements LoginAuthRemote {
      * @return UserDetails, returnerer null om brukeren ble netket tilgang.
      */
     @Override
-    public UserDetails authUser(String username, String password, int courseID) {
+    public UserDetails authUser(String username, String password) {
         // Check if there is a user with the username & password that are also
         // part of the course that the user want to enter.
         List<Users> user;
@@ -76,17 +76,13 @@ public class LoginAuth_bean implements LoginAuthRemote {
         if (!user.isEmpty()) {  // Om vi retunerte et resultat, hent første objektet og retuner det
             Users userobj = user.get(0);
             if (userobj.getPassword().equals(password)) {
-                List<CourseMembers> courseMembers;
-                courseMembers = em.createQuery(""
-                        + "SELECT cm FROM CourseMembers cm WHERE cm.courseMembersPK.courseID = :courseID AND cm.courseMembersPK.userID = :userID")
-                        .setParameter("courseID", courseID)
-                        .setParameter("userID", user.get(0).getUserID())
-                        .getResultList();
-                if (!courseMembers.isEmpty()){
-                    this.user = userobj;
-                    return new UserDetails(userobj.getUserID(), userobj.getUsername(), userobj.getEmail(), courseID, courseMembers.get(0).getIsTeacher());
-                }
-                }
+                UserDetails output = new UserDetails(userobj.getUserID(),
+                        userobj.getUsername(), userobj.getEmail(), 0, 0);
+                output.setFirstname(userobj.getFirstname());
+                output.setLastname(userobj.getLastname());
+                
+                return output;
+            }
         }
         return null;
     }
@@ -154,6 +150,11 @@ public class LoginAuth_bean implements LoginAuthRemote {
         
         em.merge(user);
         
+    }
+    
+    @Override
+    public boolean isAdmin(int userID) {
+        return em.find(Users.class, userID).getIsAdmin() == 1;
     }
     
 }

@@ -31,4 +31,5 @@ public interface CourseBeanRemote {
     void createCourse(CourseInfo newCourse);
     
     ArrayList<CourseInfo> getAllCourseUserIsMemberIn(String username);
+    public boolean isTeacher(int userID, int courseID);
 }

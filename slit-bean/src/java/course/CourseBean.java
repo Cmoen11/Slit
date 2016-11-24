@@ -233,5 +233,11 @@ public class CourseBean implements CourseBeanRemote {
         // return the list with the results.
         return output;
     }
+    
+    @Override
+    public boolean isTeacher(int userID, int courseID) {
+        CourseMembers cm = em.find(CourseMembers.class, new CourseMembersPK(courseID, userID));
+        return cm.getIsTeacher() == 1;
+    }
        
 }

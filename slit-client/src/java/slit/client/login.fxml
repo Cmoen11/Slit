@@ -24,9 +24,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="355.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="355.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.LoginController">
    <children>
-      <VBox layoutX="14.0" layoutY="14.0" prefHeight="334.0" prefWidth="326.0" spacing="1.0" style="-fx-border-color: white; -fx-border-radius: 5px; -fx-border-style: dashed;">
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="277.0" prefWidth="326.0" spacing="1.0" style="-fx-border-color: white; -fx-border-radius: 5px; -fx-border-style: dashed;">
          <children>
             <AnchorPane prefHeight="89.0" prefWidth="324.0">
                <children>
@@ -60,12 +60,7 @@
                   <Insets left="20.0" right="20.0" />
                </VBox.margin>
             </PasswordField>
-            <AnchorPane prefHeight="56.0" prefWidth="324.0">
-               <children>
-                  <Text fill="WHITE" layoutX="20.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velg kurs" />
-                  <ComboBox fx:id="courses_combo" layoutX="18.0" layoutY="23.0" prefHeight="25.0" prefWidth="284.0" />
-               </children>
-            </AnchorPane>
+            <AnchorPane prefHeight="0.0" prefWidth="324.0" />
             <AnchorPane prefHeight="51.0" prefWidth="324.0">
                <children>
                   <JFXButton buttonType="RAISED" layoutX="20.0" layoutY="11.0" onAction="#loginButtonClicked" prefHeight="45.0" prefWidth="175.0" ripplerFill="#1e8bf2" style="-fx-background-color: #273B65; -fx-border-radius: 6px;" text="Logg inn" textFill="WHITE">
@@ -81,6 +76,6 @@
             </AnchorPane>
          </children>
       </VBox>
-      <Text fill="WHITE" layoutX="130.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit system - 2016" />
+      <Text fill="WHITE" layoutX="131.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slit system - 2016" />
    </children>
 </Pane>
