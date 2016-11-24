@@ -45,7 +45,7 @@ public class CourseSelectorController implements Initializable {
     static UserDetails user;
     ArrayList<CourseInfo> courses;
     boolean isAdmin;
-    Stage primaryStage;
+    static Stage primaryStage;
     /**
      * Initializes the controller class.
      */
