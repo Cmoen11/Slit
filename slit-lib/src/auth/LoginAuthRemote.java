@@ -12,13 +12,10 @@ import javax.ejb.Remote;
 @Remote
 public interface LoginAuthRemote {
     boolean authAdminAccount(String username, String password);
-
     UserDetails getUserData();
-
     void test();
-
-    UserDetails authUser(String username, String password, int coruseID);
-
+    UserDetails authUser(String username, String password);
     ArrayList<CourseInfo> getCourses();
     void editUser(UserDetails obj, String password);
+    boolean isAdmin(int userID);
 }
