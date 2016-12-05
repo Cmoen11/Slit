@@ -27,6 +27,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import slit.Teacher.TeacherMain;
+import slit.administrator.MainAdmin;
 import slit.student.MainStudent;
 
 /**
@@ -111,6 +112,11 @@ public class CourseSelectorController implements Initializable {
         else
             new MainStudent().runGUI(Main.primaryStage, user);
         
+        primaryStage.close();
+    }
+    
+    public void enterAdminPanel() {
+        new MainAdmin().runGUI(Main.primaryStage);
         primaryStage.close();
     }
     

@@ -44,7 +44,6 @@ public class LoginAuth_bean implements LoginAuthRemote {
             // check if the password match with the password given.
             if (user.get(0).getPassword().equals(password) && user.get(0).getIsAdmin() == 1) {
                 this.user = user.get(0);
-                System.out.println(user + "lol");
                 return true;
             }
 

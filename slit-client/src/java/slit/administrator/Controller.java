@@ -74,6 +74,7 @@ public class Controller {
         else welcomeText.setText("Missing userdata");
         
         courses = lookupLoginAuth_beanRemote().getCourses();
+        
         try {
             if (courses.size() > 0) {
                 existingCourses.setItems(FXCollections.observableArrayList(courses));
@@ -94,8 +95,11 @@ public class Controller {
      */
     public void setExistingCourseInfo() {
         int index = existingCourses.getSelectionModel().getSelectedIndex();
-        existingCourseName.setText(courses.get(index).getCourseName());
-        existingCourseCode.setText(courses.get(index).getCourseCode());
+        if (index > 0) {
+            existingCourseName.setText(courses.get(index).getCourseName());
+            existingCourseCode.setText(courses.get(index).getCourseCode());
+        }
+        
         try {
             // for setting the members of the selected course.
             userdetails = lookupCourseBeanRemote().getCourseMembers(courses.get(index).getCourseID());
