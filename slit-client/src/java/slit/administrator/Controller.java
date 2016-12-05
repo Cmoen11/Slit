@@ -95,7 +95,7 @@ public class Controller {
      */
     public void setExistingCourseInfo() {
         int index = existingCourses.getSelectionModel().getSelectedIndex();
-        if (index > 0) {
+        if (index > -1) {
             existingCourseName.setText(courses.get(index).getCourseName());
             existingCourseCode.setText(courses.get(index).getCourseCode());
         }
