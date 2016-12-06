@@ -82,9 +82,10 @@ public class TeacherModuleController {
             label.setText(module.getName());
             modules.getItems().add(label);
         }
-        if(index == -1);
-        modules.getSelectionModel().select(0);
-        openSelectedModule();
+        
+        modules.getSelectionModel().select(0);    
+        if (!existingModules.isEmpty())
+            openSelectedModule();
     }
 
     public void autoSave() {
