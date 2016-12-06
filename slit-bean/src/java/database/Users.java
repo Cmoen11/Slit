@@ -41,6 +41,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")})
 public class Users implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
+    private Collection<Interalstudentcomments> interalstudentcommentsCollection;
+    @OneToMany(mappedBy = "teacherID")
+    private Collection<Interalstudentcomments> interalstudentcommentsCollection1;
+
     @Column(name = "isAdmin")
     private Integer isAdmin;
 
@@ -263,6 +268,24 @@ public class Users implements Serializable {
 
     public void setIsAdmin(Integer isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    @XmlTransient
+    public Collection<Interalstudentcomments> getInteralstudentcommentsCollection() {
+        return interalstudentcommentsCollection;
+    }
+
+    public void setInteralstudentcommentsCollection(Collection<Interalstudentcomments> interalstudentcommentsCollection) {
+        this.interalstudentcommentsCollection = interalstudentcommentsCollection;
+    }
+
+    @XmlTransient
+    public Collection<Interalstudentcomments> getInteralstudentcommentsCollection1() {
+        return interalstudentcommentsCollection1;
+    }
+
+    public void setInteralstudentcommentsCollection1(Collection<Interalstudentcomments> interalstudentcommentsCollection1) {
+        this.interalstudentcommentsCollection1 = interalstudentcommentsCollection1;
     }
     
 }
