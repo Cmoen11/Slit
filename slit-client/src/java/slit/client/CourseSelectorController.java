@@ -109,9 +109,9 @@ public class CourseSelectorController implements Initializable {
         System.out.println(user.isTeacher());
         if (user.isTeacher())
             new TeacherMain().runGUI(Main.primaryStage, user);
-        else
+        else {
             new MainStudent().runGUI(Main.primaryStage, user);
-        
+        }
         primaryStage.close();
     }
     
