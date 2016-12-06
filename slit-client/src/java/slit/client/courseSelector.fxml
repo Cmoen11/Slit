@@ -50,7 +50,7 @@
                   </TitledPane>
                </panes>
             </Accordion>
-            <Button fx:id="adminButton" layoutX="412.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="198.0" text="Login på adminitrasjonsplanelet" visible="false" />
+            <Button fx:id="adminButton" layoutX="412.0" layoutY="14.0" mnemonicParsing="false" onAction="#enterAdminPanel" prefHeight="25.0" prefWidth="198.0" text="Login på adminitrasjonsplanelet" visible="false" />
             <Text fx:id="welcomeText" fill="WHITE" layoutX="18.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" />
          </children>
       </AnchorPane>

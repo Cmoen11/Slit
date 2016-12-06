@@ -27,6 +27,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import slit.Teacher.TeacherMain;
+import slit.administrator.MainAdmin;
 import slit.student.MainStudent;
 
 /**
@@ -45,7 +46,8 @@ public class CourseSelectorController implements Initializable {
     static UserDetails user;
     ArrayList<CourseInfo> courses;
     boolean isAdmin;
-    Stage primaryStage;
+    static Stage primaryStage;
+
     /**
      * Initializes the controller class.
      */
@@ -107,9 +109,14 @@ public class CourseSelectorController implements Initializable {
         System.out.println(user.isTeacher());
         if (user.isTeacher())
             new TeacherMain().runGUI(Main.primaryStage, user);
-        else
+        else {
             new MainStudent().runGUI(Main.primaryStage, user);
-        
+        }
+        primaryStage.close();
+    }
+    
+    public void enterAdminPanel() {
+        new MainAdmin().runGUI(Main.primaryStage);
         primaryStage.close();
     }
     

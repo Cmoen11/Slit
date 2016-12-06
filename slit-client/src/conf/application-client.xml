@@ -61,4 +61,9 @@
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>modul.ModuleRemote</remote>
   </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>InternalStudentCommentsBean</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>sessionBeans.InternalStudentCommentsBeanRemote</remote>
+  </ejb-ref>
 </application-client>

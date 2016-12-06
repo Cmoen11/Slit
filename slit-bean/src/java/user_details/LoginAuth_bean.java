@@ -4,11 +4,8 @@ import course.CourseInfo;
 import database.Users;
 import auth.LoginAuthRemote;
 import auth.UserDetails;
-import database.CourseMembers;
 import database.Courses;
 import java.util.ArrayList;
-import static java.util.Collections.list;
-import java.util.HashMap;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -44,7 +41,6 @@ public class LoginAuth_bean implements LoginAuthRemote {
             // check if the password match with the password given.
             if (user.get(0).getPassword().equals(password) && user.get(0).getIsAdmin() == 1) {
                 this.user = user.get(0);
-                System.out.println(user + "lol");
                 return true;
             }
 
