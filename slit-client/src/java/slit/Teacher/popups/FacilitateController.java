@@ -37,7 +37,9 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
 import org.controlsfx.control.Notifications;
+import sessionBeans.InternalStudentCommentsBeanRemote;
 import slit.Teacher.TeacherMain;
+import transferClasses.InternalStudentComments;
 import transferClasses.StudentSubmissionHistory;
 import user_details.UserBeanRemote;
 
@@ -75,6 +77,7 @@ public class FacilitateController {
     ModuleDetails moduleInfo;
     UserDetails user;
     SubmissionFeedbackDetails feedback;
+    ArrayList<InternalStudentComments> internalComments;
     @FXML
     void initialize() {
         // add the submission text.
@@ -116,6 +119,7 @@ public class FacilitateController {
         historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+        
         ArrayList<StudentSubmissionHistory> items = 
         lookupSubmissionBeanRemote()
                 .getSubmissionHistoryFromUser(submission.getUserID(),
@@ -131,6 +135,14 @@ public class FacilitateController {
         }
         
         submissionHistory.setItems(history);
+        
+        
+        // get internal comments
+        internalComments = lookupInternalStudentCommentsBeanRemote()
+                .getAllComments(user.getId(), moduleInfo.getCourseID());
+        
+        System.out.println(moduleInfo.getCourseID());
+        
 
     }
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
@@ -237,6 +249,16 @@ public class FacilitateController {
         try {
             Context c = new InitialContext();
             return (SubmissionBeanRemote) c.lookup("java:comp/env/SubmissionBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private InternalStudentCommentsBeanRemote lookupInternalStudentCommentsBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (InternalStudentCommentsBeanRemote) c.lookup("java:comp/env/InternalStudentCommentsBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

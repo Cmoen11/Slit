@@ -7,9 +7,10 @@ package database;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -18,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,45 +32,49 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Interalstudentcomments.findAll", query = "SELECT i FROM Interalstudentcomments i"),
-    @NamedQuery(name = "Interalstudentcomments.findByStudentID", query = "SELECT i FROM Interalstudentcomments i WHERE i.interalstudentcommentsPK.studentID = :studentID"),
-    @NamedQuery(name = "Interalstudentcomments.findByCourseID", query = "SELECT i FROM Interalstudentcomments i WHERE i.interalstudentcommentsPK.courseID = :courseID"),
-    @NamedQuery(name = "Interalstudentcomments.findByCreationDate", query = "SELECT i FROM Interalstudentcomments i WHERE i.creationDate = :creationDate")})
+    @NamedQuery(name = "Interalstudentcomments.findByCreationDate", query = "SELECT i FROM Interalstudentcomments i WHERE i.creationDate = :creationDate"),
+    @NamedQuery(name = "Interalstudentcomments.findByUserIDandCourseID", query = "SELECT i FROM Interalstudentcomments i WHERE i.courseID = :courseID and i.studentID = :studentID"),
+    @NamedQuery(name = "Interalstudentcomments.findByCommentID", query = "SELECT i FROM Interalstudentcomments i WHERE i.commentID = :commentID")})
 public class Interalstudentcomments implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected InteralstudentcommentsPK interalstudentcommentsPK;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "creationDate")
     @Temporal(TemporalType.DATE)
     private Date creationDate;
+    @Basic(optional = false)
+    @NotNull
     @Lob
-    @Size(max = 65535)
+    @Size(min = 1, max = 65535)
     @Column(name = "comment")
     private String comment;
-    @JoinColumn(name = "studentID", referencedColumnName = "userID", insertable = false, updatable = false)
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "commentID")
+    private Integer commentID;
+    @JoinColumn(name = "courseID", referencedColumnName = "courseID")
     @ManyToOne(optional = false)
-    private Users users;
+    private Courses courseID;
+    @JoinColumn(name = "studentID", referencedColumnName = "userID")
+    @ManyToOne(optional = false)
+    private Users studentID;
     @JoinColumn(name = "teacherID", referencedColumnName = "userID")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Users teacherID;
 
     public Interalstudentcomments() {
     }
 
-    public Interalstudentcomments(InteralstudentcommentsPK interalstudentcommentsPK) {
-        this.interalstudentcommentsPK = interalstudentcommentsPK;
+    public Interalstudentcomments(Integer commentID) {
+        this.commentID = commentID;
     }
 
-    public Interalstudentcomments(int studentID, int courseID) {
-        this.interalstudentcommentsPK = new InteralstudentcommentsPK(studentID, courseID);
-    }
-
-    public InteralstudentcommentsPK getInteralstudentcommentsPK() {
-        return interalstudentcommentsPK;
-    }
-
-    public void setInteralstudentcommentsPK(InteralstudentcommentsPK interalstudentcommentsPK) {
-        this.interalstudentcommentsPK = interalstudentcommentsPK;
+    public Interalstudentcomments(Integer commentID, Date creationDate, String comment) {
+        this.commentID = commentID;
+        this.creationDate = creationDate;
+        this.comment = comment;
     }
 
     public Date getCreationDate() {
@@ -87,12 +93,28 @@ public class Interalstudentcomments implements Serializable {
         this.comment = comment;
     }
 
-    public Users getUsers() {
-        return users;
+    public Integer getCommentID() {
+        return commentID;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setCommentID(Integer commentID) {
+        this.commentID = commentID;
+    }
+
+    public Courses getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(Courses courseID) {
+        this.courseID = courseID;
+    }
+
+    public Users getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(Users studentID) {
+        this.studentID = studentID;
     }
 
     public Users getTeacherID() {
@@ -106,7 +128,7 @@ public class Interalstudentcomments implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (interalstudentcommentsPK != null ? interalstudentcommentsPK.hashCode() : 0);
+        hash += (commentID != null ? commentID.hashCode() : 0);
         return hash;
     }
 
@@ -117,7 +139,7 @@ public class Interalstudentcomments implements Serializable {
             return false;
         }
         Interalstudentcomments other = (Interalstudentcomments) object;
-        if ((this.interalstudentcommentsPK == null && other.interalstudentcommentsPK != null) || (this.interalstudentcommentsPK != null && !this.interalstudentcommentsPK.equals(other.interalstudentcommentsPK))) {
+        if ((this.commentID == null && other.commentID != null) || (this.commentID != null && !this.commentID.equals(other.commentID))) {
             return false;
         }
         return true;
@@ -125,7 +147,7 @@ public class Interalstudentcomments implements Serializable {
 
     @Override
     public String toString() {
-        return "database.Interalstudentcomments[ interalstudentcommentsPK=" + interalstudentcommentsPK + " ]";
+        return "database.Interalstudentcomments[ commentID=" + commentID + " ]";
     }
     
 }
