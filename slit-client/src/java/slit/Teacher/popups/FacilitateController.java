@@ -188,6 +188,7 @@ public class FacilitateController {
             Label l = new Label(c.getComment());
             internalCommentsView.getItems().add(l);
         }
+        newInternalComment.clear();
     }
     
     /**
