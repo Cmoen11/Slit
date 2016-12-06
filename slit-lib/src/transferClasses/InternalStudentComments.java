@@ -1,13 +1,14 @@
 
 package transferClasses;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Christian
  */
-public class InternalStudentComments {
+public class InternalStudentComments implements Serializable {
     
     Date creationDate;
 
@@ -18,7 +19,10 @@ public class InternalStudentComments {
         this.courseID = courseID;
         this.comment = comment;
     }
-
+    
+    public InternalStudentComments() {
+        
+    }
     public int getCourseID() {
         return courseID;
     }
