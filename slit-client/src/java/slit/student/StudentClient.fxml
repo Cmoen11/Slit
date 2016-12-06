@@ -45,12 +45,12 @@
                               <Font size="16.0" />
                            </font>
                         </Text>
-                        <JFXListView fx:id="existingNews" layoutX="20.0" layoutY="21.0" prefHeight="329.0" prefWidth="247.0" />
+                        <JFXListView fx:id="news" layoutX="20.0" layoutY="21.0" prefHeight="329.0" prefWidth="247.0" />
                      </children>
                   </Pane>
                   <Pane layoutY="61.0" prefHeight="467.0" prefWidth="200.0">
                      <children>
-                        <JFXListView fx:id="existingModules" layoutY="60.0" prefHeight="407.0" prefWidth="186.0" />
+                        <JFXListView fx:id="modules" layoutY="60.0" prefHeight="407.0" prefWidth="186.0" />
                         <JFXButton fx:id="modulePanel" buttonType="RAISED" defaultButton="true" layoutX="27.0" layoutY="14.0" prefHeight="33.0" prefWidth="88.0" ripplerFill="#2a5730" text="Moduler" textFill="#140101">
                            <font>
                               <Font size="14.0" />
