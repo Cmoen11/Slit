@@ -48,8 +48,7 @@ public class InternalStudentCommentsBean implements InternalStudentCommentsBeanR
         entityObjects.stream().forEach((x) -> { 
             output.add(entityObjectToTransfer(x));
         });
-        
-        
+
         return output;
     }
     
@@ -74,6 +73,7 @@ public class InternalStudentCommentsBean implements InternalStudentCommentsBeanR
      */
     private Interalstudentcomments transferObjectToEntityObject(InternalStudentComments obj) {
         Interalstudentcomments newEntry = new Interalstudentcomments();
+        newEntry.setCommentID(Integer.SIZE);
         newEntry.setComment(obj.getComment());
         newEntry.setCreationDate(obj.getCreationDate());
         newEntry.setTeacherID(em.find(Users.class, obj.getTeacherID()));
