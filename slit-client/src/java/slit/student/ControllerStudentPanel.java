@@ -63,6 +63,16 @@ public class ControllerStudentPanel {
     }
         }
     
+    
+    public void openModule() {
+        int index = modules.getSelectionModel().getSelectedIndex();
+        ModuleDetails module = existingModules.get(index);
+        // objekt = new FacilitateController();
+        // objekt.displayPopup 
+        // OR
+        // go to new module gui. 
+    }
+    
     private NewsBeanRemote lookupNewsBeanRemote() {
         try {
             Context c = new InitialContext();
