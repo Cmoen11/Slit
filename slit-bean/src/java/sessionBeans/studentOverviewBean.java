@@ -1,7 +1,10 @@
 
 package sessionBeans;
 
+import auth.UserDetails;
 import database.Users;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,4 +28,24 @@ public class studentOverviewBean implements studentOverviewRemote {
         return user.getUsername();
     }
     
+   
+    @Override
+    public ArrayList<UserDetails> allStudentsList() {
+        List<Users> list = em.createNamedQuery("Users.findAll").getResultList();
+        ArrayList<UserDetails> output = new ArrayList<>();
+        for (Users user : list) output.add(new UserDetails(
+                user.getUserID(), user.getUsername(), user.getEmail(),
+                -1, -1, user.getFirstname(), user.getLastname()
+        ));
+        return output;
+    }
+    
+    // In progress****
+    // Skal liste ut samtlige studenter i kurs
+    //@Override
+    //public Collection<CourseMembers> allStudentsList() {
+    //    Users user = em.find(Users.class, 1);
+    //    
+    //    return user.getCourseMembersCollection();
+    //}   
 }

@@ -1,6 +1,8 @@
 
-package sessionBeans;
-
+package sessionBeans; 
+import auth.UserDetails;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.ejb.Remote;
 
 /**
@@ -11,5 +13,7 @@ import javax.ejb.Remote;
 public interface studentOverviewRemote {
 
     String clickMe();
-    
+    ArrayList<UserDetails> allStudentsList();
 }
+
+
