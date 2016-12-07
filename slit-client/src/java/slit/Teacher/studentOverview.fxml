@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <HBox prefHeight="689.0" prefWidth="1265.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.Teacher.studentOverviewController">
    <children>
-      <AnchorPane prefHeight="689.0" prefWidth="1272.0">
+      <AnchorPane prefHeight="689.0" prefWidth="1272.0" style="-fx-background-color: #3b5998;">
          <children>
-            <Button layoutX="85.0" layoutY="57.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="182.0" prefWidth="310.0" text="Button" />
+            <AnchorPane layoutX="25.0" layoutY="75.0" prefHeight="538.0" prefWidth="779.0" style="-fx-background-color: #0A1733;">
+               <children>
+                  <ListView layoutX="53.0" layoutY="51.0" prefHeight="337.0" prefWidth="261.0" style="-fx-background-radius: 5px;" />
+                  <Text fill="WHITE" layoutX="53.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velg stundent" textAlignment="CENTER" wrappingWidth="261.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <ListView layoutX="428.0" layoutY="51.0" prefHeight="413.0" prefWidth="296.0" style="-fx-background-radius: 5px;" />
+                  <Text fill="WHITE" layoutX="445.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Innleverte moduler i kurs" textAlignment="CENTER" wrappingWidth="261.0">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="53.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: #6B2B2B;" text="neiKnapp" textFill="WHITE" />
+                  <Button layoutX="217.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: #214020;" text="jaKnapp" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <Button layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="162.0" text="Button" />
+            <Pane layoutX="616.0" layoutY="49.0" prefHeight="26.0" prefWidth="165.0" style="-fx-background-color: #1F2E4F;">
+               <children>
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="5.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oversikt" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <ImageView fitHeight="32.0" fitWidth="112.0" layoutX="698.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/box_name.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>

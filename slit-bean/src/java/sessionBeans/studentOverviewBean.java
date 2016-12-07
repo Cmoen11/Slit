@@ -1,7 +1,10 @@
 
 package sessionBeans;
 
+import database.Users;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -9,10 +12,14 @@ import javax.ejb.Stateless;
  */
 @Stateless
 public class studentOverviewBean implements studentOverviewRemote {
-
+    @PersistenceContext()
+    EntityManager em;
+    
     @Override
     public String clickMe() {
-        return "Christian er kul!";
+        Users user = em.find(Users.class, 1);
+        
+        return user.getUsername();
     }
     
 }
