@@ -23,6 +23,8 @@ public class studentOverviewController {
         System.out.println(overviewBean.clickMe());
     }
     
+    // Knappen lister ut samtlige studenter. Foreløpig blir de listet ut i konsollen, todo - list dem i 
+    // listen på siden
     public void listAllStudents(){
         System.out.println(userOverveiw.getAllUsers());
     }
