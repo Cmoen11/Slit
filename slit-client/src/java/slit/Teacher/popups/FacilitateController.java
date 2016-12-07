@@ -259,7 +259,7 @@ public class FacilitateController {
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (UserBeanRemote) c.lookup("java:comp/env/UserBean");
+            return (UserBeanRemote) c.lookup("java:global/slit-bean/UserBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -269,7 +269,7 @@ public class FacilitateController {
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();   
-            return (ModuleRemote) c.lookup("java:comp/env/ModuleBean");
+            return (ModuleRemote) c.lookup("java:global/slit-bean/ModuleBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -279,7 +279,7 @@ public class FacilitateController {
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (SubmissionBeanRemote) c.lookup("java:comp/env/SubmissionBean");
+            return (SubmissionBeanRemote) c.lookup("java:global/slit-bean/SubmissionBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -289,7 +289,7 @@ public class FacilitateController {
     private InternalStudentCommentsBeanRemote lookupInternalStudentCommentsBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (InternalStudentCommentsBeanRemote) c.lookup("java:comp/env/InternalStudentCommentsBean");
+            return (InternalStudentCommentsBeanRemote) c.lookup("java:global/slit-bean/InternalStudentCommentsBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

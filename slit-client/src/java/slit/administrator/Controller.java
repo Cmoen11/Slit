@@ -261,7 +261,7 @@ public class Controller {
     private LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {
             Context c = new InitialContext();
-            return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth_bean");
+            return (LoginAuthRemote) c.lookup("java:global/slit-bean/LoginAuth_bean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -271,7 +271,7 @@ public class Controller {
     private CourseBeanRemote lookupCourseBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (CourseBeanRemote) c.lookup("java:comp/env/CourseBean");
+            return (CourseBeanRemote) c.lookup("java:global/slit-bean/CourseBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -281,7 +281,7 @@ public class Controller {
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (UserBeanRemote) c.lookup("java:comp/env/UserBean");
+            return (UserBeanRemote) c.lookup("java:global/slit-bean/UserBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
