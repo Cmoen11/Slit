@@ -190,7 +190,7 @@ public class TeacherModuleController {
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (ModuleRemote) c.lookup("java:comp/env/ModuleBean");
+            return (ModuleRemote) c.lookup("java:global/slit-bean/ModuleBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

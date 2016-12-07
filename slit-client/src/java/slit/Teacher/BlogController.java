@@ -25,7 +25,7 @@ public class BlogController {
     private BlogkekRemote lookupBlogkekRemote() {
         try {
             Context c = new InitialContext();
-            return (BlogkekRemote) c.lookup("java:comp/env/Blogkek");
+            return (BlogkekRemote) c.lookup("java:global/slit-bean/Blogkek");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
