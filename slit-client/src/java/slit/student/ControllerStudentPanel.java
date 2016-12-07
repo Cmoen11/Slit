@@ -65,12 +65,14 @@ public class ControllerStudentPanel {
     
     
     public void openModule() {
+        try {
         int index = modules.getSelectionModel().getSelectedIndex();
         ModuleDetails module = existingModules.get(index);
-        // objekt = new FacilitateController();
-        // objekt.displayPopup 
-        // OR
-        // go to new module gui. 
+        // objekt = new innleveringController();
+        // objekt.displayPopup(module); // Åpner popup vindu med valgt modul  som param.  
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     
     private NewsBeanRemote lookupNewsBeanRemote() {
