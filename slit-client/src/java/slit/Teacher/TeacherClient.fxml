@@ -60,6 +60,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="1183.0">
                            <children>
                               <AnchorPane prefHeight="688.0" prefWidth="1265.0" />
+                              <fx:include source="studentOverview.fxml" />
                            </children>
                         </AnchorPane>
                   </content>
