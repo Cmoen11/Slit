@@ -41,7 +41,6 @@ public class Controller {
     }
     
     public void changeName() {
-        if (user == null) System.out.println("what the fuck?");
         UserDetails temp = lookupUserBeanRemote().getUserByID(user.getId());
         user.setFirstname(temp.getFirstname()); 
         user.setLastname(temp.getLastname());

@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Courses.findByCourseCode", query = "SELECT c FROM Courses c WHERE c.courseCode = :courseCode")})
 public class Courses implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseID")
+    private Collection<Interalstudentcomments> interalstudentcommentsCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -203,6 +206,15 @@ public class Courses implements Serializable {
     @Override
     public String toString() {
         return "database.Courses[ courseID=" + courseID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Interalstudentcomments> getInteralstudentcommentsCollection() {
+        return interalstudentcommentsCollection;
+    }
+
+    public void setInteralstudentcommentsCollection(Collection<Interalstudentcomments> interalstudentcommentsCollection) {
+        this.interalstudentcommentsCollection = interalstudentcommentsCollection;
     }
     
 }

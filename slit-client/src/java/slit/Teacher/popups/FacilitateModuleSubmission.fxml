@@ -138,18 +138,18 @@
                         </JFXButton>
                      </children>
                   </Pane>
-                  <JFXListView layoutX="7.0" layoutY="484.0" prefHeight="371.0" prefWidth="351.0" style="-fx-border-radius: 5px; -fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #C3C3C3;" />
+                  <JFXListView fx:id="internalCommentsView" layoutX="7.0" layoutY="484.0" prefHeight="371.0" prefWidth="351.0" style="-fx-border-radius: 5px; -fx-background-color: white; -fx-background-radius: 5px; -fx-border-color: #C3C3C3;" />
                   <Text fill="WHITE" layoutX="8.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Intern kommentar for valgt student" wrappingWidth="229.97265625">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <JFXButton buttonType="RAISED" layoutX="238.0" layoutY="862.0" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #214020;" text="Legg til kommentar" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="238.0" layoutY="862.0" onAction="#addInternalComment" prefHeight="26.0" prefWidth="120.0" style="-fx-background-color: #214020;" text="Legg til kommentar" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <TextField layoutX="7.0" layoutY="863.0" prefHeight="25.0" prefWidth="225.0" promptText="manglet litt på ..." />
+                  <TextField fx:id="newInternalComment" layoutX="7.0" layoutY="863.0" onAction="#addInternalComment" prefHeight="25.0" prefWidth="225.0" promptText="manglet litt på ..." />
                   <Text fill="#bfbfbf" layoutX="9.0" layoutY="475.0" strokeType="OUTSIDE" strokeWidth="0.0" text="(Ikke synlig for student)" />
                </children>
             </AnchorPane>
