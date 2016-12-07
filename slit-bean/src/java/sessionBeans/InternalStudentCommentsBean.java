@@ -44,6 +44,8 @@ public class InternalStudentCommentsBean implements InternalStudentCommentsBeanR
                         .setParameter("courseID", em.find(Courses.class, courseID))
                     .getResultList();
         
+        
+        
         // add it to our output for sending data back to client.
         entityObjects.stream().forEach((x) -> { 
             output.add(entityObjectToTransfer(x));

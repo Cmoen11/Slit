@@ -8,9 +8,12 @@ package progressionPlan;
 import database.*;
 import java.util.Date;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,6 +60,23 @@ public class ProgressionPlanBean implements ProgressionPlanBeanRemote {
         return daysBetween;
         
     }
+
+    @Override
+    public List<Progressionentry> getAllProgressionEntriesForUser(int userID) {
+        List<Progressionentry> returnList = new ArrayList<Progressionentry>();
+        
+        Query query = em.createNamedQuery("progressionEntries.findByUser", Progressionentry.class);
+        
+        query.setParameter("userID", userID);
+        
+        List<Progressionentry> resultList = query.getResultList();
+        
+        for (Progressionentry entry : resultList) {
+            returnList.add(null);
+        };
+    }
+    
+    
 
     
 }

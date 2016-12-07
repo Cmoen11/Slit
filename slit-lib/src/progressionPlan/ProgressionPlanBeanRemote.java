@@ -20,6 +20,8 @@ public interface ProgressionPlanBeanRemote {
     long compareDates(int planID, int moduleID);
 
     public void addProgressionEntry(java.util.Date completionDate, int module, int planID);
+
+    void getAllProgressionEntriesForUser();
     
 }
 
