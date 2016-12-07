@@ -45,6 +45,7 @@
                   <Image url="@../img/box_name.png" />
                </image>
             </ImageView>
+            <Button layoutX="253.0" layoutY="14.0" mnemonicParsing="false" onAction="#listAllStudents" prefHeight="32.0" prefWidth="162.0" text="listAlleStudenter" />
          </children>
       </AnchorPane>
    </children>

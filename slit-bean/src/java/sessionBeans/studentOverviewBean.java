@@ -28,16 +28,16 @@ public class studentOverviewBean implements studentOverviewRemote {
         return user.getUsername();
     }
     
-   
+    // Har som formål å liste ut samtlige studenter
     @Override
     public ArrayList<UserDetails> allStudentsList() {
         List<Users> list = em.createNamedQuery("Users.findAll").getResultList();
-        ArrayList<UserDetails> output = new ArrayList<>();
-        for (Users user : list) output.add(new UserDetails(
+        ArrayList<UserDetails> outputList = new ArrayList<>();
+        for (Users user : list) outputList.add(new UserDetails(
                 user.getUserID(), user.getUsername(), user.getEmail(),
                 -1, -1, user.getFirstname(), user.getLastname()
         ));
-        return output;
+        return outputList;
     }
     
     // In progress****
