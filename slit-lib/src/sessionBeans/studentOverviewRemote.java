@@ -13,7 +13,6 @@ import javax.ejb.Remote;
 public interface studentOverviewRemote {
 
     String clickMe();
-    ArrayList<UserDetails> allStudentsList();
 }
 
 

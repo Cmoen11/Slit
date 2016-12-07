@@ -19,6 +19,7 @@ public class studentOverviewController {
     UserBeanRemote userOverveiw = lookupUserBeanRemote();
     
     
+    // Midlertidig testknapp forå se at at bean / interface fungerer som det skal
     public void pressMe() {
         System.out.println(overviewBean.clickMe());
     }
@@ -29,6 +30,7 @@ public class studentOverviewController {
         System.out.println(userOverveiw.getAllUsers());
     }
 
+    // Sørger for at controller klassen er koblet sammen med studentOverveiwBean
     private studentOverviewRemote lookupstudentOverviewBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -39,6 +41,7 @@ public class studentOverviewController {
         }
     }
 
+    // Sørger for at controller klassen faktisk er koblet sammen med UserBeanRemote
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();

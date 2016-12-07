@@ -27,8 +27,8 @@ public class studentOverviewBean implements studentOverviewRemote {
         
         return user.getUsername();
     }
-    
-    
+
+
     // In progress****
     // Skal liste ut samtlige studenter i kurs
     //@Override
