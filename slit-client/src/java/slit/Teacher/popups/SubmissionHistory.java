@@ -1,9 +1,6 @@
 package slit.Teacher.popups;
 
 
-
-import java.io.Serializable;
-import java.util.Date;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -29,7 +26,7 @@ public class SubmissionHistory{
             case (3) :
                 this.status= new SimpleStringProperty("Godkjent");
             default :
-                System.out.println("what the fuck?");
+                break;
         }
         this.date = new SimpleStringProperty(date);
         
