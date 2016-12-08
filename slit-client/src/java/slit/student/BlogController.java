@@ -40,8 +40,7 @@ public class BlogController{
     
     blogBeanRemote blogBean = lookupblogBeanRemote();
     ArrayList <Post> archivedPost;
-    
-    
+   
     /**
      * Initializes the controller class.
      */
@@ -73,20 +72,30 @@ public class BlogController{
     }
     
     public void clearEditor(){
-    
+        clearFields();
     }
     
-    public void saveDraft(){
-    
+    public void updatePost(){
+        int index = archive.getSelectionModel().getSelectedIndex();
+        Post post = archivedPost.get(index);
+        
+        post.setContent(content.getHtmlText());
+        post.setTitle(title.getText());
+        blogBean.updatePost(post);
+        initialize();
     }
     
     
     public void publishPost(){
+        int index = archive.getSelectionModel().getSelectedIndex();
+        Post post2 = archivedPost.get(index);
+        
         Post post = new Post();
         post.setContent(content.getHtmlText());
         post.setTitle(title.getText());
         post.setUserID(Controller.getUser().getId());
         post.setCourseID(Controller.getUser().getCourseID());
+
         blogBean.createPost(post);
         
         initialize();

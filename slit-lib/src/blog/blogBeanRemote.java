@@ -22,5 +22,7 @@ public interface blogBeanRemote {
 
     void deleteBlogPost(Post post);
 
+    void updatePost(Post post);
+
     
 }

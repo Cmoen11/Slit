@@ -81,6 +81,14 @@ public class blogBean implements blogBeanRemote {
     public void deleteBlogPost(Post post) {
         em.remove(em.find(Blogpost.class, post.getPostID()));
     }
+
+    @Override
+    public void updatePost(Post post) {
+        Blogpost input = em.find(Blogpost.class, post.getPostID());
+        input.setTitle(post.getTitle());
+        input.setContent(post.getContent());
+        em.merge(input);
+    }
     
     
     
