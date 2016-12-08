@@ -2,10 +2,12 @@
 package blog;
 
 import auth.UserDetails;
-import database.Blog;
 import database.Blogpost;
 import database.Courses;
 import database.Users;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,48 +21,81 @@ public class blogBean implements blogBeanRemote {
 
     @PersistenceContext()
     EntityManager em;
-    
+
     /**
-     * Opprett en blogg.
-     * @param userObj 
+     * Convert transfer object to entity object
+     * @param post
+     * @return 
      */
-    @Override
-    public void createBlog(UserDetails userObj) {
-        Blog blog = new Blog();
-        blog.setBlogID(Integer.SIZE);
-        blog.setUserID(em.find(Users.class, userObj.getId()));
-        blog.setCreationDate(new java.util.Date());
+    private Blogpost transferObjectToEntityObject(Post post) {
+        Blogpost output = new Blogpost();
+        output.setPostID(Integer.SIZE);
+        output.setContent(post.getContent());
+        output.setCourseID(em.find(Courses.class, post.getCourseID()));
+        output.setUserID(em.find(Users.class, post.getUserID()));
+        output.setTitle(post.getTitle());
+        output.setCreationDate(new Date());
         
-        em.persist(blog);
+        return output;
+    }
+    /**
+     * Convert entity object to transfer object
+     * @param post
+     * @return 
+     */
+    private Post entityObjecToTransferObject(Blogpost post) {
+        Post output = new Post();
+        output.setPostID(post.getPostID());
+        output.setContent(post.getContent());
+        output.setCourseID(post.getCourseID().getCourseID());
+        output.setUserID(post.getUserID().getUserID());
+        output.setTitle(post.getTitle());
+        output.setCreationDate(post.getCreationDate());
+        
+        return output;
     }
     
-    /**
-     * Opprett en post.
-     * @param userObj
-     * @param postObj 
-     */
     @Override
-    public void createPost(UserDetails userObj, Post postObj) {
-        Blogpost post = new Blogpost();
-        int userID = userObj.getId();
-        Blog blog = (Blog) em.createNamedQuery("Blog.findByUserID").getSingleResult();
-        if (blog != null) { // om brukeren har blogg. 
-            post.setPostID(Integer.SIZE);
-            post.setTitle(postObj.getTitle());
-            post.setContent(post.getContent());
-            post.setCreationDate(post.getCreationDate());
-            post.setCourseID(em.find(Courses.class, userObj.getCourseID()));
-            post.setBlogID(blog);
-            em.persist(post);
-        } else {    // opprett blogg, og publiser innlegget.
-            createBlog(userObj);
-            createPost(userObj, postObj);
-        }
+    public void createPost(Post post) {
+        em.persist(transferObjectToEntityObject(post));    
+    }
+
+    @Override
+    public ArrayList<Post> getPostFromUserAndCourse(UserDetails user) {
+        List<Blogpost> results = em.createNamedQuery("Blogpost.findByUserIDAndCourseID", Blogpost.class)
+                .setParameter("courseID", em.find(Courses.class, user.getCourseID()))
+                .setParameter("userID", em.find(Users.class, user.getId()))
+                .getResultList();
         
+        ArrayList<Post> output = new ArrayList<Post>();
+        
+        
+        for (Blogpost i : results)
+            output.add(entityObjecToTransferObject(i));
+        
+        return output;
+       
+    }
+
+    @Override
+    public void deleteBlogPost(Post post) {
+        em.remove(em.find(Blogpost.class, post.getPostID()));
+    }
+
+    @Override
+    public void updatePost(Post post) {
+        Blogpost input = em.find(Blogpost.class, post.getPostID());
+        input.setTitle(post.getTitle());
+        input.setContent(post.getContent());
+        em.merge(input);
     }
     
     
     
     
     
+    
+
 }
+    
+    

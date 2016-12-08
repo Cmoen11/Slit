@@ -6,6 +6,7 @@
 package blog;
 
 import auth.UserDetails;
+import java.util.ArrayList;
 import javax.ejb.Remote;
 
 /**
@@ -15,8 +16,13 @@ import javax.ejb.Remote;
 @Remote
 public interface blogBeanRemote {
 
-    void createBlog(UserDetails userObj);
+    void createPost(Post post);
 
-    void createPost(UserDetails userObj, Post postObj);
+    ArrayList<Post> getPostFromUserAndCourse(UserDetails user);
+
+    void deleteBlogPost(Post post);
+
+    void updatePost(Post post);
+
     
 }
