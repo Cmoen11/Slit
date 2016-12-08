@@ -41,6 +41,7 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
 import org.controlsfx.control.Notifications;
+import org.controlsfx.control.PopOver;
 import sessionBeans.InternalStudentCommentsBeanRemote;
 import slit.Teacher.TeacherMain;
 import slit.Teacher.Controller;
@@ -204,6 +205,10 @@ public class FacilitateController {
             internalCommentsView.getItems().add(l);
         }
         newInternalComment.clear();
+    }
+    
+    public void openBlogPost() {
+        
     }
     
     /**

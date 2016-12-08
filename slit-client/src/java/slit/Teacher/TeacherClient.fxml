@@ -68,7 +68,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
                            <children>
-                              <HBox layoutX="-14.0" layoutY="-5.0" prefHeight="701.0" prefWidth="1280.0">
+                              <HBox layoutX="-14.0" layoutY="-5.0" prefHeight="652.0" prefWidth="1280.0">
                                  <children>
                                     <Pane prefHeight="701.0" prefWidth="1285.0" style="-fx-background-color: F3F3F3;" />
                                     <fx:include source="TeacherModule.fxml" />
