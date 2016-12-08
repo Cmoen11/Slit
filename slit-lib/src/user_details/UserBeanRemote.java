@@ -34,4 +34,6 @@ public interface UserBeanRemote {
 
     UserDetails getUserByID(int x);
 
+    ArrayList<UserDetails> getAllStudentFromCourse(int courseID);
+
 }
