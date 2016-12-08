@@ -56,6 +56,16 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
+                  <Tab text="Blogg">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane prefHeight="663.0" prefWidth="1262.0" />
+                              <fx:include source="blog.fxml" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
               </tabs>
             </TabPane>
             <JFXButton buttonType="RAISED" layoutX="1198.0" layoutY="20.0" onAction="#logOut" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" AnchorPane.bottomAnchor="706.0" AnchorPane.leftAnchor="1198.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0">

@@ -8,10 +8,12 @@ import com.jfoenix.controls.JFXCheckBox;
 import course.CourseBeanRemote;
 import java.util.ArrayList;
 import java.util.Optional;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import java.util.prefs.Preferences;
+
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -37,21 +39,16 @@ public class LoginController {
     ArrayList<CourseInfo> courses;
     ArrayList<String> courseNames;
 
-    
+
     Preferences pref;
+
     /**
      * if login button is pressed.
      */
     public void loginButtonClicked() {
-        
         if (lookupLoginAuth_beanRemote()
                 .authAdminAccount(username.getText(),
                         password.getText())) {
-            
-            // log what username that were put in
-            pref.put("username", username.getText());
-            
-            
             
             // the user is an admin, check whenever the user wants to log into
             // the admin panel or not.
@@ -128,8 +125,10 @@ public class LoginController {
      */
     public void initialize() {
 
+
         pref = Preferences.userNodeForPackage(LoginController.class);
         //username.setText(pref.get("username", "root"));
+
         // get all course s.
         courses = lookupLoginAuth_beanRemote().getCourses();
         courseNames = new ArrayList<>();
