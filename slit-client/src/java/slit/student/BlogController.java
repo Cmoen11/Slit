@@ -5,6 +5,7 @@
  */
 package slit.student;
 
+import blog.Post;
 import blog.blogBeanRemote;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -51,7 +52,8 @@ public class BlogController implements Initializable {
     }            
     
     public void editPost(){
-    
+        
+        
     }
     
     public void clearEditor(){
@@ -63,7 +65,12 @@ public class BlogController implements Initializable {
     }
     
     public void publishPost(){
-    
+        Post post = new Post();
+        post.setContent(content.getHtmlText());
+        post.setTitle(title.getText());
+        post.setUserID(Controller.getUser().getId());
+        post.setCourseID(Controller.getUser().getCourseID());
+        blogBean.createPost(post);
     }
 
     private blogBeanRemote lookupblogBeanRemote() {
