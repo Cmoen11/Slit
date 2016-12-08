@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1233.0" style="-fx-background-color: #3b5998; -fx-background-radius: 0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.student.ControllerStudentPanel">
+   <children>
+      <AnchorPane layoutX="5.0" layoutY="6.0" prefHeight="750.0" prefWidth="1279.0" style="-fx-border-radius: 5; -fx-border-color: white; -fx-border-style: dashed;" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+         <children>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="508.0" prefWidth="200.0">
+               <children>
+                  <Text fill="#fffefe" layoutX="72.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Moduler">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <JFXListView fx:id="modules" layoutX="7.0" layoutY="54.0" prefHeight="407.0" prefWidth="186.0" />
+                  <JFXButton buttonType="RAISED" defaultButton="true" layoutX="50.0" layoutY="467.0" prefHeight="41.0" prefWidth="104.0" ripplerFill="BLACK" text="Åpne" textFill="#141313" />
+               </children>
+            </Pane>
+            <Pane layoutX="454.0" layoutY="56.0" prefHeight="424.0" prefWidth="315.0">
+               <children>
+                  <Text fill="#fffefe" layoutX="129.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nyheter">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <JFXListView fx:id="news" layoutX="34.0" layoutY="49.0" prefHeight="326.0" prefWidth="247.0" />
+                  <JFXButton buttonType="RAISED" defaultButton="true" layoutX="105.0" layoutY="383.0" prefHeight="41.0" prefWidth="104.0" ripplerFill="BLACK" text="Åpne" textFill="#141313" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

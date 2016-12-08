@@ -12,7 +12,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author marti
+ * @author Martin Nenseth
  */
 @Remote
 public interface UserBeanRemote {
