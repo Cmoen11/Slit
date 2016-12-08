@@ -29,7 +29,7 @@ public class MainStudent extends Application {
     @Override
     public void start(Stage primaryStage){
         try {
-            Parent root= FXMLLoader.load(MainStudent.class.getResource("StudentClient.fxml"));
+            MainStudent.root = FXMLLoader.load(MainStudent.class.getResource("StudentClient.fxml"));
             primaryStage.setTitle("Slit student panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();

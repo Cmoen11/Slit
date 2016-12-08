@@ -71,13 +71,13 @@ public class ControllerStudentPanel {
     */
     public void openModule() {
         try {
-        int index = modules.getSelectionModel().getSelectedIndex();
-        ModuleDetails module = existingModules.get(index);
-        modulOppgave = new InnleveringController();
-        modulOppgave.run(module);
+            int index = modules.getSelectionModel().getSelectedIndex();
+            ModuleDetails module = existingModules.get(index);
+            modulOppgave = new InnleveringController();
+            modulOppgave.run(module);
        // Åpner den selekterte modulen  
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
     }
     
