@@ -30,7 +30,7 @@
                   <Button layoutX="428.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #6B2B2B;" text="neiKnapp2" textFill="WHITE" />
                </children>
             </AnchorPane>
-            <Button layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="162.0" text="Button" />
+            <Button layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="162.0" style="-fx-background-color: #6B2B2B;" text="midlertidigKnappErMidlertig" textFill="WHITE" />
             <Pane layoutX="616.0" layoutY="49.0" prefHeight="26.0" prefWidth="165.0" style="-fx-background-color: #1F2E4F;">
                <children>
                   <Text fill="WHITE" fontSmoothingType="LCD" layoutX="5.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oversikt" textAlignment="CENTER">
@@ -45,7 +45,7 @@
                   <Image url="@../img/box_name.png" />
                </image>
             </ImageView>
-            <Button layoutX="253.0" layoutY="14.0" mnemonicParsing="false" onAction="#listAllStudents" prefHeight="32.0" prefWidth="162.0" text="listAlleStudenter" />
+            <Button layoutX="253.0" layoutY="14.0" mnemonicParsing="false" onAction="#listAllStudents" prefHeight="32.0" prefWidth="162.0" style="-fx-background-color: #214020;" text="listAlleStudenter(terminal)" textFill="WHITE" />
          </children>
       </AnchorPane>
    </children>

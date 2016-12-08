@@ -25,9 +25,10 @@ public class studentOverviewController {
     }
     
     // Knappen lister ut samtlige studenter. Foreløpig blir de listet ut i konsollen, todo - list dem i 
-    // listen på siden
+    // listen på siden. Lister ut brukernavnet på personene i databasen. 
     public void listAllStudents(){
         System.out.println(userOverveiw.getAllUsers());
+        System.out.println(userOverveiw.getUserByID(2)); // testlinje, skal hente bruker med PK = 2
     }
 
     // Sørger for at controller klassen er koblet sammen med studentOverveiwBean
