@@ -49,24 +49,8 @@ public class LoginController {
         if (lookupLoginAuth_beanRemote()
                 .authAdminAccount(username.getText(),
                         password.getText())) {
+            normalLogin();
             
-            // the user is an admin, check whenever the user wants to log into
-            // the admin panel or not.
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Admin");
-            alert.setHeaderText("Administrator");
-            alert.setContentText("Vi ser at du er en administrator, "
-                    + "ønsker du å logge inn på administrasjonspanelet?");
-            Optional<ButtonType> result = alert.showAndWait();
-            
-            // handle the user input
-            if (result.get() == ButtonType.OK) {
-                // user selected yes. -> send user to admin panel
-                new MainAdmin().runGUI(Main.primaryStage);
-            } else {
-                // user selected no. -> send user to normal Login
-                normalLogin();
-            }
         } else {
             // user is not an admin. send user to normal inlogging.
             normalLogin();

@@ -64,8 +64,12 @@ public class BlogController{
     }            
     
     public void editPost(){
+        int index = archive.getSelectionModel().getSelectedIndex();
+        Post post = archivedPost.get(index);
         
-        
+        title.setText(post.getTitle());
+        content.setHtmlText(post.getContent());
+       
     }
     
     public void clearEditor(){
