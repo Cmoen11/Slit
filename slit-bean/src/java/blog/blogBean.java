@@ -5,6 +5,7 @@ import auth.UserDetails;
 import database.Blogpost;
 import database.Courses;
 import database.Users;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,29 +19,33 @@ public class blogBean implements blogBeanRemote {
 
     @PersistenceContext()
     EntityManager em;
-    
-    /**
-     * Opprett en blogg.
-     * @param userObj 
-     */
-    @Override
-    public void createBlog(UserDetails userObj) {
 
-    }
-    
     /**
-     * Opprett en post.
-     * @param userObj
-     * @param postObj 
+     * Convert transfer object to entity object
+     * @param post
+     * @return 
      */
-    @Override
-    public void createPost(UserDetails userObj, Post postObj) {
-
+    private Blogpost transferObjectToEntityObject(Post post) {
+        Blogpost output = new Blogpost();
+        output.setPostID(Integer.SIZE);
+        output.setContent(post.getContent());
+        output.setCourseID(em.find(Courses.class, post.getCourseID()));
+        output.setUserID(em.find(Users.class, post.getUserID()));
+        output.setTitle(post.getTitle());
+        output.setCreationDate(new Date());
         
+        return output;
+    }
+    
+    
+    @Override
+    public void createPost(Post post) {
+        em.persist(transferObjectToEntityObject(post));    
     }
     
     
     
-    
-    
+
 }
+    
+    

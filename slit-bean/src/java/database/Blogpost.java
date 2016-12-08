@@ -44,7 +44,7 @@ public class Blogpost implements Serializable {
     @Basic(optional = false)
     @Column(name = "postID")
     private Integer postID;
-    @Size(max = 255)
+    @Size(max = 2000)
     @Column(name = "content")
     private String content;
     @Column(name = "creationDate")
