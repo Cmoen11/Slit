@@ -167,7 +167,7 @@ public class LoginController {
             throw new RuntimeException(ne);
         }
     }
-
+ 
     private CourseBeanRemote lookupCourseBeanRemote() {
         try {
             Context c = new InitialContext();
