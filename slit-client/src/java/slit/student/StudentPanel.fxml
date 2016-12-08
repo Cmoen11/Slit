@@ -21,7 +21,7 @@
                      </font>
                   </Text>
                   <JFXListView fx:id="modules" layoutX="7.0" layoutY="54.0" prefHeight="407.0" prefWidth="186.0" />
-                  <JFXButton buttonType="RAISED" defaultButton="true" layoutX="50.0" layoutY="467.0" prefHeight="41.0" prefWidth="104.0" ripplerFill="BLACK" text="Åpne" textFill="#141313" />
+                  <JFXButton buttonType="RAISED" defaultButton="true" layoutX="50.0" layoutY="467.0" onAction="#openModule" prefHeight="41.0" prefWidth="104.0" ripplerFill="BLACK" text="Åpne" textFill="#141313" />
                </children>
             </Pane>
             <Pane layoutX="454.0" layoutY="56.0" prefHeight="424.0" prefWidth="315.0">
