@@ -9,11 +9,14 @@ import blog.Post;
 import blog.blogBeanRemote;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -55,11 +58,19 @@ public class BlogController{
     }    
     
     public void deletePost(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bekreftelse");
+        alert.setHeaderText("Bekreftelse");
+        alert.setContentText("Helt sikker på at du ønsker å slette innlegget?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
         int index = archive.getSelectionModel().getSelectedIndex();
-        Post post = archivedPost.get(index);
-        
-        blogBean.deleteBlogPost(post);
-        initialize();
+            Post post = archivedPost.get(index);
+
+            blogBean.deleteBlogPost(post);
+            initialize();
+        }
     }            
     
     public void editPost(){
@@ -76,28 +87,45 @@ public class BlogController{
     }
     
     public void updatePost(){
-        int index = archive.getSelectionModel().getSelectedIndex();
-        Post post = archivedPost.get(index);
-        
-        post.setContent(content.getHtmlText());
-        post.setTitle(title.getText());
-        blogBean.updatePost(post);
-        initialize();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bekreftelse");
+        alert.setHeaderText("Bekreftelse");
+        alert.setContentText("Helt sikker på at du ønsker å endre innlegget?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            int index = archive.getSelectionModel().getSelectedIndex();
+            Post post = archivedPost.get(index);
+
+            post.setContent(content.getHtmlText());
+            post.setTitle(title.getText());
+            blogBean.updatePost(post);
+            initialize();
+        }
     }
     
     
     public void publishPost(){
 
-        
-        Post post = new Post();
-        post.setContent(content.getHtmlText());
-        post.setTitle(title.getText());
-        post.setUserID(Controller.getUser().getId());
-        post.setCourseID(Controller.getUser().getCourseID());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bekreftelse");
+        alert.setHeaderText("Bekreftelse");
+        alert.setContentText("Helt sikker på at du ønsker å publisere innlegget?");
 
-        blogBean.createPost(post);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){Post post = new Post();
+            post.setContent(content.getHtmlText());
+            post.setTitle(title.getText());
+            post.setUserID(Controller.getUser().getId());
+            post.setCourseID(Controller.getUser().getCourseID());
+
+            blogBean.createPost(post);
+
+            initialize();
+        } else {
+            // okay, do nothing
+        }
         
-        initialize();
     }
     
     private void clearFields() {
