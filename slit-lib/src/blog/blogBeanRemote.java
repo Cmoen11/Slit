@@ -15,8 +15,7 @@ import javax.ejb.Remote;
 @Remote
 public interface blogBeanRemote {
 
-    void createBlog(UserDetails userObj);
+    void createPost(Post post);
 
-    void createPost(UserDetails userObj, Post postObj);
     
 }

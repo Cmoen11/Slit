@@ -29,7 +29,7 @@ public class SubmissionHistory{
             case (3) :
                 this.status= new SimpleStringProperty("Godkjent");
             default :
-                break;
+                System.out.println("what the fuck?");
         }
         this.date = new SimpleStringProperty(date);
         
