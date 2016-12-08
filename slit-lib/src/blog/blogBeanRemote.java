@@ -20,5 +20,7 @@ public interface blogBeanRemote {
 
     ArrayList<Post> getPostFromUserAndCourse(UserDetails user);
 
+    void deleteBlogPost(Post post);
+
     
 }

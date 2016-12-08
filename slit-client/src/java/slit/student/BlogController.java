@@ -27,7 +27,7 @@ import javax.naming.NamingException;
  *
  * @author Christian
  */
-public class BlogController implements Initializable {
+public class BlogController{
     @FXML
     private ListView<Label> archive;
 
@@ -45,9 +45,10 @@ public class BlogController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize() {
+        clearFields();
         archivedPost = blogBean.getPostFromUserAndCourse(Controller.getUser());
+        archive.getItems().clear();
         for(Post p : archivedPost) {
             Label l = new Label(p.getTitle());
             archive.getItems().add(l);
@@ -55,7 +56,11 @@ public class BlogController implements Initializable {
     }    
     
     public void deletePost(){
+        int index = archive.getSelectionModel().getSelectedIndex();
+        Post post = archivedPost.get(index);
         
+        blogBean.deleteBlogPost(post);
+        initialize();
     }            
     
     public void editPost(){
@@ -71,6 +76,7 @@ public class BlogController implements Initializable {
     
     }
     
+    
     public void publishPost(){
         Post post = new Post();
         post.setContent(content.getHtmlText());
@@ -78,8 +84,15 @@ public class BlogController implements Initializable {
         post.setUserID(Controller.getUser().getId());
         post.setCourseID(Controller.getUser().getCourseID());
         blogBean.createPost(post);
+        
+        initialize();
     }
-
+    
+    private void clearFields() {
+        title.setText("");
+        content.setHtmlText("");
+    }
+    
     private blogBeanRemote lookupblogBeanRemote() {
         try {
             Context c = new InitialContext();

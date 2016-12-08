@@ -74,7 +74,14 @@ public class blogBean implements blogBeanRemote {
             output.add(entityObjecToTransferObject(i));
         
         return output;
+       
     }
+
+    @Override
+    public void deleteBlogPost(Post post) {
+        em.remove(em.find(Blogpost.class, post.getPostID()));
+    }
+    
     
     
     
