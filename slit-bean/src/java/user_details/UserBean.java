@@ -117,8 +117,30 @@ public class UserBean implements UserBeanRemote {
         
     }
 
+    @Override
+    public ArrayList<UserDetails> getAllStudentFromCourse(int courseID) {
+        Courses course = em.find(Courses.class, courseID);
+        Query query = em.createNamedQuery("CourseMembers.findByCourseID")
+                .setParameter("courseID", course.getCourseID());
+        
+        List<CourseMembers> cm = query.getResultList();
+        
+        ArrayList<UserDetails> output = new ArrayList<>();
+        for (CourseMembers users : cm) {
+            output.add(UsersToUserDetails(users.getUsers()));
+        }
+        return output;
+    }
     
-
+    
+    private UserDetails UsersToUserDetails(Users user) {
+        return new UserDetails(
+                user.getUserID(), user.getUsername(), user.getEmail(),
+                -1, -1, user.getFirstname(), user.getLastname());
+        
+    }
+    
+    
     
     
     
