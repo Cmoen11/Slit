@@ -87,8 +87,7 @@ public class BlogController{
     
     
     public void publishPost(){
-        int index = archive.getSelectionModel().getSelectedIndex();
-        Post post2 = archivedPost.get(index);
+
         
         Post post = new Post();
         post.setContent(content.getHtmlText());
