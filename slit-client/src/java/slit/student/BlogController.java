@@ -8,6 +8,7 @@ package slit.student;
 import blog.Post;
 import blog.blogBeanRemote;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,13 +39,19 @@ public class BlogController implements Initializable {
     
     
     blogBeanRemote blogBean = lookupblogBeanRemote();
+    ArrayList <Post> archivedPost;
+    
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        archivedPost = blogBean.getPostFromUserAndCourse(Controller.getUser());
+        for(Post p : archivedPost) {
+            Label l = new Label(p.getTitle());
+            archive.getItems().add(l);
+        }
     }    
     
     public void deletePost(){
