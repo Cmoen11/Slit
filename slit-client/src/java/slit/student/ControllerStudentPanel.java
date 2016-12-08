@@ -67,7 +67,7 @@ public class ControllerStudentPanel {
     
     /*
     * Henter det selekterte elementet i listviewene fra gui
-    * 
+    * Åpner den selekterte modulen i nytt popup vindu.
     */
     public void openModule() {
         try {
@@ -75,9 +75,8 @@ public class ControllerStudentPanel {
         ModuleDetails module = existingModules.get(index);
         modulOppgave = new InnleveringController();
         modulOppgave.run(module);
-       // Åpner den selekterte modulen  
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getStackTrace());
         }
     }
     
