@@ -392,7 +392,7 @@ public class ControllerAdm {
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (SubmissionBeanRemote) c.lookup("java:comp/env/SubmissionBean");
+            return (SubmissionBeanRemote) c.lookup("java:global/slit-bean/SubmissionBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -401,7 +401,7 @@ public class ControllerAdm {
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (UserBeanRemote) c.lookup("java:comp/env/UserBean");
+            return (UserBeanRemote) c.lookup("java:global/slit-bean/UserBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -410,7 +410,7 @@ public class ControllerAdm {
     private NewsBeanRemote lookupNewsBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (NewsBeanRemote) c.lookup("java:comp/env/NewsBean");
+            return (NewsBeanRemote) c.lookup("java:global/slit-bean/NewsBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -419,7 +419,7 @@ public class ControllerAdm {
     private HelpRequestBeanRemote lookupHelpRequestBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (HelpRequestBeanRemote) c.lookup("java:comp/env/HelpRequestBean");
+            return (HelpRequestBeanRemote) c.lookup("java:global/slit-bean/HelpRequestBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

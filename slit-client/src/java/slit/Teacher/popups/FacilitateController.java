@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.scene.web.HTMLEditor;
@@ -37,7 +39,10 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
 import org.controlsfx.control.Notifications;
+import sessionBeans.InternalStudentCommentsBeanRemote;
 import slit.Teacher.TeacherMain;
+import slit.Teacher.Controller;
+import transferClasses.InternalStudentComments;
 import transferClasses.StudentSubmissionHistory;
 import user_details.UserBeanRemote;
 
@@ -59,6 +64,10 @@ public class FacilitateController {
     @FXML private JFXButton downloadAssignedFile;
     @FXML private Text fileName;
     
+    @FXML private TextField newInternalComment;
+    @FXML private JFXListView<Label> internalCommentsView;
+
+    
     // history
     @FXML
     private TableColumn<SubmissionHistory, String> historyStatus;
@@ -75,6 +84,8 @@ public class FacilitateController {
     ModuleDetails moduleInfo;
     UserDetails user;
     SubmissionFeedbackDetails feedback;
+    ArrayList<InternalStudentComments> internalComments;
+    
     @FXML
     void initialize() {
         // add the submission text.
@@ -116,6 +127,7 @@ public class FacilitateController {
         historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+        
         ArrayList<StudentSubmissionHistory> items = 
         lookupSubmissionBeanRemote()
                 .getSubmissionHistoryFromUser(submission.getUserID(),
@@ -131,6 +143,18 @@ public class FacilitateController {
         }
         
         submissionHistory.setItems(history);
+        
+        
+        // get internal comments
+        internalComments = lookupInternalStudentCommentsBeanRemote()
+                .getAllComments(user.getId(), moduleInfo.getCourseID());
+        internalCommentsView.getItems().clear();
+        for (InternalStudentComments c : internalComments) {
+            
+            Label l = new Label(c.getComment());
+            internalCommentsView.getItems().add(l);
+        }
+        
 
     }
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
@@ -146,6 +170,25 @@ public class FacilitateController {
         primaryStage.initOwner(root.getScene().getWindow());
         primaryStage.setTitle("Modulgodkjenning");
         primaryStage.showAndWait();
+    }
+    
+    public void addInternalComment() {
+        InternalStudentComments obj = new InternalStudentComments(
+                new Date(), Controller.getUser().getId(), user.getId(),
+                moduleInfo.getCourseID(), newInternalComment.getText()
+        );
+        lookupInternalStudentCommentsBeanRemote().addComment(obj);
+        
+        // get internal comments
+        internalComments = lookupInternalStudentCommentsBeanRemote()
+                .getAllComments(user.getId(), moduleInfo.getCourseID());
+        internalCommentsView.getItems().clear();
+        for (InternalStudentComments c : internalComments) {
+            
+            Label l = new Label(c.getComment());
+            internalCommentsView.getItems().add(l);
+        }
+        newInternalComment.clear();
     }
     
     /**
@@ -216,7 +259,7 @@ public class FacilitateController {
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (UserBeanRemote) c.lookup("java:comp/env/UserBean");
+            return (UserBeanRemote) c.lookup("java:global/slit-bean/UserBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -226,7 +269,7 @@ public class FacilitateController {
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();   
-            return (ModuleRemote) c.lookup("java:comp/env/ModuleBean");
+            return (ModuleRemote) c.lookup("java:global/slit-bean/ModuleBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -236,7 +279,17 @@ public class FacilitateController {
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (SubmissionBeanRemote) c.lookup("java:comp/env/SubmissionBean");
+            return (SubmissionBeanRemote) c.lookup("java:global/slit-bean/SubmissionBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private InternalStudentCommentsBeanRemote lookupInternalStudentCommentsBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (InternalStudentCommentsBeanRemote) c.lookup("java:global/slit-bean/InternalStudentCommentsBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

@@ -30,6 +30,6 @@ public class Controller {
 
     public void logOut() {
         Main.runGUI();
-    }  
+    }
     
 }
