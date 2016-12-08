@@ -21,8 +21,8 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button layoutX="431.0" layoutY="584.0" mnemonicParsing="false" onAction="#saveDraft" text="Lagre utkast" />
-            <Button layoutX="365.0" layoutY="584.0" mnemonicParsing="false" onAction="#clearEditor" text="Forkast" />
+            <Button layoutX="466.0" layoutY="584.0" mnemonicParsing="false" onAction="#updatePost" text="Lagre" />
+            <Button layoutX="400.0" layoutY="584.0" mnemonicParsing="false" onAction="#clearEditor" text="Forkast" />
             <TextField fx:id="title" layoutX="13.0" layoutY="57.0" prefHeight="40.0" prefWidth="625.0" promptText="Eksempel: I dag har jeg lært....">
                <font>
                   <Font size="18.0" />

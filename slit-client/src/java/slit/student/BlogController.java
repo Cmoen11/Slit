@@ -5,8 +5,10 @@
  */
 package slit.student;
 
+import blog.Post;
 import blog.blogBeanRemote;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +27,7 @@ import javax.naming.NamingException;
  *
  * @author Christian
  */
-public class BlogController implements Initializable {
+public class BlogController{
     @FXML
     private ListView<Label> archive;
 
@@ -37,35 +39,73 @@ public class BlogController implements Initializable {
     
     
     blogBeanRemote blogBean = lookupblogBeanRemote();
-    
+    ArrayList <Post> archivedPost;
+   
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    public void initialize() {
+        clearFields();
+        archivedPost = blogBean.getPostFromUserAndCourse(Controller.getUser());
+        archive.getItems().clear();
+        for(Post p : archivedPost) {
+            Label l = new Label(p.getTitle());
+            archive.getItems().add(l);
+        }
     }    
     
     public void deletePost(){
+        int index = archive.getSelectionModel().getSelectedIndex();
+        Post post = archivedPost.get(index);
         
+        blogBean.deleteBlogPost(post);
+        initialize();
     }            
     
     public void editPost(){
-    
+        int index = archive.getSelectionModel().getSelectedIndex();
+        Post post = archivedPost.get(index);
+        
+        title.setText(post.getTitle());
+        content.setHtmlText(post.getContent());
+       
     }
     
     public void clearEditor(){
-    
+        clearFields();
     }
     
-    public void saveDraft(){
-    
+    public void updatePost(){
+        int index = archive.getSelectionModel().getSelectedIndex();
+        Post post = archivedPost.get(index);
+        
+        post.setContent(content.getHtmlText());
+        post.setTitle(title.getText());
+        blogBean.updatePost(post);
+        initialize();
     }
+    
     
     public void publishPost(){
-    
-    }
+        int index = archive.getSelectionModel().getSelectedIndex();
+        Post post2 = archivedPost.get(index);
+        
+        Post post = new Post();
+        post.setContent(content.getHtmlText());
+        post.setTitle(title.getText());
+        post.setUserID(Controller.getUser().getId());
+        post.setCourseID(Controller.getUser().getCourseID());
 
+        blogBean.createPost(post);
+        
+        initialize();
+    }
+    
+    private void clearFields() {
+        title.setText("");
+        content.setHtmlText("");
+    }
+    
     private blogBeanRemote lookupblogBeanRemote() {
         try {
             Context c = new InitialContext();

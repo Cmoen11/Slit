@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Blogpost.findAll", query = "SELECT b FROM Blogpost b")
-    , @NamedQuery(name = "Blogpost.findByPostID", query = "SELECT b FROM Blogpost b WHERE b.postID = :postID")
+    , @NamedQuery(name = "Blogpost.findByPostID", query = "SELECT b FROM Blogpost b WHERE b.postID = :postID")    
+    , @NamedQuery(name = "Blogpost.findByUserIDAndCourseID", query = "SELECT b FROM Blogpost b WHERE b.userID = :userID And b.courseID = :courseID")
     , @NamedQuery(name = "Blogpost.findByContent", query = "SELECT b FROM Blogpost b WHERE b.content = :content")
     , @NamedQuery(name = "Blogpost.findByCreationDate", query = "SELECT b FROM Blogpost b WHERE b.creationDate = :creationDate")
     , @NamedQuery(name = "Blogpost.findByTitle", query = "SELECT b FROM Blogpost b WHERE b.title = :title")})
