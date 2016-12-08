@@ -32,6 +32,8 @@ public class ControllerStudentPanel {
     ArrayList<ModuleDetails> existingModules;
     List<Post> existingNews;
     
+    // PopUp GUI for modules
+    private InnleveringController modulOppgave;
     
     public void initialize() {
         try {
@@ -63,13 +65,17 @@ public class ControllerStudentPanel {
     }
         }
     
-    
+    /*
+    * Henter det selekterte elementet i listviewene fra gui
+    * 
+    */
     public void openModule() {
         try {
         int index = modules.getSelectionModel().getSelectedIndex();
         ModuleDetails module = existingModules.get(index);
-        // objekt = new innleveringController();
-        // objekt.displayPopup(module); // Åpner popup vindu med valgt modul  som param.  
+        modulOppgave = new InnleveringController();
+        modulOppgave.run(module);
+       // Åpner den selekterte modulen  
         } catch (Exception e) {
             System.out.println(e);
         }

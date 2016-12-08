@@ -17,10 +17,10 @@
          <center>
             <AnchorPane prefHeight="440.0" prefWidth="254.0" style="-fx-background-color: #E1E1E1;" BorderPane.alignment="CENTER">
                <children>
-                  <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="17.0" layoutY="89.0" prefHeight="552.0" prefWidth="977.0" />
+                  <HTMLEditor fx:id="submissionText" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="17.0" layoutY="89.0" prefHeight="552.0" prefWidth="977.0" />
                   <AnchorPane layoutX="15.0" layoutY="660.0" prefHeight="50.0" prefWidth="623.0" style="-fx-background-color: white; -fx-border-radius: 0; -fx-border-color: #C3C3C3; -fx-background-radius: 5px; -fx-border-radius: 5px;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0">
                      <children>
-                        <JFXButton fx:id="downloadAssignedFile" buttonType="RAISED" disable="true" layoutX="468.0" layoutY="7.0" prefHeight="36.0" prefWidth="136.0" style="-fx-background-color: #3E4963;" text="Last opp vedlegg" textFill="WHITE" AnchorPane.rightAnchor="6.0">
+                        <JFXButton fx:id="uploadFile" buttonType="RAISED" disable="true" layoutX="468.0" layoutY="7.0" prefHeight="36.0" prefWidth="136.0" style="-fx-background-color: #3E4963;" text="Last opp vedlegg" textFill="WHITE" AnchorPane.rightAnchor="6.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -41,7 +41,7 @@
                <children>
                   <Accordion layoutX="10.0" layoutY="16.0" prefHeight="872.0" prefWidth="340.0">
                      <panes>
-                        <TitledPane prefHeight="722.0" prefWidth="340.0" text="Modulbeskrivelse">
+                        <TitledPane fx:id="moduleDescription" prefHeight="722.0" prefWidth="340.0" text="Modulbeskrivelse">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="338.0">
                                  <children>
@@ -57,11 +57,6 @@
                                     <JFXListView fx:id="moduleLearningGoals" prefHeight="780.0" prefWidth="338.0" />
                                  </children>
                               </AnchorPane>
-                           </content>
-                        </TitledPane>
-                        <TitledPane animated="false" text="Sudentplan">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="811.0" prefWidth="336.0" />
                            </content>
                         </TitledPane>
                      </panes>
@@ -80,7 +75,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
-                  <Text fx:id="studentName" fill="WHITE" layoutX="171.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulnavn" wrappingWidth="143.0">
+                  <Text fx:id="moduleName" fill="WHITE" layoutX="171.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulnavn" wrappingWidth="143.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
