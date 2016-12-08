@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Refi
+ * @author Martin Nenseth
  */
 public class InnleveringController {
     static Stage primaryStage;
