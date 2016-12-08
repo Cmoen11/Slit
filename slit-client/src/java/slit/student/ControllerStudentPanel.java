@@ -75,9 +75,11 @@ public class ControllerStudentPanel {
         ModuleDetails module = existingModules.get(index);
         modulOppgave = new InnleveringController();
         modulOppgave.run(module);
+         // Åpner den selekterte modulen
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
+         
     }
     
     private NewsBeanRemote lookupNewsBeanRemote() {

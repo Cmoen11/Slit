@@ -42,7 +42,7 @@ public class InnleveringController {
     @FXML private JFXListView moduleLearningGoals;
     
     
-    ModuleDetails moduleInfo;
+    static ModuleDetails moduleInfo;
     
 
     public void initialize() {
@@ -77,10 +77,13 @@ public class InnleveringController {
     
     
     public void run(ModuleDetails module) throws IOException {
+        InnleveringController.moduleInfo = module;
+        
         Parent root = MainStudent.getRoot();
 
         primaryStage = new Stage();
         Parent root2 = FXMLLoader.load(InnleveringController.class.getResource("Innlevering.fxml"));
+        System.out.println("hey");
         primaryStage.setScene(new Scene(root2));
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.initOwner(root.getScene().getWindow());
@@ -92,7 +95,7 @@ public class InnleveringController {
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (ModuleRemote) c.lookup("java:comp/env/ModuleBean");
+            return (ModuleRemote) c.lookup("java:global/slit-bean/ModuleBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
