@@ -48,7 +48,7 @@ public class BlogController{
      * Initializes the controller class.
      */
     public void initialize() {
-        clearFields();
+        clearEditor();
         archivedPost = blogBean.getPostFromUserAndCourse(Controller.getUser());
         archive.getItems().clear();
         for(Post p : archivedPost) {
@@ -56,6 +56,28 @@ public class BlogController{
             archive.getItems().add(l);
         }
     }    
+      public void publishPost(){
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Bekreftelse");
+        alert.setHeaderText("Bekreftelse");
+        alert.setContentText("Helt sikker på at du ønsker å publisere innlegget?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){Post post = new Post();
+            post.setContent(content.getHtmlText());
+            post.setTitle(title.getText());
+            post.setUserID(Controller.getUser().getId());
+            post.setCourseID(Controller.getUser().getCourseID());
+
+            blogBean.createPost(post);
+
+            initialize();
+        } else {
+            // okay, do nothing
+        }
+        
+    }
     
     public void deletePost(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -81,12 +103,8 @@ public class BlogController{
         content.setHtmlText(post.getContent());
        
     }
-    
-    public void clearEditor(){
-        clearFields();
-    }
-    
-    public void updatePost(){
+
+public void updatePost(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Bekreftelse");
         alert.setHeaderText("Bekreftelse");
@@ -104,34 +122,20 @@ public class BlogController{
         }
     }
     
-    
-    public void publishPost(){
-
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Bekreftelse");
-        alert.setHeaderText("Bekreftelse");
-        alert.setContentText("Helt sikker på at du ønsker å publisere innlegget?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){Post post = new Post();
-            post.setContent(content.getHtmlText());
-            post.setTitle(title.getText());
-            post.setUserID(Controller.getUser().getId());
-            post.setCourseID(Controller.getUser().getCourseID());
-
-            blogBean.createPost(post);
-
-            initialize();
-        } else {
-            // okay, do nothing
-        }
-        
-    }
-    
-    private void clearFields() {
+    /**
+     * Clears HTML-editor
+     */
+    public void clearEditor(){
         title.setText("");
         content.setHtmlText("");
     }
+    
+    
+    
+    
+  
+    
+    
     
     private blogBeanRemote lookupblogBeanRemote() {
         try {
