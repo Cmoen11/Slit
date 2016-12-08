@@ -1,6 +1,8 @@
 package slit.Teacher.popups;
 
 import auth.UserDetails;
+import blog.Post;
+import blog.blogBeanRemote;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
@@ -39,6 +41,7 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
 import org.controlsfx.control.Notifications;
+import org.controlsfx.control.PopOver;
 import sessionBeans.InternalStudentCommentsBeanRemote;
 import slit.Teacher.TeacherMain;
 import slit.Teacher.Controller;
@@ -57,7 +60,7 @@ public class FacilitateController {
     @FXML private WebView selectedBlogPost;
     @FXML private HTMLEditor answerSubmission;
     @FXML private WebView moduleDesc;
-    @FXML private JFXListView<?> allBlogPosts;
+    @FXML private JFXListView<Label> allBlogPosts;
     @FXML private ListView<Label> moduleLearningGoals;
     @FXML private WebView moduleSubmission; 
     @FXML private Text studentName;
@@ -85,19 +88,32 @@ public class FacilitateController {
     UserDetails user;
     SubmissionFeedbackDetails feedback;
     ArrayList<InternalStudentComments> internalComments;
+    ArrayList<Post> blogPosts; 
     
     @FXML
     void initialize() {
+        // setting the moduleInfo
+        moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
+        // getting the submitter object
+        user = lookupUserBeanRemote().getUserByID(submission.getUserID());
+        studentName.setText(user.getFirstname() + " " + user.getLastname());
+        user.setCourseID(moduleInfo.getCourseID());
+        
+        //get blogposts.
+        blogPosts = lookupblogBeanRemote().getPostFromUserAndCourse(user);
+        
+        allBlogPosts.getItems().clear();
+        for (Post p : blogPosts){
+            Label l = new Label(p.getTitle());
+            allBlogPosts.getItems().add(l);
+        }
+        
+        
         // add the submission text.
         WebEngine webEngine = moduleSubmission.getEngine();
         webEngine.loadContent(submission.getContent());
         
-        // getting the submitter object
-        user = lookupUserBeanRemote().getUserByID(submission.getUserID());
-        studentName.setText(user.getFirstname() + " " + user.getLastname());
         
-        // setting the moduleInfo
-        moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
         
         WebEngine moduleDescEngine = moduleDesc.getEngine();
         moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
@@ -189,6 +205,10 @@ public class FacilitateController {
             internalCommentsView.getItems().add(l);
         }
         newInternalComment.clear();
+    }
+    
+    public void openBlogPost() {
+        
     }
     
     /**
@@ -290,6 +310,16 @@ public class FacilitateController {
         try {
             Context c = new InitialContext();
             return (InternalStudentCommentsBeanRemote) c.lookup("java:global/slit-bean/InternalStudentCommentsBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    private blogBeanRemote lookupblogBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (blogBeanRemote) c.lookup("java:global/slit-bean/blogBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
