@@ -4,7 +4,6 @@ import auth.UserDetails;
 import blog.Post;
 import blog.blogBeanRemote;
 import com.jfoenix.controls.JFXListView;
-import course.CourseBeanRemote;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -133,7 +132,7 @@ public class StudentBlogsController {
     private blogBeanRemote lookupblogBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (blogBeanRemote) c.lookup("java:comp/env/blogBean");
+            return (blogBeanRemote) c.lookup("java:global/slit-bean/blogBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

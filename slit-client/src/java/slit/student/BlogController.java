@@ -1,20 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package slit.student;
 
 import blog.Post;
 import blog.blogBeanRemote;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -28,7 +21,7 @@ import javax.naming.NamingException;
 /**
  * FXML Controller class
  *
- * @author Christian
+ * @author Merethe
  */
 public class BlogController{
     @FXML
@@ -64,7 +57,8 @@ public class BlogController{
         alert.setContentText("Helt sikker på at du ønsker å publisere innlegget?");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){Post post = new Post();
+        if (result.get() == ButtonType.OK){
+            Post post = new Post();
             post.setContent(content.getHtmlText());
             post.setTitle(title.getText());
             post.setUserID(Controller.getUser().getId());

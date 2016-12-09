@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Christian
+ * @author Merethe
  */
 @Stateless
 public class blogBean implements blogBeanRemote {

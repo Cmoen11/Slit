@@ -1,13 +1,7 @@
 
 package sessionBeans;
 
-import auth.UserDetails;
 import database.Users;
-import java.util.ArrayList;
-import java.util.List;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
