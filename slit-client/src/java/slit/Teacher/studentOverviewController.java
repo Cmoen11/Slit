@@ -28,19 +28,31 @@ import user_details.UserBeanRemote;
 public class studentOverviewController {
     
     // Formålet her er at vi fra og med de to linjene under skal kunne
-    // referer til ListVeiw i Scene Builder som studentListe
+    // referer til ListVeiw i Scene Builder med andre navn (etter behov)
     @FXML
     ListView<Label> studentList;
+    @FXML 
+    ListView<Label> moduleSubmissionListView;
     
-    @FXML ListView<Label> moduleSubmissionListView;
     
     // Nedenfor angir vi at bønnene kan referes til med kortere navn, 
     // nærmere best overveiwBean og userOverveiw
     studentOverviewRemote overviewBean = lookupstudentOverviewBeanRemote();
     UserBeanRemote userOverveiw = lookupUserBeanRemote();
+    
+    
+    // For å ha muligheten til å navigere oss gjennom og sortere ut 
+    // fra databasen har vi behov for å bruke ArrayLists, litt som 
+    // buffer reader når vi skal lese av / skrive til filer
     ArrayList<UserDetails> students;
     ArrayList<StudentSubmissionHistory> submissionsForSelectedUser;
     
+    
+    // Henter ut samtlige studenter fra databasen og lagrer objektene
+    // (UserDetails objekter) i ArrayListen vi opprettet over. Deretter
+    // iterer vi gjennom listen og oppretter en ny label for hvert av 
+    // elementene i listen. Teksen på labelet er brukernavnet og antall
+    // innleverte moduler den spesifikke brukeren har 
     public void initialize() {
         students = userOverveiw.getAllUsers();
         for(UserDetails user : students) {
@@ -54,6 +66,9 @@ public class studentOverviewController {
             changeSubmissionList();
         }
         
+        
+        // "Lytter" på liste 1. Når man selekterer et element i liste 1
+        // Skal liste 2 oppdateres. 
         studentList.getSelectionModel().selectedItemProperty()
                 .addListener((ObservableValue<? extends Label> observable, 
                         Label oldValue, Label newValue) -> {
@@ -63,6 +78,9 @@ public class studentOverviewController {
         
     }
     
+    
+    // Som navnet tilsier, holder oversikten over hvor mange 
+    // modulSubmissions student(ene) har
     private int countModuleSubmissions(int userID) {
         ArrayList<StudentSubmissionHistory> temp;
         temp = lookupSubmissionBeanRemote()
@@ -73,14 +91,13 @@ public class studentOverviewController {
         return temp.size();
     }
     
+    
     private void changeSubmissionList() {
       
         moduleSubmissionListView.getItems().clear();
         
         int index = studentList.getSelectionModel().getSelectedIndex();
-        UserDetails user = students.get(index);
-        
-        
+        UserDetails user = students.get(index);  
         
         submissionsForSelectedUser = lookupSubmissionBeanRemote()
                 .getSubmissionHistoryFromUser(user.getId(),
@@ -93,7 +110,9 @@ public class studentOverviewController {
         }
     }
     
-    // Midlertidig testknapp forå se at at bean / interface fungerer som det skal
+    
+    // Midlertidig testknapp forå se at at controller klassen fungerer
+    // som den er tiltenkt
     public void pressMe() {
         System.out.println(overviewBean.clickMe());
     }
@@ -131,6 +150,9 @@ public class studentOverviewController {
         }
     }
 
+    
+    // Muliggjør at vi benytter oss av SubmissionsBeanRemote som vi trenger
+    // for å se hvor mange modulSubmissions en student har
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
