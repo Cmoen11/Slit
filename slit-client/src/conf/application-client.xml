@@ -67,6 +67,11 @@
     <remote>sessionBeans.InternalStudentCommentsBeanRemote</remote>
   </ejb-ref>
   <ejb-ref>
+    <ejb-ref-name>studentOverviewBean</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>sessionBeans.studentOverviewRemote</remote>
+  </ejb-ref>
+  <ejb-ref>
     <ejb-ref-name>blogBean</ejb-ref-name>
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>blog.blogBeanRemote</remote>
