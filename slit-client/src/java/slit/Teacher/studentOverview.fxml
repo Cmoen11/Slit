@@ -12,7 +12,7 @@
          <children>
             <AnchorPane layoutX="25.0" layoutY="75.0" prefHeight="538.0" prefWidth="779.0" style="-fx-background-color: #0A1733;">
                <children>
-                  <ListView layoutX="53.0" layoutY="51.0" prefHeight="337.0" prefWidth="261.0" style="-fx-background-radius: 5px;" />
+                  <ListView id="studentList" fx:id="studentList" layoutX="53.0" layoutY="51.0" prefHeight="337.0" prefWidth="261.0" style="-fx-background-radius: 5px;" />
                   <Text fill="WHITE" layoutX="53.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velg stundent" textAlignment="CENTER" wrappingWidth="261.0">
                      <font>
                         <Font size="13.0" />
@@ -24,8 +24,8 @@
                         <Font size="13.0" />
                      </font>
                   </Text>
-                  <Button layoutX="53.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #6B2B2B;" text="neiKnapp" textFill="WHITE" />
-                  <Button layoutX="202.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #214020;" text="Se på stundent" textFill="WHITE" />
+                  <Button layoutX="53.0" layoutY="401.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #6B2B2B;" text="neiKnapp" textFill="WHITE" />
+                  <Button layoutX="202.0" layoutY="401.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #214020;" text="Se på stundent" textFill="WHITE" />
                   <Button layoutX="612.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #214020;" text="En random knapp" textFill="WHITE" />
                   <Button layoutX="428.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #6B2B2B;" text="neiKnapp2" textFill="WHITE" />
                </children>

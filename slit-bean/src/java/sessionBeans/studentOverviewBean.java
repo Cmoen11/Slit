@@ -5,6 +5,9 @@ import auth.UserDetails;
 import database.Users;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,8 +18,11 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class studentOverviewBean implements studentOverviewRemote {
+    
     @PersistenceContext()
     EntityManager em;
+    
+    
     
     // Overkjører metoden clickMe i studentOverveiwRemote klassen
     // med samme navn. Har i oppgave å finne student hvor primærnøkkel
@@ -28,13 +34,4 @@ public class studentOverviewBean implements studentOverviewRemote {
         return user.getUsername();
     }
 
-
-    // In progress****
-    // Skal liste ut samtlige studenter i kurs
-    //@Override
-    //public Collection<CourseMembers> allStudentsList() {
-    //    Users user = em.find(Users.class, 1);
-    //    
-    //    return user.getCourseMembersCollection();
-    //}   
 }
