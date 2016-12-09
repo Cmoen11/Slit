@@ -5,6 +5,7 @@
  */
 package slit.student;
 
+import auth.UserDetails;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
@@ -26,6 +27,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import modul.ModuleDetails;
 import modul.ModuleRemote;
+import modul.ModuleSubmissionDetails;
+import modul.SubmissionBeanRemote;
 
 /**
  *
@@ -35,7 +38,7 @@ public class InnleveringController {
     static Stage primaryStage;
     
     @FXML private Text moduleName;
-    @FXML private HTMLEditor submissionText;
+    @FXML private HTMLEditor submissionText; // Must be set to have max 255 characters.
     @FXML private JFXButton uploadFile;
     
     @FXML private WebView moduleDesc;
@@ -43,36 +46,49 @@ public class InnleveringController {
     
     
     static ModuleDetails moduleInfo;
+    static UserDetails user;
     
-
+    /*
+    * Gets the moduleinfo of the selected module.
+    * TODO: 
+    * getSubmissionText(); - Must be implemented
+    * uploadFile(File file);- Must be implemented
+    */
     public void initialize() {
         getAndSetModuleName();
         getAndSetModuleDesc();
         getAndSetLearningGoals();
-        //getSubmissionText(); - Must be implemented
-        //uploadFile(File file);- Must be implemented
-
+        
     }
-    // Get and set modulename through moduleID
+    
+    /*
+    *Get and set modulename through moduleID
+    */
     private void getAndSetModuleName() {
         moduleInfo = lookupModuleBeanRemote().getModuleByID(moduleInfo.getModuleID());
         moduleName.setText(moduleInfo.getName());
     }
     
-    //  Get and set the description of the module
+    /*
+    *Get and set the description of the module
+    */
     private void getAndSetModuleDesc() {
         WebEngine moduleDescEngine = moduleDesc.getEngine();
         moduleDescEngine.loadContent(moduleInfo.getDescription());
     }
     
-   //   Get all learninggoals from the module, and add them to the listView moduleLearningGoals
+    /* 
+    * Get all learninggoals from the module, and add them to the listView moduleLearningGoals
+    * TODO: 
+    * May add condition to check wheter learningGoals from module is empty or not.
+    */
     private void getAndSetLearningGoals () {
            for (String details : moduleInfo.getLearningGoals()) {
             Label learningGoal = new Label(details);
             learningGoal.setWrapText(true);
             moduleLearningGoals.getItems().add(learningGoal);
         }
-        //May add condition to check wheter learningGoals from module is empty or not.
+        
     }
     
     
@@ -91,6 +107,27 @@ public class InnleveringController {
         primaryStage.showAndWait();
 
     }
+    /*
+    * Create a submission pojo object
+    * Append details of the sumbission into the object
+    * Persist the object to the database
+    * TODO:
+    * Close this window and return to studentPanel.
+    * Implement setFile(File file)
+    * Implement alertbox that confirms the users action
+    * Submission Type should get its value from the respective module that stores it.
+    */
+    public void deliverSubmission() {
+        ModuleSubmissionDetails submission = new ModuleSubmissionDetails();
+        submission.setModuleID(moduleInfo.getModuleID());
+        submission.setUserID(Controller.getUser().getId());
+        submission.setContent(submissionText.getHtmlText());
+        submission.setStatus(0);
+        submission.setType("random");
+        lookupSubmissionBeanRemote().createSubmission(submission);
+        
+        initialize();
+    }
 
     private ModuleRemote lookupModuleBeanRemote() {
         try {
@@ -101,6 +138,20 @@ public class InnleveringController {
             throw new RuntimeException(ne);
         }
     }
+
+    private SubmissionBeanRemote lookupSubmissionBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (SubmissionBeanRemote) c.lookup("java:global/slit-bean/SubmissionBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    
+    
+    
  
     
     

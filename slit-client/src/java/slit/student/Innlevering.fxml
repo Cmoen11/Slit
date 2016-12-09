@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
@@ -32,7 +33,7 @@
                         <Font name="Calibri" size="15.0" />
                      </font>
                   </Text>
-                  <JFXButton layoutX="353.0" layoutY="765.0" prefHeight="86.0" prefWidth="197.0" ripplerFill="BLACK" text="Lever" />
+                  <JFXButton layoutX="353.0" layoutY="765.0" onAction="#deliverSubmission" prefHeight="86.0" prefWidth="197.0" ripplerFill="BLACK" text="Lever" />
                </children>
             </AnchorPane>
          </center>
