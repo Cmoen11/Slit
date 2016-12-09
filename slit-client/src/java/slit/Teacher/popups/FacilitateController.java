@@ -72,15 +72,10 @@ public class FacilitateController {
 
     
     // history
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyStatus;
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyType;
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyDate;
-    
-    @FXML
-    private TableView<SubmissionHistory> submissionHistory;
+    @FXML private TableColumn<SubmissionHistory, String> historyStatus;
+    @FXML private TableColumn<SubmissionHistory, String> historyType;
+    @FXML private TableColumn<SubmissionHistory, String> historyDate;
+    @FXML private TableView<SubmissionHistory> submissionHistory;
 
     static ModuleSubmissionDetails submission;
     static Stage primaryStage;
@@ -92,37 +87,38 @@ public class FacilitateController {
     
     @FXML
     void initialize() {
-        // setting the moduleInfo
-        moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
-        // getting the submitter object
-        user = lookupUserBeanRemote().getUserByID(submission.getUserID());
-        studentName.setText(user.getFirstname() + " " + user.getLastname());
-        user.setCourseID(moduleInfo.getCourseID());
+        getModuleInfo();
+        settingUserObject();
         
-        //get blogposts.
-        blogPosts = lookupblogBeanRemote().getPostFromUserAndCourse(user);
-        
-        allBlogPosts.getItems().clear();
-        for (Post p : blogPosts){
-            Label l = new Label(p.getTitle());
-            allBlogPosts.getItems().add(l);
-        }
-        
-        
-        // add the submission text.
+        getBlogPosts();
         WebEngine webEngine = moduleSubmission.getEngine();
         webEngine.loadContent(submission.getContent());
+        getFeedback();
         
+        // disable the Download button if there is no file assigned
+        if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
+        else                              downloadAssignedFile.setDisable(false);
         
+        historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
+        historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        submissionHistory();
+        getInternalComments();
         
+
+    }
+    private void settingUserObject() {
+        user = lookupUserBeanRemote().getUserByID(submission.getUserID());
+        user.setCourseID(moduleInfo.getCourseID());
+        studentName.setText(user.getFirstname() + " " + user.getLastname());
+    }
+    private void getModuleInfo() {
+        moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
         WebEngine moduleDescEngine = moduleDesc.getEngine();
         moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
                 moduleInfo.getDescription());
         
-        feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
-        answerSubmission.setHtmlText(feedback.getContent());
-        
-        for (String details : moduleInfo.getLearningGoals()) {
+         for (String details : moduleInfo.getLearningGoals()) {
             Label item = new Label(details);
             item.setWrapText(true);
             moduleLearningGoals.getItems().add(item);
@@ -131,20 +127,22 @@ public class FacilitateController {
         if(moduleInfo.getLearningGoals().isEmpty()) {
             System.out.println("hallo heehe");
         }
+    }
+    private void getFeedback() {
+        feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
+        answerSubmission.setHtmlText(feedback.getContent());
+    }
+    private void getBlogPosts(){
+        blogPosts = lookupblogBeanRemote().getPostFromUserAndCourse(user);
         
-        
-        // disable the Download button if there is no file assigned
-        if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
-        else                              downloadAssignedFile.setDisable(false);
-        if (historyStatus == null) System.out.println("lol?");
-        
-        
-        historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
-        historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        
-        ArrayList<StudentSubmissionHistory> items = 
+        allBlogPosts.getItems().clear();
+        for (Post p : blogPosts){
+            Label l = new Label(p.getTitle());
+            allBlogPosts.getItems().add(l);
+        }
+    }
+    private void submissionHistory() {
+         ArrayList<StudentSubmissionHistory> items = 
         lookupSubmissionBeanRemote()
                 .getSubmissionHistoryFromUser(submission.getUserID(),
                         moduleInfo.getCourseID())
@@ -159,9 +157,9 @@ public class FacilitateController {
         }
         
         submissionHistory.setItems(history);
-        
-        
-        // get internal comments
+    }
+    
+    private void getInternalComments() {
         internalComments = lookupInternalStudentCommentsBeanRemote()
                 .getAllComments(user.getId(), moduleInfo.getCourseID());
         internalCommentsView.getItems().clear();
@@ -170,9 +168,8 @@ public class FacilitateController {
             Label l = new Label(c.getComment());
             internalCommentsView.getItems().add(l);
         }
-        
-
     }
+    
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
         
         FacilitateController.submission = submission;
