@@ -39,6 +39,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Text>
+            <ListView fx:id="moduleSubmissionDetails" layoutX="870.0" layoutY="130.0" prefHeight="337.0" prefWidth="296.0" style="-fx-background-radius: 5px;" />
          </children>
       </AnchorPane>
    </children>

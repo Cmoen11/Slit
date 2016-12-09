@@ -2,11 +2,10 @@
 package slit.Teacher;
 
 import auth.UserDetails;
+import modul.ModuleDetails;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,8 +13,6 @@ import javafx.scene.control.ListView;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import modul.ModuleDetails;
-import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import sessionBeans.studentOverviewRemote;
 import transferClasses.StudentSubmissionHistory;
@@ -33,12 +30,15 @@ public class studentOverviewController {
     ListView<Label> studentList;
     @FXML 
     ListView<Label> moduleSubmissionListView;
+    @FXML 
+    ListView<Label> moduleSubmissionDetails;
     
     
     // Nedenfor angir vi at bønnene kan referes til med kortere navn, 
-    // nærmere best overveiwBean og userOverveiw
+    // nærmere bestemt overveiwBean, userOverveiw og submissionDetails
     studentOverviewRemote overviewBean = lookupstudentOverviewBeanRemote();
     UserBeanRemote userOverveiw = lookupUserBeanRemote();
+    SubmissionBeanRemote submissionDetails = lookupSubmissionBeanRemote();
     
     
     // For å ha muligheten til å navigere oss gjennom og sortere ut 
@@ -46,6 +46,7 @@ public class studentOverviewController {
     // buffer reader når vi skal lese av / skrive til filer
     ArrayList<UserDetails> students;
     ArrayList<StudentSubmissionHistory> submissionsForSelectedUser;
+    ArrayList<StudentSubmissionHistory> moduleDetails;
     
     
     // Henter ut samtlige studenter fra databasen og lagrer objektene
@@ -66,7 +67,6 @@ public class studentOverviewController {
             changeSubmissionList();
         }
         
-        
         // "Lytter" på liste 1. Når man selekterer et element i liste 1
         // Skal liste 2 oppdateres. 
         studentList.getSelectionModel().selectedItemProperty()
@@ -74,8 +74,28 @@ public class studentOverviewController {
                         Label oldValue, Label newValue) -> {
             changeSubmissionList();
         });
+    }
+    
+    
+    public void initialize2() {
+        submissionsForSelectedUser = 
+        for(StudentSubmissionHistory modules : submissionsForSelectedUser) {
+            Label l = new Label("test");
+            moduleSubmissionListView.getItems().add(l);
+            
+        }
+        if (!moduleDetails.isEmpty()) {
+            moduleSubmissionListView.getSelectionModel().select(0);
+            changeModuleDetailList();
+        }
         
-        
+        // "Lytter" på liste 2. Når man selekterer et element i liste 2
+        // Skal liste 3 oppdateres. 
+        moduleSubmissionListView.getSelectionModel().selectedItemProperty()
+                .addListener((ObservableValue<? extends Label> observable, 
+                        Label oldValue, Label newValue) -> {
+            changeModuleDetailList();
+        });
     }
     
     
@@ -111,22 +131,20 @@ public class studentOverviewController {
     }
     
     
-    // Midlertidig testknapp forå se at at controller klassen fungerer
-    // som den er tiltenkt
-    public void pressMe() {
-        System.out.println(overviewBean.clickMe());
+        private void changeModuleDetailList() {
+      
+        moduleSubmissionDetails.getItems().clear();
+        
+        int index = moduleSubmissionListView.getSelectionModel().getSelectedIndex();
+        StudentSubmissionHistory module = moduleDetails.get(index);  
+        
+        for (StudentSubmissionHistory sh : moduleDetails) {
+            Label l = new Label("1");
+            moduleSubmissionDetails.getItems().add(l);
+        }
     }
     
     
-    // Knappen lister ut samtlige studenter. Foreløpig blir de listet ut i konsollen, todo - list dem i 
-    // listen på siden. Lister ut brukernavnet på personene i databasen. 
-    public void listAllStudents(){
-        System.out.println(userOverveiw.getAllUsers());
-        System.out.println(userOverveiw.getUserByID(2)); // testlinje, skal hente bruker med PK = 2
-    }
-    
-    
-
     // Sørger for at controller klassen er koblet sammen med studentOverveiwBean
     private studentOverviewRemote lookupstudentOverviewBeanRemote() {
         try {
