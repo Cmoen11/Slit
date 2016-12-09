@@ -41,7 +41,6 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
 import org.controlsfx.control.Notifications;
-import org.controlsfx.control.PopOver;
 import sessionBeans.InternalStudentCommentsBeanRemote;
 import slit.Teacher.TeacherMain;
 import slit.Teacher.Controller;
@@ -66,12 +65,8 @@ public class FacilitateController {
     @FXML private Text studentName;
     @FXML private JFXButton downloadAssignedFile;
     @FXML private Text fileName;
-    
     @FXML private TextField newInternalComment;
     @FXML private JFXListView<Label> internalCommentsView;
-
-    
-    // history
     @FXML private TableColumn<SubmissionHistory, String> historyStatus;
     @FXML private TableColumn<SubmissionHistory, String> historyType;
     @FXML private TableColumn<SubmissionHistory, String> historyDate;
@@ -89,8 +84,8 @@ public class FacilitateController {
     void initialize() {
         getModuleInfo();
         settingUserObject();
-        
         getBlogPosts();
+        
         WebEngine webEngine = moduleSubmission.getEngine();
         webEngine.loadContent(submission.getContent());
         getFeedback();
@@ -107,6 +102,8 @@ public class FacilitateController {
         
 
     }
+    
+    // setting up facilitate
     private void settingUserObject() {
         user = lookupUserBeanRemote().getUserByID(submission.getUserID());
         user.setCourseID(moduleInfo.getCourseID());
@@ -158,7 +155,6 @@ public class FacilitateController {
         
         submissionHistory.setItems(history);
     }
-    
     private void getInternalComments() {
         internalComments = lookupInternalStudentCommentsBeanRemote()
                 .getAllComments(user.getId(), moduleInfo.getCourseID());
@@ -170,6 +166,7 @@ public class FacilitateController {
         }
     }
     
+    // methods for client
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
         
         FacilitateController.submission = submission;
@@ -184,7 +181,6 @@ public class FacilitateController {
         primaryStage.setTitle("Modulgodkjenning");
         primaryStage.showAndWait();
     }
-    
     public void addInternalComment() {
         InternalStudentComments obj = new InternalStudentComments(
                 new Date(), Controller.getUser().getId(), user.getId(),
@@ -203,11 +199,9 @@ public class FacilitateController {
         }
         newInternalComment.clear();
     }
-    
     public void openBlogPost() {
         
     }
-    
     /**
      * Save current state of the process of the submission
      */
@@ -250,7 +244,6 @@ public class FacilitateController {
         notification.showConfirm();
         primaryStage.close();
     }
-    
     /**
      * Decline the submission
      */
@@ -272,7 +265,7 @@ public class FacilitateController {
         primaryStage.close();
     }
     
-    
+    // Server connection.
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -282,7 +275,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();   
@@ -292,7 +284,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -302,7 +293,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private InternalStudentCommentsBeanRemote lookupInternalStudentCommentsBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -312,7 +302,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private blogBeanRemote lookupblogBeanRemote() {
         try {
             Context c = new InitialContext();
