@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="653.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.client.CourseSelectorController">
+   <children>
+      <AnchorPane layoutX="13.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="628.0" style="-fx-background-color: #3b5998; -fx-border-color: white; -fx-border-radius: 5px; -fx-border-style: dashed;">
+         <children>
+            <Accordion fx:id="accordion" layoutX="18.0" layoutY="44.0" prefHeight="334.0" prefWidth="592.0" style="-fx-border-radius: 5px;">
+               <panes>
+                  <TitledPane fx:id="courseOverview" animated="false" prefHeight="300.0" prefWidth="601.0" style="-fx-background-radius: 5px;" text="Kursoversikt" wrapText="true">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <JFXListView fx:id="courseList" layoutX="14.0" layoutY="37.0" prefHeight="231.0" prefWidth="317.0" style="-fx-background-radius: 5px;" />
+                              <Button defaultButton="true" layoutX="453.0" layoutY="224.0" mnemonicParsing="false" onAction="#enterCourse" prefHeight="45.0" prefWidth="123.0" text="Åpne valgt kurs" />
+                              <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kurs du er medlem av" />
+                              <Button layoutX="453.0" layoutY="174.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="124.0" text="Sett kurs til favoritt" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane animated="false" text="Rediger profil">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: white;">
+                           <children>
+                              <TextField layoutX="132.0" layoutY="22.0" prefHeight="25.0" prefWidth="180.0" />
+                              <Text layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Brukernavn" />
+                              <Text layoutX="14.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fornavn" />
+                              <TextField layoutX="132.0" layoutY="53.0" prefHeight="25.0" prefWidth="180.0" />
+                              <TextField layoutX="132.0" layoutY="85.0" prefHeight="25.0" prefWidth="180.0" />
+                              <Text layoutX="14.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Etternavn" />
+                              <Text layoutX="14.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="passord igjen" />
+                              <TextField layoutX="132.0" layoutY="202.0" prefHeight="25.0" prefWidth="180.0" />
+                              <TextField layoutX="132.0" layoutY="170.0" prefHeight="25.0" prefWidth="180.0" />
+                              <Text layoutX="14.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nytt passord" />
+                              <Text layoutX="14.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Epost" />
+                              <TextField layoutX="132.0" layoutY="116.0" prefHeight="25.0" prefWidth="180.0" />
+                              <Button layoutX="430.0" layoutY="225.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="146.0" text="Lagre" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+               </panes>
+            </Accordion>
+            <Button fx:id="adminButton" layoutX="412.0" layoutY="14.0" mnemonicParsing="false" onAction="#enterAdminPanel" prefHeight="25.0" prefWidth="198.0" text="Login på adminitrasjonsplanelet" visible="false" />
+            <Text fx:id="welcomeText" fill="WHITE" layoutX="18.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

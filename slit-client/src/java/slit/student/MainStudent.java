@@ -2,7 +2,6 @@
 package slit.student;
 
 import auth.UserDetails;
-import slit.administrator.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -10,8 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import slit.Teacher.Controller;
-import slit.Teacher.TeacherMain;
 import slit.client.Main;
 
 /**
