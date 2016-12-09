@@ -123,7 +123,7 @@ public class CourseSelectorController implements Initializable {
     private CourseBeanRemote lookupCourseBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (CourseBeanRemote) c.lookup("java:comp/env/CourseBean");
+            return (CourseBeanRemote) c.lookup("java:global/slit-bean/CourseBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
@@ -133,7 +133,7 @@ public class CourseSelectorController implements Initializable {
     private LoginAuthRemote lookupLoginAuth_beanRemote() {
         try {
             Context c = new InitialContext();
-            return (LoginAuthRemote) c.lookup("java:comp/env/LoginAuth_bean");
+            return (LoginAuthRemote) c.lookup("java:global/slit-bean/LoginAuth_bean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

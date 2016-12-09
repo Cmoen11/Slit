@@ -20,53 +20,46 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Christian
+ * @author christian
  */
 @Entity
 @Table(name = "blogpost")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Blogpost.findAll", query = "SELECT b FROM Blogpost b"),
-    @NamedQuery(name = "Blogpost.findByPostID", query = "SELECT b FROM Blogpost b WHERE b.postID = :postID"),
-    @NamedQuery(name = "Blogpost.findByTitle", query = "SELECT b FROM Blogpost b WHERE b.title = :title"),
-    @NamedQuery(name = "Blogpost.findByContent", query = "SELECT b FROM Blogpost b WHERE b.content = :content"),
-    @NamedQuery(name = "Blogpost.findByCreationDate", query = "SELECT b FROM Blogpost b WHERE b.creationDate = :creationDate")})
+    @NamedQuery(name = "Blogpost.findAll", query = "SELECT b FROM Blogpost b")
+    , @NamedQuery(name = "Blogpost.findByPostID", query = "SELECT b FROM Blogpost b WHERE b.postID = :postID")    
+    , @NamedQuery(name = "Blogpost.findByUserIDAndCourseID", query = "SELECT b FROM Blogpost b WHERE b.userID = :userID And b.courseID = :courseID")
+    , @NamedQuery(name = "Blogpost.findByContent", query = "SELECT b FROM Blogpost b WHERE b.content = :content")
+    , @NamedQuery(name = "Blogpost.findByCreationDate", query = "SELECT b FROM Blogpost b WHERE b.creationDate = :creationDate")
+    , @NamedQuery(name = "Blogpost.findByTitle", query = "SELECT b FROM Blogpost b WHERE b.title = :title")})
 public class Blogpost implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "postID")
     private Integer postID;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "title")
-    private String title;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 2000)
     @Column(name = "content")
     private String content;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "creationDate")
     @Temporal(TemporalType.DATE)
     private Date creationDate;
+    @Size(max = 255)
+    @Column(name = "title")
+    private String title;
     @JoinColumn(name = "courseID", referencedColumnName = "courseID")
-    @ManyToOne(optional = false)
+    @ManyToOne
     private Courses courseID;
-    @JoinColumn(name = "blogID", referencedColumnName = "blogID")
-    @ManyToOne(optional = false)
-    private Blog blogID;
+    @JoinColumn(name = "userID", referencedColumnName = "userID")
+    @ManyToOne
+    private Users userID;
 
     public Blogpost() {
     }
@@ -75,27 +68,12 @@ public class Blogpost implements Serializable {
         this.postID = postID;
     }
 
-    public Blogpost(Integer postID, String title, String content, Date creationDate) {
-        this.postID = postID;
-        this.title = title;
-        this.content = content;
-        this.creationDate = creationDate;
-    }
-
     public Integer getPostID() {
         return postID;
     }
 
     public void setPostID(Integer postID) {
         this.postID = postID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getContent() {
@@ -114,6 +92,14 @@ public class Blogpost implements Serializable {
         this.creationDate = creationDate;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Courses getCourseID() {
         return courseID;
     }
@@ -122,12 +108,12 @@ public class Blogpost implements Serializable {
         this.courseID = courseID;
     }
 
-    public Blog getBlogID() {
-        return blogID;
+    public Users getUserID() {
+        return userID;
     }
 
-    public void setBlogID(Blog blogID) {
-        this.blogID = blogID;
+    public void setUserID(Users userID) {
+        this.userID = userID;
     }
 
     @Override

@@ -12,7 +12,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author marti
+ * @author Martin Nenseth
  */
 @Remote
 public interface UserBeanRemote {
@@ -33,5 +33,7 @@ public interface UserBeanRemote {
     UserDetails getUserObj(String username);
 
     UserDetails getUserByID(int x);
+
+    ArrayList<UserDetails> getAllStudentFromCourse(int courseID);
 
 }

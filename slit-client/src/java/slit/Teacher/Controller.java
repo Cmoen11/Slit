@@ -70,7 +70,7 @@ public class Controller {
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (UserBeanRemote) c.lookup("java:comp/env/UserBean");
+            return (UserBeanRemote) c.lookup("java:global/slit-bean/UserBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

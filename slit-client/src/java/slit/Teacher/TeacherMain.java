@@ -30,7 +30,6 @@ public class TeacherMain extends Application {
     @Override
     public void start(Stage primaryStage){
         try {
-            Application.setUserAgentStylesheet(STYLESHEET_MODENA);
             root= FXMLLoader.load(TeacherMain.class.getResource("TeacherClient.fxml"));
             primaryStage.setTitle("Slit");
             primaryStage.setScene(new Scene(root));
