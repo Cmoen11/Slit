@@ -26,40 +26,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="810.0" style="-fx-background-color: #3b5998; -fx-background-radius: 0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.student.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="795.0" prefWidth="1290.0" style="-fx-background-color: #3b5998; -fx-background-radius: 0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.student.Controller">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-      <AnchorPane layoutX="11.0" layoutY="14.0" prefHeight="541.0" prefWidth="788.0" style="-fx-border-radius: 5; -fx-border-color: white; -fx-border-style: dashed;" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="14.0">
+      <AnchorPane layoutX="5.0" layoutY="6.0" prefHeight="750.0" prefWidth="1279.0" style="-fx-border-radius: 5; -fx-border-color: white; -fx-border-style: dashed;" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
          <children>
-            <Pane prefHeight="541.0" prefWidth="788.0">
-               <children>
-                  <Text fill="WHITE" layoutX="253.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fremdriftsplan goes here" wrappingWidth="364.111328125">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Text>
-                  <Pane layoutX="293.0" layoutY="139.0" prefHeight="352.0" prefWidth="285.0">
-                     <children>
-                        <Text fill="#fffefe" layoutX="115.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nyheter">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Text>
-                        <JFXListView fx:id="news" layoutX="20.0" layoutY="21.0" prefHeight="329.0" prefWidth="247.0" />
-                     </children>
-                  </Pane>
-                  <Pane layoutY="61.0" prefHeight="467.0" prefWidth="200.0">
-                     <children>
-                        <JFXListView fx:id="modules" layoutY="60.0" prefHeight="407.0" prefWidth="186.0" />
-                        <JFXButton fx:id="modulePanel" buttonType="RAISED" defaultButton="true" layoutX="27.0" layoutY="14.0" prefHeight="33.0" prefWidth="88.0" ripplerFill="#2a5730" text="Moduler" textFill="#140101">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </JFXButton>
-                     </children>
-                  </Pane>
-               </children>
-            </Pane>
             <ImageView fitHeight="33.0" fitWidth="88.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" AnchorPane.bottomAnchor="493.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="689.0" AnchorPane.topAnchor="15.0">
                <image>
                   <Image url="@../img/logo_Plain.png" />
@@ -70,13 +40,41 @@
                   <Font name="System Italic" size="16.0" />
                </font>
             </Text>
-            <JFXButton buttonType="RAISED" layoutX="718.0" layoutY="17.0" onAction="#logOut" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE">
+            <TabPane prefHeight="708.0" prefWidth="1263.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="53.0">
+              <tabs>
+                <Tab text="Studentpanelet">
+                     <content>
+                        <AnchorPane prefHeight="688.0" prefWidth="1233.0">
+                           <children>
+                              <AnchorPane prefHeight="688.0" prefWidth="1233.0" />
+                              <fx:include source="StudentPanel.fxml" />
+                           </children></AnchorPane>
+                     </content>
+                </Tab>
+                <Tab disable="true" text="Stuidentprofil">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                  <Tab text="Blogg">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane prefHeight="663.0" prefWidth="1262.0" />
+                              <fx:include source="blog.fxml" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <JFXButton buttonType="RAISED" layoutX="1198.0" layoutY="20.0" onAction="#logOut" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" AnchorPane.bottomAnchor="706.0" AnchorPane.leftAnchor="1198.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>
-            <Text fx:id="welcomeText" fill="WHITE" layoutX="534.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" />
+            <Text fx:id="welcomeText" fill="WHITE" layoutX="1015.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" AnchorPane.topAnchor="25.05078125" />
          </children>
       </AnchorPane>
-      <Label layoutX="317.0" layoutY="561.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" />
+      <Label layoutX="569.0" layoutY="781.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="568.283203125" AnchorPane.rightAnchor="569.716796875" AnchorPane.topAnchor="761.0" />
    </children>
 </AnchorPane>

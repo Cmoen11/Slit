@@ -16,7 +16,7 @@ import slit.client.Main;
  * @author Christian
  */
 public class MainStudent extends Application {
-
+    static Parent root;
     /**
      * If user has entered a correct password, he will be forwarded to this class
      * that will open up the student main page.
@@ -29,7 +29,7 @@ public class MainStudent extends Application {
     @Override
     public void start(Stage primaryStage){
         try {
-            Parent root= FXMLLoader.load(MainStudent.class.getResource("StudentClient.fxml"));
+            MainStudent.root = FXMLLoader.load(MainStudent.class.getResource("StudentClient.fxml"));
             primaryStage.setTitle("Slit student panel");
             primaryStage.setScene(new Scene(root));
             primaryStage.centerOnScreen();
@@ -39,5 +39,9 @@ public class MainStudent extends Application {
         } catch (Exception ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static Parent getRoot() {
+        return root;
     }
 }

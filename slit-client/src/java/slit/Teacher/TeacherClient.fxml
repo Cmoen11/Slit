@@ -60,6 +60,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="1183.0">
                            <children>
                               <AnchorPane prefHeight="688.0" prefWidth="1265.0" />
+                              <fx:include source="studentOverview.fxml" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -68,7 +69,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="590.0" prefWidth="1184.0">
                            <children>
-                              <HBox layoutX="-14.0" layoutY="-5.0" prefHeight="701.0" prefWidth="1280.0">
+                              <HBox layoutX="-14.0" layoutY="-5.0" prefHeight="652.0" prefWidth="1280.0">
                                  <children>
                                     <Pane prefHeight="701.0" prefWidth="1285.0" style="-fx-background-color: F3F3F3;" />
                                     <fx:include source="TeacherModule.fxml" />
@@ -91,7 +92,15 @@
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Blogger" />
+                  <Tab text="Blogger">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane prefHeight="657.0" prefWidth="1260.0" />
+                              <fx:include source="studentBlogs.fxml" />
+                           </children>
+                        </AnchorPane>
+                     </content></Tab>
               </tabs>
             </TabPane>
             <JFXButton buttonType="RAISED" layoutX="1198.0" layoutY="20.0" onAction="#logOut" prefHeight="28.0" prefWidth="70.0" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" AnchorPane.bottomAnchor="706.0" AnchorPane.leftAnchor="1198.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0">

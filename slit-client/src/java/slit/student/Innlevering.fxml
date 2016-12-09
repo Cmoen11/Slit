@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.web.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="931.0" prefWidth="1370.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.student.InnleveringController">
+   <children>
+      <BorderPane prefHeight="713.0" prefWidth="1356.0" style="-fx-background-color: #3B5998;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <AnchorPane prefHeight="29.0" prefWidth="999.0" style="-fx-background-color: #2D4475;" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <AnchorPane prefHeight="440.0" prefWidth="254.0" style="-fx-background-color: #E1E1E1;" BorderPane.alignment="CENTER">
+               <children>
+                  <HTMLEditor fx:id="submissionText" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="17.0" layoutY="89.0" prefHeight="552.0" prefWidth="977.0" />
+                  <AnchorPane layoutX="15.0" layoutY="660.0" prefHeight="50.0" prefWidth="623.0" style="-fx-background-color: white; -fx-border-radius: 0; -fx-border-color: #C3C3C3; -fx-background-radius: 5px; -fx-border-radius: 5px;" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="12.0">
+                     <children>
+                        <JFXButton fx:id="uploadFile" buttonType="RAISED" disable="true" layoutX="468.0" layoutY="7.0" prefHeight="36.0" prefWidth="136.0" style="-fx-background-color: #3E4963;" text="Last opp vedlegg" textFill="WHITE" AnchorPane.rightAnchor="6.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </JFXButton>
+                     </children>
+                  </AnchorPane>
+                  <Text fill="#434343" layoutX="17.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Besvarelse">
+                     <font>
+                        <Font name="Calibri" size="15.0" />
+                     </font>
+                  </Text>
+                  <JFXButton layoutX="353.0" layoutY="765.0" onAction="#deliverSubmission" prefHeight="86.0" prefWidth="197.0" ripplerFill="BLACK" text="Lever" />
+               </children>
+            </AnchorPane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="869.0" prefWidth="354.0" style="-fx-background-color: #2D4475;" BorderPane.alignment="CENTER">
+               <children>
+                  <Accordion layoutX="10.0" layoutY="16.0" prefHeight="872.0" prefWidth="340.0">
+                     <panes>
+                        <TitledPane prefHeight="722.0" prefWidth="340.0" text="Modulbeskrivelse">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="345.0" prefWidth="338.0">
+                                 <children>
+                                    <WebView fx:id="moduleDesc" focusTraversable="false" layoutX="7.0" prefHeight="780.0" prefWidth="325.0" AnchorPane.bottomAnchor="25.20001220703125" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" text="Læringsmål">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <JFXListView fx:id="moduleLearningGoals" prefHeight="780.0" prefWidth="338.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
+               </children>
+            </AnchorPane>
+         </left>
+         <right>
+            <AnchorPane prefHeight="888.0" prefWidth="7.0" style="-fx-background-color: #2D4475;" BorderPane.alignment="CENTER" />
+         </right>
+         <top>
+            <AnchorPane prefHeight="30.0" prefWidth="1356.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fill="WHITE" layoutX="14.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Innlevering av modul">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="moduleName" fill="WHITE" layoutX="171.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modulnavn" wrappingWidth="143.0">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

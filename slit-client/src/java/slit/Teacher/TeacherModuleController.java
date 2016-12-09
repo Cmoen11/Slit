@@ -29,16 +29,12 @@ public class TeacherModuleController {
 
     // List, edit, add and pick modules or learninggoals.
     private ArrayList<String> learningGoalsList = new ArrayList<>();
-    @FXML
-    ListView<String> learningGoals;
-    @FXML
-    ListView<Label> modules;
-    @FXML
-    TextField moduleTitle;
-    @FXML
-    TextField learningGoal;
-    @FXML
-    HTMLEditor moduleSpecifications;
+    
+    @FXML ListView<String> learningGoals;
+    @FXML ListView<Label> modules;
+    @FXML TextField moduleTitle;
+    @FXML TextField learningGoal;
+    @FXML HTMLEditor moduleSpecifications;
 
     ArrayList<ModuleDetails> existingModules;
     int index; 
@@ -188,7 +184,7 @@ public class TeacherModuleController {
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (ModuleRemote) c.lookup("java:comp/env/ModuleBean");
+            return (ModuleRemote) c.lookup("java:global/slit-bean/ModuleBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
