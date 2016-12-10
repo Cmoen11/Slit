@@ -80,6 +80,26 @@ public class FacilitateController {
     ArrayList<InternalStudentComments> internalComments;
     ArrayList<Post> blogPosts; 
     
+    /**
+     * This method is called whenever someone will open a modulesubmission frame.
+     * @param submission    selected submission to be opened.
+     * @throws IOException 
+     */
+    public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
+        
+        FacilitateController.submission = submission;
+        
+        Parent root = TeacherMain.getRoot();
+        
+        primaryStage = new Stage();
+        Parent root2 = FXMLLoader.load(FacilitateController.class.getResource("FacilitateModuleSubmission.fxml"));
+        primaryStage.setScene(new Scene(root2));
+        primaryStage.initModality(Modality.APPLICATION_MODAL);
+        primaryStage.initOwner(root.getScene().getWindow());
+        primaryStage.setTitle("Modulgodkjenning");
+        primaryStage.showAndWait();
+    }
+    
     @FXML
     void initialize() {
         getModuleInfo();
@@ -102,13 +122,19 @@ public class FacilitateController {
         
 
     }
-    
-    // setting up facilitate
+
+    /**
+     * get the submitters user object.
+     */
     private void settingUserObject() {
         user = lookupUserBeanRemote().getUserByID(submission.getUserID());
         user.setCourseID(moduleInfo.getCourseID());
         studentName.setText(user.getFirstname() + " " + user.getLastname());
     }
+    
+    /**
+     * get the module info for the selected submission.
+     */
     private void getModuleInfo() {
         moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
         WebEngine moduleDescEngine = moduleDesc.getEngine();
@@ -125,10 +151,18 @@ public class FacilitateController {
             System.out.println("hallo heehe");
         }
     }
+    
+    /**
+     * If there is any feedback, get it and apply it to Gui.
+     */
     private void getFeedback() {
         feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
         answerSubmission.setHtmlText(feedback.getContent());
     }
+    
+    /**
+     * get all blog posts
+     */
     private void getBlogPosts(){
         blogPosts = lookupblogBeanRemote().getPostFromUserAndCourse(user);
         
@@ -138,6 +172,11 @@ public class FacilitateController {
             allBlogPosts.getItems().add(l);
         }
     }
+    
+    /**
+     * get all submission the user has submitted before and place it into the 
+     * gui.
+     */
     private void submissionHistory() {
          ArrayList<StudentSubmissionHistory> items = 
         lookupSubmissionBeanRemote()
@@ -155,6 +194,10 @@ public class FacilitateController {
         
         submissionHistory.setItems(history);
     }
+    
+    /**
+     * get internal comments for the selected student.
+     */
     private void getInternalComments() {
         internalComments = lookupInternalStudentCommentsBeanRemote()
                 .getAllComments(user.getId(), moduleInfo.getCourseID());
@@ -166,21 +209,9 @@ public class FacilitateController {
         }
     }
     
-    // methods for client
-    public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
-        
-        FacilitateController.submission = submission;
-        
-        Parent root = TeacherMain.getRoot();
-        
-        primaryStage = new Stage();
-        Parent root2 = FXMLLoader.load(FacilitateController.class.getResource("FacilitateModuleSubmission.fxml"));
-        primaryStage.setScene(new Scene(root2));
-        primaryStage.initModality(Modality.APPLICATION_MODAL);
-        primaryStage.initOwner(root.getScene().getWindow());
-        primaryStage.setTitle("Modulgodkjenning");
-        primaryStage.showAndWait();
-    }
+    /**
+     * add an internal comment for the selected user.
+     */
     public void addInternalComment() {
         InternalStudentComments obj = new InternalStudentComments(
                 new Date(), Controller.getUser().getId(), user.getId(),
@@ -188,19 +219,16 @@ public class FacilitateController {
         );
         lookupInternalStudentCommentsBeanRemote().addComment(obj);
         
-        // get internal comments
-        internalComments = lookupInternalStudentCommentsBeanRemote()
-                .getAllComments(user.getId(), moduleInfo.getCourseID());
-        internalCommentsView.getItems().clear();
-        for (InternalStudentComments c : internalComments) {
-            
-            Label l = new Label(c.getComment());
-            internalCommentsView.getItems().add(l);
-        }
+        // update the gui with the new comment.
+        getInternalComments();
         newInternalComment.clear();
     }
+    
+    /**
+     * Open the selected blog posts
+     */
     public void openBlogPost() {
-        
+        // TO DO
     }
     /**
      * Save current state of the process of the submission

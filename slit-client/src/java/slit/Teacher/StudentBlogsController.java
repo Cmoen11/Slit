@@ -63,6 +63,9 @@ public class StudentBlogsController {
         
     }    
     
+    /**
+     * This method is called whenever someone has changed the selected student.
+     */
     public void studentChanged() {
         getAllBlogPostsFromUser();
         insertBlogPostsIntoListView();
@@ -73,11 +76,18 @@ public class StudentBlogsController {
         
     }
     
+    /**
+     * Get selected post by index, and fill it into post content.
+     * @param index 
+     */
     private void showPostByIndex(int index) {
         webEngine = postContent.getEngine();
         webEngine.loadContent(blogPosts.get(index).getContent());
     }
     
+    /**
+     * insert blogpost written by the selected student into list view. 
+     */
     private void insertBlogPostsIntoListView() {
         if (blogPosts == null) getAllBlogPostsFromUser();
         blogPostsListView.getItems().clear();
@@ -88,6 +98,9 @@ public class StudentBlogsController {
         }
     }
     
+    /**
+     * get all blog posts from selected user.
+     */
     private void getAllBlogPostsFromUser() {
         int index = allStudents.getSelectionModel().getSelectedIndex();
         UserDetails user = students.get(index);
@@ -95,13 +108,18 @@ public class StudentBlogsController {
         blogPosts = lookupblogBeanRemote().getPostFromUserAndCourse(user);
     }
     
+    /**
+     * get all users from a course.
+     */
     private void getAllUsers() {
-        System.out.println(Controller.getUser().getCourseID());
         if (students != null) students.clear();
         students = lookupUserBeanRemote()
                 .getAllStudentFromCourse(Controller.getUser().getCourseID());
     }
     
+    /**
+     * add students to the list view.
+     */
     private void addStudentsToListView() {
         allStudents.getItems().clear();
         
@@ -112,6 +130,7 @@ public class StudentBlogsController {
         }
     }
     
+    /* bean lookups */
     
     private UserBeanRemote lookupUserBeanRemote() {
         try {

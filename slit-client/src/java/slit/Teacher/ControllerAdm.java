@@ -54,6 +54,7 @@ public class ControllerAdm {
     // pupup for module submission.
     private FacilitateController moduleSubmission;
     
+    
     public void initialize() {
         try {
             clearListViews();
@@ -149,6 +150,9 @@ public class ControllerAdm {
         initialize();
     }
     
+    /**
+     * Uassign the selected moduleSubmission
+     */
     public void unassignModule() {
         try {
             int index =  assignedSubmissions.getSelectionModel().getSelectedIndex();
@@ -171,6 +175,9 @@ public class ControllerAdm {
         initialize();
     }
     
+    /**
+     * Assign selected help request.
+     */
     public void assignHelpRequest() {
         int index = unassignedHelp.getSelectionModel().getSelectedIndex();
         HelpRequestDetails request = unassignedHelpRequests.get(index);
@@ -180,6 +187,9 @@ public class ControllerAdm {
         
     }
     
+    /**
+     * Unassign the selected helprequest
+     */
     public void unassignHelpRequest() {
         int index = assignedHelp.getSelectionModel().getSelectedIndex();
         HelpRequestDetails request =  assignedHelpRequest.get(index);
@@ -189,6 +199,9 @@ public class ControllerAdm {
         
     }
     
+    /**
+     * Open slected modulesubmission.
+     */
     public void openModuleSubmission() {
         
         try {
@@ -202,6 +215,9 @@ public class ControllerAdm {
         }
     }
     
+    /**
+     * Assign and open the selected modulesubmission
+     */
     public void assignAndOpenModuleSubmission() {
         
         int index = unassignedModules.getSelectionModel().getSelectedIndex();
@@ -331,9 +347,13 @@ public class ControllerAdm {
         
     }
     
+    /**
+     * get all assigned modules from database.
+     */
     private void getAllAssignedModuleSubmission(){
         assignedSubs = lookupSubmissionBeanRemote()
-                .getAssignedModulesForUser(Controller.getUser().getId(), Controller.getUser().getCourseID());
+                .getAssignedModulesForUser(Controller.getUser().getId(), 
+                        Controller.getUser().getCourseID());
         
         //assignedSubmissions
         if (!assignedSubs.isEmpty()) {
@@ -360,6 +380,9 @@ public class ControllerAdm {
         
     }
     
+    /**
+     * get all assigned help requests from database.
+     */
     private void getAllAssignedHelpRequests() {
         assignedHelpRequest = lookupHelpRequestBeanRemote()
                 .getAssignedHelpRequests(
@@ -389,6 +412,9 @@ public class ControllerAdm {
         
     
     
+    /*
+        all bean lookups.
+    */
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
