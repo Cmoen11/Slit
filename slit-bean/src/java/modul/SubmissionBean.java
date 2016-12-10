@@ -243,8 +243,8 @@ public class SubmissionBean implements SubmissionBeanRemote {
         
     }
     /* 
-    * @author: Martin Nenseth - inspired by Christian Moen's blogBean.,
-    * Persists a ModuleSubmissionDetails object after it's been converted to an entity object
+    * @author: Martin Nenseth - inspired by Christian Moen's blogBean.
+    * Persists a Modulesubmission entity object to db.
     */
     @Override
     public void createSubmission(ModuleSubmissionDetails submission) {

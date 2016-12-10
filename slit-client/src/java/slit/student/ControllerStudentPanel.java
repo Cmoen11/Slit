@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package slit.student;
 
 import blog.Post;
@@ -22,7 +17,6 @@ import sessionBeans.NewsBeanRemote;
 import static slit.student.Controller.getUser;
 
 /**
- *
  * @author Martin Nenseth
  */
 public class ControllerStudentPanel {
@@ -44,7 +38,11 @@ public class ControllerStudentPanel {
             System.out.println(e);
         }
     }
-    
+    /*
+    * Get all modules related to the user and the course the user is logged in on.
+    * ToDo: 
+    * Condition to not show modules already delivered. 
+    */
     private void getModules() {
     existingModules = lookupModuleBeanRemote().
                 getAllModules(getUser().getCourseID());
@@ -54,7 +52,9 @@ public class ControllerStudentPanel {
             modules.getItems().add(moduleLabel);
         }  
     }
-    
+    /*
+    * Get all news related to the course the user is logged in on.
+    */
     private void getNews() {
     existingNews = lookupNewsBeanRemote().
                 getPostsFromCourse(getUser().getCourseID());
@@ -66,8 +66,10 @@ public class ControllerStudentPanel {
         }
     
     /*
-    * Henter det selekterte elementet i listviewene fra gui
-    * Åpner den selekterte modulen i nytt popup vindu.
+    * Get the selected module
+    * Open that module in a popup through an instance of the popup controller, and
+    * calling that controller's run method.
+    * getStackTrace() is currently used for debugging purposes. 
     */
     public void openModule() {
         try {
@@ -75,7 +77,6 @@ public class ControllerStudentPanel {
         ModuleDetails module = existingModules.get(index);
         modulOppgave = new InnleveringController();
         modulOppgave.run(module);
-         // Åpner den selekterte modulen
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }

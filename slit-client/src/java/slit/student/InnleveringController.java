@@ -38,7 +38,7 @@ public class InnleveringController {
     static Stage primaryStage;
     
     @FXML private Text moduleName;
-    @FXML private HTMLEditor submissionText; // Must be set to have max 255 characters.
+    @FXML private HTMLEditor submissionText; // Must be set to have max 255 characters OR expand column constraint in db.
     @FXML private JFXButton uploadFile;
     
     @FXML private WebView moduleDesc;
@@ -49,7 +49,7 @@ public class InnleveringController {
     static UserDetails user;
     
     /*
-    * Gets the moduleinfo of the selected module.
+    * Gets and sets info of the selected module.
     * TODO: 
     * getSubmissionText(); - Must be implemented
     * uploadFile(File file);- Must be implemented
@@ -79,19 +79,22 @@ public class InnleveringController {
     
     /* 
     * Get all learninggoals from the module, and add them to the listView moduleLearningGoals
-    * TODO: 
-    * May add condition to check wheter learningGoals from module is empty or not.
+    * Fit the learningGoal into a label properly.
     */
     private void getAndSetLearningGoals () {
-           for (String details : moduleInfo.getLearningGoals()) {
-            Label learningGoal = new Label(details);
+           for (String goal : moduleInfo.getLearningGoals()) {
+            Label learningGoal = new Label(goal);
             learningGoal.setWrapText(true);
             moduleLearningGoals.getItems().add(learningGoal);
         }
-        
     }
     
-    
+    /*
+    * Create a new Stage with a new scene that loads the correct .fxml file(GUI)
+    * Block users ability to interact with other windows than this.
+    * Set Stage owner to studentPanel.
+    * @param: The selected module from studentPanel. 
+    */
     public void run(ModuleDetails module) throws IOException {
         InnleveringController.moduleInfo = module;
         
@@ -99,7 +102,6 @@ public class InnleveringController {
 
         primaryStage = new Stage();
         Parent root2 = FXMLLoader.load(InnleveringController.class.getResource("Innlevering.fxml"));
-        System.out.println("hey");
         primaryStage.setScene(new Scene(root2));
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.initOwner(root.getScene().getWindow());
@@ -108,11 +110,11 @@ public class InnleveringController {
 
     }
     /*
-    * Create a submission pojo object
-    * Append details of the sumbission into the object
+    * Create a submission pojo
+    * Append details of the sumbission into the pojo
     * Persist the object to the database
-    * TODO:
     * Close this window and return to studentPanel.
+    * TODO:
     * Implement setFile(File file)
     * Implement alertbox that confirms the users action
     * Submission Type should get its value from the respective module that stores it.
@@ -124,9 +126,10 @@ public class InnleveringController {
         submission.setContent(submissionText.getHtmlText());
         submission.setStatus(0);
         submission.setType("random");
+        
         lookupSubmissionBeanRemote().createSubmission(submission);
         
-        initialize();
+        primaryStage.close();
     }
 
     private ModuleRemote lookupModuleBeanRemote() {
