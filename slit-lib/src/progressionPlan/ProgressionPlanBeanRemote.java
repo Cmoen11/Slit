@@ -6,6 +6,8 @@
 package progressionPlan;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.Remote;
 
 /**
@@ -21,7 +23,7 @@ public interface ProgressionPlanBeanRemote {
 
     public void addProgressionEntry(java.util.Date completionDate, int module, int planID);
 
-    void getAllProgressionEntriesForUser();
+    List getAllProgressionEntriesByUser(int userID);
     
 }
 

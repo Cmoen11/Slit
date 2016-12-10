@@ -62,21 +62,10 @@ public class ProgressionPlanBean implements ProgressionPlanBeanRemote {
     }
 
     @Override
-    public List<Progressionentry> getAllProgressionEntriesForUser(int userID) {
-        List<Progressionentry> returnList = new ArrayList<Progressionentry>();
-        
-        Query query = em.createNamedQuery("progressionEntries.findByUser", Progressionentry.class);
-        
-        query.setParameter("userID", userID);
-        
-        List<Progressionentry> resultList = query.getResultList();
-        
-        for (Progressionentry entry : resultList) {
-            returnList.add(null);
-        };
+    public List<> getAllProgressionEntriesByUser(int userID) {
+        return null;
     }
-    
-    
+
 
     
 }
