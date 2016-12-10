@@ -2,7 +2,6 @@
 package slit.Teacher;
 
 import auth.UserDetails;
-import modul.ModuleDetails;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,10 +12,11 @@ import javafx.scene.control.ListView;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import modul.SubmissionBeanRemote;
 import sessionBeans.studentOverviewRemote;
 import transferClasses.StudentSubmissionHistory;
 import user_details.UserBeanRemote;
+import modul.SubmissionBeanRemote;
+import modul.ModuleDetails;
 
 /**
  *
@@ -38,7 +38,7 @@ public class studentOverviewController {
     // nærmere bestemt overveiwBean, userOverveiw og submissionDetails
     studentOverviewRemote overviewBean = lookupstudentOverviewBeanRemote();
     UserBeanRemote userOverveiw = lookupUserBeanRemote();
-    SubmissionBeanRemote submissionDetails = lookupSubmissionBeanRemote();
+    TeacherModuleController submissionDetails = lookupModuleBeanRemote();
     
     
     // For å ha muligheten til å navigere oss gjennom og sortere ut 
@@ -46,7 +46,7 @@ public class studentOverviewController {
     // buffer reader når vi skal lese av / skrive til filer
     ArrayList<UserDetails> students;
     ArrayList<StudentSubmissionHistory> submissionsForSelectedUser;
-    ArrayList<StudentSubmissionHistory> moduleDetails;
+    ArrayList<ModuleDetails> moduleDetails;
     
     
     // Henter ut samtlige studenter fra databasen og lagrer objektene
@@ -78,8 +78,8 @@ public class studentOverviewController {
     
     
     public void initialize2() {
-        submissionsForSelectedUser = 
-        for(StudentSubmissionHistory modules : submissionsForSelectedUser) {
+        submissionsForSelectedUser = moduleDetails;
+        for(ModuleDetails modules : moduleDetails) {
             Label l = new Label("test");
             moduleSubmissionListView.getItems().add(l);
             
@@ -130,16 +130,26 @@ public class studentOverviewController {
         }
     }
     
-    
+        // fuckfest... funker nada. Todo - fix
         private void changeModuleDetailList() {
       
         moduleSubmissionDetails.getItems().clear();
         
-        int index = moduleSubmissionListView.getSelectionModel().getSelectedIndex();
-        StudentSubmissionHistory module = moduleDetails.get(index);  
+        int index = submissionsForSelectedUser.getSelectionModel().getSelectedIndex();
+        UserDetails user = students.get(index);  
         
-        for (StudentSubmissionHistory sh : moduleDetails) {
-            Label l = new Label("1");
+        moduleSubmissionDetails = lookupModuleBeanRemote()
+            ModuleDetails modul = new ModuleDetails();
+            modul.setCourseID(Controller.getUser().getCourseID());
+            modul.setDescription("");
+            modul.setModuleType("");
+            modul.setName("");
+            existingModules.add(modul);
+            modules.getSelectionModel().select(modules.getItems().size() - 1);
+            openSelectedModule();
+        
+        for (StudentSubmissionHistory sh : moduleSubmissionDetails) {
+            Label l = new Label(sh.getModuleName());
             moduleSubmissionDetails.getItems().add(l);
         }
     }
