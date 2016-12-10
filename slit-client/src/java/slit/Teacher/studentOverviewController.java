@@ -17,6 +17,9 @@ import transferClasses.StudentSubmissionHistory;
 import user_details.UserBeanRemote;
 import modul.SubmissionBeanRemote;
 import modul.ModuleDetails;
+import modul.ModuleRemote;
+import slit.Teacher.TeacherModuleController;
+
 
 /**
  *
@@ -38,7 +41,7 @@ public class studentOverviewController {
     // nærmere bestemt overveiwBean, userOverveiw og submissionDetails
     studentOverviewRemote overviewBean = lookupstudentOverviewBeanRemote();
     UserBeanRemote userOverveiw = lookupUserBeanRemote();
-    TeacherModuleController submissionDetails = lookupModuleBeanRemote();
+    ModuleRemote submissionDetails = lookupModuleBeanRemote();
     
     
     // For å ha muligheten til å navigere oss gjennom og sortere ut 
@@ -78,9 +81,9 @@ public class studentOverviewController {
     
     
     public void initialize2() {
-        submissionsForSelectedUser = moduleDetails;
+        moduleDetails = submissionDetails.getAllModules(1);
         for(ModuleDetails modules : moduleDetails) {
-            Label l = new Label("test");
+            Label l = new Label();
             moduleSubmissionListView.getItems().add(l);
             
         }
@@ -135,21 +138,11 @@ public class studentOverviewController {
       
         moduleSubmissionDetails.getItems().clear();
         
-        int index = submissionsForSelectedUser.getSelectionModel().getSelectedIndex();
+        int index = moduleSubmissionDetails.getSelectionModel().getSelectedIndex();
         UserDetails user = students.get(index);  
         
-        moduleSubmissionDetails = lookupModuleBeanRemote()
-            ModuleDetails modul = new ModuleDetails();
-            modul.setCourseID(Controller.getUser().getCourseID());
-            modul.setDescription("");
-            modul.setModuleType("");
-            modul.setName("");
-            existingModules.add(modul);
-            modules.getSelectionModel().select(modules.getItems().size() - 1);
-            openSelectedModule();
-        
-        for (StudentSubmissionHistory sh : moduleSubmissionDetails) {
-            Label l = new Label(sh.getModuleName());
+        for (ModuleDetails md : moduleDetails) {
+            Label l = new Label(md.getName());
             moduleSubmissionDetails.getItems().add(l);
         }
     }
@@ -191,5 +184,15 @@ public class studentOverviewController {
         }
     }
     
+    
+    private ModuleRemote lookupModuleBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (ModuleRemote) c.lookup("java:global/slit-bean/ModuleBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
     
 }
