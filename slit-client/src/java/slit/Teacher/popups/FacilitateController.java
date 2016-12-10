@@ -1,6 +1,8 @@
 package slit.Teacher.popups;
 
 import auth.UserDetails;
+import blog.Post;
+import blog.blogBeanRemote;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
@@ -57,27 +59,18 @@ public class FacilitateController {
     @FXML private WebView selectedBlogPost;
     @FXML private HTMLEditor answerSubmission;
     @FXML private WebView moduleDesc;
-    @FXML private JFXListView<?> allBlogPosts;
+    @FXML private JFXListView<Label> allBlogPosts;
     @FXML private ListView<Label> moduleLearningGoals;
     @FXML private WebView moduleSubmission; 
     @FXML private Text studentName;
     @FXML private JFXButton downloadAssignedFile;
     @FXML private Text fileName;
-    
     @FXML private TextField newInternalComment;
     @FXML private JFXListView<Label> internalCommentsView;
-
-    
-    // history
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyStatus;
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyType;
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyDate;
-    
-    @FXML
-    private TableView<SubmissionHistory> submissionHistory;
+    @FXML private TableColumn<SubmissionHistory, String> historyStatus;
+    @FXML private TableColumn<SubmissionHistory, String> historyType;
+    @FXML private TableColumn<SubmissionHistory, String> historyDate;
+    @FXML private TableView<SubmissionHistory> submissionHistory;
 
     static ModuleSubmissionDetails submission;
     static Stage primaryStage;
@@ -85,28 +78,44 @@ public class FacilitateController {
     UserDetails user;
     SubmissionFeedbackDetails feedback;
     ArrayList<InternalStudentComments> internalComments;
+    ArrayList<Post> blogPosts; 
     
     @FXML
     void initialize() {
-        // add the submission text.
+        getModuleInfo();
+        settingUserObject();
+        getBlogPosts();
+        
         WebEngine webEngine = moduleSubmission.getEngine();
         webEngine.loadContent(submission.getContent());
+        getFeedback();
         
-        // getting the submitter object
+        // disable the Download button if there is no file assigned
+        if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
+        else                              downloadAssignedFile.setDisable(false);
+        
+        historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
+        historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        submissionHistory();
+        getInternalComments();
+        
+
+    }
+    
+    // setting up facilitate
+    private void settingUserObject() {
         user = lookupUserBeanRemote().getUserByID(submission.getUserID());
+        user.setCourseID(moduleInfo.getCourseID());
         studentName.setText(user.getFirstname() + " " + user.getLastname());
-        
-        // setting the moduleInfo
+    }
+    private void getModuleInfo() {
         moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
-        
         WebEngine moduleDescEngine = moduleDesc.getEngine();
         moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
                 moduleInfo.getDescription());
         
-        feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
-        answerSubmission.setHtmlText(feedback.getContent());
-        
-        for (String details : moduleInfo.getLearningGoals()) {
+         for (String details : moduleInfo.getLearningGoals()) {
             Label item = new Label(details);
             item.setWrapText(true);
             moduleLearningGoals.getItems().add(item);
@@ -115,20 +124,22 @@ public class FacilitateController {
         if(moduleInfo.getLearningGoals().isEmpty()) {
             System.out.println("hallo heehe");
         }
+    }
+    private void getFeedback() {
+        feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
+        answerSubmission.setHtmlText(feedback.getContent());
+    }
+    private void getBlogPosts(){
+        blogPosts = lookupblogBeanRemote().getPostFromUserAndCourse(user);
         
-        
-        // disable the Download button if there is no file assigned
-        if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
-        else                              downloadAssignedFile.setDisable(false);
-        if (historyStatus == null) System.out.println("lol?");
-        
-        
-        historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
-        historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        
-        ArrayList<StudentSubmissionHistory> items = 
+        allBlogPosts.getItems().clear();
+        for (Post p : blogPosts){
+            Label l = new Label(p.getTitle());
+            allBlogPosts.getItems().add(l);
+        }
+    }
+    private void submissionHistory() {
+         ArrayList<StudentSubmissionHistory> items = 
         lookupSubmissionBeanRemote()
                 .getSubmissionHistoryFromUser(submission.getUserID(),
                         moduleInfo.getCourseID())
@@ -143,9 +154,8 @@ public class FacilitateController {
         }
         
         submissionHistory.setItems(history);
-        
-        
-        // get internal comments
+    }
+    private void getInternalComments() {
         internalComments = lookupInternalStudentCommentsBeanRemote()
                 .getAllComments(user.getId(), moduleInfo.getCourseID());
         internalCommentsView.getItems().clear();
@@ -154,9 +164,9 @@ public class FacilitateController {
             Label l = new Label(c.getComment());
             internalCommentsView.getItems().add(l);
         }
-        
-
     }
+    
+    // methods for client
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
         
         FacilitateController.submission = submission;
@@ -171,7 +181,6 @@ public class FacilitateController {
         primaryStage.setTitle("Modulgodkjenning");
         primaryStage.showAndWait();
     }
-    
     public void addInternalComment() {
         InternalStudentComments obj = new InternalStudentComments(
                 new Date(), Controller.getUser().getId(), user.getId(),
@@ -190,7 +199,9 @@ public class FacilitateController {
         }
         newInternalComment.clear();
     }
-    
+    public void openBlogPost() {
+        
+    }
     /**
      * Save current state of the process of the submission
      */
@@ -233,7 +244,6 @@ public class FacilitateController {
         notification.showConfirm();
         primaryStage.close();
     }
-    
     /**
      * Decline the submission
      */
@@ -255,7 +265,7 @@ public class FacilitateController {
         primaryStage.close();
     }
     
-    
+    // Server connection.
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -265,7 +275,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();   
@@ -275,7 +284,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -285,11 +293,19 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private InternalStudentCommentsBeanRemote lookupInternalStudentCommentsBeanRemote() {
         try {
             Context c = new InitialContext();
             return (InternalStudentCommentsBeanRemote) c.lookup("java:global/slit-bean/InternalStudentCommentsBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    private blogBeanRemote lookupblogBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (blogBeanRemote) c.lookup("java:global/slit-bean/blogBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

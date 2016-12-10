@@ -29,16 +29,12 @@ public class TeacherModuleController {
 
     // List, edit, add and pick modules or learninggoals.
     private ArrayList<String> learningGoalsList = new ArrayList<>();
-    @FXML
-    ListView<String> learningGoals;
-    @FXML
-    ListView<Label> modules;
-    @FXML
-    TextField moduleTitle;
-    @FXML
-    TextField learningGoal;
-    @FXML
-    HTMLEditor moduleSpecifications;
+    
+    @FXML ListView<String> learningGoals;
+    @FXML ListView<Label> modules;
+    @FXML TextField moduleTitle;
+    @FXML TextField learningGoal;
+    @FXML HTMLEditor moduleSpecifications;
 
     ArrayList<ModuleDetails> existingModules;
     int index; 

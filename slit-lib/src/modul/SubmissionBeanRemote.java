@@ -26,4 +26,5 @@ public interface SubmissionBeanRemote {
     void declineSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback);
     void acceptSubmission(ModuleSubmissionDetails sub, SubmissionFeedbackDetails feedback);
     SubmissionHistorys getSubmissionHistoryFromUser(int userID, int courseID);
+    void createSubmission(ModuleSubmissionDetails submission);
 }

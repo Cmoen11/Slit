@@ -131,7 +131,7 @@
                   </Text>
                   <Pane layoutX="23.0" layoutY="386.0" prefHeight="42.0" prefWidth="335.0" AnchorPane.bottomAnchor="460.0" AnchorPane.rightAnchor="9.0">
                      <children>
-                        <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="8.0" prefHeight="26.0" prefWidth="135.0" style="-fx-background-color: #214020;" text="Åpne blogginnlegg" textFill="WHITE">
+                        <JFXButton buttonType="RAISED" layoutX="200.0" layoutY="8.0" onAction="#openBlogPost" prefHeight="26.0" prefWidth="135.0" style="-fx-background-color: #214020;" text="Åpne blogginnlegg" textFill="WHITE">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
