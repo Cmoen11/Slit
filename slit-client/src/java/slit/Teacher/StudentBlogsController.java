@@ -44,25 +44,19 @@ public class StudentBlogsController {
         getAllBlogPostsFromUser();
         insertBlogPostsIntoListView();
         
-        allStudents.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<UserDetails>() {
-
-            @Override
-            public void changed(ObservableValue<? extends UserDetails> observable, UserDetails oldValue, UserDetails newValue) {
-                // Your action here
-                studentChanged();
-            }
+        allStudents.getSelectionModel().selectedItemProperty()
+                .addListener((ObservableValue<? extends UserDetails> observable, UserDetails oldValue, UserDetails newValue) -> {
+            // Your action here
+            studentChanged();
         });
         
-        blogPostsListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Label>() {
-
-            @Override
-            public void changed(ObservableValue<? extends Label> observable, Label oldValue, Label newValue) {
-                // Your action here
-                webEngine = postContent.getEngine();
-                webEngine.loadContent("");
-                if (blogPostsListView.getSelectionModel().getSelectedIndex() != -1)
-                    showPostByIndex(blogPostsListView.getSelectionModel().getSelectedIndex());
-            }
+        blogPostsListView.getSelectionModel().selectedItemProperty()
+                .addListener((ObservableValue<? extends Label> observable, Label oldValue, Label newValue) -> {
+            // Your action here
+            webEngine = postContent.getEngine();
+            webEngine.loadContent("");
+            if (blogPostsListView.getSelectionModel().getSelectedIndex() != -1)
+                showPostByIndex(blogPostsListView.getSelectionModel().getSelectedIndex());
         });
         
         

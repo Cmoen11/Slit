@@ -11,8 +11,10 @@ import database.Modulefeedback;
 import database.Modulesubmission;
 import database.Users;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -222,5 +224,33 @@ public class SubmissionBean implements SubmissionBeanRemote {
         
         return output;
     }
+    
+    /*
+    * @author: Martin Nenseth - inspired by Christian Moen's blogBean.
+    * Convert DTO to entity object
+    */
+    private Modulesubmission transferObjectToEntityObject(ModuleSubmissionDetails submission) {
+        Modulesubmission submissionEntity = new Modulesubmission();
+        submissionEntity.setContent(submission.getContent());
+        submissionEntity.setCreationDate(new Date());
+        submissionEntity.setFileID(null);
+        submissionEntity.setModuleID(em.find(Module.class, submission.getModuleID()));
+        submissionEntity.setStatus(submission.getStatus());
+        submissionEntity.setSubmissionID(Integer.MIN_VALUE);
+        submissionEntity.setType(submission.getType());
+        submissionEntity.setUserID(em.find(Users.class, submission.getUserID()));
+        return submissionEntity;
+        
+    }
+    /* 
+    * @author: Martin Nenseth - inspired by Christian Moen's blogBean.
+    * Persists a Modulesubmission entity object to db.
+    */
+    @Override
+    public void createSubmission(ModuleSubmissionDetails submission) {
+        em.persist(transferObjectToEntityObject(submission));
+    }
+    
+    
     
 }
