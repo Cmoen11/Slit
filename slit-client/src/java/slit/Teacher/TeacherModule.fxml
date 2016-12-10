@@ -17,16 +17,16 @@
          <children>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="1280.0" style="-fx-background-color: #3B5998;">
                <children>
-                  <TextField fx:id="moduleTitle" layoutX="26.0" layoutY="58.0" onKeyPressed="#autoSave" prefHeight="44.0" prefWidth="387.0" promptText="Modul tittel..">
+                  <TextField fx:id="moduleTitle" layoutX="26.0" layoutY="58.0" onKeyPressed="#autoSave" prefHeight="44.0" prefWidth="434.0" promptText="Modul tittel..">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </TextField>
-                  <HTMLEditor fx:id="moduleSpecifications" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="26.0" layoutY="111.0" onKeyPressed="#autoSave" prefHeight="469.0" prefWidth="495.0" />
-                  <TextField fx:id="learningGoal" layoutX="643.0" layoutY="472.0" onAction="#addLearningGoalButton" onKeyPressed="#autoSave" prefHeight="32.0" prefWidth="184.0" promptText="Skriv inn læringsmål.." />
-                  <ListView fx:id="learningGoals" layoutX="643.0" layoutY="57.0" prefHeight="408.0" prefWidth="350.0" />
-                  <ListView fx:id="modules" layoutX="1013.0" layoutY="57.0" onKeyReleased="#openSelectedModule" onMouseClicked="#openSelectedModule" prefHeight="408.0" prefWidth="245.0" />
-                  <Text fill="WHITE" layoutX="24.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modul informasjon" textAlignment="CENTER" wrappingWidth="600.0">
+                  <HTMLEditor fx:id="moduleSpecifications" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="26.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#autoSave" prefHeight="492.0" prefWidth="649.0" />
+                  <TextField fx:id="learningGoal" layoutX="687.0" layoutY="524.0" onAction="#addLearningGoalButton" onKeyPressed="#autoSave" prefHeight="32.0" prefWidth="142.0" promptText="Læringsmål.." />
+                  <ListView fx:id="learningGoals" layoutX="687.0" layoutY="109.0" prefHeight="408.0" prefWidth="308.0" />
+                  <ListView fx:id="modules" layoutX="1012.0" layoutY="109.0" onKeyReleased="#openSelectedModule" onMouseClicked="#openSelectedModule" prefHeight="408.0" prefWidth="245.0" />
+                  <Text fill="WHITE" layoutX="-143.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modul informasjon" textAlignment="CENTER" wrappingWidth="600.0">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -41,26 +41,31 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <JFXButton buttonType="RAISED" layoutX="1143.0" layoutY="535.0" onAction="#saveModuleButton" prefHeight="50.0" prefWidth="115.0" style="-fx-background-color: #214020;" text="Lagre" textFill="WHITE">
+                  <JFXButton buttonType="RAISED" layoutX="1142.0" layoutY="563.0" onAction="#saveModuleButton" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #214020;" text="Lagre" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="1143.0" layoutY="473.0" onAction="#newModuleButton" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #214020;" text="Ny modul" textFill="WHITE" />
-                  <JFXButton buttonType="RAISED" layoutX="1013.0" layoutY="473.0" onAction="#removeModuleButton" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #6B2B2B;" text="Fjern modul" textFill="WHITE" />
-                  <JFXButton buttonType="RAISED" layoutX="835.0" layoutY="473.0" onAction="#removeLearningGoalButton" prefHeight="30.0" prefWidth="72.0" style="-fx-background-color: #6B2B2B;" text="Fjern valgte" textFill="WHITE" />
-                  <JFXButton buttonType="RAISED" layoutX="920.0" layoutY="473.0" onAction="#addLearningGoalButton" prefHeight="30.0" prefWidth="72.0" style="-fx-background-color: #214020;" text="Legg til" textFill="WHITE" />
-                  <MenuButton fx:id="moduleType" layoutX="501.0" layoutY="58.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="123.0" text="Module Type">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
-                      <MenuItem mnemonicParsing="false" text="Action 2" />
-                    </items>
-                  </MenuButton>
-                  <TextField fx:id="moduleNumber" layoutX="422.0" layoutY="58.0" onKeyPressed="#autoSave" prefHeight="44.0" prefWidth="72.0" promptText="Nr..">
+                  <JFXButton buttonType="RAISED" layoutX="1142.0" layoutY="525.0" onAction="#newModuleButton" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #214020;" text="Ny modul" textFill="WHITE" />
+                  <JFXButton buttonType="RAISED" layoutX="1012.0" layoutY="525.0" onAction="#removeModuleButton" prefHeight="30.0" prefWidth="115.0" style="-fx-background-color: #6B2B2B;" text="Fjern modul" textFill="WHITE" />
+                  <JFXButton buttonType="RAISED" layoutX="837.0" layoutY="525.0" onAction="#removeLearningGoalButton" prefHeight="30.0" prefWidth="72.0" style="-fx-background-color: #6B2B2B;" text="Fjern valgte" textFill="WHITE" />
+                  <JFXButton buttonType="RAISED" layoutX="922.0" layoutY="525.0" onAction="#addLearningGoalButton" prefHeight="30.0" prefWidth="72.0" style="-fx-background-color: #214020;" text="Legg til" textFill="WHITE" />
+                  <Text fill="WHITE" layoutX="379.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modul type" textAlignment="CENTER" wrappingWidth="350.0">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="24.0" />
                      </font>
-                  </TextField>
+                  </Text>
+                  <HBox layoutX="467.0" layoutY="68.0" prefHeight="25.0" prefWidth="209.0" spacing="4.0">
+                     <children>
+                        <RadioButton fx:id="javaType" mnemonicParsing="false" onAction="#addModuleType" text="Java" textFill="WHITE">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="modulType" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="writtenType" mnemonicParsing="false" onAction="#addModuleType" text="Skriftlig" textFill="WHITE" toggleGroup="$modulType" />
+                        <RadioButton fx:id="bothType" mnemonicParsing="false" onAction="#addModuleType" selected="true" text="Begge" textFill="WHITE" toggleGroup="$modulType" />
+                     </children>
+                  </HBox>
                </children>
             </AnchorPane>
          </children>

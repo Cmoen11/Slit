@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 import javax.naming.Context;
@@ -35,9 +36,14 @@ public class TeacherModuleController {
     @FXML TextField moduleTitle;
     @FXML TextField learningGoal;
     @FXML HTMLEditor moduleSpecifications;
-
+    @FXML RadioButton javaType;
+    @FXML RadioButton writtenType;
+    @FXML RadioButton bothType;
+    
+            
     ArrayList<ModuleDetails> existingModules;
-    int index; 
+    String moduleType;
+    int index;
     ModuleDetails tempModule = new ModuleDetails();
 
     public void newModuleButton() {
@@ -71,6 +77,7 @@ public class TeacherModuleController {
     public void initialize() {
         modules.getItems().clear();
         clearWindows();
+        addModuleType();
         existingModules = lookupModuleBeanRemote()
                 .getAllModules(Controller.getUser().getCourseID());
         for (ModuleDetails module : existingModules) {
@@ -78,23 +85,29 @@ public class TeacherModuleController {
             label.setText(module.getName());
             modules.getItems().add(label);
         }
-        
-        modules.getSelectionModel().select(0);    
-        if (!existingModules.isEmpty())
+        // Opens the module at position zero when called if no module is picked   
+        /*if (!existingModules.isEmpty()) {
+            modules.getSelectionModel().select(0); 
             openSelectedModule();
+        }*/
     }
 
     public void autoSave() {
         if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
+            if (moduleType == null)
+                System.out.println("TESTASDASDASDASD");
             tempModule.setName(moduleTitle.getText());
             tempModule.setDescription(moduleSpecifications.getHtmlText());
             tempModule.getLearningGoals().clear();
+            tempModule.setModuleType(moduleType);
             for (String i : learningGoals.getItems()) {
                 tempModule.getLearningGoals().add(i);
             }
         }
     }
 
+    // Opens the selected module. If a new module is selected, it shows the
+    // temporarily stored information of the newly created module.
     public void openSelectedModule() {
         autoSave();
         clearWindows();
@@ -103,6 +116,13 @@ public class TeacherModuleController {
         if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
             moduleTitle.setText(tempModule.getName());
             moduleSpecifications.setHtmlText(tempModule.getDescription());
+            if (tempModule.getModuleType().equalsIgnoreCase("Java")) {
+                javaType.setSelected(true);
+            } else if (tempModule.getModuleType().equalsIgnoreCase("Skriftlig")) {
+                writtenType.setSelected(true);
+            } else if (tempModule.getModuleType().equalsIgnoreCase("Skriftlig og java")) {
+                bothType.setSelected(true);
+            }
             for (String i : tempModule.getLearningGoals()) {
                 learningGoals.getItems().add(i);
             }
@@ -111,7 +131,13 @@ public class TeacherModuleController {
             ModuleDetails module = existingModules.get(index);
             moduleTitle.setText(module.getName());
             moduleSpecifications.setHtmlText(module.getDescription());
-            //Moduletype
+            if (module.getModuleType().equalsIgnoreCase("Java")) {
+                javaType.setSelected(true);
+            } else if (module.getModuleType().equalsIgnoreCase("Skriftlig")) {
+                writtenType.setSelected(true);
+            } else if (module.getModuleType().equalsIgnoreCase("Skriftlig og java")) {
+                bothType.setSelected(true);
+            }
             for (String i : module.getLearningGoals()) {
                 learningGoals.getItems().add(i);
             }
@@ -126,7 +152,7 @@ public class TeacherModuleController {
                 || existingModules.get(index).getName()
                 .equalsIgnoreCase(moduleTitle.getText())) {
             Alert alertBox = new Alert(Alert.AlertType.ERROR);
-            alertBox.setTitle("FEIL");
+            alertBox.setTitle("Navn konflikt");
             alertBox.setHeaderText("Ugyldig navn");
             alertBox.setContentText("Skriv inn et navn som ikke finnes fra før");
             alertBox.showAndWait();
@@ -141,7 +167,7 @@ public class TeacherModuleController {
             saveHighlightedModule.setCourseID(Controller.getUser().getCourseID());
             saveHighlightedModule.setName(moduleTitle.getText());
             saveHighlightedModule.setDescription(moduleSpecifications.getHtmlText());
-            saveHighlightedModule.setModuleType("Modul type");
+            saveHighlightedModule.setModuleType(moduleType);
             lookupModuleBeanRemote().saveModule(saveHighlightedModule, learningGoalsList);
         }
         initialize();
@@ -170,6 +196,16 @@ public class TeacherModuleController {
         int learningGoalIndex = learningGoals.getSelectionModel().getSelectedIndex();
         learningGoals.getItems().remove(learningGoalIndex);
         autoSave();
+    }
+    
+    public void addModuleType() {
+        if (javaType.isSelected()) {
+         moduleType = javaType.getText();
+        } else if (writtenType.isSelected()) {
+            moduleType = writtenType.getText();
+        } else if (bothType.isSelected()) {
+            moduleType = "Skriftlig og java";
+        }
     }
 
     public void clearWindows() {

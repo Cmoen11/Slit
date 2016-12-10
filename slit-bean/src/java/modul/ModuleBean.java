@@ -97,7 +97,7 @@ public class ModuleBean implements ModuleRemote {
         saveNewModule.setName(module.getName());
         saveNewModule.setDescription(module.getDescription());
         saveNewModule.setCourseID(module.getCourseID());
-        saveNewModule.setModulType("TEST");
+        saveNewModule.setModulType(module.getModuleType());
         
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
