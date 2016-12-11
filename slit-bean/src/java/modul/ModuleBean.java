@@ -24,6 +24,11 @@ public class ModuleBean implements ModuleRemote {
     @PersistenceContext
     EntityManager em;
 
+    /**
+     *
+     * @param userId
+     * @return
+     */
     @Override
     public List<ModuleDetails> getAllModulesForUser(int userId) {
         List<ModuleDetails> returnList = new ArrayList<ModuleDetails>();
@@ -76,6 +81,12 @@ public class ModuleBean implements ModuleRemote {
         return moduleToModuleDetails(module);
     }
 
+    /**
+     * Makes a query to the database and returns
+     *
+     * @param courseID
+     * @return
+     */
     @Override
     public ArrayList<ModuleDetails> getAllModules(int courseID) {
         List<Module> allModules = em.createNamedQuery("Module.findByCourseID")
@@ -97,21 +108,20 @@ public class ModuleBean implements ModuleRemote {
         saveNewModule.setName(module.getName());
         saveNewModule.setDescription(module.getDescription());
         saveNewModule.setCourseID(module.getCourseID());
-        saveNewModule.setModulType("TEST");
-        
-            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-            Validator validator = factory.getValidator();
+        saveNewModule.setModulType(module.getModuleType());
 
-            Set<ConstraintViolation<Module>> constraintViolations = validator.validate(saveNewModule);
+        /*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
 
-            if (constraintViolations.size() > 0 ) {
+        Set<ConstraintViolation<Module>> constraintViolations = validator.validate(saveNewModule);
+
+        if (constraintViolations.size() > 0) {
             System.out.println("Constraint Violations occurred..");
             for (ConstraintViolation<Module> contraints : constraintViolations) {
-            System.out.println(contraints.getRootBeanClass().getSimpleName()+
-            "." + contraints.getPropertyPath() + " " + contraints.getMessage());
-              }
+                System.out.println(contraints.getRootBeanClass().getSimpleName()
+                        + "." + contraints.getPropertyPath() + " " + contraints.getMessage());
             }
-        
+        }*/
         em.persist(saveNewModule);
         for (String i : learningGoals) {
             Learninggoals learninggoal = new Learninggoals();
@@ -126,7 +136,11 @@ public class ModuleBean implements ModuleRemote {
         }
     }
 
-    // Removes the current highlighted module
+    /**
+     * Removes the current highlighted module
+     *
+     * @param module
+     */
     @Override
     public void removeModule(ModuleDetails module) {
         em.remove(em.find(Module.class, module.getModuleID()));
