@@ -55,11 +55,20 @@ public class blogBean implements blogBeanRemote {
         return output;
     }
     
+    /**
+     * Create an new post
+     * @param post Postdata
+     */
     @Override
     public void createPost(Post post) {
         em.persist(transferObjectToEntityObject(post));    
     }
-
+    
+    /**
+     * get all the post from user and course
+     * @param user object with course index.
+     * @return an arrayList with all posts 
+     */
     @Override
     public ArrayList<Post> getPostFromUserAndCourse(UserDetails user) {
         List<Blogpost> results = em.createNamedQuery("Blogpost.findByUserIDAndCourseID", Blogpost.class)
@@ -76,12 +85,20 @@ public class blogBean implements blogBeanRemote {
         return output;
        
     }
-
+    
+    /**
+     * Delete an existing post
+     * @param post the post that are to be deleted
+     */
     @Override
     public void deleteBlogPost(Post post) {
         em.remove(em.find(Blogpost.class, post.getPostID()));
     }
-
+    
+    /**
+     * Update a current blog post.
+     * @param post the post that are to be updated
+     */
     @Override
     public void updatePost(Post post) {
         Blogpost input = em.find(Blogpost.class, post.getPostID());
@@ -89,12 +106,6 @@ public class blogBean implements blogBeanRemote {
         input.setContent(post.getContent());
         em.merge(input);
     }
-    
-    
-    
-    
-    
-    
 
 }
     
