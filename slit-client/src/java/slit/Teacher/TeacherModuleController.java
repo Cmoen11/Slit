@@ -46,10 +46,14 @@ public class TeacherModuleController {
     int index;
     ModuleDetails tempModule = new ModuleDetails();
 
+    //  Adds a "<Ny modul>" in the module list, while clearing the tempModule
+    // variable.
     public void newModuleButton() {
-        learningGoals.getItems().clear();
-        moduleTitle.clear();
-        learningGoal.clear();
+        tempModule = new ModuleDetails();
+        clearWindows();
+        bothType.isSelected();
+        addModuleType();
+        tempModule.setModuleType(moduleType);
         moduleSpecifications
                 .setHtmlText(
                         "<html><head></head><body contenteditable=\"true\">"
@@ -70,14 +74,15 @@ public class TeacherModuleController {
         modul.setModuleType("");
         modul.setName("");
         existingModules.add(modul);
-        modules.getSelectionModel().select(modules.getItems().size() - 1);
+        modules.getSelectionModel().select(modules.getItems().size() -1);
         openSelectedModule();
     }
-
+    // First method to get called when the GUI starts. Invokes the bean which
+    // makes a querry to the database, and uses this to set up the correct
+    // information in the GUI.
     public void initialize() {
         modules.getItems().clear();
         clearWindows();
-        addModuleType();
         existingModules = lookupModuleBeanRemote()
                 .getAllModules(Controller.getUser().getCourseID());
         for (ModuleDetails module : existingModules) {
@@ -86,20 +91,22 @@ public class TeacherModuleController {
             modules.getItems().add(label);
         }
         // Opens the module at position zero when called if no module is picked   
-        /*if (!existingModules.isEmpty()) {
+        if (!existingModules.isEmpty()) {
             modules.getSelectionModel().select(0); 
             openSelectedModule();
-        }*/
+        }
     }
 
+    // Saves the current information typed into the different textfields
+    // for later use, if the module opened is a "<Ny Modul>"
     public void autoSave() {
         if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
             tempModule.setName(moduleTitle.getText());
             tempModule.setDescription(moduleSpecifications.getHtmlText());
             tempModule.getLearningGoals().clear();
             tempModule.setModuleType(moduleType);
-            for (String i : learningGoals.getItems()) {
-                tempModule.getLearningGoals().add(i);
+            for (String tempLearningGoals : learningGoals.getItems()) {
+                tempModule.getLearningGoals().add(tempLearningGoals);
             }
         }
     }
@@ -142,7 +149,8 @@ public class TeacherModuleController {
         }
     }
 
-    // check if module name is <Ny modul> DO NOT CREATE IT.
+    // checks if module name is <Ny modul> or name that exist. Denies the
+    // creation of that is the case, otherwise, save the module to the database
     public void saveModuleButton() {
         index = modules.getSelectionModel().getSelectedIndex();
         Boolean ifExists = false;
@@ -171,6 +179,7 @@ public class TeacherModuleController {
         initialize();
     }
 
+    // Deletes the highlited module from the list as well as the database.
     public void removeModuleButton() {
         index = modules.getSelectionModel().getSelectedIndex();
         if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
@@ -182,6 +191,8 @@ public class TeacherModuleController {
         initialize();
     }
 
+    // Adds a learning to the learning goals list, using the information in
+    // the learninggoal field.
     public void addLearningGoalButton() {
         if (!learningGoal.getText().equalsIgnoreCase("")) {
             learningGoals.getItems().add(learningGoal.getText());
@@ -190,6 +201,7 @@ public class TeacherModuleController {
         }
     }
 
+    // Deletes one specific learing goal from the list.
     public void removeLearningGoalButton() {
         int learningGoalIndex = learningGoals.getSelectionModel().getSelectedIndex();
         learningGoals.getItems().remove(learningGoalIndex);
@@ -206,6 +218,7 @@ public class TeacherModuleController {
         }
     }
 
+    // Empties all the different windows in the module GUI
     public void clearWindows() {
         moduleTitle.clear();
         learningGoal.clear();
@@ -215,6 +228,7 @@ public class TeacherModuleController {
                 + "</body></html>");
     }
 
+    // Looks up the ModuleBean
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();
