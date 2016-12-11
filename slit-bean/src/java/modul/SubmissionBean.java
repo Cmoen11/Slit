@@ -11,7 +11,6 @@ import database.Modulefeedback;
 import database.Modulesubmission;
 import database.Users;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -228,11 +227,13 @@ public class SubmissionBean implements SubmissionBeanRemote {
     /*
     * @author: Martin Nenseth - inspired by Christian Moen's blogBean.
     * Convert DTO to entity object
+    * @param submissionDTO
+    * @return submissionEntity
     */
     private Modulesubmission transferObjectToEntityObject(ModuleSubmissionDetails submission) {
         Modulesubmission submissionEntity = new Modulesubmission();
         submissionEntity.setContent(submission.getContent());
-        submissionEntity.setCreationDate(new Date());
+        submissionEntity.setCreationDate(submission.getCreationDate());
         submissionEntity.setFileID(null);
         submissionEntity.setModuleID(em.find(Module.class, submission.getModuleID()));
         submissionEntity.setStatus(submission.getStatus());
@@ -245,6 +246,7 @@ public class SubmissionBean implements SubmissionBeanRemote {
     /* 
     * @author: Martin Nenseth - inspired by Christian Moen's blogBean.
     * Persists a Modulesubmission entity object to db.
+    * @param submissionDTO
     */
     @Override
     public void createSubmission(ModuleSubmissionDetails submission) {

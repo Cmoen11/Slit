@@ -18,16 +18,20 @@ public class Controller {
     
     static UserDetails user;
     
-    
+    /*
+    * @return user
+    */
     public static UserDetails getUser() {
         return user;
     }
-      
+    /*
+    * @param user
+    */  
     public static void setUser(UserDetails user){
         Controller.user = user;
     }
     
-
+    
     public void logOut() {
         Main.runGUI();
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author Dahl
+ * @author Erlend
  */
 public class ModuleDetails implements Serializable{
     

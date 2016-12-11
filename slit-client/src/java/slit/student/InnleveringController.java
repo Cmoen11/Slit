@@ -9,6 +9,7 @@ import auth.UserDetails;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -46,13 +47,12 @@ public class InnleveringController {
     
     
     static ModuleDetails moduleInfo;
-    static UserDetails user;
     
     /*
     * Gets and sets info of the selected module.
-    * TODO: 
+    * TODO:
     * getSubmissionText(); - Must be implemented
-    * uploadFile(File file);- Must be implemented
+    * uploadFile(File file);- Must be implemented 
     */
     public void initialize() {
         getAndSetModuleName();
@@ -110,11 +110,11 @@ public class InnleveringController {
 
     }
     /*
-    * Create a submission pojo
+    * Create a submission DTO
     * Append details of the sumbission into the pojo
     * Persist the object to the database
     * Close this window and return to studentPanel.
-    * TODO:
+    * TODO: 
     * Implement setFile(File file)
     * Implement alertbox that confirms the users action
     * Submission Type should get its value from the respective module that stores it.
@@ -123,6 +123,7 @@ public class InnleveringController {
         ModuleSubmissionDetails submission = new ModuleSubmissionDetails();
         submission.setModuleID(moduleInfo.getModuleID());
         submission.setUserID(Controller.getUser().getId());
+        submission.setCreationDate(new Date());
         submission.setContent(submissionText.getHtmlText());
         submission.setStatus(0);
         submission.setType("random");

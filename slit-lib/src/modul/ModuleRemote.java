@@ -11,7 +11,7 @@ import javax.ejb.Remote;
 
 /**
  *
- * @author Christian
+ * @author Christian and Erlend
  */
 @Remote
 public interface ModuleRemote {

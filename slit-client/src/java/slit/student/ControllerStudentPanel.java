@@ -26,8 +26,7 @@ public class ControllerStudentPanel {
     ArrayList<ModuleDetails> existingModules;
     List<Post> existingNews;
     
-    // PopUp GUI for modules
-    private InnleveringController modulOppgave;
+  
     
     public void initialize() {
         try {
@@ -75,8 +74,7 @@ public class ControllerStudentPanel {
         try {
         int index = modules.getSelectionModel().getSelectedIndex();
         ModuleDetails module = existingModules.get(index);
-        modulOppgave = new InnleveringController();
-        modulOppgave.run(module);
+        new InnleveringController().run(module);
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
