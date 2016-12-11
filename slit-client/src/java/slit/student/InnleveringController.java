@@ -49,9 +49,9 @@ public class InnleveringController {
     
     /*
     * Gets and sets info of the selected module.
-    * TODO: 
+    * TODO:
     * getSubmissionText(); - Must be implemented
-    * uploadFile(File file);- Must be implemented
+    * uploadFile(File file);- Must be implemented 
     */
     public void initialize() {
         getAndSetModuleName();
