@@ -94,8 +94,6 @@ public class TeacherModuleController {
 
     public void autoSave() {
         if (modules.getItems().get(index).getText().equalsIgnoreCase("<Ny Modul>")) {
-            if (moduleType == null)
-                System.out.println("TESTASDASDASDASD");
             tempModule.setName(moduleTitle.getText());
             tempModule.setDescription(moduleSpecifications.getHtmlText());
             tempModule.getLearningGoals().clear();
