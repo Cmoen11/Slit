@@ -2,6 +2,7 @@
 package course;
 
 import auth.UserDetails;
+import database.Blogpost;
 import database.CourseMembers;
 import database.CourseMembersPK;
 import database.Courses;
@@ -212,6 +213,7 @@ public class CourseBean implements CourseBeanRemote {
         
         return output;
     }
+    
     
     @Override
     public ArrayList<CourseInfo> getAllCourseUserIsMemberIn(String username) {
