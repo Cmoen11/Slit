@@ -21,7 +21,7 @@ import javax.validation.ValidatorFactory;
 @Stateless
 public class ModuleBean implements ModuleRemote {
 
-    @PersistenceContext
+    @PersistenceContext()
     EntityManager em;
 
     /**
@@ -108,7 +108,7 @@ public class ModuleBean implements ModuleRemote {
         saveNewModule.setName(module.getName());
         saveNewModule.setDescription(module.getDescription());
         saveNewModule.setCourseID(module.getCourseID());
-        saveNewModule.setModulType(module.getModuleType());
+        saveNewModule.setModulType(module.getModuleType()); 
 
         /*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
