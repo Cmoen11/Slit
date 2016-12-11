@@ -46,7 +46,6 @@ public class InnleveringController {
     
     
     static ModuleDetails moduleInfo;
-    static UserDetails user;
     
     /*
     * Gets and sets info of the selected module.
@@ -110,7 +109,7 @@ public class InnleveringController {
 
     }
     /*
-    * Create a submission pojo
+    * Create a submission DTO
     * Append details of the sumbission into the pojo
     * Persist the object to the database
     * Close this window and return to studentPanel.
