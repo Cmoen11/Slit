@@ -1,4 +1,3 @@
-
 package sessionBeans;
 
 import auth.UserDetails;
