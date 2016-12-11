@@ -46,13 +46,12 @@ public class InnleveringController {
     
     
     static ModuleDetails moduleInfo;
-    static UserDetails user;
     
     /*
     * Gets and sets info of the selected module.
-    * TODO: 
+    * TODO:
     * getSubmissionText(); - Must be implemented
-    * uploadFile(File file);- Must be implemented
+    * uploadFile(File file);- Must be implemented 
     */
     public void initialize() {
         getAndSetModuleName();
@@ -110,11 +109,11 @@ public class InnleveringController {
 
     }
     /*
-    * Create a submission pojo
+    * Create a submission DTO
     * Append details of the sumbission into the pojo
     * Persist the object to the database
     * Close this window and return to studentPanel.
-    * TODO:
+    * TODO: 
     * Implement setFile(File file)
     * Implement alertbox that confirms the users action
     * Submission Type should get its value from the respective module that stores it.
