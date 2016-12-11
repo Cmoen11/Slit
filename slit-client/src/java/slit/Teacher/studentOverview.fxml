@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -10,7 +11,7 @@
    <children>
       <AnchorPane prefHeight="689.0" prefWidth="1272.0" style="-fx-background-color: #3b5998;">
          <children>
-            <AnchorPane layoutX="25.0" layoutY="75.0" prefHeight="538.0" prefWidth="779.0" style="-fx-background-color: #0A1733;">
+            <AnchorPane layoutX="25.0" layoutY="75.0" prefHeight="538.0" prefWidth="781.0" style="-fx-background-color: #0A1733;">
                <children>
                   <ListView id="studentList" fx:id="studentList" layoutX="53.0" layoutY="51.0" prefHeight="337.0" prefWidth="261.0" style="-fx-background-radius: 5px;" />
                   <Text fill="WHITE" layoutX="53.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Velg stundent" textAlignment="CENTER" wrappingWidth="261.0">
@@ -24,25 +25,70 @@
                         <Font size="13.0" />
                      </font>
                   </Text>
-                  <Button layoutX="53.0" layoutY="401.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #6B2B2B;" text="neiKnapp" textFill="WHITE" />
-                  <Button layoutX="202.0" layoutY="401.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #214020;" text="Se på stundent" textFill="WHITE" />
-                  <Button layoutX="612.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #214020;" text="En random knapp" textFill="WHITE" />
-                  <Button layoutX="428.0" layoutY="401.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="112.0" style="-fx-background-color: #6B2B2B;" text="neiKnapp2" textFill="WHITE" />
                </children>
             </AnchorPane>
-            <Button layoutX="48.0" layoutY="14.0" mnemonicParsing="false" onAction="#pressMe" prefHeight="32.0" prefWidth="162.0" style="-fx-background-color: #6B2B2B;" text="midlertidigKnappErMidlertig" textFill="WHITE" />
             <Pane layoutX="666.0" layoutY="50.0" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #1F2E4F;" />
             <ImageView fitHeight="32.0" fitWidth="112.0" layoutX="698.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/box_name.png" />
                </image>
             </ImageView>
-            <Button layoutX="253.0" layoutY="14.0" mnemonicParsing="false" onAction="#listAllStudents" prefHeight="32.0" prefWidth="162.0" style="-fx-background-color: #214020;" text="listAlleStudenter(terminal)" textFill="WHITE" />
             <Text fill="WHITE" fontSmoothingType="LCD" layoutX="678.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oversikt" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Text>
+            <AnchorPane layoutX="868.0" layoutY="75.0" prefHeight="538.0" prefWidth="420.0" style="-fx-background-color: #0A1733;">
+               <children>
+                  <HBox alignment="TOP_CENTER" layoutX="49.0" layoutY="57.0" prefHeight="431.0" prefWidth="327.0">
+                     <children>
+                        <AnchorPane prefHeight="398.0" prefWidth="200.0">
+                           <children>
+                              <Text fill="WHITE" layoutX="16.0" layoutY="14.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Velg student&quot; inneholder studentene som er innrullet i aktuelle kurs" textAlignment="CENTER" wrappingWidth="245.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="5.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tallet i parantes angir hvor mange modul innleveringer studenten har i aktuelle kurs" textAlignment="CENTER" wrappingWidth="261.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="8.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trykk på students navn for å se navnet på modulene studenten har levert" textAlignment="CENTER" wrappingWidth="261.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="9.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&quot;Innleverte moduler i kurs&quot; lister opp innleverte moduler for student med navn på modul" textAlignment="CENTER" wrappingWidth="261.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="WHITE" layoutX="9.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Det gjøres ingen endringer knyttet til student eller deres innleveringer når en selekterer disse i listene" textAlignment="CENTER" wrappingWidth="261.0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="13.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <ImageView fitHeight="32.0" fitWidth="112.0" layoutX="1180.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/box_name.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="1148.0" layoutY="50.0" prefHeight="25.0" prefWidth="110.0" style="-fx-background-color: #1F2E4F;">
+               <children>
+                  <Text fill="WHITE" fontSmoothingType="LCD" layoutX="21.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forklaring" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>

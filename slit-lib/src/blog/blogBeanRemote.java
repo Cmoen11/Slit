@@ -23,6 +23,6 @@ public interface blogBeanRemote {
     void deleteBlogPost(Post post);
 
     void updatePost(Post post);
-
+    ArrayList<Post> getAllPostsFromUser(UserDetails user);
     
 }

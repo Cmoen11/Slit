@@ -1,8 +1,5 @@
 
 package sessionBeans; 
-import auth.UserDetails;
-import java.util.ArrayList;
-import java.util.Collection;
 import javax.ejb.Remote;
 
 /**

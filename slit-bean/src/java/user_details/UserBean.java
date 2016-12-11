@@ -16,7 +16,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 /**
  * 
- * @author marti
+ * @author marti og christian
  */
 @Stateless
 public class UserBean implements UserBeanRemote {

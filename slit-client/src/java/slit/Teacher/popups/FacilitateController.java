@@ -41,7 +41,6 @@ import modul.ModuleSubmissionDetails;
 import modul.SubmissionBeanRemote;
 import modul.SubmissionFeedbackDetails;
 import org.controlsfx.control.Notifications;
-import org.controlsfx.control.PopOver;
 import sessionBeans.InternalStudentCommentsBeanRemote;
 import slit.Teacher.TeacherMain;
 import slit.Teacher.Controller;
@@ -66,21 +65,12 @@ public class FacilitateController {
     @FXML private Text studentName;
     @FXML private JFXButton downloadAssignedFile;
     @FXML private Text fileName;
-    
     @FXML private TextField newInternalComment;
     @FXML private JFXListView<Label> internalCommentsView;
-
-    
-    // history
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyStatus;
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyType;
-    @FXML
-    private TableColumn<SubmissionHistory, String> historyDate;
-    
-    @FXML
-    private TableView<SubmissionHistory> submissionHistory;
+    @FXML private TableColumn<SubmissionHistory, String> historyStatus;
+    @FXML private TableColumn<SubmissionHistory, String> historyType;
+    @FXML private TableColumn<SubmissionHistory, String> historyDate;
+    @FXML private TableView<SubmissionHistory> submissionHistory;
 
     static ModuleSubmissionDetails submission;
     static Stage primaryStage;
@@ -90,89 +80,11 @@ public class FacilitateController {
     ArrayList<InternalStudentComments> internalComments;
     ArrayList<Post> blogPosts; 
     
-    @FXML
-    void initialize() {
-        // setting the moduleInfo
-        moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
-        // getting the submitter object
-        user = lookupUserBeanRemote().getUserByID(submission.getUserID());
-        studentName.setText(user.getFirstname() + " " + user.getLastname());
-        user.setCourseID(moduleInfo.getCourseID());
-        
-        //get blogposts.
-        blogPosts = lookupblogBeanRemote().getPostFromUserAndCourse(user);
-        
-        allBlogPosts.getItems().clear();
-        for (Post p : blogPosts){
-            Label l = new Label(p.getTitle());
-            allBlogPosts.getItems().add(l);
-        }
-        
-        
-        // add the submission text.
-        WebEngine webEngine = moduleSubmission.getEngine();
-        webEngine.loadContent(submission.getContent());
-        
-        
-        
-        WebEngine moduleDescEngine = moduleDesc.getEngine();
-        moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
-                moduleInfo.getDescription());
-        
-        feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
-        answerSubmission.setHtmlText(feedback.getContent());
-        
-        for (String details : moduleInfo.getLearningGoals()) {
-            Label item = new Label(details);
-            item.setWrapText(true);
-            moduleLearningGoals.getItems().add(item);
-        }
-        
-        if(moduleInfo.getLearningGoals().isEmpty()) {
-            System.out.println("hallo heehe");
-        }
-        
-        
-        // disable the Download button if there is no file assigned
-        if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
-        else                              downloadAssignedFile.setDisable(false);
-        if (historyStatus == null) System.out.println("lol?");
-        
-        
-        historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
-        historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-        historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
-        
-        ArrayList<StudentSubmissionHistory> items = 
-        lookupSubmissionBeanRemote()
-                .getSubmissionHistoryFromUser(submission.getUserID(),
-                        moduleInfo.getCourseID())
-                .getHistory();
-        ObservableList<SubmissionHistory> history = FXCollections.observableArrayList(new ArrayList<>());
-        for (StudentSubmissionHistory item : items) {
-            SubmissionHistory historyItem = 
-                    new SubmissionHistory(item.getDate(),
-                            item.getModuleName(),
-                            item.getStatus());
-            history.add(historyItem);
-        }
-        
-        submissionHistory.setItems(history);
-        
-        
-        // get internal comments
-        internalComments = lookupInternalStudentCommentsBeanRemote()
-                .getAllComments(user.getId(), moduleInfo.getCourseID());
-        internalCommentsView.getItems().clear();
-        for (InternalStudentComments c : internalComments) {
-            
-            Label l = new Label(c.getComment());
-            internalCommentsView.getItems().add(l);
-        }
-        
-
-    }
+    /**
+     * This method is called whenever someone will open a modulesubmission frame.
+     * @param submission    selected submission to be opened.
+     * @throws IOException 
+     */
     public void displayPopup(ModuleSubmissionDetails submission) throws IOException {
         
         FacilitateController.submission = submission;
@@ -188,14 +100,105 @@ public class FacilitateController {
         primaryStage.showAndWait();
     }
     
-    public void addInternalComment() {
-        InternalStudentComments obj = new InternalStudentComments(
-                new Date(), Controller.getUser().getId(), user.getId(),
-                moduleInfo.getCourseID(), newInternalComment.getText()
-        );
-        lookupInternalStudentCommentsBeanRemote().addComment(obj);
+    @FXML
+    void initialize() {
+        getModuleInfo();
+        settingUserObject();
+        getBlogPosts();
         
-        // get internal comments
+        WebEngine webEngine = moduleSubmission.getEngine();
+        webEngine.loadContent(submission.getContent());
+        getFeedback();
+        
+        // disable the Download button if there is no file assigned
+        if (submission.getFile() == null) downloadAssignedFile.setDisable(true);
+        else                              downloadAssignedFile.setDisable(false);
+        
+        historyType.setCellValueFactory(new PropertyValueFactory<>("moduleName"));
+        historyDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        historyStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        submissionHistory();
+        getInternalComments();
+        
+
+    }
+
+    /**
+     * get the submitters user object.
+     */
+    private void settingUserObject() {
+        user = lookupUserBeanRemote().getUserByID(submission.getUserID());
+        user.setCourseID(moduleInfo.getCourseID());
+        studentName.setText(user.getFirstname() + " " + user.getLastname());
+    }
+    
+    /**
+     * get the module info for the selected submission.
+     */
+    private void getModuleInfo() {
+        moduleInfo = lookupModuleBeanRemote().getModuleByID(submission.getModuleID());
+        WebEngine moduleDescEngine = moduleDesc.getEngine();
+        moduleDescEngine.loadContent("<h3>"+moduleInfo.getName()+"</h3>" +
+                moduleInfo.getDescription());
+        
+         for (String details : moduleInfo.getLearningGoals()) {
+            Label item = new Label(details);
+            item.setWrapText(true);
+            moduleLearningGoals.getItems().add(item);
+        }
+        
+        if(moduleInfo.getLearningGoals().isEmpty()) {
+            System.out.println("hallo heehe");
+        }
+    }
+    
+    /**
+     * If there is any feedback, get it and apply it to Gui.
+     */
+    private void getFeedback() {
+        feedback = lookupSubmissionBeanRemote().getFeedbackDetailsFromSubmissionID(submission);
+        answerSubmission.setHtmlText(feedback.getContent());
+    }
+    
+    /**
+     * get all blog posts
+     */
+    private void getBlogPosts(){
+        blogPosts = lookupblogBeanRemote().getPostFromUserAndCourse(user);
+        
+        allBlogPosts.getItems().clear();
+        for (Post p : blogPosts){
+            Label l = new Label(p.getTitle());
+            allBlogPosts.getItems().add(l);
+        }
+    }
+    
+    /**
+     * get all submission the user has submitted before and place it into the 
+     * gui.
+     */
+    private void submissionHistory() {
+         ArrayList<StudentSubmissionHistory> items = 
+        lookupSubmissionBeanRemote()
+                .getSubmissionHistoryFromUser(submission.getUserID(),
+                        moduleInfo.getCourseID())
+                .getHistory();
+        ObservableList<SubmissionHistory> history = FXCollections.observableArrayList(new ArrayList<>());
+        for (StudentSubmissionHistory item : items) {
+            SubmissionHistory historyItem = 
+                    new SubmissionHistory(item.getDate(),
+                            item.getModuleName(),
+                            item.getStatus());
+            history.add(historyItem);
+        }
+        
+        submissionHistory.setItems(history);
+    }
+    
+    /**
+     * get internal comments for the selected student.
+     */
+    private void getInternalComments() {
         internalComments = lookupInternalStudentCommentsBeanRemote()
                 .getAllComments(user.getId(), moduleInfo.getCourseID());
         internalCommentsView.getItems().clear();
@@ -204,13 +207,29 @@ public class FacilitateController {
             Label l = new Label(c.getComment());
             internalCommentsView.getItems().add(l);
         }
+    }
+    
+    /**
+     * add an internal comment for the selected user.
+     */
+    public void addInternalComment() {
+        InternalStudentComments obj = new InternalStudentComments(
+                new Date(), Controller.getUser().getId(), user.getId(),
+                moduleInfo.getCourseID(), newInternalComment.getText()
+        );
+        lookupInternalStudentCommentsBeanRemote().addComment(obj);
+        
+        // update the gui with the new comment.
+        getInternalComments();
         newInternalComment.clear();
     }
     
+    /**
+     * Open the selected blog posts
+     */
     public void openBlogPost() {
-        
+        // TO DO
     }
-    
     /**
      * Save current state of the process of the submission
      */
@@ -253,7 +272,6 @@ public class FacilitateController {
         notification.showConfirm();
         primaryStage.close();
     }
-    
     /**
      * Decline the submission
      */
@@ -275,7 +293,7 @@ public class FacilitateController {
         primaryStage.close();
     }
     
-    
+    // Server connection.
     private UserBeanRemote lookupUserBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -285,7 +303,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private ModuleRemote lookupModuleBeanRemote() {
         try {
             Context c = new InitialContext();   
@@ -295,7 +312,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private SubmissionBeanRemote lookupSubmissionBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -305,7 +321,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private InternalStudentCommentsBeanRemote lookupInternalStudentCommentsBeanRemote() {
         try {
             Context c = new InitialContext();
@@ -315,7 +330,6 @@ public class FacilitateController {
             throw new RuntimeException(ne);
         }
     }
-
     private blogBeanRemote lookupblogBeanRemote() {
         try {
             Context c = new InitialContext();

@@ -228,6 +228,8 @@ public class SubmissionBean implements SubmissionBeanRemote {
     /*
     * @author: Martin Nenseth - inspired by Christian Moen's blogBean.
     * Convert DTO to entity object
+    * @param submissionDTO
+    * @return submissionEntity
     */
     private Modulesubmission transferObjectToEntityObject(ModuleSubmissionDetails submission) {
         Modulesubmission submissionEntity = new Modulesubmission();
@@ -243,8 +245,9 @@ public class SubmissionBean implements SubmissionBeanRemote {
         
     }
     /* 
-    * @author: Martin Nenseth - inspired by Christian Moen's blogBean.,
-    * Persists a ModuleSubmissionDetails object after it's been converted to an entity object
+    * @author: Martin Nenseth - inspired by Christian Moen's blogBean.
+    * Persists a Modulesubmission entity object to db.
+    * @param submissionDTO
     */
     @Override
     public void createSubmission(ModuleSubmissionDetails submission) {
