@@ -76,5 +76,6 @@
          </children>
       </AnchorPane>
       <Label layoutX="569.0" layoutY="781.0" text="Slit 2016. Av studenter, for lærere" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="568.283203125" AnchorPane.rightAnchor="569.716796875" AnchorPane.topAnchor="761.0" />
+      <fx:include source="progressionBar.fxml" />
    </children>
 </AnchorPane>

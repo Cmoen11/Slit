@@ -76,4 +76,9 @@
     <ejb-ref-type>Session</ejb-ref-type>
     <remote>blog.blogBeanRemote</remote>
   </ejb-ref>
+  <ejb-ref>
+    <ejb-ref-name>ProgressionPlanBean</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <remote>progressionPlan.ProgressionPlanBeanRemote</remote>
+  </ejb-ref>
 </application-client>
