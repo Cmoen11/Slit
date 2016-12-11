@@ -70,20 +70,34 @@ public class blogBean implements blogBeanRemote {
      * @return an arrayList with all posts 
      */
     @Override
-    public ArrayList<Post> getPostFromUserAndCourse(UserDetails user) {
-        List<Blogpost> results = em.createNamedQuery("Blogpost.findByUserIDAndCourseID", Blogpost.class)
-                .setParameter("courseID", em.find(Courses.class, user.getCourseID()))
-                .setParameter("userID", em.find(Users.class, user.getId()))
-                .getResultList();
-        
+    public ArrayList<Post> getPostFromUserAndCourse(UserDetails user) {   
         ArrayList<Post> output = new ArrayList<Post>();
+
+        for (Blogpost post : em.find(Users.class, user.getId()).getBlogpostCollection()) {
+            if (post.getCourseID().getCourseID() == user.getCourseID()) {
+                output.add(entityObjecToTransferObject(post));
+            }
+        }
         
-        
-        for (Blogpost i : results)
-            output.add(entityObjecToTransferObject(i));
         
         return output;
        
+    }
+    /**
+     * Get all the posts from the given user.
+     * @param user
+     * @return 
+     */
+    @Override
+    public ArrayList<Post> getAllPostsFromUser(UserDetails user) {
+        ArrayList<Post> output = new ArrayList<Post>();
+
+        for (Blogpost post : em.find(Users.class, user.getId()).getBlogpostCollection()) {
+            output.add(entityObjecToTransferObject(post));
+        }
+        
+        
+        return output;
     }
     
     /**
