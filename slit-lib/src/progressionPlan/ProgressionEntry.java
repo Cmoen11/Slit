@@ -15,7 +15,8 @@ public class ProgressionEntry implements Serializable {
     
     public ProgressionEntry(
             int progressionEntryID,
-            int planID, int moduleID, 
+            int planID, 
+            int moduleID, 
             Date completionDate) {
         
         this.progressionEntryID = progressionEntryID;
@@ -56,7 +57,5 @@ public class ProgressionEntry implements Serializable {
     public void setCompletionDate(Date completionDate) {
         this.completionDate = completionDate;
     }
-    
-    
-    
+
 }

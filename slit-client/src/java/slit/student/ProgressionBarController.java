@@ -53,6 +53,8 @@ public class ProgressionBarController {
     
     private UserDetails userId = Controller.getUser();
     
+    
+    //Utility functions
     private boolean doesPlanExist() {
         if (planBean.getAllProgressionEntriesByUser(Controller.getUser()).equals(0)) {
             return false;
@@ -61,6 +63,7 @@ public class ProgressionBarController {
         }
     }
     
+    //Controller Functions
     public void progressionPlanButtonAction(ActionEvent event) throws Exception {               
         
         if (!doesPlanExist()) {
@@ -76,7 +79,7 @@ public class ProgressionBarController {
     private ProgressionPlanBeanRemote lookupProgressionPlanBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (ProgressionPlanBeanRemote) c.lookup("java:comp/env/ProgressionPlanBean");
+            return (ProgressionPlanBeanRemote) c.lookup("java:global/slit/ProgressionPlanBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

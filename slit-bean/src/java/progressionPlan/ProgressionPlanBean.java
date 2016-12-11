@@ -5,6 +5,7 @@
  */
 package progressionPlan;
 
+import auth.UserDetails;
 import database.*;
 import java.util.Date;
 import java.time.temporal.ChronoUnit;
@@ -62,10 +63,39 @@ public class ProgressionPlanBean implements ProgressionPlanBeanRemote {
     }
 
     @Override
-    public List<> getAllProgressionEntriesByUser(int userID) {
-        return null;
+    public List<Progressionentry> getAllProgressionEntriesByUser(UserDetails user) {          
+        Query query = em.createNamedQuery("ProgressionEntries.findByUser", Progressionentry.class);
+        
+        query.setParameter("userId", user.getId());
+        
+        List<Progressionentry> output = query.getResultList();
+       
+        return output;
+        
+        
     }
-
-
+    
+    
+    
+    private Progressionentry transferObjectToEntityObject(ProgressionEntry entry) {
+        Progressionentry output = new Progressionentry();
+        output.setCompletionDate(entry.getCompletionDate());
+        output.setId(entry.getProgressionEntryID());
+        output.setModuleID(em.find(Module.class, entry.getModuleID()));
+        output.setPlanID(em.find(Progressionplan.class, entry.getPlanID()));
+        
+        return output; 
+    }
+    
+    private ProgressionEntry entityObjectToTransferObject (Progressionentry entry) {
+        ProgressionEntry output = new ProgressionEntry(); 
+        
+        output.setCompletionDate(entry.getCompletionDate());
+        output.setModuleID(entry.getModuleID().getModuleID());
+        output.setPlanID(entry.getPlanID().getPlanID());
+        output.setProgressionEntryID(entry.getId());
+        
+        return output;
+    }
     
 }
