@@ -28,6 +28,7 @@ public class SubmissionHistory{
                 break;
             case (3) :
                 this.status= new SimpleStringProperty("Godkjent");
+                break;
             default :
                 break;
         }

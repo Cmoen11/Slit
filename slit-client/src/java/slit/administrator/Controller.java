@@ -102,7 +102,8 @@ public class Controller {
         
         try {
             // for setting the members of the selected course.
-            userdetails = lookupCourseBeanRemote().getCourseMembers(courses.get(index).getCourseID());
+            userdetails = lookupCourseBeanRemote()
+                    .getCourseMembers(courses.get(index).getCourseID());
             
             courseMembers.setItems(
                     FXCollections.observableArrayList(userdetails));
@@ -166,15 +167,16 @@ public class Controller {
     
     public void addUserToCourse() {
         int index = existingCourses.getSelectionModel().getSelectedIndex();
-        //UserDetails user = (UserDetails)existingAddSingleUserCombo.getSelectionModel().getSelectedItem();
         int index_2 = existingAddSingleUserCombo.getSelectionModel().getSelectedIndex();
         
         UserDetails user = existingUsersNotInCourse.get(index_2);
         
         int isTeacher = existingIsTeacher.isSelected() ? 1 : 0;
-        System.out.println("AddUserToCourse " + user.getId() +" "+ courses.get(index).getCourseID() +" "+ isTeacher);
+        System.out.println("AddUserToCourse " + user.getId() +" "
+                + courses.get(index).getCourseID() +" "+ isTeacher);
         lookupCourseBeanRemote().addMemberToCourse(
-                user.getId(), courses.get(index).getCourseID(), existingIsTeacher.isSelected() ? 1 : 0);
+                user.getId(), courses.get(index).getCourseID(),
+                existingIsTeacher.isSelected() ? 1 : 0);
         setExistingCourseInfo();
         
     }
