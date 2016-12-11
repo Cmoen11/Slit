@@ -9,6 +9,7 @@ import auth.UserDetails;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
@@ -122,6 +123,7 @@ public class InnleveringController {
         ModuleSubmissionDetails submission = new ModuleSubmissionDetails();
         submission.setModuleID(moduleInfo.getModuleID());
         submission.setUserID(Controller.getUser().getId());
+        submission.setCreationDate(new Date());
         submission.setContent(submissionText.getHtmlText());
         submission.setStatus(0);
         submission.setType("random");
