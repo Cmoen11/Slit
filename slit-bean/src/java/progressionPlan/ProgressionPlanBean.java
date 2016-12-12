@@ -29,8 +29,6 @@ public class ProgressionPlanBean implements ProgressionPlanBeanRemote {
     public void addProgressionEntry(ProgressionEntry entry) {
         em.persist(transferObjectToEntityObject(entry));
     }
-    
-    
 
     @Override
     public void addProgressionPlan(int userID, int courseID) {
@@ -54,19 +52,17 @@ public class ProgressionPlanBean implements ProgressionPlanBeanRemote {
         long daysBetween = ChronoUnit.DAYS.between(planDate.getCompletionDate().toInstant(), today.toInstant());
 
         return daysBetween;
-        
     }
 
     @Override
-    public List<Progressionentry> getAllProgressionEntriesByUser(UserDetails user) {          
-        Query query = em.createNamedQuery("ProgressionEntries.findByUser", Progressionentry.class);
+    public ArrayList<ProgressionEntry> getAllProgressionEntriesByUser(UserDetails user) {          
+        ArrayList<ProgressionEntry> output = new ArrayList<>();
         
-        query.setParameter("userId", user.getId());
+        for (Progressionentry entry : em.find(Progressionplan.class, user.getId()).getProgressionentryCollection()) {
+            output.add(entityObjectToTransferObject(entry));
+        }
         
-        List<Progressionentry> output = query.getResultList();
-       
-        return output;
-
+        return output; 
     }
 
     private Progressionentry transferObjectToEntityObject(ProgressionEntry entry) {

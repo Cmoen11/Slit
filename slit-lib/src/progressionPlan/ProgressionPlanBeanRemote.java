@@ -22,7 +22,7 @@ public interface ProgressionPlanBeanRemote {
     
     long compareDates(int planID, int moduleID);
 
-    public void addProgressionEntry(java.util.Date completionDate, int module, int planID);
+    public void addProgressionEntry(ProgressionEntry entry);
 
     List getAllProgressionEntriesByUser(UserDetails user);
     
