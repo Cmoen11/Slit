@@ -6,7 +6,6 @@ package slit.student;
 
 import auth.UserDetails;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -23,7 +22,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import modul.ModuleDetails;
 import modul.ModuleRemote;
-import progressionPlan.ProgressionEntry;
 import progressionPlan.ProgressionPlanBeanRemote;
  
 
@@ -90,8 +88,9 @@ public class ProgressionBarController {
    
     }
     
+    @FXML
     public void openMakeProgressionPlanWindow(ActionEvent event) {
-        createProgressionPlanButton.setText("Clciked");
+        createProgressionPlanButton.setText("Clicked");
     }
     
     public void closeMakeProgressionPlanWindow() {
