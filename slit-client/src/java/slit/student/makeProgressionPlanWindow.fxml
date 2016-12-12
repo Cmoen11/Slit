@@ -7,21 +7,26 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="701.0" prefWidth="1280.0" style="-fx-background-color: #3b5998;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.student.ProgressionBarController">
    <children>
-      <Text fx:id="userNameHeading" layoutX="410.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Test's Progresjonsplan" />
-      <AnchorPane layoutX="239.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0">
+      <AnchorPane fx:id="planPane" layoutX="6.0" layoutY="7.0" prefHeight="355.0" prefWidth="600.0" style="-fx-background-color: #f1f1f1f1;">
          <children>
-            <DatePicker fx:id="planEntryDatePicker" />
-            <Text layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plan Title" />
-            <Text layoutX="10.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plan Desc" />
+            <Text fx:id="userNameHeading" layoutX="230.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Test's Progresjonsplan" />
+            <Button fx:id="savePlan" layoutX="438.0" layoutY="285.0" mnemonicParsing="false" text="Lagre og Fullfør" />
+            <Button fx:id="closePlan" layoutX="353.0" layoutY="285.0" mnemonicParsing="false" onAction="#closeMakeProgressionPlanWindow" text="Lukk" />
+            <AnchorPane layoutX="353.0" layoutY="48.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="listOfEntries" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="50.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <DatePicker fx:id="planEntryDatePicker" />
+                  <Text layoutX="20.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plan Title" />
+                  <Text layoutX="18.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plan Desc" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="507.0" layoutY="144.0" prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <ListView fx:id="listOfEntries" prefHeight="200.0" prefWidth="200.0" />
-         </children>
-      </AnchorPane>
-      <Button fx:id="savePlan" layoutX="423.0" layoutY="383.0" mnemonicParsing="false" text="Lagre og Fullfør" />
    </children>
 </AnchorPane>

@@ -5,6 +5,8 @@
 package slit.student;
 
 import auth.UserDetails;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -19,29 +21,50 @@ import javafx.scene.text.Text;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import modul.ModuleDetails;
+import modul.ModuleRemote;
+import progressionPlan.ProgressionEntry;
 import progressionPlan.ProgressionPlanBeanRemote;
  
 
 
 public class ProgressionBarController {
     
-    // UI Elements
-    @FXML private ListView<Label> listOfEntries;
-    @FXML private Text userNameHeading; 
-    @FXML private Button savePlan; 
-    @FXML private DatePicker planEntryDatePicker;
+    // UI elements progressionBar
     @FXML private Button createProgressionPlanButton;
+    
+    // UI Elements
+    @FXML private AnchorPane progressionBarPane;
     @FXML private Text progressionBarDate;
     @FXML private Circle progressionStatusColor;
-    @FXML private AnchorPane progressionBarPane; 
+    
+    // UI elements makeProgressionPlan
+    @FXML private AnchorPane planPane;
+    @FXML private Text userNameHeading; 
+    @FXML private DatePicker planEntryDatePicker;
+    @FXML private ListView<Label> listOfEntries;
+    @FXML private Button closePlan;
+    @FXML private Button savePlan; 
     
     // Initialising and abstracting
-    ProgressionPlanBeanRemote planBean = lookupProgressionPlanBeanRemote();
+    private ProgressionPlanBeanRemote planBean = lookupProgressionPlanBeanRemote();
     private UserDetails userId = Controller.getUser();
+    private ArrayList<ModuleDetails> modules;
+    private UserDetails user = Controller.getUser();
     
-    //Utility functions
+    // Utility functions
+    private void initialize() {
+        modules = lookupModuleBeanRemote().getAllModules(user.getCourseID());
+        listOfEntries.getItems().clear();
+        
+        for (ModuleDetails m : modules) {
+            Label l = new Label(m.getName());
+            listOfEntries.getItems().add(l);
+        }
+    }
+    
     private boolean doesPlanExist() {
-        if (planBean.getAllProgressionEntriesByUser(Controller.getUser()).equals(0)) {
+        if (planBean.getAllProgressionEntriesByUser(user).equals(0)) {
             return false;
         } else {
             return true;
@@ -49,27 +72,52 @@ public class ProgressionBarController {
         
     }
     
-    //Controller Functions
-    public void progressionPlanButtonAction(ActionEvent event) throws Exception {               
-        
-        if (!doesPlanExist()) {
-            createProgressionPlanButton.setVisible(true);
-            progressionBarPane.setVisible(false);           
-        } else {
+    // Controller Functions
+    private void checkStateOfProgressionPlan() {
+        if(doesPlanExist()) {
             createProgressionPlanButton.setVisible(false);
             progressionBarPane.setVisible(true);
+        } else {
+            createProgressionPlanButton.setVisible(true);
+            progressionBarPane.setVisible(false);
         }
-        
     }
     
+    private void makeProgressionPlan() {
+        if(!doesPlanExist()) {
+            planBean.addProgressionPlan(user.getId(), user.getCourseID());
+        }
+   
+    }
+    
+    public void openMakeProgressionPlanWindow() {
+        planPane.setVisible(true);
+        initialize();
+    }
+    
+    public void closeMakeProgressionPlanWindow() {
+        planPane.setVisible(true);
+    }
+    
+    // Lookups
     private ProgressionPlanBeanRemote lookupProgressionPlanBeanRemote() {
         try {
             Context c = new InitialContext();
-            return (ProgressionPlanBeanRemote) c.lookup("java:global/slit/ProgressionPlanBean");
+            return (ProgressionPlanBeanRemote) c.lookup("java:global/slit-bean/ProgressionPlanBean");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
     }
-   
+
+    private ModuleRemote lookupModuleBeanRemote() {
+        try {
+            Context c = new InitialContext();
+            return (ModuleRemote) c.lookup("java:global/slit-bean/ModuleBean");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
 }
