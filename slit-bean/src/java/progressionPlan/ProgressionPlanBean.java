@@ -89,11 +89,10 @@ public class ProgressionPlanBean implements ProgressionPlanBeanRemote {
     
     private ProgressionEntry entityObjectToTransferObject (Progressionentry entry) {
         ProgressionEntry output = new ProgressionEntry(); 
-        
-        output.setCompletionDate(entry.getCompletionDate());
         output.setModuleID(entry.getModuleID().getModuleID());
         output.setPlanID(entry.getPlanID().getPlanID());
         output.setProgressionEntryID(entry.getId());
+        output.setCompletionDate(entry.getCompletionDate());
         
         return output;
     }

@@ -19,13 +19,19 @@ public class ProgressionEntry implements Serializable {
             int moduleID, 
             Date completionDate) {
         
+        this();
+        
         this.progressionEntryID = progressionEntryID;
         this.planID = planID;
         this.moduleID = moduleID;
         this.completionDate = completionDate;
         
     }
-
+    
+    public ProgressionEntry() {
+        
+    }
+    
     public int getProgressionEntryID() {
         return progressionEntryID;
     }
