@@ -98,7 +98,7 @@ public class BlogController{
        
     }
 
-public void updatePost(){
+    public void updatePost(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Bekreftelse");
         alert.setHeaderText("Bekreftelse");
