@@ -25,34 +25,19 @@ import progressionPlan.ProgressionPlanBeanRemote;
 
 public class ProgressionBarController {
     
-    @FXML
-    private ListView<Label> listOfEntries;
+    // UI Elements
+    @FXML private ListView<Label> listOfEntries;
+    @FXML private Text userNameHeading; 
+    @FXML private Button savePlan; 
+    @FXML private DatePicker planEntryDatePicker;
+    @FXML private Button createProgressionPlanButton;
+    @FXML private Text progressionBarDate;
+    @FXML private Circle progressionStatusColor;
+    @FXML private AnchorPane progressionBarPane; 
     
-    @FXML
-    private Text userNameHeading; 
-    
-    @FXML
-    private Button savePlan; 
-    
-    @FXML
-    private DatePicker planEntryDatePicker;
-    
-    @FXML
-    private Button createProgressionPlanButton;
-    
-    @FXML
-    private Text progressionBarDate;
-    
-    @FXML
-    private Circle progressionStatusColor;
-    
-    @FXML
-    private AnchorPane progressionBarPane; 
-            
+    // Initialising and abstracting
     ProgressionPlanBeanRemote planBean = lookupProgressionPlanBeanRemote();
-    
     private UserDetails userId = Controller.getUser();
-    
     
     //Utility functions
     private boolean doesPlanExist() {
@@ -61,6 +46,7 @@ public class ProgressionBarController {
         } else {
             return true;
         }
+        
     }
     
     //Controller Functions
@@ -84,8 +70,6 @@ public class ProgressionBarController {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
         }
-    }
-        
     }
    
 }
