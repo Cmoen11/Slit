@@ -20,11 +20,11 @@ import static slit.student.Controller.getUser;
  * @author Martin Nenseth
  */
 public class ControllerStudentPanel {
-    @FXML JFXListView news;
-    @FXML JFXListView modules;
+    @FXML private JFXListView news;
+    @FXML private JFXListView modules;
     
-    ArrayList<ModuleDetails> existingModules;
-    List<Post> existingNews;
+    private ArrayList<ModuleDetails> existingModules;
+    private List<Post> existingNews;
     
   
     
