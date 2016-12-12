@@ -26,16 +26,11 @@ public class ProgressionPlanBean implements ProgressionPlanBeanRemote {
     EntityManager em;
     
     @Override
-    public void addProgressionEntry(Date completionDate, int module, int planID) {
-        
-        Progressionentry entry = new Progressionentry();
-        
-        entry.setCompletionDate(completionDate);
-        entry.setModuleID(em.find(Module.class, module));
-        entry.setPlanID(em.find(Progressionplan.class, planID));
-        
-        em.persist(entry);
+    public void addProgressionEntry(ProgressionEntry entry) {
+        em.persist(transferObjectToEntityObject(entry));
     }
+    
+    
 
     @Override
     public void addProgressionPlan(int userID, int courseID) {
@@ -71,12 +66,9 @@ public class ProgressionPlanBean implements ProgressionPlanBeanRemote {
         List<Progressionentry> output = query.getResultList();
        
         return output;
-        
-        
+
     }
-    
-    
-    
+
     private Progressionentry transferObjectToEntityObject(ProgressionEntry entry) {
         Progressionentry output = new Progressionentry();
         output.setCompletionDate(entry.getCompletionDate());
