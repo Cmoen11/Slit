@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="slit.student.ProgressionBarController">
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane fx:id="planPane" layoutX="6.0" layoutY="7.0" prefHeight="355.0" prefWidth="600.0" style="-fx-background-color: #f1f1f1f1;">
          <children>

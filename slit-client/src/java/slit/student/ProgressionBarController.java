@@ -90,9 +90,8 @@ public class ProgressionBarController {
    
     }
     
-    public void openMakeProgressionPlanWindow() {
-        planPane.setVisible(true);
-        initialize();
+    public void openMakeProgressionPlanWindow(ActionEvent event) {
+        createProgressionPlanButton.setText("Clciked");
     }
     
     public void closeMakeProgressionPlanWindow() {
