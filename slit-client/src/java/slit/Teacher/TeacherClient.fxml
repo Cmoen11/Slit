@@ -35,7 +35,7 @@
                   <Image url="@../img/logo_Plain.png" />
                </image>
             </ImageView>
-            <Pane layoutX="11.0" layoutY="59.0" prefHeight="34.0" prefWidth="1260.0" style="-fx-background-color: white;" />
+            <Pane layoutX="11.0" layoutY="60.0" prefHeight="37.0" prefWidth="1260.0" style="-fx-background-color: white;" />
             <TabPane layoutX="11.0" layoutY="53.0" prefHeight="708.0" prefWidth="1263.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="53.0">
               <tabs>
                 <Tab text="Lærerpanelet">
@@ -103,12 +103,12 @@
                      </content></Tab>
               </tabs>
             </TabPane>
-            <JFXButton buttonType="RAISED" layoutX="1198.0" layoutY="20.0" onAction="#logOut" prefHeight="28.0" prefWidth="70.0" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" AnchorPane.bottomAnchor="706.0" AnchorPane.leftAnchor="1198.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0">
+            <JFXButton buttonType="RAISED" layoutX="1177.0" layoutY="23.0" onAction="#logOut" prefHeight="26.0" prefWidth="86.0" ripplerFill="BLACK" style="-fx-background-color: #1F2E4F;" text="Logg ut" textFill="WHITE" AnchorPane.bottomAnchor="702.0" AnchorPane.leftAnchor="1176.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="22.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <Text fx:id="welcomeMessage" fill="WHITE" layoutX="1015.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" AnchorPane.rightAnchor="87.0" AnchorPane.topAnchor="25.05078125" />
+            <Text fx:id="welcomeMessage" fill="WHITE" layoutX="979.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hei, Christian Moen" textAlignment="RIGHT" wrappingWidth="177.0" AnchorPane.rightAnchor="123.0" AnchorPane.topAnchor="26.431640625" />
             <Label fx:id="name" prefHeight="17.0" prefWidth="5.0" textAlignment="RIGHT" textFill="WHITE" />
             <Text fill="WHITE" layoutX="133.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lærerpanel">
                <font>
